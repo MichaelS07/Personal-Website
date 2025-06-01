@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies | E-commerce Consultant - Proven Results</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #2a5f3f;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #50e3c2;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #50e3c2;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #50e3c2;
+        }
+
+        .nav-links a.active {
+            color: #50e3c2;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #50e3c2;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(80, 227, 194, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 184, 148, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #50e3c2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 0;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: #50e3c2;
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            color: #888;
+            margin: 0 0.5rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+        }
+
+        /* Case Studies Grid */
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .case-study {
+            background: #262626;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-top: 4px solid #50e3c2;
+        }
+
+        .case-study:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(80, 227, 194, 0.2);
+        }
+
+        .case-study-header {
+            background: linear-gradient(135deg, #2a5f3f 0%, #1a2e25 100%);
+            padding: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(80, 227, 194, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+        }
+
+        .case-study-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-header .industry {
+            font-size: 1rem;
+            opacity: 0.8;
+            color: #50e3c2;
+        }
+
+        .case-study-content {
+            padding: 2rem;
+        }
+
+        .case-study-overview {
+            margin-bottom: 2rem;
+        }
+
+        .case-study-overview h4 {
+            color: #50e3c2;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .challenge {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .solution {
+            background: rgba(80, 227, 194, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #50e3c2;
+            margin-bottom: 1rem;
+        }
+
+        .results {
+            background: rgba(45, 206, 137, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #2dce89;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric {
+            text-align: center;
+            background: rgba(80, 227, 194, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(80, 227, 194, 0.2);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #50e3c2;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+        }
+
+        .case-study-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(80, 227, 194, 0.2);
+            color: #50e3c2;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(80, 227, 194, 0.3);
+        }
+
+        /* Detailed Case Study */
+        .detailed-case-study {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid #2a5f3f;
+        }
+
+        .detailed-case-study h3 {
+            color: #50e3c2;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #50e3c2, #00b894);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: #50e3c2;
+            border-radius: 50%;
+            border: 3px solid #1a1a1a;
+        }
+
+        .timeline-content {
+            background: #262626;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #50e3c2;
+        }
+
+        .timeline-content h4 {
+            color: #50e3c2;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2a5f3f 0%, #1a2e25 100%);
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 15px;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00b894, #50e3c2);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(80, 227, 194, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(80, 227, 194, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #2a5f3f;
+            margin-top: 4rem;
+        }
+
+        /* Animation Classes */
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .case-studies-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .detailed-case-study {
+                padding: 2rem;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">EC Consultant</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="case-studies.html" class="active">Case Studies</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Case Studies</span>
+            </div>
+            <h1>Case Studies</h1>
+            <p>Real results from real projects. Discover how data-driven strategies and conversion optimization transformed these businesses.</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="section">
+                <h2 class="animate-fade-in">Proven Success Stories</h2>
+                
+                <div class="case-studies-grid">
+                    <div class="case-study animate-scale">
+                        <div class="case-study-header">
+                            <h3>E-commerce Pharmacy Optimization</h3>
+                            <p class="industry">Health & Beauty Retailer</p>
+                        </div>
+                        <div class="case-study-content">
+                            <div class="case-study-overview">
+                                <div class="challenge">
+                                    <h4><i class="fas fa-exclamation-triangle"></i> Challenge</h4>
+                                    <p>High cart abandonment rates and poor mobile conversion performance were limiting revenue growth despite strong traffic.</p>
+                                </div>
+                                
+                                <div class="solution">
+                                    <h4><i class="fas fa-lightbulb"></i> Solution</h4>
+                                    <p>Implemented comprehensive UX improvements, streamlined checkout process, and optimized mobile experience through A/B testing.</p>
+                                </div>
+                                
+                                <div class="results">
+                                    <h4><i class="fas fa-chart-line"></i> Results</h4>
+                                    <p>Significant improvements across all key metrics within 3 months of implementation.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="metrics-grid">
+                                <div class="metric">
+                                    <span class="metric-value">+35%</span>
+                                    <span class="metric-label">Conversion Rate</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+28%</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">-15%</span>
+                                    <span class="metric-label">Bounce Rate</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+42%</span>
+                                    <span class="metric-label">AOV</span>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-tags">
+                                <span class="tag">CRO</span>
+                                <span class="tag">UX/UI</span>
+                                <span class="tag">A/B Testing</span>
+                                <span class="tag">Mobile Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-study animate-scale">
+                        <div class="case-study-header">
+                            <h3>Mobile Shopping Experience</h3>
+                            <p class="industry">Cross-Platform Optimization</p>
+                        </div>
+                        <div class="case-study-content">
+                            <div class="case-study-overview">
+                                <div class="challenge">
+                                    <h4><i class="fas fa-exclamation-triangle"></i> Challenge</h4>
+                                    <p>Mobile users represented 60% of traffic but only 25% of sales due to poor mobile experience and slow loading times.</p>
+                                </div>
+                                
+                                <div class="solution">
+                                    <h4><i class="fas fa-lightbulb"></i> Solution</h4>
+                                    <p>Complete mobile redesign with focus on page speed, responsive checkout, and touch-friendly navigation.</p>
+                                </div>
+                                
+                                <div class="results">
+                                    <h4><i class="fas fa-chart-line"></i> Results</h4>
+                                    <p>Transformed mobile performance to match desktop conversion rates and improved overall user satisfaction.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="metrics-grid">
+                                <div class="metric">
+                                    <span class="metric-value">+45%</span>
+                                    <span class="metric-label">Mobile Sales</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+50%</span>
+                                    <span class="metric-label">Page Speed</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+25%</span>
+                                    <span class="metric-label">User Retention</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">3.2s</span>
+                                    <span class="metric-label">Load Time</span>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-tags">
+                                <span class="tag">Mobile-First</span>
+                                <span class="tag">Performance</span>
+                                <span class="tag">Responsive Design</span>
+                                <span class="tag">Speed Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="case-study animate-scale">
+                        <div class="case-study-header">
+                            <h3>Email Marketing Automation</h3>
+                            <p class="industry">Customer Lifecycle Campaigns</p>
+                        </div>
+                        <div class="case-study-content">
+                            <div class="case-study-overview">
+                                <div class="challenge">
+                                    <h4><i class="fas fa-exclamation-triangle"></i> Challenge</h4>
+                                    <p>Low customer lifetime value and poor email engagement rates were hindering repeat purchase growth.</p>
+                                </div>
+                                
+                                <div class="solution">
+                                    <h4><i class="fas fa-lightbulb"></i> Solution</h4>
+                                    <p>Developed comprehensive email automation sequences with personalized content and behavioral triggers.</p>
+                                </div>
+                                
+                                <div class="results">
+                                    <h4><i class="fas fa-chart-line"></i> Results</h4>
+                                    <p>Dramatically improved email performance and customer retention through targeted, automated campaigns.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="metrics-grid">
+                                <div class="metric">
+                                    <span class="metric-value">+60%</span>
+                                    <span class="metric-label">Email Revenue</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+40%</span>
+                                    <span class="metric-label">Open Rates</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+55%</span>
+                                    <span class="metric-label">CLV</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">+32%</span>
+                                    <span class="metric-label">Repeat Purchases</span>
+                                </div>
+                            </div>
+                            
+                            <div class="case-study-tags">
+                                <span class="tag">Email Marketing</span>
+                                <span class="tag">Automation</span>
+                                <span class="tag">Personalization</span>
+                                <span class="tag">Customer Retention</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="detailed-case-study animate-fade-in">
+                <h3>Deep Dive: Pharmacy E-commerce Transformation</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Week 1-2: Analysis & Research</h4>
+                            <p>Conducted comprehensive user behavior analysis using Google Analytics, heatmaps, and customer surveys. Identified key pain points in the checkout process and mobile experience.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Week 3-4: Strategy Development</h4>
+                            <p>Developed optimization roadmap prioritizing high-impact changes. Created wireframes for improved checkout flow and mobile navigation structure.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Week 5-8: Implementation Phase</h4>
+                            <p>Rolled out A/B tests for new checkout process, improved product pages, and enhanced mobile responsiveness. Monitored performance metrics daily.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Week 9-12: Optimization & Scaling</h4>
+                            <p>Analyzed test results, implemented winning variations, and expanded successful strategies across the entire site. Achieved sustained 35% improvement in conversions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section animate-fade-in">
+                <div class="container">
+                    <h2>Ready to Transform Your Business?</h2>
+                    <p>These results speak for themselves. Let's discuss how I can help you achieve similar success for your e-commerce business.</p>
+                    <a href="index.html#contact" class="cta-button">Start Your Transformation</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 E-commerce Consultant. Proven results through data-driven optimization.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fade-in, .animate-scale').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add staggered delay to case study cards
+        const caseStudyCards = document.querySelectorAll('.case-study');
+        caseStudyCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
