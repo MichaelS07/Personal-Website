@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | E-commerce Consultant - Digital Marketing & CRO Expert</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #2a5f3f;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #50e3c2;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #50e3c2;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #50e3c2;
+        }
+
+        .nav-links a.active {
+            color: #50e3c2;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #50e3c2;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00b894, #50e3c2);
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Hero Section */
+        .services-hero {
+            padding: 150px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(80, 227, 194, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 184, 148, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .services-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #50e3c2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Overview */
+        .services-overview {
+            padding: 80px 0;
+            background: #1a1a1a;
+        }
+
+        .services-overview h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .services-overview p {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+        }
+
+        /* Detailed Services */
+        .detailed-services {
+            padding: 80px 0;
+            background: #0f0f0f;
+        }
+
+        .service-detail {
+            background: #262626;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-left: 5px solid #50e3c2;
+        }
+
+        .service-detail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(80, 227, 194, 0.05), transparent);
+            transition: left 0.8s;
+        }
+
+        .service-detail:hover::before {
+            left: 100%;
+        }
+
+        .service-detail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(80, 227, 194, 0.1);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #50e3c2;
+            min-width: 80px;
+        }
+
+        .service-title {
+            flex: 1;
+        }
+
+        .service-title h3 {
+            font-size: 2rem;
+            color: #50e3c2;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-title .subtitle {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        .service-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .service-description p {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            background: rgba(80, 227, 194, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(80, 227, 194, 0.1);
+        }
+
+        .service-features h4 {
+            color: #50e3c2;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .service-features ul {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #50e3c2;
+            font-weight: bold;
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #1a2e25 100%);
+        }
+
+        .process-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background: #50e3c2;
+            transform: translateY(-50%);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00b894, #50e3c2);
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #50e3c2;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Pricing Teaser */
+        .pricing-teaser {
+            padding: 80px 0;
+            background: #0a0a0a;
+            text-align: center;
+        }
+
+        .pricing-teaser h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .pricing-teaser p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00b894, #50e3c2);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(80, 227, 194, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(80, 227, 194, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #2a5f3f;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #262626;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #404040;
+            color: #e0e0e0;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: #50e3c2;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(80, 227, 194, 0.3);
+        }
+
+        /* Animation Classes */
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .service-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .service-icon {
+                min-width: auto;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+        <nav class="container">
+            <div class="logo">EC Consultant</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#services" class="active">Services</a></li>
+                <li><a href="case-studies.html">Case Studies</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="services-hero">
+        <div class="container">
+            <h1 class="animate-fade-in">E-commerce Services</h1>
+            <p class="animate-fade-in">Comprehensive solutions to optimize your online business, increase conversions, and drive sustainable growth through data-driven strategies.</p>
+        </div>
+    </section>
+
+    <section class="services-overview">
+        <div class="container">
+            <h2 class="animate-fade-in">What I Offer</h2>
+            <p class="animate-fade-in">With 2+ years of hands-on experience in e-commerce optimization, I provide specialized services that address the most critical aspects of online business success. Each service is tailored to your specific needs and backed by proven methodologies.</p>
+        </div>
+    </section>
+
+    <section class="detailed-services" id="services">
+        <div class="container">
+            
+            <div class="service-detail animate-slide-left">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="service-title">
+                        <h3>Conversion Rate Optimization (CRO)</h3>
+                        <div class="subtitle">Turn more visitors into customers</div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>Maximize your website's potential by systematically improving conversion rates through data-driven analysis and strategic optimization. I identify bottlenecks in your sales funnel and implement proven solutions to increase revenue without increasing traffic costs.</p>
+                        
+                        <p>My CRO approach combines user behavior analysis, A/B testing, and psychological principles to create seamless customer journeys that naturally guide visitors toward conversion. Every change is measured and validated to ensure positive ROI.</p>
+                        
+                        <p>Whether you're struggling with cart abandonment, low product page conversions, or poor checkout completion rates, I'll help you identify the root causes and implement solutions that deliver measurable results.</p>
+                    </div>
+                    <div class="service-features">
+                        <h4>What's Included:</h4>
+                        <ul>
+                            <li>Comprehensive funnel analysis</li>
+                            <li>A/B testing strategy & execution</li>
+                            <li>Heat mapping & user behavior analysis</li>
+                            <li>Landing page optimization</li>
+                            <li>Checkout process optimization</li>
+                            <li>Mobile conversion optimization</li>
+                            <li>Performance tracking & reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail animate-slide-right">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="service-title">
+                        <h3>UX/UI Design Optimization</h3>
+                        <div class="subtitle">Create intuitive, conversion-focused experiences</div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>Transform your website into a user-friendly, conversion-optimized platform that delights customers and drives sales. I focus on creating intuitive interfaces that reduce friction and guide users naturally through their purchasing journey.</p>
+                        
+                        <p>Every design decision is backed by user research and conversion best practices. From improving navigation flow to optimizing product pages, I ensure your website not only looks professional but performs exceptionally across all devices.</p>
+                        
+                        <p>My approach emphasizes accessibility, mobile responsiveness, and user psychology to create experiences that convert visitors into loyal customers while maintaining your brand identity.</p>
+                    </div>
+                    <div class="service-features">
+                        <h4>What's Included:</h4>
+                        <ul>
+                            <li>User experience audit</li>
+                            <li>Mobile-first design optimization</li>
+                            <li>Navigation & site structure improvement</li>
+                            <li>Product page design enhancement</li>
+                            <li>Visual hierarchy optimization</li>
+                            <li>Accessibility improvements</li>
+                            <li>Brand consistency across touchpoints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail animate-slide-left">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="service-title">
+                        <h3>Data-Driven Problem Solving</h3>
+                        <div class="subtitle">Identify and fix critical business issues</div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>Leverage advanced analytics to uncover hidden opportunities and solve complex e-commerce challenges. I dive deep into your data to identify patterns, trends, and pain points that impact your bottom line.</p>
+                        
+                        <p>Using tools like Google Analytics, heatmaps, and customer behavior tracking, I provide actionable insights that drive strategic decisions. Every recommendation is supported by concrete data and projected ROI calculations.</p>
+                        
+                        <p>From identifying why customers abandon their carts to understanding seasonal trends, I help you make informed decisions that lead to sustainable business growth.</p>
+                    </div>
+                    <div class="service-features">
+                        <h4>What's Included:</h4>
+                        <ul>
+                            <li>Comprehensive analytics audit</li>
+                            <li>Customer journey mapping</li>
+                            <li>Drop-off point identification</li>
+                            <li>Revenue opportunity analysis</li>
+                            <li>Custom reporting dashboards</li>
+                            <li>Performance benchmarking</li>
+                            <li>Strategic recommendations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail animate-slide-right">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="service-title">
+                        <h3>SEO/SEM Strategy</h3>
+                        <div class="subtitle">Drive qualified traffic and increase visibility</div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>Develop comprehensive search engine strategies that increase your organic visibility and drive high-quality traffic to your e-commerce store. I focus on both technical SEO and content optimization to improve your search rankings.</p>
+                        
+                        <p>My approach combines keyword research, competitor analysis, and technical optimization to create sustainable growth in organic search traffic. I also manage paid search campaigns to maximize your advertising ROI.</p>
+                        
+                        <p>From optimizing product pages for search engines to creating content that converts, I ensure your business is discoverable by customers actively searching for your products or services.</p>
+                    </div>
+                    <div class="service-features">
+                        <h4>What's Included:</h4>
+                        <ul>
+                            <li>SEO audit & strategy development</li>
+                            <li>Keyword research & optimization</li>
+                            <li>Technical SEO improvements</li>
+                            <li>Content optimization</li>
+                            <li>Google Ads campaign management</li>
+                            <li>Local SEO optimization</li>
+                            <li>Performance tracking & reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail animate-slide-left">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="service-title">
+                        <h3>Email Marketing</h3>
+                        <div class="subtitle">Nurture leads and drive repeat purchases</div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>Create sophisticated email marketing campaigns that nurture leads, retain customers, and drive repeat purchases. I develop personalized email sequences that guide subscribers through your sales funnel while building lasting relationships.</p>
+                        
+                        <p>My email marketing approach focuses on segmentation, personalization, and automation to deliver the right message to the right person at the right time. This includes welcome sequences, abandoned cart recovery, and post-purchase follow-ups.</p>
+                        
+                        <p>Every campaign is optimized for deliverability, engagement, and conversion, ensuring your email marketing becomes a reliable revenue driver for your business.</p>
+                    </div>
+                    <div class="service-features">
+                        <h4>What's Included:</h4>
+                        <ul>
+                            <li>Email strategy development</li>
+                            <li>Automated sequence creation</li>
+                            <li>List segmentation & targeting</li>
+                            <li>Template design & optimization</li>
+                            <li>A/B testing for subject lines & content</li>
+                            <li>Deliverability optimization</li>
+                            <li>Performance analytics & reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail animate-slide-right">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="service-title">
+                        <h3>Website Management</h3>
+                        <div class="subtitle">Keep your e-commerce platform running smoothly</div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-description">
+                        <p>Ensure your e-commerce platform operates at peak performance with comprehensive website management services. I handle the technical aspects so you can focus on growing your business without worrying about downtime or performance issues.</p>
+                        
+                        <p>My management approach includes proactive monitoring, regular updates, security checks, and performance optimization. I identify and resolve issues before they impact your customers or sales.</p>
+                        
+                        <p>From daily maintenance tasks to strategic improvements, I keep your website secure, fast, and conversion-optimized while providing detailed reporting on site performance and user experience.</p>
+                    </div>
+                    <div class="service-features">
+                        <h4>What's Included:</h4>
+                        <ul>
+                            <li>Daily performance monitoring</li>
+                            <li>Security updates & maintenance</li>
+                            <li>Speed optimization</li>
+                            <li>Backup management</li>
+                            <li>Bug fixes & troubleshooting</li>
+                            <li>Content updates & management</li>
+                            <li>Monthly performance reports</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="container">
+            <h2 class="animate-fade-in">My Process</h2>
+            <div class="process-steps">
+                <div class="process-step animate-fade-in">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Discovery & Analysis</div>
+                    <div class="step-description">Comprehensive audit of your current setup, identifying opportunities and pain points</div>
+                </div>
+                <div class="process-step animate-fade-in">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Strategy Development</div>
+                    <div class="step-description">Create a customized roadmap with prioritized recommendations and clear timelines</div>
+                </div>
+                <div class="process-step animate-fade-in">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Implementation</div>
+                    <div class="step-description">Execute optimizations systematically, testing and measuring each change</div>
+                </div>
+                <div class="process-step animate-fade-in">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Monitor & Optimize</div>
+                    <div class="step-description">Continuous monitoring and refinement to ensure sustained growth and performance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-teaser">
+        <div class="container">
+            <h2 class="animate-fade-in">Ready to Transform Your Business?</h2>
+            <p class="animate-fade-in">Every project is unique, and I believe in providing solutions tailored to your specific needs and budget. Let's discuss how I can help you achieve your e-commerce goals.</p>
+            <a href="index.html#contact" class="cta-button animate-fade-in">Get a Custom Quote</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 E-commerce Consultant. Ready to optimize your online success.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com" class="social-icon" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.
+
+                          </svg>
+                </a>
+                <a href="https://twitter.com" class="social-icon" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="mailto:contact@example.com" class="social-icon" aria-label="Email">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.96L12 10.898l9.404-7.077h.96c.904 0 1.636.732 1.636 1.636z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const progressBar = document.getElementById('progressBar');
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fade-in, .animate-slide-left, .animate-slide-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header Background on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+
+        // Service Detail Stagger Animation
+        const serviceDetails = document.querySelectorAll('.service-detail');
+        serviceDetails.forEach((service, index) => {
+            service.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // Process Steps Animation
+        const processSteps = document.querySelectorAll('.process-step');
+        processSteps.forEach((step, index) => {
+            step.style.animationDelay = `${index * 0.3}s`;
+        });
+
+        // Add hover effects for service details
+        serviceDetails.forEach(service => {
+            service.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+                this.style.boxShadow = '0 25px 50px rgba(80, 227, 194, 0.15)';
+            });
+
+            service.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 20px 40px rgba(80, 227, 194, 0.1)';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Add smooth entrance animation
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Enhanced CTA Button Animation
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+
+            ctaButton.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.services-hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
