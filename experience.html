@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | E-commerce Consultant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #2a5f3f;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #50e3c2;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #50e3c2;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #50e3c2;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a2e25 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(80, 227, 194, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #50e3c2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background: #0f0f0f;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #50e3c2, #00b894);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 60%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 60%;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: #262626;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border-left: 4px solid #50e3c2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            border-left: none;
+            border-right: 4px solid #50e3c2;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            background: #50e3c2;
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            top: 50px;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: #50e3c2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.2rem;
+            z-index: 10;
+            box-shadow: 0 0 0 5px #1a1a1a;
+        }
+
+        .timeline-content h3 {
+            color: #50e3c2;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .timeline-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .achievements {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .achievements li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .achievements li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category {
+            background: #262626;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-top: 4px solid #50e3c2;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(80, 227, 194, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #50e3c2;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-level {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #404040;
+        }
+
+        .skill-dot.filled {
+            background: #50e3c2;
+        }
+
+        /* Certifications */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .certification-card {
+            background: #262626;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #404040;
+            transition: all 0.3s ease;
+        }
+
+        .certification-card:hover {
+            border-color: #50e3c2;
+            transform: translateY(-3px);
+        }
+
+        .cert-icon {
+            font-size: 2rem;
+            color: #50e3c2;
+            margin-bottom: 1rem;
+        }
+
+        .cert-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .cert-issuer {
+            color: #50e3c2;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Project Highlights */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: #262626;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-top: 4px solid #50e3c2;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(80, 227, 194, 0.2);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #2a5f3f 0%, #1a2e25 100%);
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            background: rgba(80, 227, 194, 0.1);
+            color: #50e3c2;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #2a5f3f;
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                border-right: none;
+                border-left: 4px solid #50e3c2;
+            }
+
+            .timeline-date {
+                left: 20px;
+                transform: none;
+            }
+
+            .timeline-icon {
+                left: 20px;
+                transform: none;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">EC Consultant</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="case-studies.html">Case Studies</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Professional Experience</h1>
+            <p>A comprehensive look at my journey in e-commerce, digital marketing, and business optimization</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="animate-fade-in">Career Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2022 - Present</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>E-commerce Specialist</h3>
+                        <h4>Bargain Chemist</h4>
+                        <p>Leading digital transformation initiatives and optimizing online customer experiences for one of New Zealand's prominent pharmacy chains.</p>
+                        <ul class="achievements">
+                            <li>Managed complete website operations and daily performance monitoring</li>
+                            <li>Implemented conversion rate optimization strategies through A/B testing</li>
+                            <li>Developed and executed comprehensive SEO/SEM campaigns</li>
+                            <li>Created automated email marketing workflows that improved customer retention</li>
+                            <li>Optimized user experience across mobile and desktop platforms</li>
+                            <li>Analyzed customer journey data to identify and resolve conversion bottlenecks</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 - 2022</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Bachelor of Commerce</h3>
+                        <h4>University of Canterbury</h4>
+                        <p>Completed comprehensive studies in Marketing and Information Systems, building a strong foundation in both strategic marketing principles and technical implementation.</p>
+                        <ul class="achievements">
+                            <li>Major in Marketing with focus on digital marketing strategies</li>
+                            <li>Major in Information Systems covering data analysis and technology integration</li>
+                            <li>Completed projects in consumer behavior analysis and market research</li>
+                            <li>Studied e-commerce platforms and digital transformation strategies</li>
+                            <li>Gained expertise in data analytics and business intelligence tools</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2019 - 2020</div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Digital Marketing Intern</h3>
+                        <h4>Various Local Businesses</h4>
+                        <p>Gained hands-on experience in digital marketing while completing studies, working with local businesses to improve their online presence.</p>
+                        <ul class="achievements">
+                            <li>Managed social media accounts and content creation</li>
+                            <li>Assisted with Google Ads campaigns and performance tracking</li>
+                            <li>Conducted market research and competitor analysis</li>
+                            <li>Helped optimize websites for better search engine visibility</li>
+                            <li>Created basic email marketing campaigns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="animate-fade-in">Core Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category animate-scale">
+                    <h3>🎯 Digital Marketing</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-name">SEO/SEM</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Email Marketing</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Content Strategy</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Social Media Marketing</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category animate-scale">
+                    <h3>📊 Analytics & Optimization</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-name">Google Analytics</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">A/B Testing</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Conversion Rate Optimization</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Data Analysis</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category animate-scale">
+                    <h3>🛠️ Technical Skills</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-name">E-commerce Platforms</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">HTML/CSS</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">CMS Management</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Marketing Automation</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category animate-scale">
+                    <h3>🎨 Design & UX</h3>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <span class="skill-name">User Experience Design</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Landing Page Optimization</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Mobile Optimization</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <span class="skill-name">Graphic Design</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="animate-fade-in">Key Projects & Achievements</h2>
+            <div class="project-grid">
+                <div class="project-card animate-scale">
+                    <div class="project-header">
+                        <div class="project-title">Website Performance Optimization</div>
+                        <div class="project-type">Bargain Chemist - 2023</div>
+                    </div>
+                    <div class="project-content">
+                        <p>Led comprehensive website optimization project focusing on page speed, user experience, and conversion rate improvements.</p>
+                        <div class="project-metrics">
+                            <span class="metric">40% faster load times</span>
+                            <span class="metric">25% increase in conversions</span>
+                            <span class="metric">15% bounce rate reduction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card animate-scale">
+                    <div class="project-header">
+                        <div class="project-title">Email Marketing Automation</div>
+                        <div class="project-type">Customer Retention - 2023</div>
+                    </div>
+                    <div class="project-content">
+                        <p>Developed automated email marketing workflows including welcome series, abandoned cart recovery, and post-purchase follow-ups.</p>
+                        <div class="project-metrics">
+                            <span class="metric">35% email open rate</span>
+                            <span class="metric">8% CTR improvement</span>
+                            <span class="metric">20% repeat purchase rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card animate-scale">
+                    <div class="project-header">
+                        <div class="project-title">Mobile Experience Enhancement</div>
+                        <div class="project-type">UX Optimization - 2022</div>
+                    </div>
+                    <div class="project-content">
+                        <p>Complete mobile experience redesign focusing on navigation, checkout process, and overall user interface improvements.</p>
+                        <div class="project-metrics">
+                            <span class="metric">60% mobile traffic increase</span>
+                            <span class="metric">30% mobile conversion improvement</span>
+                            <span class="metric">50% cart abandonment reduction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card animate-scale">
+                    <div class="project-header">
+                        <div class="project-title">SEO Strategy Implementation</div>
+                        <div class="project-type">Organic Growth - 2022-2023</div>
+                    </div>
+                    <div class="project-content">
+                        <p>Comprehensive SEO overhaul including technical optimization, content strategy, and local search optimization.</p>
+                        <div class="project-metrics">
+                            <span class="metric">150% organic traffic growth</span>
+                            <span class="metric">Top 3 rankings for key terms</span>
+                            <span class="metric">45% increase in qualified leads</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="animate-fade-in">Certifications & Training</h2>
+            <div class="certifications-grid">
+                <div class="certification-card animate-scale">
+                    <div class="cert-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="cert-title">Google Analytics Certified</div>
+                    <div class="cert-issuer">Google</div>
+                </div>
+
+                <div class="certification-card animate-scale">
+                    <div class="cert-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="cert-title">Google Ads Certified</div>
+                    <div class="cert-issuer">Google</div>
+                </div>
+
+                <div class="certification-card animate-scale">
+                    <div class="cert-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="cert-title">Digital Marketing Professional</div>
+                    <div class="cert-issuer">Digital Marketing Institute</div>
+                </div>
+
+                <div class="certification-card animate-scale">
+                    <div class="cert-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="cert-title">E-commerce Specialist</div>
+                    <div class="cert-issuer">Shopify Academy</div>
+                </div>
+
+                <div class="certification-card animate-scale">
+                    <div class="cert-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="cert-title">Email Marketing Certified</div>
+                    <div class="cert-issuer">HubSpot</div>
+                </div>
+
+                <div class="certification-card animate-scale">
+                    <div class="cert-icon">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div class="cert-title">Facebook Blueprint Certified</div>
+                    <div class="cert-issuer">Meta</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="animate-fade-in">Ready to Work Together?</h2>
+            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+                    Let's discuss how my experience and expertise can help transform your e-commerce business and drive measurable results.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="mailto:consultant@example.com" style="background: linear-gradient(135deg, #50e3c2 0%, #00b894 100%); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i>
+                        Get In Touch
+                    </a>
+                    <a href="tel:+64123456789" style="background: transparent; color: #50e3c2; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: 600; border: 2px solid #50e3c2; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-phone"></i>
+                        Call Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 E-commerce Consultant. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">Transforming businesses through strategic digital solutions</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-scale, .timeline-item');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+
+        // Add hover effects to buttons
+        document.querySelectorAll('a[href^="mailto"], a[href^="tel"]').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                if (this.style.background.includes('linear-gradient')) {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 10px 25px rgba(80, 227, 194, 0.3)';
+                } else {
+                    this.style.background = '#50e3c2';
+                    this.style.color = '#000';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                if (this.style.transform) {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                } else {
+                    this.style.background = 'transparent';
+                    this.style.color = '#50e3c2';
+                }
+            });
+        });
+
+        // Add stagger animation to timeline items
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.2}s`;
+        });
+
+        // Add stagger animation to skill categories
+        const skillCategories = document.querySelectorAll('.skill-category');
+        skillCategories.forEach((category, index) => {
+            category.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Add stagger animation to project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        // Add stagger animation to certification cards
+        const certCards = document.querySelectorAll('.certification-card');
+        certCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
