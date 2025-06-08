@@ -5,14 +5,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const expanded = navLinks.classList.toggle('active');
             hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', expanded);
         });
 
         navLinks.addEventListener('click', e => {
             if (e.target.tagName === 'A') {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
             }
         });
 
@@ -20,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
             }
         });
     }
@@ -27,12 +30,11 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
+            if (!href || !href.startsWith('#')) return;
+            const target = document.querySelector(href);
+            if (target) {
                 e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({behavior: 'smooth', block: 'start'});
-                }
+                target.scrollIntoView({behavior: 'smooth', block: 'start'});
             }
         });
     });
