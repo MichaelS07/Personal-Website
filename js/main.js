@@ -121,9 +121,5 @@ window.addEventListener('scroll', () => {
         const progress = (window.pageYOffset / total) * 100;
         progressBar.style.width = progress + '%';
     }
-    const hero = document.querySelector('.services-hero');
-    if (hero) {
-        const scrolled = window.pageYOffset;
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
+    /* Removed parallax effect on the services hero to prevent flicker */
 });
