@@ -930,6 +930,15 @@
             transform: rotate(45deg);
         }
 
+        /* Inline highlight text inside FAQ answers */
+        .faq-answer .highlight {
+            background: none;
+            padding: 0;
+            border: none;
+            color: #50e3c2;
+            font-weight: 600;
+        }
+
         /* Timeline Styles */
         .timeline {
             display: flex;
@@ -945,18 +954,21 @@
             align-items: flex-start;
             gap: 1.5rem;
             position: relative;
+            z-index: 1; /* keep content above decorative dot */
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -1px;
+            /* place dot on the vertical border, outside the item's padding */
+            left: calc(-2rem - 1px);
             top: 0.5rem;
             width: 12px;
             height: 12px;
             background: #50e3c2;
             border-radius: 50%;
             transform: translateX(-50%);
+            z-index: -1; /* ensure dot doesn't cover text */
         }
 
         .timeline-date {
