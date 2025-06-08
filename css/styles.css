@@ -344,10 +344,206 @@
             box-shadow: 0 20px 40px rgba(80, 227, 194, 0.2);
         }
 
+
         .service-card h3 {
             color: #50e3c2;
             margin-bottom: 1rem;
             font-size: 1.3rem;
+        }
+
+        /* Detailed service blocks on the Services page */
+        .service-detail {
+            background: #262626;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-left: 5px solid #50e3c2;
+        }
+
+        .service-detail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(80, 227, 194, 0.05), transparent);
+            transition: left 0.8s;
+        }
+
+        .service-detail:hover::before {
+            left: 100%;
+        }
+
+        .service-detail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(80, 227, 194, 0.1);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #50e3c2;
+            min-width: 80px;
+        }
+
+        .service-title {
+            flex: 1;
+        }
+
+        .service-title h3 {
+            font-size: 2rem;
+            color: #50e3c2;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-title .subtitle {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        .service-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .service-description p {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            background: rgba(80, 227, 194, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(80, 227, 194, 0.1);
+        }
+
+        .service-features h4 {
+            color: #50e3c2;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .service-features ul {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #50e3c2;
+            font-weight: bold;
+        }
+
+        /* Services process section */
+        .process-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #1a2e25 100%);
+        }
+
+        .process-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -1rem;
+            width: 2rem;
+            height: 2px;
+            background: #50e3c2;
+            transform: translateY(-50%);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00b894, #50e3c2);
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #50e3c2;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Pricing teaser at the bottom of the Services page */
+        .pricing-teaser {
+            padding: 80px 0;
+            background: #0a0a0a;
+            text-align: center;
+        }
+
+        .pricing-teaser h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .pricing-teaser p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Enhanced Experience Section */
@@ -572,6 +768,33 @@
 
             .case-study-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .service-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .service-icon {
+                min-width: auto;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step::after {
+                display: none;
             }
         }
 
