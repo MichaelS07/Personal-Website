@@ -8,4 +8,3 @@ Run `python3 build.py` to regenerate the HTML pages after modifying anything in 
 
 ## Viewing
 
-**Always open the HTML files from the repository root** (e.g., `index.html`, `services.html`). The documents inside `src/pages/` are only snippets used by the build script; if you open them directly, they will appear unstyled.
