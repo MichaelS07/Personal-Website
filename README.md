@@ -8,3 +8,14 @@ Run `python3 build.py` to regenerate the HTML pages after modifying anything in 
 
 ## Viewing
 
+The generated `.html` files are written to the repository root when you run
+`python3 build.py`. You can open any page directly in a browser by
+double-clicking the file. Alternatively, start a simple local server and browse
+to `http://localhost:8000/`:
+
+```sh
+python3 -m http.server
+```
+
+After making changes to templates or pages, run `python3 build.py` again to
+regenerate the site.
