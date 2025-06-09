@@ -34,7 +34,10 @@ window.addEventListener('DOMContentLoaded', () => {
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                const header = document.querySelector('header');
+                const offset = header ? header.offsetHeight : 0;
+                const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({top, behavior: 'smooth'});
             }
         });
     });
@@ -44,8 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-            } else {
-                entry.target.classList.remove('visible');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -63,6 +65,27 @@ window.addEventListener('DOMContentLoaded', () => {
     stats.forEach((stat, index) => {
         stat.style.transitionDelay = `${index * 0.2}s`;
     });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('#navLinks a[href^="#"]');
+    const navMap = {};
+    navAnchors.forEach(link => {
+        const id = link.getAttribute('href').substring(1);
+        navMap[id] = link;
+    });
+    const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                const active = navMap[id];
+                if (active) {
+                    navAnchors.forEach(a => a.classList.remove('active'));
+                    active.classList.add('active');
+                }
+            }
+        });
+    }, {threshold: 0.6});
+    sections.forEach(section => sectionObserver.observe(section));
 
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
@@ -108,6 +131,13 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+    }
 });
 
 window.addEventListener('scroll', () => {
@@ -120,6 +150,11 @@ window.addEventListener('scroll', () => {
         const total = document.body.scrollHeight - window.innerHeight;
         const progress = (window.pageYOffset / total) * 100;
         progressBar.style.width = progress + '%';
+    }
+
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        backToTop.style.display = window.scrollY > 200 ? 'flex' : 'none';
     }
     /* Removed parallax effect on the services hero to prevent flicker */
 });

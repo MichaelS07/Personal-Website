@@ -77,6 +77,14 @@
             color: #50e3c2;
         }
 
+        .nav-links a.active {
+            color: #50e3c2;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
         .hamburger {
             display: none;
             flex-direction: column;
@@ -1087,6 +1095,27 @@
             background: linear-gradient(90deg, #00b894, #50e3c2);
             z-index: 1001;
             transition: width 0.3s ease;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #50e3c2;
+            color: #0a0a0a;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #3bc9a4;
         }
 
         /* Mobile Responsiveness */
