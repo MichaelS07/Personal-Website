@@ -957,6 +957,15 @@
             z-index: 1; /* keep content above decorative dot */
         }
 
+        /* add breathing room so the decorative dots don't overlap nearby text */
+        .timeline-item:first-child {
+            margin-top: 1rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 1rem;
+        }
+
         .timeline-item::before {
             content: '';
             position: absolute;
