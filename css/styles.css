@@ -238,11 +238,79 @@
             box-shadow: 0 15px 40px rgba(80, 227, 194, 0.4);
         }
 
+        .cta-button:active {
+            transform: translateY(-1px);
+            transition: transform 0.1s ease;
+        }
+
+        /* Loading spinner for form submission */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff40;
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced service card interactions */
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
         /* Trust Indicators */
         .trust-indicators {
-            padding: 40px 0;
+            padding: 60px 0;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+        }
+
+        .metrics-highlight {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(80, 227, 194, 0.2);
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-text {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
         .trust-grid {
@@ -581,6 +649,56 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: #262626;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .testimonial-author strong {
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .testimonial-author span {
+            color: #b0b0b0;
+            font-size: 0.9rem;
         }
 
         /* Enhanced Experience Section */
@@ -1151,6 +1269,16 @@
 
             .hero h1 {
                 font-size: 2.5rem;
+            }
+
+            .metrics-highlight {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
             }
 
             .about-content {

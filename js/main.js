@@ -93,13 +93,35 @@ window.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const button = contactForm.querySelector('button');
             const original = button.textContent;
-            button.textContent = 'Sending...';
+            
+            // Add loading spinner
+            button.innerHTML = '<span class="loading-spinner"></span>Sending...';
             button.disabled = true;
+            
+            // Form validation
+            const requiredFields = contactForm.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#ff4757';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+            
+            if (!isValid) {
+                button.innerHTML = original;
+                button.disabled = false;
+                return;
+            }
+            
             setTimeout(() => {
-                button.textContent = 'Message Sent!';
+                button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
                 button.style.background = '#28a745';
                 setTimeout(() => {
-                    button.textContent = original;
+                    button.innerHTML = original;
                     button.disabled = false;
                     button.style.background = '';
                     contactForm.reset();
