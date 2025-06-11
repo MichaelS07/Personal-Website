@@ -2,3 +2,19 @@ modules = ["web", "nodejs-20", "python-3.12"]
 
 [nix]
 channel = "stable-24_05"
+
+[workflows]
+runButton = "Build and Serve"
+
+[[workflows.workflow]]
+name = "Build and Serve"
+author = 43749369
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 build.py"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 -m http.server 5000"
