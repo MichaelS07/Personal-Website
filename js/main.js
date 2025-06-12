@@ -56,6 +56,23 @@ window.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
+    // Lazy loading for images
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    }, {rootMargin: '50px'});
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+
     const serviceCards = document.querySelectorAll('.service-card');
     serviceCards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
@@ -89,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', e => {
+        contactForm.addEventListener('submit', async e => {
             e.preventDefault();
             const button = contactForm.querySelector('button');
             const original = button.textContent;
@@ -117,16 +134,37 @@ window.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            setTimeout(() => {
-                button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-                button.style.background = '#28a745';
+            // Submit form data
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    body: new URLSearchParams(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                    button.style.background = '#28a745';
+                    setTimeout(() => {
+                        button.innerHTML = original;
+                        button.disabled = false;
+                        button.style.background = '';
+                        contactForm.reset();
+                    }, 2000);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                button.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error - Try Again';
+                button.style.background = '#ff4757';
                 setTimeout(() => {
                     button.innerHTML = original;
                     button.disabled = false;
                     button.style.background = '';
-                    contactForm.reset();
                 }, 2000);
-            }, 1000);
+            }
         });
     }
 
@@ -160,6 +198,21 @@ window.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
     }
+
+    // Theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
 });
 
 window.addEventListener('scroll', () => {
