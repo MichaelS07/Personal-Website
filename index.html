@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><!-- Your Brand --> Digital Marketing Consulting</title>
+  <meta name="description" content="Digital marketing consultancy specialising in SEO/SEM, CRO, Shopify management, customer journey optimisation, and email marketing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
+    .dark .glass { background: rgba(17,24,39,0.5); }
+    /* Simple reveal animation */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+  </style>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Digital Marketing Consulting" />
+  <meta property="og:description" content="SEO/SEM, CRO, Shopify, Customer Journey, Email Marketing." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/" />
+  <meta property="og:image" content="/og-image.png" />
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "",
+    "url": "",
+    "image": "/og-image.png",
+    "description": "Digital marketing consultancy specialising in SEO/SEM, CRO, Shopify, Customer Journey, and Email Marketing.",
+    "areaServed": "New Zealand, Australia",
+    "sameAs": [],
+    "founder": {
+      "@type": "Person",
+      "name": "Michael"
+    },
+    "knowsAbout": ["SEO", "SEM", "CRO", "Shopify", "Email Marketing", "Customer Journey"],
+    "serviceOffer": ["SEO/SEM services", "Conversion Rate Optimisation", "Shopify Website Management", "Customer Journey Optimisations", "Email Marketing"]
+  }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#home" class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 via-sky-500 to-emerald-400"></div>
+        <span class="font-extrabold tracking-tight text-lg"><!-- Brand Name -->Your Logo</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#services" class="hover:text-indigo-600">Services</a>
+        <a href="#work" class="hover:text-indigo-600">Results</a>
+        <a href="#about" class="hover:text-indigo-600">About</a>
+        <a href="#pricing" class="hover:text-indigo-600">Pricing</a>
+        <a href="#contact" class="hover:text-indigo-600">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Toggle theme">
+          <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/></svg>
+        </button>
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm">Let's Talk</a>
+        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800">
+      <nav class="px-4 py-3 flex flex-col gap-3 bg-white dark:bg-slate-900">
+        <a href="#services" class="hover:text-indigo-600">Services</a>
+        <a href="#work" class="hover:text-indigo-600">Results</a>
+        <a href="#about" class="hover:text-indigo-600">About</a>
+        <a href="#pricing" class="hover:text-indigo-600">Pricing</a>
+        <a href="#contact" class="hover:text-indigo-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-indigo-400/30"></div>
+      <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Digital Growth, No Fluff</span>
+        <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">Performance-first marketing for brands that actually want results.</h1>
+        <p class="mt-5 text-lg text-slate-600 dark:text-slate-300">I help Shopify brands and ecommerce teams scale with pragmatic SEO/SEM, CRO, email, and customer journey optimisation. No vanity metrics—just compounding wins.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow">Book a free consult</a>
+          <a href="#services" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Explore services</a>
+        </div>
+        <div class="mt-8 grid grid-cols-3 gap-6">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-3xl font-extrabold" data-counter="28">0</div>
+            <div class="text-sm text-slate-500">Average lift in CTR</div>
+          </div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-3xl font-extrabold" data-counter="35">0</div>
+            <div class="text-sm text-slate-500">Reduction in CPA</div>
+          </div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-3xl font-extrabold" data-counter="52">0</div>
+            <div class="text-sm text-slate-500">Email revenue share</div>
+          </div>
+        </div>
+      </div>
+      <div class="relative reveal">
+        <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 flex items-center justify-center">
+            <div class="text-center p-6">
+              <div class="text-sm uppercase tracking-widest text-slate-500">Case Study Snapshot</div>
+              <div class="mt-2 text-2xl font-bold">CRO + Email = +19% Revenue/Visitor</div>
+              <p class="mt-3 text-slate-600 dark:text-slate-300">Incremental wins from checkout UX fixes, better list growth, and lifecycle flows. Ask for the deep-dive.</p>
+            </div>
+          </div>
+        </div>
+        <div class="absolute -bottom-6 -right-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-indigo-500 to-emerald-400 blur-2xl opacity-60"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos / Tech Stack -->
+  <section class="py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 text-slate-500">
+        <span class="text-xs uppercase tracking-widest">Tools I work with</span>
+        <img alt="Shopify" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg"/>
+        <img alt="Google Ads" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Ads_logo.svg"/>
+        <img alt="GA4" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Google_Analytics_4_logo.svg"/>
+        <img alt="Klaviyo" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Klaviyo_Logo.svg"/>
+        <img alt="Meta" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Services</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Pick a lane or go end-to-end. Every engagement is built around measurable outcomes and clean execution.</p>
+      </div>
+      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- SEO/SEM -->
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-lg font-bold">SEO/SEM Growth</div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Full-funnel search: technical SEO, content strategy, and performance media (Google Ads). Account structure, negative sculpting, and creative testing for sustainable ROAS.</p>
+          <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>Account & feed audits</li>
+            <li>Keyword & creative testing</li>
+            <li>Search + Shopping strategy</li>
+          </ul>
+        </div>
+        <!-- CRO -->
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-lg font-bold">Conversion Rate Optimisation</div>
+          <p class="mt-2 text-sm">Analytics-backed hypotheses, rapid A/Bs, and UX fixes that shorten the path to purchase.</p>
+          <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>Heuristic + data reviews</li>
+            <li>Experiment design & instrumentation</li>
+            <li>Checkout & PDP uplift</li>
+          </ul>
+        </div>
+        <!-- Shopify -->
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-lg font-bold">Shopify Website Management</div>
+          <p class="mt-2 text-sm">Theme improvements, site speed, menus, feeds, tagging, & product ops tuned for growth.</p>
+          <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>Theme/UI updates</li>
+            <li>Speed & SEO fixes</li>
+            <li>App & data hygiene</li>
+          </ul>
+        </div>
+        <!-- CJ -->
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-lg font-bold">Customer Journey Optimisations</div>
+          <p class="mt-2 text-sm">From first click to repeat purchase—reduce friction, increase LTV, and make decisions with data.</p>
+          <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>Attribution sanity checks</li>
+            <li>Onsite UX & retention loops</li>
+            <li>Analytics & dashboards</li>
+          </ul>
+        </div>
+        <!-- Email -->
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-lg font-bold">Email Marketing</div>
+          <p class="mt-2 text-sm">Lifecycle flows and campaigns that pay for themselves. List growth, segmentation, and copy that converts.</p>
+          <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
+            <li>Acquisition & deliverability</li>
+            <li>Lifecycle automation (Klaviyo)</li>
+            <li>Creative & experimentation</li>
+          </ul>
+        </div>
+        <!-- CTA Card -->
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-indigo-600 to-emerald-500 text-white">
+          <div class="text-lg font-bold">Not sure where to start?</div>
+          <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20‑minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
+          <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Get a plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results / Work -->
+  <section id="work" class="py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
+      </div>
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-sm uppercase tracking-widest text-slate-500">CRO + Email</div>
+          <div class="mt-2 text-2xl font-bold">+19% Revenue/Visitor</div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and three lifecycle flows built from zero.</p>
+        </div>
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-sm uppercase tracking-widest text-slate-500">SEM</div>
+          <div class="mt-2 text-2xl font-bold">-35% CPA @ +22% Conv.</div>
+          <p class="mt-2 text-sm">Account restructure, negative sculpting, query mapping, and creative refresh cadence.</p>
+        </div>
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-sm uppercase tracking-widest text-slate-500">SEO</div>
+          <div class="mt-2 text-2xl font-bold">+74% Non‑brand Traffic</div>
+          <p class="mt-2 text-sm">IA clean-up, templated metadata, and a pragmatic content moat targeting demand, not fluff.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">How we’ll work</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Lean, clear, fast. You’ll always know what’s happening and why.</p>
+      </div>
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-lg font-bold">1. Diagnose</div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Audit data, find bottlenecks, set targets. If it won’t move the needle, it’s not in scope.</p>
+        </div>
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-lg font-bold">2. Design</div>
+          <p class="mt-2 text-sm">Hypotheses, experiments, and a sequenced roadmap prioritised by impact × effort.</p>
+        </div>
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-lg font-bold">3. Deliver</div>
+          <p class="mt-2 text-sm">Ship quickly, measure, iterate. Document everything so you get compounding learning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-start">
+      <div class="reveal">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high‑performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
+        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-2xl font-extrabold" data-counter="450">0</div>
+            <div class="text-sm text-slate-500">+ Campaigns shipped</div>
+          </div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-2xl font-extrabold" data-counter="128">0</div>
+            <div class="text-sm text-slate-500">Shopify improvements</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+          <h3 class="font-bold text-lg">Values</h3>
+          <ul class="mt-3 space-y-2 text-sm text-slate-700 dark:text-slate-300">
+            <li>• <strong>Truth over theatre</strong> — clear metrics, no vanity.
+            <li>• <strong>Speed with care</strong> — ship, measure, iterate.
+            <li>• <strong>Ownership</strong> — I work as an embedded partner, not a vendor.</li>
+          </ul>
+          <h3 class="mt-6 font-bold text-lg">Focus segments</h3>
+          <p class="mt-2 text-sm">E‑commerce (Shopify), Retail, Health & Beauty, Supplements, Lifestyle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
+      </div>
+      <div class="mt-6 flex items-center gap-3">
+        <span class="text-sm text-slate-500">One‑off</span>
+        <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition">
+          <span id="priceDot" class="inline-block h-6 w-6 translate-x-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition"></span>
+        </button>
+        <span class="text-sm text-slate-900 dark:text-slate-100">Monthly</span>
+      </div>
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-sm uppercase tracking-widest text-slate-500">Starter</div>
+          <div class="mt-2 text-3xl font-extrabold"><span class="price" data-one="NZ$1,200" data-month="NZ$1,000">NZ$1,200</span></div>
+          <p class="mt-2 text-sm">Audit + quick wins for smaller stores or single products.</p>
+          <ul class="mt-4 text-sm space-y-2">
+            <li>• Search or Email audit</li>
+            <li>• 10‑point CRO checklist</li>
+            <li>• 2 weeks of fixes</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+        </div>
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-indigo-600 to-emerald-500 text-white">
+          <div class="text-sm uppercase tracking-widest opacity-90">Growth</div>
+          <div class="mt-2 text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$2,500">NZ$3,500</span></div>
+          <p class="mt-2 text-sm/relaxed opacity-90">Most popular: search + email + CRO sprints with clear targets.</p>
+          <ul class="mt-4 text-sm space-y-2 opacity-90">
+            <li>• SEO/SEM management</li>
+            <li>• Lifecycle email buildout</li>
+            <li>• Ongoing CRO experiments</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Enquire</a>
+        </div>
+        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-sm uppercase tracking-widest text-slate-500">Scale</div>
+          <div class="mt-2 text-3xl font-extrabold"><span class="price" data-one="NZ$6,500" data-month="NZ$4,500">NZ$6,500</span></div>
+          <p class="mt-2 text-sm">For teams ready to push: advanced tracking, feeds, and experimentation cadence.</p>
+          <ul class="mt-4 text-sm space-y-2">
+            <li>• Full search + email ownership</li>
+            <li>• Weekly growth standups</li>
+            <li>• Custom dashboards</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+        </div>
+      </div>
+      <p class="mt-6 text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
+    </div>
+  </section>
+
+  <!-- FAQ (interactive accordion) -->
+  <section class="py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">FAQ</h2>
+      <div class="mt-8 space-y-3" id="faq">
+        <details class="group p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <summary class="flex cursor-pointer list-none items-center justify-between">
+            <span class="font-semibold">Do you offer once‑off projects?</span>
+            <span class="transition group-open:rotate-180">⌄</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">Yes. Audits and implementation sprints are great to kickstart momentum or validate fit before a retainer.</p>
+        </details>
+        <details class="group p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <summary class="flex cursor-pointer list-none items-center justify-between">
+            <span class="font-semibold">What does a typical first month look like?</span>
+            <span class="transition group-open:rotate-180">⌄</span>
+          </summary>
+          <p class="mt-3 text-sm">Discovery → data & tracking sanity → quick win backlog → ship 2–3 impactful changes → agree KPIs.</p>
+        </details>
+        <details class="group p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <summary class="flex cursor-pointer list-none items-center justify-between">
+            <span class="font-semibold">Can you work embedded with our team?</span>
+            <span class="transition group-open:rotate-180">⌄</span>
+          </summary>
+          <p class="mt-3 text-sm">Absolutely. I can integrate with your tools, cadence, and reporting rhythms.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12">
+      <div class="reveal">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Tell me about your goals. I’ll reply within one business day with next steps and availability.</p>
+        <div class="mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-sm">Prefer email?</div>
+          <a href="mailto:hello@example.com" class="text-indigo-600 font-semibold">hello@example.com</a>
+          <div class="mt-3 text-xs text-slate-500">Replace this with your real inbox. Add Calendly or booking link if you use one.</div>
+        </div>
+      </div>
+      <form class="reveal space-y-4" onsubmit="event.preventDefault(); fakeSubmit();">
+        <div>
+          <label class="block text-sm font-medium">Name</label>
+          <input required type="text" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Email</label>
+          <input required type="email" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">What do you need help with?</label>
+          <select class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2">
+            <option>SEO/SEM</option>
+            <option>CRO</option>
+            <option>Shopify website management</option>
+            <option>Customer journey optimisation</option>
+            <option>Email marketing</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Message</label>
+          <textarea rows="4" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2"></textarea>
+        </div>
+        <button class="w-full px-4 py-3 rounded-xl text-white bg-indigo-600 hover:bg-indigo-700">Send message</button>
+        <p id="formMsg" class="hidden text-sm text-emerald-600">Thanks! I’ll be in touch shortly.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-slate-200 dark:border-slate-800">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+       <div class="flex items-center gap-3">
+         <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 via-sky-500 to-emerald-400"></div>
+         <span class="text-sm">© <span id="year"></span> <!-- Brand Name --> Your Brand. All rights reserved.</span>
+       </div>
+       <div class="flex items-center gap-6 text-sm">
+         <a href="#home" class="hover:text-indigo-600">Home</a>
+         <a href="#services" class="hover:text-indigo-600">Services</a>
+         <a href="#contact" class="hover:text-indigo-600">Contact</a>
+       </div>
+     </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Dark mode toggle (persists)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
+    function updateIcon(){ themeIcon.innerHTML = document.documentElement.classList.contains('dark')
+      ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
+      : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>'; }
+    updateIcon();
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      updateIcon();
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Count up numbers when visible
+    function animateCount(el){
+      const end = parseInt(el.getAttribute('data-counter'), 10);
+      let current = 0; const duration = 1200; const start = performance.now();
+      function tick(t){
+        const p = Math.min(1, (t - start) / duration); current = Math.floor(end * p);
+        el.textContent = current + (end < 100 ? '%' : '');
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = end + (end < 100 ? '%' : '');
+      }
+      requestAnimationFrame(tick);
+    }
+    const counters = document.querySelectorAll('[data-counter]');
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting && !e.target._counted){ e.target._counted = true; animateCount(e.target); } });
+    }, { threshold: 0.6 });
+    counters.forEach(c => io2.observe(c));
+
+    // Pricing toggle
+    const toggle = document.getElementById('priceToggle');
+    const dot = document.getElementById('priceDot');
+    const prices = document.querySelectorAll('.price');
+    let monthly = false;
+    function renderPrices(){ prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; }); dot.style.transform = monthly ? 'translateX(28px)' : 'translateX(4px)'; }
+    renderPrices();
+    toggle.addEventListener('click', () => { monthly = !monthly; renderPrices(); });
+
+    // Fake form submit
+    function fakeSubmit(){ const m = document.getElementById('formMsg'); m.classList.remove('hidden'); setTimeout(()=>m.classList.add('hidden'), 3500); }
+    window.fakeSubmit = fakeSubmit;
+  </script>
+</body>
+</html>
