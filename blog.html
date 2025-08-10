@@ -14,15 +14,22 @@
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
+    /* Mobile menu slide animation */
+    #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
+    #mobileMenu.open #mobileMenuContent { opacity: 1; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+
+  <!-- Backdrop overlay (mobile only) -->
+  <div id="menuOverlay" class="fixed inset-0 z-40 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
   <!-- Header (copy the exact header from your index.html and keep the Blog link active) -->
   <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <a href="index.html#home" class="flex items-center gap-3">
-        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9">
+        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
         <span class="font-extrabold tracking-tight text-lg">NovaReach</span>
       </a>
       <nav class="hidden md:flex items-center gap-8">
@@ -33,21 +40,32 @@
         <a href="blog.html" class="text-emerald-600 font-semibold">Blog</a>
         <a href="index.html#contact" class="hover:text-emerald-600">Contact</a>
       </nav>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <a href="index.html#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
-        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <!-- Mobile menu button with morphing icon -->
+        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <!-- Bars (stroke so it renders reliably) -->
+          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <!-- X -->
+          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800">
-      <nav class="px-4 py-3 flex flex-col gap-3 bg-white dark:bg-slate-900">
-        <a href="index.html#services" class="hover:text-emerald-600">Services</a>
-        <a href="index.html#work" class="hover:text-emerald-600">Results</a>
-        <a href="index.html#about" class="hover:text-emerald-600">About</a>
-        <a href="index.html#pricing" class="hover:text-emerald-600">Pricing</a>
-        <a href="blog.html" class="text-emerald-600 font-semibold">Blog</a>
-        <a href="index.html#contact" class="hover:text-emerald-600">Contact</a>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2">
+        <a href="index.html#services" class="hover:text-emerald-600 py-2">Services</a>
+        <a href="index.html#work" class="hover:text-emerald-600 py-2">Results</a>
+        <a href="index.html#about" class="hover:text-emerald-600 py-2">About</a>
+        <a href="index.html#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
+        <a href="blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
+        <a href="index.html#contact" class="hover:text-emerald-600 py-2">Contact</a>
       </nav>
     </div>
   </header>
@@ -120,7 +138,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <a href="#top" class="flex items-center gap-3">
-          <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8">
+          <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
         </a>
         <span class="text-sm">© <span id="year"></span> NovaReach. All rights reserved.</span>
       </div>
@@ -133,10 +151,59 @@
   </footer>
 
   <script>
-    // mobile menu
+    // Mobile menu + slide, overlay and icon morph
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    if (menuBtn) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    const mobileMenuContent = document.getElementById('mobileMenuContent');
+    const iconBars = document.getElementById('iconBars');
+    const iconX = document.getElementById('iconX');
+    const overlay = document.getElementById('menuOverlay');
+
+    function setOverlay(open){
+      overlay.classList.toggle('opacity-0', !open);
+      overlay.classList.toggle('opacity-100', open);
+      overlay.classList.toggle('pointer-events-none', !open);
+    }
+
+    function setMenu(open){
+      if (open) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('open');
+        mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
+        document.body.style.overflow = 'hidden';
+        iconBars.classList.add('hidden');
+        iconX.classList.remove('hidden');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Close menu');
+        setOverlay(true);
+      } else {
+        mobileMenu.style.maxHeight = '0px';
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        iconBars.classList.remove('hidden');
+        iconX.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
+        setOverlay(false);
+      }
+    }
+
+    // After transition to closed, hide entirely to remove from flow
+    mobileMenu.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
+    menuBtn.addEventListener('click', () => {
+      const open = menuBtn.getAttribute('aria-expanded') === 'true';
+      setMenu(!open);
+    });
+
+    overlay.addEventListener('click', () => setMenu(false));
+
+    // Close on nav click
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
     // reveal on scroll
     const revealEls = document.querySelectorAll('.reveal');
