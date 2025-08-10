@@ -45,28 +45,135 @@
 
       <hr class="my-6 border-slate-200 dark:border-slate-800">
 
-      <section class="prose prose-slate max-w-none dark:prose-invert">
-        <h2>What moved the needle</h2>
+       <!-- TOC -->
+      <nav aria-label="Table of contents" class="toc text-sm bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4">
+        <div class="font-semibold uppercase tracking-wider text-slate-500 mb-2">On this page</div>
+        <ol class="list-decimal list-inside space-y-1">
+          <li><a href="#intro">Why these changes work</a></li>
+          <li><a href="#checkout-ux">What moved the needle (Checkout UX)</a></li>
+          <li><a href="#shopify-speed">Quick Shopify speed wins</a></li>
+          <li><a href="#next-steps">Next steps for compounding gains</a></li>
+          <li><a href="#checklist">Implementation checklist</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-8" id="intro">
+        <p class="callout"><strong>The punchline:</strong> Move friction out of the way at the exact moment it appears (errors, hesitation, mobile input pain), and load only what’s needed when it’s needed. That’s how you ship real conversion lift without a redesign.</p>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="checkout-ux">
+        <h2>What moved the needle (Checkout UX)</h2>
+        <hr class="section-divider" />
+
+        <h3>Error states that actually help</h3>
         <ul>
-          <li><strong>Error states that actually help</strong> — put the error <em>next to</em> the field, keep it concise, and autofocus the first invalid input.</li>
-          <li><strong>Trust signals near the CTA</strong> — payment badges and a one‑liner on security by the “Complete order” button reduced hesitation.</li>
-          <li><strong>Mobile spacing</strong> — bigger taps, 16px minimum label size, and turning off auto‑cap for email fields.</li>
+          <li><strong>Inline &amp; adjacent:</strong> Place the error <em>next to</em> the field, not at the top of the form.</li>
+          <li><strong>First invalid autofocus:</strong> Programmatically focus the first invalid input so the path to fix is obvious.</li>
+          <li><strong>Actionable copy:</strong> “Enter a valid email (name@domain.com)” beats “Invalid input”.</li>
+        </ul>
+        <p><span class="kbd">Tip</span> In Shopify (Theme App Extensions or custom), add <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.</p>
+
+        <h3>Trust signals near the CTA</h3>
+        <ul>
+          <li><strong>Badge proximity:</strong> Put known payment badges (Visa, Mastercard, Amex, PayPal, Afterpay) within ~60–80px of the primary CTA.</li>
+          <li><strong>One-liner reassurance:</strong> A short note like “Secure checkout • SSL encrypted • Privacy protected” reduces last-second doubt.</li>
+          <li><strong>Visible policies:</strong> Link to returns &amp; support within eyesight of the button—don’t bury them.</li>
         </ul>
 
-        <h2>Quick Shopify speed wins</h2>
+        <h3>Mobile spacing &amp; inputs</h3>
         <ul>
-          <li>Serve hero images as <code>AVIF</code> with <code>WebP</code> fallback; keep product images under ~200KB where possible.</li>
-          <li>Lazy‑load below‑the‑fold sections and defer non‑critical app scripts.</li>
-          <li>Remove duplicate analytics tags and unused app leftovers.</li>
+          <li><strong>Tap area:</strong> Aim for 44px touch targets and <strong>≥16px</strong> label size for readability.</li>
+          <li><strong>Email keyboard:</strong> Use <code>inputmode="email"</code> and <code>autocomplete="email"</code>; <strong>disable auto-cap</strong> for email fields.</li>
+          <li><strong>Field grouping:</strong> Break long forms into logical chunks to reduce cognitive load.</li>
+        </ul>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="shopify-speed">
+        <h2>Quick Shopify speed wins (that don’t break UX)</h2>
+        <hr class="section-divider" />
+
+        <h3>Serve images in modern formats</h3>
+        <ul>
+          <li><strong>AVIF primary, WebP fallback:</strong> Use a <code>&lt;picture&gt;</code> element to serve AVIF first, then WebP, then PNG/JPEG.</li>
+          <li><strong>Right-size assets:</strong> Keep most product images under ~200KB; cap hero images with responsive <code>srcset</code>.</li>
+        </ul>
+<pre><code>&lt;picture&gt;
+  &lt;source srcset="/images/hero.avif" type="image/avif"&gt;
+  &lt;source srcset="/images/hero.webp" type="image/webp"&gt;
+  &lt;img src="/images/hero.jpg" alt="New collection" loading="eager" width="1600" height="900"&gt;
+&lt;/picture&gt;
+</code></pre>
+
+        <h3>Lazy-load below-the-fold &amp; defer non-critical scripts</h3>
+        <ul>
+          <li><strong>Native lazy-loading:</strong> Add <code>loading="lazy"</code> to below-the-fold images.</li>
+          <li><strong>Defer app scripts:</strong> Add <code>defer</code> or load after <code>DOMContentLoaded</code> for non-critical apps.</li>
+          <li><strong>Preload critical CSS:</strong> Inline above-the-fold CSS or use <code>&lt;link rel="preload" as="style"&gt;</code> then swap.</li>
         </ul>
 
-        <h2>Next steps</h2>
+        <h3>Remove duplicate analytics tags &amp; app leftovers</h3>
+        <ul>
+          <li><strong>One source of truth:</strong> Keep GA4/Tag Manager once—duplicates quietly tank performance.</li>
+          <li><strong>Uninstalled ≠ removed:</strong> Purge theme snippets and <code>script_tag</code> assets that apps leave behind.</li>
+          <li><strong>Measure TBT impact:</strong> Anything adding &gt;200ms Total Blocking Time gets refactored or removed.</li>
+        </ul>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="next-steps">
+        <h2>Next steps for compounding gains</h2>
+        <hr class="section-divider" />
         <ol>
-          <li>Ship a simple progress bar in checkout.</li>
-          <li>Shorten shipping method labels; cut jargon.</li>
-          <li>Audit app script load time; eliminate anything over 200ms TBT impact.</li>
+          <li><strong>Ship a simple progress bar in checkout:</strong> “Shipping → Payment → Review” clarifies effort remaining and boosts completion.</li>
+          <li><strong>Shorten shipping method labels:</strong> Cut jargon—choose “Standard (2–4 days)” over “Economy International Freight Delivery”.</li>
+          <li><strong>Audit script load time:</strong> Remove or defer anything with &gt;200ms TBT; prefer server-side integrations where possible.</li>
         </ol>
       </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="checklist">
+        <h2>Implementation checklist</h2>
+        <hr class="section-divider" />
+        <ul>
+          <li>✅ Inline errors with autofocus on first invalid field.</li>
+          <li>✅ Security one-liner + payment badges beside CTA.</li>
+          <li>✅ Email inputs: <code>type="email"</code>, <code>inputmode="email"</code>, <code>autocomplete</code> on, auto-cap off.</li>
+          <li>✅ Touch targets ~44px; labels ≥16px.</li>
+          <li>✅ AVIF/WebP images with responsive <code>srcset</code>; product images ~&lt;200KB.</li>
+          <li>✅ Lazy-load below-the-fold; defer non-critical scripts.</li>
+          <li>✅ Remove duplicate analytics &amp; uninstall leftovers.</li>
+          <li>✅ Progress bar in checkout; simplified shipping labels.</li>
+          <li>✅ TBT audit; kill &gt;200ms offenders.</li>
+        </ul>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="faq">
+        <h2>FAQ</h2>
+        <hr class="section-divider" />
+        <h3>Will AVIF hurt visual quality?</h3>
+        <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback in the <code>&lt;picture&gt;</code> element just in case.</p>
+
+        <h3>Do badges actually increase conversions?</h3>
+        <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces hesitancy at the decision point.</p>
+
+        <h3>What if apps re-inject scripts?</h3>
+        <p>Lock a monthly audit: compare current theme assets/snippets to baseline; remove additions that add blocking time or duplicate tracking.</p>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-12">
+        <hr class="border-slate-200 dark:border-slate-800 my-8">
+        <p class="text-sm text-slate-500">Author: Michael — Digital Marketing &amp; E-Commerce Specialist</p>
+        <p class="text-sm text-slate-500">Tags: Checkout UX, CRO, Shopify Performance</p>
+      </section>
+
+      <!-- Optional related links (update hrefs to real internal URLs) -->
+      <aside class="mt-8 bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related reading</h3>
+        <ul class="list-disc list-inside">
+          <li><a class="hover:text-emerald-700" href="/blog/shopify-core-web-vitals-guide.html">Shopify Core Web Vitals: A Practical Guide</a></li>
+          <li><a class="hover:text-emerald-700" href="/blog/checkout-form-best-practices.html">Checkout Form Best Practices That Actually Convert</a></li>
+          <li><a class="hover:text-emerald-700" href="/blog/app-bloat-performance.html">Killing App Bloat Without Killing Features</a></li>
+        </ul>
+      </aside>
     </article>
   </main>
 
