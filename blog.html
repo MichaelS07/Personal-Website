@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — NovaReach</title>
+  <meta name="description" content="Weekly e-commerce and digital marketing insights from NovaReach." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- Header (copy the exact header from your index.html and keep the Blog link active) -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="index.html#home" class="flex items-center gap-3">
+        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9">
+        <span class="font-extrabold tracking-tight text-lg">NovaReach</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html#services" class="hover:text-emerald-600">Services</a>
+        <a href="index.html#work" class="hover:text-emerald-600">Results</a>
+        <a href="index.html#about" class="hover:text-emerald-600">About</a>
+        <a href="index.html#pricing" class="hover:text-emerald-600">Pricing</a>
+        <a href="blog.html" class="text-emerald-600 font-semibold">Blog</a>
+        <a href="index.html#contact" class="hover:text-emerald-600">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="index.html#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
+        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800">
+      <nav class="px-4 py-3 flex flex-col gap-3 bg-white dark:bg-slate-900">
+        <a href="index.html#services" class="hover:text-emerald-600">Services</a>
+        <a href="index.html#work" class="hover:text-emerald-600">Results</a>
+        <a href="index.html#about" class="hover:text-emerald-600">About</a>
+        <a href="index.html#pricing" class="hover:text-emerald-600">Pricing</a>
+        <a href="blog.html" class="text-emerald-600 font-semibold">Blog</a>
+        <a href="index.html#contact" class="hover:text-emerald-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
+      <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Insights & E-Commerce News</span>
+      <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight">NovaReach Blog</h1>
+      <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">Weekly breakdowns of what matters in e-commerce: SEO/SEM updates, CRO plays, Shopify tips, and lifecycle wins.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <input id="search" type="search" placeholder="Search posts…" class="w-full sm:w-96 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2">
+        <div class="flex items-center gap-2 text-sm">
+          <button data-tag="All" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">All</button>
+          <button data-tag="E-commerce" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">E-commerce</button>
+          <button data-tag="SEO" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">SEO</button>
+          <button data-tag="SEM" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">SEM</button>
+          <button data-tag="CRO" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">CRO</button>
+          <button data-tag="Email" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">Email</button>
+          <button data-tag="Shopify" class="tag px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800">Shopify</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts grid -->
+  <section class="py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Example cards (duplicate/replace with your posts) -->
+        <article class="post reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900" data-tags="E-commerce,Shopify">
+          <a href="post.html?slug=weekly-ecoom-2025-08-10" class="group block">
+            <div class="text-xs uppercase tracking-widest text-slate-500">Aug 10, 2025 • Weekly</div>
+            <h2 class="mt-2 text-xl font-bold group-hover:text-emerald-600">E-Com Weekly: Checkout UX wins and Shopify speed tricks</h2>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Small fixes that move conversion: error states, payment icons, and image compression that doesn’t wreck quality.</p>
+            <div class="mt-4 text-xs text-slate-500">Tags: E-commerce, Shopify</div>
+          </a>
+        </article>
+
+        <article class="post reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900" data-tags="SEO,SEM">
+          <a href="post.html?slug=search-trends-aug-2025" class="group block">
+            <div class="text-xs uppercase tracking-widest text-slate-500">Aug 6, 2025 • Search</div>
+            <h2 class="mt-2 text-xl font-bold group-hover:text-emerald-600">Search Watch: what actually changed this month</h2>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">How to react to ranking volatility without nuking your content strategy or overspending in paid.</p>
+            <div class="mt-4 text-xs text-slate-500">Tags: SEO, SEM</div>
+          </a>
+        </article>
+
+        <article class="post reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900" data-tags="Email,CRO">
+          <a href="post.html?slug=email-lifecycle-blueprints" class="group block">
+            <div class="text-xs uppercase tracking-widest text-slate-500">Jul 30, 2025 • Lifecycle</div>
+            <h2 class="mt-2 text-xl font-bold group-hover:text-emerald-600">Email flows that print money (without being spammy)</h2>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Welcome → browse/cart abandonment → post-purchase. Benchmarks, guardrails, and copy that converts.</p>
+            <div class="mt-4 text-xs text-slate-500">Tags: Email, CRO</div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="#top" class="flex items-center gap-3">
+          <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8">
+        </a>
+        <span class="text-sm">© <span id="year"></span> NovaReach. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="index.html#home" class="hover:text-emerald-600">Home</a>
+        <a href="blog.html" class="hover:text-emerald-600">Blog</a>
+        <a href="index.html#contact" class="hover:text-emerald-600">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); }, {threshold:0.15});
+    revealEls.forEach(el=>io.observe(el));
+
+    // search + tag filter
+    const search = document.getElementById('search');
+    const tags = document.querySelectorAll('.tag');
+    const posts = document.querySelectorAll('.post');
+    let activeTag = 'All';
+
+    function applyFilters(){
+      const q = (search.value || '').toLowerCase();
+      posts.forEach(p=>{
+        const text = p.innerText.toLowerCase();
+        const ptags = (p.dataset.tags || '').split(',');
+        const matchText = !q || text.includes(q);
+        const matchTag = activeTag === 'All' || ptags.includes(activeTag);
+        p.style.display = (matchText && matchTag) ? '' : 'none';
+      });
+    }
+
+    if (search) search.addEventListener('input', applyFilters);
+    tags.forEach(t=>{
+      t.addEventListener('click', ()=>{
+        tags.forEach(x=>x.classList.remove('bg-white','dark:bg-slate-900','text-emerald-700','border-emerald-300'));
+        t.classList.add('bg-white','dark:bg-slate-900','text-emerald-700','border-emerald-300');
+        activeTag = t.dataset.tag;
+        applyFilters();
+      });
+    });
+    // default select "All"
+    document.querySelector('.tag[data-tag="All"]')?.classList.add('bg-white','dark:bg-slate-900','text-emerald-700','border-emerald-300');
+
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
