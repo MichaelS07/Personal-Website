@@ -12,12 +12,28 @@
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+
+    /* Reveal animation (kept) */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
-    /* Blog typography */
+
+    /* --- Overflow safety for mobile --- */
+    /* 1) Force long words/URLs to wrap instead of causing horizontal scroll */
+    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; }
+    /* 2) Make images/media scale down within the column */
+    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; }
+    /* 3) Code blocks and tables can exceed width; allow horizontal scroll just for them */
+    .prose pre, .prose code, .prose table { white-space: pre-wrap; }
+    .prose pre { overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch; }
+    .prose table { display: block; width: 100%; overflow-x: auto; }
+    .prose table thead th, .prose table tbody td { white-space: nowrap; }
+    /* 4) As a last-resort guard (rare edge cases) */
+    body { overflow-x: hidden; }
+
+    /* Typography tweaks */
     .prose h2 { font-size: 2rem; line-height: 1.2; font-weight: 800; margin-top: 2.25rem; margin-bottom: 0.75rem; }
     .prose h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.25rem; }
-    .prose h2 + p, .prose h3 + p, .prose h3 + p + ul, .prose h3 + ul { margin-top: 0.5rem; }
+    .prose h2 + p, .prose h3 + p, .prose h3 + ul { margin-top: 0.5rem; }
     .prose .section-divider { height: 2px; background: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0)); border: 0; margin: 1rem 0 1.5rem; }
     .prose .callout{ border-left:4px solid rgb(5 150 105); background:rgba(16,185,129,.06); padding:1rem; border-radius:.5rem }
     .prose code{ font-weight:600 }
@@ -35,7 +51,7 @@
   <!-- Backdrop overlay (mobile only) -->
   <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
-  <!-- Header (paths assume this file is inside /blog-posts/) -->
+  <!-- Header (relative paths assume this file is inside /blog-posts/) -->
   <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <a href="../index.html#home" class="flex items-center gap-3">
@@ -75,7 +91,7 @@
         <a href="../index.html#work" class="hover:text-emerald-600 py-2">Results</a>
         <a href="../index.html#about" class="hover:text-emerald-600 py-2">About</a>
         <a href="../index.html#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
-        <a href="../blog.html" class="hover:text-emerald-600 py-2">Blog</a>
+        <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
         <a href="../index.html#contact" class="hover:text-emerald-600 py-2">Contact</a>
       </nav>
     </div>
@@ -111,6 +127,14 @@
           <li>Test a shorter checkout label set.</li>
           <li>Audit PDP app bloat.</li>
         </ol>
+
+        <h3>Edge cases that used to break layout</h3>
+        <p>RidiculouslyLongURLLikeThisWithoutAnyDashesOrSpacesThatWouldNormallyOverflowOnSmallScreensButNowWrapsCorrectlyThanksToOverflowWrapAnywhere.example</p>
+        <pre><code>Very long code lines stay scrollable in this box without blowing out the layout: const example = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";</code></pre>
+        <table>
+          <thead><tr><th>Very very long heading</th><th>Another extremely long heading</th></tr></thead>
+          <tbody><tr><td>Long cell content</td><td>More long cell content</td></tr></tbody>
+        </table>
       </section>
     </article>
   </main>
@@ -131,7 +155,7 @@
   </footer>
 
   <script>
-    // Year stamp
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Mobile menu + slide & icon morph + overlay
@@ -171,7 +195,6 @@
       }
     }
 
-    // After transition to closed, actually hide to remove from flow
     mobileMenu.addEventListener('transitionend', (e) => {
       if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
         mobileMenu.classList.add('hidden');
@@ -184,10 +207,7 @@
     });
 
     overlay.addEventListener('click', () => setMenu(false));
-
-    // Close on nav click
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   </script>
 </body>
 </html>
-
