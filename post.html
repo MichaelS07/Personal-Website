@@ -50,6 +50,9 @@
     /* Reading progress bar */
     #progress { position: fixed; left: 0; top: 0; height: 3px; width: 0; background: linear-gradient(90deg, rgb(16 185 129), rgb(34 197 94)); z-index: 60; pointer-events: none; transition: width .1s linear; }
     @media (prefers-reduced-motion: reduce) { #progress { transition: none; } }
+
+    /* Active link styles for TOC */
+    .toc a.active { font-weight: 700; text-decoration: underline; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
@@ -193,6 +196,89 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
       onScroll();
+    })();
+
+    // ----- CLICKABLE TOC BUILDER -----
+    (function(){
+      const desktop = document.getElementById('toc');
+      const mobile = document.getElementById('toc-mobile');
+      const article = document.getElementById('article');
+      if(!desktop && !mobile) return;
+
+      // Select h2 and h3 inside prose sections
+      const headings = Array.from(article.querySelectorAll('.prose h2, .prose h3'));
+      if (!headings.length) return;
+
+      const slugify = (str) => str.toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-')
+        .slice(0, 80);
+
+      // Ensure each heading has an id
+      headings.forEach((h, i) => {
+        if (!h.id) {
+          const base = slugify(h.textContent) || 'section-' + (i+1);
+          let id = base; let n = 1;
+          while (document.getElementById(id)) id = base + '-' + (++n);
+          h.id = id;
+        }
+      });
+
+      const buildList = (container) => {
+        if (!container) return;
+        container.innerHTML = '';
+        let currentOl = container; // h2 live directly here
+        let subOl = null;          // h3 live under last h2
+
+        headings.forEach(h => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent;
+          a.className = 'hover:underline';
+
+          if (h.tagName === 'H2') {
+            // new top-level item
+            subOl = null; // reset
+            li.appendChild(a);
+            container.appendChild(li);
+            // create a nested list that we'll append h3s into
+            const nested = document.createElement('ol');
+            nested.className = 'ml-4 list-[lower-alpha] space-y-1';
+            li.appendChild(nested);
+            subOl = nested;
+          } else {
+            // h3 -> append under last h2's nested list, or top if none
+            (subOl || container).appendChild(li);
+            li.appendChild(a);
+          }
+        });
+      };
+
+      buildList(desktop);
+      buildList(mobile);
+
+      // Highlight active section while scrolling
+      const tocLinks = Array.from(document.querySelectorAll('#toc a, #toc-mobile a'));
+      const byId = Object.fromEntries(tocLinks.map(a => [a.getAttribute('href').slice(1), a]));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const link = byId[id];
+          if (!link) return;
+          if (entry.isIntersecting) {
+            // remove current
+            tocLinks.forEach(l => l.classList.remove('active'));
+            // set for both desktop & mobile if both exist
+            const twins = document.querySelectorAll(`a[href="#${CSS.escape(id)}"]`);
+            twins.forEach(t => t.classList.add('active'));
+          }
+        });
+      }, { rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+
+      headings.forEach(h => observer.observe(h));
     })();
 
     // Mobile menu + slide & icon morph + overlay
