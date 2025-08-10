@@ -3,12 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><!-- Post Title --> — NovaReach</title>
-  <meta name="description" content="A NovaReach blog post." />
+
+  <title>E-Com Weekly: Checkout UX Wins and Shopify Speed Tricks — NovaReach</title>
+  <meta name="description" content="High-ROI checkout UX upgrades and Shopify performance wins: actionable fixes for error states, trust signals, mobile inputs, AVIF/WebP, script defers, and app bloat removal." />
+  <link rel="canonical" href="https://www.novareach.example/blog/ecom-weekly-checkout-ux-shopify-speed" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="E-Com Weekly: Checkout UX Wins and Shopify Speed Tricks">
+  <meta property="og:description" content="Small, high-impact changes that move conversion without wrecking UX.">
+  <meta property="og:image" content="https://www.novareach.example/images/og/ecom-weekly-checkout-ux-speed.jpg">
+  <meta property="og:url" content="https://www.novareach.example/blog/ecom-weekly-checkout-ux-shopify-speed">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"E-Com Weekly: Checkout UX Wins and Shopify Speed Tricks",
+    "description":"High-ROI checkout UX upgrades and Shopify performance wins.",
+    "author":{"@type":"Person","name":"Michael"},
+    "publisher":{"@type":"Organization","name":"NovaReach","logo":{"@type":"ImageObject","url":"https://www.novareach.example/images/novareach-logo.png"}},
+    "datePublished":"2025-08-10",
+    "dateModified":"2025-08-10",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.novareach.example/blog/ecom-weekly-checkout-ux-shopify-speed"}
+  }
+  </script>
+
+  <style>
+    /* Typography tweaks to make main points and sub-points unmistakable */
+    .prose h2 { font-size: 2rem; line-height: 1.2; font-weight: 800; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+    .prose h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.25rem; }
+    .prose h2 + p, .prose h3 + p, .prose h3 + ul { margin-top: 0.5rem; }
+    .prose .section-divider { height: 2px; background: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0)); border: 0; margin: 1rem 0 1.5rem; }
+
+    /* Visual helpers */
+    .prose .callout{ border-left:4px solid rgb(5 150 105); background:rgba(16,185,129,.06); padding:1rem; border-radius:.5rem }
+    .prose code{ font-weight:600 }
+    .toc a{ color:rgb(4 120 87) }
+    .kbd{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:.375rem; padding:.125rem .375rem; background:#f8fafc }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 
@@ -38,14 +78,14 @@
     <a href="../blog.html" class="text-sm text-emerald-700 hover:underline">← Back to Blog</a>
     <article class="mt-4">
       <header>
-        <div class="text-xs uppercase tracking-widest text-slate-500">Aug 10, 2025 • E‑commerce, Shopify</div>
-        <h1 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">E‑Com Weekly: Checkout UX wins and Shopify speed tricks</h1>
+        <div class="text-xs uppercase tracking-widest text-slate-500">Aug 10, 2025 • E-commerce, Shopify • ~6 min read</div>
+        <h1 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">E-Com Weekly: Checkout UX Wins and Shopify Speed Tricks</h1>
         <p class="mt-3 text-slate-600 dark:text-slate-300">Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don’t wreck UX.</p>
       </header>
 
       <hr class="my-6 border-slate-200 dark:border-slate-800">
 
-       <!-- TOC -->
+      <!-- TOC -->
       <nav aria-label="Table of contents" class="toc text-sm bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4">
         <div class="font-semibold uppercase tracking-wider text-slate-500 mb-2">On this page</div>
         <ol class="list-decimal list-inside space-y-1">
@@ -194,6 +234,19 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null, '', id);
+        }
+      });
+    });
   </script>
 </body>
 </html>
