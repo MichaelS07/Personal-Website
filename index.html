@@ -14,9 +14,11 @@
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
     .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
     .dark .glass { background: rgba(17,24,39,0.5); }
-    /* Simple reveal animation */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
+    /* Make tap targets comfy on mobile */
+    .tap { min-height: 44px; min-width: 44px; }
   </style>
   <!-- Open Graph -->
   <meta property="og:title" content="Digital Marketing Consulting" />
@@ -41,41 +43,46 @@
   }
   </script>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+  <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <a href="#home" class="flex items-center gap-3">
-        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9>
-        <span class="font-extrabold tracking-tight text-lg"><!-- Nova Reach -->Nova Reach</span>
+        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
+        <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
       </a>
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="#services" class="hover:text-emerald-600">Services</a>
-        <a href="#work" class="hover:text-emerald-600">Results</a>
-        <a href="#about" class="hover:text-emerald-600">About</a>
-        <a href="#pricing" class="hover:text-emerald-600">Pricing</a>
-        <a href="blog.html" class="hover:text-emerald-600">Blog</a>
-        <a href="#contact" class="hover:text-emerald-600">Contact</a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="#services" class="hover:text-emerald-600 tap">Services</a>
+        <a href="#work" class="hover:text-emerald-600 tap">Results</a>
+        <a href="#about" class="hover:text-emerald-600 tap">About</a>
+        <a href="#pricing" class="hover:text-emerald-600 tap">Pricing</a>
+        <a href="blog.html" class="hover:text-emerald-600 tap">Blog</a>
+        <a href="#contact" class="hover:text-emerald-600 tap">Contact</a>
       </nav>
-      <div class="flex items-center gap-3">
-        <button id="themeToggle" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Toggle theme">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="themeToggle" class="tap p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Toggle theme">
           <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/></svg>
         </button>
-        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
-        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
+        <!-- Mobile menu button (fixed: use stroke instead of fill) -->
+        <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
         </button>
       </div>
     </div>
     <!-- Mobile menu -->
     <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800">
-      <nav class="px-4 py-3 flex flex-col gap-3 bg-white dark:bg-slate-900">
-        <a href="#services" class="hover:text-emerald-600">Services</a>
-        <a href="#work" class="hover:text-emerald-600">Results</a>
-        <a href="#about" class="hover:text-emerald-600">About</a>
-        <a href="#pricing" class="hover:text-emerald-600">Pricing</a>
-        <a href="blog.html" class="hover:text-emerald-600">Blog</a>
-        <a href="#contact" class="hover:text-emerald-600">Contact</a>
+      <nav class="px-4 py-3 flex flex-col gap-2 bg-white dark:bg-slate-900">
+        <a href="#services" class="hover:text-emerald-600 py-2">Services</a>
+        <a href="#work" class="hover:text-emerald-600 py-2">Results</a>
+        <a href="#about" class="hover:text-emerald-600 py-2">About</a>
+        <a href="#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
+        <a href="blog.html" class="hover:text-emerald-600 py-2">Blog</a>
+        <a href="#contact" class="hover:text-emerald-600 py-2">Contact</a>
       </nav>
     </div>
   </header>
@@ -86,27 +93,27 @@
       <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
       <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
     </div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
       <div class="reveal">
         <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Digital Marketing Specialists</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">Performance-first marketing for brands that actually want results.</h1>
-        <p class="mt-5 text-lg text-slate-600 dark:text-slate-300">I help Shopify brands and ecommerce teams scale with pragmatic SEO/SEM, CRO, email, and customer journey optimisation. No vanity metrics—just compounding wins.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow">Book a free consult</a>
-          <a href="#services" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Explore services</a>
+        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Performance-first marketing for brands that actually want results.</h1>
+        <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">I help Shopify brands and ecommerce teams scale with pragmatic SEO/SEM, CRO, email, and customer journey optimisation. No vanity metrics—just compounding wins.</p>
+        <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
+          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow w-full xs:w-auto">Book a free consult</a>
+          <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto">Explore services</a>
         </div>
-        <div class="mt-8 grid grid-cols-3 gap-6">
+        <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
           <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="text-3xl font-extrabold" data-counter="28">0</div>
-            <div class="text-sm text-slate-500">Average lift in CTR</div>
+            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
           </div>
           <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="text-3xl font-extrabold" data-counter="35">0</div>
-            <div class="text-sm text-slate-500">Reduction in CPA</div>
+            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
           </div>
           <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="text-3xl font-extrabold" data-counter="52">0</div>
-            <div class="text-sm text-slate-500">Email revenue share</div>
+            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
           </div>
         </div>
       </div>
@@ -126,32 +133,30 @@
   </section>
 
   <!-- Logos / Tech Stack -->
-  <section class="py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
+  <section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 text-slate-500">
-        <span class="text-xs uppercase tracking-widest">Tools I work with</span>
-        <!-- Order shows your requested logos first -->
-        <img alt="Google Ads" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Ads_logo.svg"/>
-        <img alt="Google Analytics 4" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Google_Analytics_4_logo.svg"/>
-        <img alt="Klaviyo" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Klaviyo_Logo.svg"/>
-        <!-- Keep Shopify + Meta since you work with them; remove if you want only the three -->
-        <img alt="Shopify" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg"/>
-        <img alt="Meta" class="h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg"/>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
+        <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
+        <img alt="Google Ads" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Ads_logo.svg" loading="lazy"/>
+        <img alt="Google Analytics 4" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Google_Analytics_4_logo.svg" loading="lazy"/>
+        <img alt="Klaviyo" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Klaviyo_Logo.svg" loading="lazy"/>
+        <img alt="Shopify" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy"/>
+        <img alt="Meta" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" loading="lazy"/>
       </div>
     </div>
   </section>
 
   <!-- Services -->
-  <section id="services" class="py-20">
+  <section id="services" class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Services</h2>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">Pick a lane or go end-to-end. Every engagement is built around measurable outcomes and clean execution.</p>
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Services</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Pick a lane or go end-to-end. Every engagement is built around measurable outcomes and clean execution.</p>
       </div>
-      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         <!-- SEO/SEM -->
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-lg font-bold">SEO/SEM Growth</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-base sm:text-lg font-bold">SEO/SEM Growth</div>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Full-funnel search: technical SEO, content strategy, and performance media (Google Ads). Account structure, negative sculpting, and creative testing for sustainable ROAS.</p>
           <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
             <li>Account & feed audits</li>
@@ -160,8 +165,8 @@
           </ul>
         </div>
         <!-- CRO -->
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-lg font-bold">Conversion Rate Optimisation</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-base sm:text-lg font-bold">Conversion Rate Optimisation</div>
           <p class="mt-2 text-sm">Analytics-backed hypotheses, rapid A/Bs, and UX fixes that shorten the path to purchase.</p>
           <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
             <li>Heuristic + data reviews</li>
@@ -170,8 +175,8 @@
           </ul>
         </div>
         <!-- Shopify -->
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-lg font-bold">Shopify Website Management</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-base sm:text-lg font-bold">Shopify Website Management</div>
           <p class="mt-2 text-sm">Theme improvements, site speed, menus, feeds, tagging, & product ops tuned for growth.</p>
           <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
             <li>Theme/UI updates</li>
@@ -180,8 +185,8 @@
           </ul>
         </div>
         <!-- CJ -->
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-lg font-bold">Customer Journey Optimisations</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-base sm:text-lg font-bold">Customer Journey Optimisations</div>
           <p class="mt-2 text-sm">From first click to repeat purchase—reduce friction, increase LTV, and make decisions with data.</p>
           <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
             <li>Attribution sanity checks</li>
@@ -190,8 +195,8 @@
           </ul>
         </div>
         <!-- Email -->
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-lg font-bold">Email Marketing</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-base sm:text-lg font-bold">Email Marketing</div>
           <p class="mt-2 text-sm">Lifecycle flows and campaigns that pay for themselves. List growth, segmentation, and copy that converts.</p>
           <ul class="mt-3 text-sm list-disc list-inside text-slate-600 dark:text-slate-300">
             <li>Acquisition & deliverability</li>
@@ -200,8 +205,8 @@
           </ul>
         </div>
         <!-- CTA Card -->
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
-          <div class="text-lg font-bold">Not sure where to start?</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+          <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
           <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20‑minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
           <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Get a plan</a>
         </div>
@@ -210,26 +215,26 @@
   </section>
 
   <!-- Results / Work -->
-  <section id="work" class="py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
+  <section id="work" class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
       </div>
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-sm uppercase tracking-widest text-slate-500">CRO + Email</div>
-          <div class="mt-2 text-2xl font-bold">+19% Revenue/Visitor</div>
+      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">CRO + Email</div>
+          <div class="mt-2 text-xl sm:text-2xl font-bold">+19% Revenue/Visitor</div>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and three lifecycle flows built from zero.</p>
         </div>
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-sm uppercase tracking-widest text-slate-500">SEM</div>
-          <div class="mt-2 text-2xl font-bold">-35% CPA @ +22% Conv.</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEM</div>
+          <div class="mt-2 text-xl sm:text-2xl font-bold">-35% CPA @ +22% Conv.</div>
           <p class="mt-2 text-sm">Account restructure, negative sculpting, query mapping, and creative refresh cadence.</p>
         </div>
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <div class="text-sm uppercase tracking-widest text-slate-500">SEO</div>
-          <div class="mt-2 text-2xl font-bold">+74% Non‑brand Traffic</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEO</div>
+          <div class="mt-2 text-xl sm:text-2xl font-bold">+74% Non‑brand Traffic</div>
           <p class="mt-2 text-sm">IA clean-up, templated metadata, and a pragmatic content moat targeting demand, not fluff.</p>
         </div>
       </div>
@@ -237,23 +242,23 @@
   </section>
 
   <!-- Process -->
-  <section class="py-20">
+  <section class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">How we’ll work</h2>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">Lean, clear, fast. You’ll always know what’s happening and why.</p>
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">How we’ll work</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Lean, clear, fast. You’ll always know what’s happening and why.</p>
       </div>
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-lg font-bold">1. Diagnose</div>
+      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-base sm:text-lg font-bold">1. Diagnose</div>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Audit data, find bottlenecks, set targets. If it won’t move the needle, it’s not in scope.</p>
         </div>
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-lg font-bold">2. Design</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-base sm:text-lg font-bold">2. Design</div>
           <p class="mt-2 text-sm">Hypotheses, experiments, and a sequenced roadmap prioritised by impact × effort.</p>
         </div>
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-lg font-bold">3. Deliver</div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-base sm:text-lg font-bold">3. Deliver</div>
           <p class="mt-2 text-sm">Ship quickly, measure, iterate. Document everything so you get compounding learning.</p>
         </div>
       </div>
@@ -261,20 +266,20 @@
   </section>
 
   <!-- About -->
-  <section id="about" class="py-20 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-start">
+  <section id="about" class="py-16 sm:py-20 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
       <div class="reveal">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
-        <p class="mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high‑performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
+        <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high‑performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
         <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
-        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+        <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
           <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="text-2xl font-extrabold" data-counter="450">0</div>
-            <div class="text-sm text-slate-500">+ Campaigns shipped</div>
+            <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
           </div>
           <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="text-2xl font-extrabold" data-counter="128">0</div>
-            <div class="text-sm text-slate-500">Shopify improvements</div>
+            <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
           </div>
         </div>
       </div>
@@ -282,8 +287,8 @@
         <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
           <h3 class="font-bold text-lg">Values</h3>
           <ul class="mt-3 space-y-2 text-sm text-slate-700 dark:text-slate-300">
-            <li>• <strong>Truth over theatre</strong> — clear metrics, no vanity.
-            <li>• <strong>Speed with care</strong> — ship, measure, iterate.
+            <li>• <strong>Truth over theatre</strong> — clear metrics, no vanity.</li>
+            <li>• <strong>Speed with care</strong> — ship, measure, iterate.</li>
             <li>• <strong>Ownership</strong> — I work as an embedded partner, not a vendor.</li>
           </ul>
           <h3 class="mt-6 font-bold text-lg">Focus segments</h3>
@@ -294,23 +299,23 @@
   </section>
 
   <!-- Pricing -->
-  <section id="pricing" class="py-20">
+  <section id="pricing" class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
       </div>
-      <div class="mt-6 flex items-center gap-3">
-        <span class="text-sm text-slate-500">One‑off</span>
-        <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition">
+      <div class="mt-5 sm:mt-6 flex items-center gap-3">
+        <span class="text-xs sm:text-sm text-slate-500">One‑off</span>
+        <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
           <span id="priceDot" class="inline-block h-6 w-6 translate-x-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition"></span>
         </button>
-        <span class="text-sm text-slate-900 dark:text-slate-100">Monthly</span>
+        <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
       </div>
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-sm uppercase tracking-widest text-slate-500">Starter</div>
-          <div class="mt-2 text-3xl font-extrabold"><span class="price" data-one="NZ$1,200" data-month="NZ$1,000">NZ$1,200</span></div>
+      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Starter</div>
+          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,200" data-month="NZ$1,000">NZ$1,200</span></div>
           <p class="mt-2 text-sm">Audit + quick wins for smaller stores or single products.</p>
           <ul class="mt-4 text-sm space-y-2">
             <li>• Search or Email audit</li>
@@ -319,9 +324,9 @@
           </ul>
           <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
         </div>
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
-          <div class="text-sm uppercase tracking-widest opacity-90">Growth</div>
-          <div class="mt-2 text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$2,500">NZ$3,500</span></div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+          <div class="text-[11px] sm:text-sm uppercase tracking-widest opacity-90">Growth</div>
+          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$2,500">NZ$3,500</span></div>
           <p class="mt-2 text-sm/relaxed opacity-90">Most popular: search + email + CRO sprints with clear targets.</p>
           <ul class="mt-4 text-sm space-y-2 opacity-90">
             <li>• SEO/SEM management</li>
@@ -330,9 +335,9 @@
           </ul>
           <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Enquire</a>
         </div>
-        <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-sm uppercase tracking-widest text-slate-500">Scale</div>
-          <div class="mt-2 text-3xl font-extrabold"><span class="price" data-one="NZ$6,500" data-month="NZ$4,500">NZ$6,500</span></div>
+        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Scale</div>
+          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$6,500" data-month="NZ$4,500">NZ$6,500</span></div>
           <p class="mt-2 text-sm">For teams ready to push: advanced tracking, feeds, and experimentation cadence.</p>
           <ul class="mt-4 text-sm space-y-2">
             <li>• Full search + email ownership</li>
@@ -342,15 +347,15 @@
           <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
         </div>
       </div>
-      <p class="mt-6 text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
+      <p class="mt-4 sm:mt-6 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
     </div>
   </section>
 
   <!-- FAQ (interactive accordion) -->
-  <section class="py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
+  <section class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">FAQ</h2>
-      <div class="mt-8 space-y-3" id="faq">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">FAQ</h2>
+      <div class="mt-6 sm:mt-8 space-y-3" id="faq">
         <details class="group p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-semibold">Do you offer once‑off projects?</span>
@@ -377,15 +382,15 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12">
+  <section id="contact" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12">
       <div class="reveal">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">Tell me about your goals. I’ll reply within one business day with next steps and availability.</p>
-        <div class="mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
+        <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals. I’ll reply within one business day with next steps and availability.</p>
+        <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div class="text-sm">Prefer email?</div>
-          <a href="mailto:hello@example.com" class="text-emerald-600 font-semibold">hello@example.com</a>
-          <div class="mt-3 text-xs text-slate-500">Replace this with your real inbox. Add Calendly or booking link if you use one.</div>
+          <a href="mailto:hello@example.com" class="text-emerald-600 font-semibold break-all">hello@example.com</a>
+          <div class="mt-3 text-[11px] sm:text-xs text-slate-500">Replace this with your real inbox. Add Calendly or booking link if you use one.</div>
         </div>
       </div>
       <form class="reveal space-y-4" onsubmit="event.preventDefault(); fakeSubmit();">
@@ -421,7 +426,7 @@
   <footer class="py-10 border-t border-slate-200 dark:border-slate-800">
      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
        <div class="flex items-center gap-3">
-         <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8">
+         <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
          <span class="text-sm">© <span id="year"></span> <!-- Brand Name --> Your Brand. All rights reserved.</span>
        </div>
        <div class="flex items-center gap-6 text-sm">
@@ -453,7 +458,18 @@
     // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      document.body.style.overflow = open ? 'hidden' : '';
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      document.body.style.overflow = '';
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -489,7 +505,7 @@
     let monthly = false;
     function renderPrices(){ prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; }); dot.style.transform = monthly ? 'translateX(28px)' : 'translateX(4px)'; }
     renderPrices();
-    toggle.addEventListener('click', () => { monthly = !monthly; renderPrices(); });
+    toggle.addEventListener('click', () => { monthly = !monthly; renderPrices(); toggle.setAttribute('aria-pressed', String(monthly)); });
 
     // Fake form submit
     function fakeSubmit(){ const m = document.getElementById('formMsg'); m.classList.remove('hidden'); setTimeout(()=>m.classList.add('hidden'), 3500); }
