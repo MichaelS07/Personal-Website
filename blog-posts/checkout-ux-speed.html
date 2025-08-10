@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checkout UX wins and Shopify speed tricks — NovaReach</title>
+  <title><!-- Post Title --> — NovaReach</title>
   <meta name="description" content="A NovaReach blog post." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,65 +13,45 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
 
-    /* --- Reading experience upgrades --- */
-    :root {
-      --header-offset: 88px; /* sticky header height for anchor offsets */
-    }
-    /* Limit any accidental horizontal scroll and wrap long tokens */
-    body { overflow-x: hidden; }
-    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
-    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; border-radius: .5rem; }
-    .prose pre { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    /* Reveal animation (kept) */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* --- Overflow safety for mobile --- */
+    /* 1) Force long words/URLs to wrap instead of causing horizontal scroll */
+    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; }
+    /* 2) Make images/media scale down within the column */
+    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; }
+    /* 3) Code blocks and tables can exceed width; allow horizontal scroll just for them */
+    .prose pre, .prose code, .prose table { white-space: pre-wrap; }
+    .prose pre { overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch; }
     .prose table { display: block; width: 100%; overflow-x: auto; }
     .prose table thead th, .prose table tbody td { white-space: nowrap; }
+    /* 4) As a last-resort guard (rare edge cases) */
+    body { overflow-x: hidden; }
 
-    /* Comfortable reading rhythm */
-    .prose { font-size: 1.0625rem; line-height: 1.75; }
-    .prose p { margin: 1.1rem 0; }
-    .prose li { margin: .35rem 0; }
-
-    /* Headings scale and anchor offset so in-page links don't hide under the sticky header */
-    .prose h1 { font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem); line-height: 1.2; font-weight: 800; }
-    .prose h2 { font-size: clamp(1.35rem, 1.2vw + 1rem, 2rem); line-height: 1.25; font-weight: 800; margin-top: 2.25rem; margin-bottom: .75rem; }
-    .prose h3 { font-size: clamp(1.1rem, .9vw + .9rem, 1.5rem); line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: .25rem; }
-    .prose h2, .prose h3 { scroll-margin-top: var(--header-offset); }
-
-    /* Links: clearly underlined without screaming */
-    .prose a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-    .dark .prose a { text-decoration-color: rgba(16,185,129,.7); }
-
-    /* Callouts and helpers */
+    /* Typography tweaks */
+    .prose h2 { font-size: 2rem; line-height: 1.2; font-weight: 800; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+    .prose h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.25rem; }
+    .prose h2 + p, .prose h3 + p, .prose h3 + ul { margin-top: 0.5rem; }
     .prose .section-divider { height: 2px; background: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0)); border: 0; margin: 1rem 0 1.5rem; }
     .prose .callout{ border-left:4px solid rgb(5 150 105); background:rgba(16,185,129,.06); padding:1rem; border-radius:.5rem }
     .prose code{ font-weight:600 }
+    .toc a{ color:rgb(4 120 87) }
     .kbd{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:.375rem; padding:.125rem .375rem; background:#f8fafc }
 
-    /* TOC: sticky on desktop, collapsible on mobile */
-    .toc { position: relative; }
-    @media (min-width: 1024px) {
-      .toc.sticky { position: sticky; top: calc(var(--header-offset) + 16px); max-height: calc(100vh - var(--header-offset) - 32px); overflow: auto; }
-    }
-    .toc a.active { color: rgb(16 185 129); font-weight: 600; }
-
-    /* Reading progress bar */
-    #progress { position: fixed; left: 0; top: 0; height: 3px; width: 0%; background: linear-gradient(90deg, rgb(16 185 129), rgb(34 197 94)); z-index: 60; transition: width .1s linear; }
-    @media (prefers-reduced-motion: reduce) { #progress{ transition:none; } }
-
-    /* Focus visibility for keyboard users */
-    :focus-visible { outline: 2px solid rgb(16 185 129); outline-offset: 2px; border-radius: .25rem; }
-
-    /* Mobile menu slide animation (if you later add it here) */
+    /* Mobile menu slide animation */
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
 
-  <!-- Reading progress bar -->
-  <div id="progress" aria-hidden="true"></div>
+  <!-- Backdrop overlay (mobile only) -->
+  <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
-  <!-- Header (paths assume this file is inside /blog-posts/) -->
+  <!-- Header (relative paths assume this file is inside /blog-posts/) -->
   <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <a href="../index.html#home" class="flex items-center gap-3">
@@ -86,9 +66,34 @@
         <a href="../blog.html" class="text-emerald-600 font-semibold">Blog</a>
         <a href="../index.html#contact" class="hover:text-emerald-600">Contact</a>
       </nav>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <a href="../index.html#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
+        <!-- Mobile menu button with morphing icon -->
+        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <!-- Bars -->
+          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <!-- X -->
+          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2">
+        <a href="../index.html#services" class="hover:text-emerald-600 py-2">Services</a>
+        <a href="../index.html#work" class="hover:text-emerald-600 py-2">Results</a>
+        <a href="../index.html#about" class="hover:text-emerald-600 py-2">About</a>
+        <a href="../index.html#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
+        <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
+        <a href="../index.html#contact" class="hover:text-emerald-600 py-2">Contact</a>
+      </nav>
     </div>
   </header>
 
