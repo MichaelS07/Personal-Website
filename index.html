@@ -20,14 +20,12 @@
     .tap { min-height: 44px; min-width: 44px; }
     /* Slide-down animation for mobile menu */
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    /* Optional subtle fade */
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
-  <!-- Backdrop overlay (mobile only) -->
-  <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
-
   <!-- Header -->
   <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
@@ -298,8 +296,7 @@
       <div class="mt-5 sm:mt-6 flex items-center gap-3">
         <span class="text-xs sm:text-sm text-slate-500">One‑off</span>
         <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
-          <!-- Note: removing translate-x-1 class so JS has full control -->
-          <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
+          <span id="priceDot" class="inline-block h-6 w-6 translate-x-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition"></span>
         </button>
         <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
       </div>
@@ -446,19 +443,12 @@
       updateIcon();
     });
 
-    // Mobile menu + slide & icon morph + overlay
+    // Mobile menu + slide & icon morph
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileMenuContent = document.getElementById('mobileMenuContent');
     const iconBars = document.getElementById('iconBars');
     const iconX = document.getElementById('iconX');
-    const overlay = document.getElementById('menuOverlay');
-
-    function setOverlay(open){
-      overlay.classList.toggle('opacity-0', !open);
-      overlay.classList.toggle('opacity-100', open);
-      overlay.classList.toggle('pointer-events-none', !open);
-    }
 
     function setMenu(open){
       if (open) {
@@ -471,7 +461,6 @@
         iconX.classList.remove('hidden');
         menuBtn.setAttribute('aria-expanded', 'true');
         menuBtn.setAttribute('aria-label', 'Close menu');
-        setOverlay(true);
       } else {
         // Close with animation
         mobileMenu.style.maxHeight = '0px';
@@ -481,7 +470,6 @@
         iconX.classList.add('hidden');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.setAttribute('aria-label', 'Open menu');
-        setOverlay(false);
       }
     }
 
@@ -496,8 +484,6 @@
       const open = menuBtn.getAttribute('aria-expanded') === 'true';
       setMenu(!open);
     });
-
-    overlay.addEventListener('click', () => setMenu(false));
 
     // Close on nav click
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
@@ -529,39 +515,14 @@
     }, { threshold: 0.6 });
     counters.forEach(c => io2.observe(c));
 
-    // Pricing toggle - precise knob travel based on actual sizes
+    // Pricing toggle
     const toggle = document.getElementById('priceToggle');
     const dot = document.getElementById('priceDot');
     const prices = document.querySelectorAll('.price');
     let monthly = false;
-
-    function knobPositions(){
-      // Compute travel distance so the dot lands flush with the right inner edge
-      const trackW = toggle.clientWidth; // e.g. 64px for w-16
-      const knobW = dot.clientWidth;     // e.g. 24px for h-6 w-6
-      const margin = 4;                  // visual padding we want on both sides
-      const start = margin;              // left resting position
-      const end = Math.max(margin, trackW - knobW - margin); // right resting position
-      return { start, end };
-    }
-
-    function renderPrices(){
-      prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
-      const { start, end } = knobPositions();
-      dot.style.transform = `translateX(${monthly ? end : start}px)`;
-    }
-
+    function renderPrices(){ prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; }); dot.style.transform = monthly ? 'translateX(28px)' : 'translateX(4px)'; }
     renderPrices();
-
-    toggle.addEventListener('click', () => {
-      monthly = !monthly;
-      renderPrices();
-      toggle.setAttribute('aria-pressed', String(monthly));
-    });
-
-    // Recalculate on resize/rotation or when fonts load
-    window.addEventListener('resize', renderPrices);
-    document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
+    toggle.addEventListener('click', () => { monthly = !monthly; renderPrices(); toggle.setAttribute('aria-pressed', String(monthly)); });
 
     // Fake form submit
     function fakeSubmit(){ const m = document.getElementById('formMsg'); m.classList.remove('hidden'); setTimeout(()=>m.classList.add('hidden'), 3500); }
@@ -570,5 +531,4 @@
 </body>
 </html>
 
-</html>
 
