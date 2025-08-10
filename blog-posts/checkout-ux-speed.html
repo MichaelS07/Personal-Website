@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><!-- Post Title --> — NovaReach</title>
+  <title>Checkout UX wins and Shopify speed tricks — NovaReach</title>
   <meta name="description" content="A NovaReach blog post." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,45 +13,65 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
 
-    /* Reveal animation (kept) */
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* --- Overflow safety for mobile --- */
-    /* 1) Force long words/URLs to wrap instead of causing horizontal scroll */
-    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; }
-    /* 2) Make images/media scale down within the column */
-    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; }
-    /* 3) Code blocks and tables can exceed width; allow horizontal scroll just for them */
-    .prose pre, .prose code, .prose table { white-space: pre-wrap; }
-    .prose pre { overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch; }
+    /* --- Reading experience upgrades --- */
+    :root {
+      --header-offset: 88px; /* sticky header height for anchor offsets */
+    }
+    /* Limit any accidental horizontal scroll and wrap long tokens */
+    body { overflow-x: hidden; }
+    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
+    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; border-radius: .5rem; }
+    .prose pre { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .prose table { display: block; width: 100%; overflow-x: auto; }
     .prose table thead th, .prose table tbody td { white-space: nowrap; }
-    /* 4) As a last-resort guard (rare edge cases) */
-    body { overflow-x: hidden; }
 
-    /* Typography tweaks */
-    .prose h2 { font-size: 2rem; line-height: 1.2; font-weight: 800; margin-top: 2.25rem; margin-bottom: 0.75rem; }
-    .prose h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.25rem; }
-    .prose h2 + p, .prose h3 + p, .prose h3 + ul { margin-top: 0.5rem; }
+    /* Comfortable reading rhythm */
+    .prose { font-size: 1.0625rem; line-height: 1.75; }
+    .prose p { margin: 1.1rem 0; }
+    .prose li { margin: .35rem 0; }
+
+    /* Headings scale and anchor offset so in-page links don't hide under the sticky header */
+    .prose h1 { font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem); line-height: 1.2; font-weight: 800; }
+    .prose h2 { font-size: clamp(1.35rem, 1.2vw + 1rem, 2rem); line-height: 1.25; font-weight: 800; margin-top: 2.25rem; margin-bottom: .75rem; }
+    .prose h3 { font-size: clamp(1.1rem, .9vw + .9rem, 1.5rem); line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: .25rem; }
+    .prose h2, .prose h3 { scroll-margin-top: var(--header-offset); }
+
+    /* Links: clearly underlined without screaming */
+    .prose a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+    .dark .prose a { text-decoration-color: rgba(16,185,129,.7); }
+
+    /* Callouts and helpers */
     .prose .section-divider { height: 2px; background: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0)); border: 0; margin: 1rem 0 1.5rem; }
     .prose .callout{ border-left:4px solid rgb(5 150 105); background:rgba(16,185,129,.06); padding:1rem; border-radius:.5rem }
     .prose code{ font-weight:600 }
-    .toc a{ color:rgb(4 120 87) }
     .kbd{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:.375rem; padding:.125rem .375rem; background:#f8fafc }
 
-    /* Mobile menu slide animation */
+    /* TOC: sticky on desktop, collapsible on mobile */
+    .toc { position: relative; }
+    @media (min-width: 1024px) {
+      .toc.sticky { position: sticky; top: calc(var(--header-offset) + 16px); max-height: calc(100vh - var(--header-offset) - 32px); overflow: auto; }
+    }
+    .toc a.active { color: rgb(16 185 129); font-weight: 600; }
+
+    /* Reading progress bar */
+    #progress { position: fixed; left: 0; top: 0; height: 3px; width: 0%; background: linear-gradient(90deg, rgb(16 185 129), rgb(34 197 94)); z-index: 60; transition: width .1s linear; }
+    @media (prefers-reduced-motion: reduce) { #progress{ transition:none; } }
+
+    /* Focus visibility for keyboard users */
+    :focus-visible { outline: 2px solid rgb(16 185 129); outline-offset: 2px; border-radius: .25rem; }
+
+    /* Mobile menu slide animation (if you later add it here) */
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 
-  <!-- Backdrop overlay (mobile only) -->
-  <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
+  <!-- Reading progress bar -->
+  <div id="progress" aria-hidden="true"></div>
 
-  <!-- Header (relative paths assume this file is inside /blog-posts/) -->
+  <!-- Header (paths assume this file is inside /blog-posts/) -->
   <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <a href="../index.html#home" class="flex items-center gap-3">
@@ -66,71 +86,52 @@
         <a href="../blog.html" class="text-emerald-600 font-semibold">Blog</a>
         <a href="../index.html#contact" class="hover:text-emerald-600">Contact</a>
       </nav>
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-3">
         <a href="../index.html#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
-        <!-- Mobile menu button with morphing icon -->
-        <button id="menuBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <!-- Bars -->
-          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-          <!-- X -->
-          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
       </div>
-    </div>
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2">
-        <a href="../index.html#services" class="hover:text-emerald-600 py-2">Services</a>
-        <a href="../index.html#work" class="hover:text-emerald-600 py-2">Results</a>
-        <a href="../index.html#about" class="hover:text-emerald-600 py-2">About</a>
-        <a href="../index.html#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
-        <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
-        <a href="../index.html#contact" class="hover:text-emerald-600 py-2">Contact</a>
-      </nav>
     </div>
   </header>
 
-
   <!-- Article -->
-  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <a href="../blog.html" class="text-sm text-emerald-700 hover:underline">← Back to Blog</a>
-    <article class="mt-4">
+
+    <article class="mt-4" id="article">
       <header>
-        <div class="text-xs uppercase tracking-widest text-slate-500">Aug 10, 2025 • E‑commerce, Shopify</div>
-        <h1 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">E‑Com Weekly: Checkout UX wins and Shopify speed tricks</h1>
+        <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+          <span>Aug 10, 2025</span>
+          <span aria-hidden="true">•</span>
+          <span>E‑commerce, Shopify</span>
+          <span aria-hidden="true">•</span>
+          <span id="readtime" class="text-slate-600">—</span>
+        </div>
+        <h1 class="mt-2 font-extrabold tracking-tight prose h1">E‑Com Weekly: Checkout UX wins and Shopify speed tricks</h1>
         <p class="mt-3 text-slate-600 dark:text-slate-300">Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don’t wreck UX.</p>
       </header>
 
       <hr class="my-6 border-slate-200 dark:border-slate-800">
 
-     <!-- TOC -->
-      <nav aria-label="Table of contents" class="toc text-sm bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4">
-        <div class="font-semibold uppercase tracking-wider text-slate-500 mb-2">On this page</div>
-        <ol class="list-decimal list-inside space-y-1">
-          <li><a href="#intro">Why these changes work</a></li>
-          <li><a href="#checkout-ux">What moved the needle (Checkout UX)</a></li>
-          <li><a href="#shopify-speed">Quick Shopify speed wins</a></li>
-          <li><a href="#next-steps">Next steps for compounding gains</a></li>
-          <li><a href="#checklist">Implementation checklist</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ol>
-      </nav>
+      <!-- TOC: collapsible on mobile, sticky on desktop -->
+      <details class="lg:hidden toc bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4">
+        <summary class="list-none cursor-pointer font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center justify-between">
+          <span>On this page</span>
+          <span class="text-slate-400">⌄</span>
+        </summary>
+        <ol class="list-decimal list-inside space-y-1" id="toc-mobile"></ol>
+      </details>
 
-      <section class="prose prose-slate max-w-none dark:prose-invert mt-8" id="intro">
+      <aside class="toc sticky hidden lg:block bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4 mb-8" id="toc-desktop">
+        <div class="font-semibold uppercase tracking-wider text-slate-500 mb-2">On this page</div>
+        <ol class="list-decimal list-inside space-y-1" id="toc"></ol>
+      </aside>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert" id="intro">
         <p class="callout"><strong>The punchline:</strong> Move friction out of the way at the exact moment it appears (errors, hesitation, mobile input pain), and load only what’s needed when it’s needed. That’s how you ship real conversion lift without a redesign.</p>
       </section>
 
       <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="checkout-ux">
         <h2>What moved the needle (Checkout UX)</h2>
         <hr class="section-divider" />
-
         <h3>Error states that actually help</h3>
         <ul>
           <li><strong>Inline &amp; adjacent:</strong> Place the error <em>next to</em> the field, not at the top of the form.</li>
@@ -157,7 +158,6 @@
       <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="shopify-speed">
         <h2>Quick Shopify speed wins (that don’t break UX)</h2>
         <hr class="section-divider" />
-
         <h3>Serve images in modern formats</h3>
         <ul>
           <li><strong>AVIF primary, WebP fallback:</strong> Use a <code>&lt;picture&gt;</code> element to serve AVIF first, then WebP, then PNG/JPEG.</li>
@@ -169,7 +169,6 @@
   &lt;img src="/images/hero.jpg" alt="New collection" loading="eager" width="1600" height="900"&gt;
 &lt;/picture&gt;
 </code></pre>
-
         <h3>Lazy-load below-the-fold &amp; defer non-critical scripts</h3>
         <ul>
           <li><strong>Native lazy-loading:</strong> Add <code>loading="lazy"</code> to below-the-fold images.</li>
@@ -216,15 +215,12 @@
         <hr class="section-divider" />
         <h3>Will AVIF hurt visual quality?</h3>
         <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback in the <code>&lt;picture&gt;</code> element just in case.</p>
-
         <h3>Do badges actually increase conversions?</h3>
         <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces hesitancy at the decision point.</p>
-
         <h3>What if apps re-inject scripts?</h3>
         <p>Lock a monthly audit: compare current theme assets/snippets to baseline; remove additions that add blocking time or duplicate tracking.</p>
       </section>
 
-      <!-- Optional related links (update hrefs to real internal URLs) -->
       <aside class="mt-8 bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-5">
         <h3 class="font-semibold mb-3">Related reading</h3>
         <ul class="list-disc list-inside">
@@ -252,59 +248,69 @@
   </footer>
 
   <script>
-    // Year
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile menu + slide & icon morph + overlay
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuContent = document.getElementById('mobileMenuContent');
-    const iconBars = document.getElementById('iconBars');
-    const iconX = document.getElementById('iconX');
-    const overlay = document.getElementById('menuOverlay');
+    // Read time estimate (~220 wpm)
+    (function(){
+      const el = document.getElementById('article');
+      if(!el) return;
+      const words = (el.innerText || '').trim().split(/\s+/).length;
+      const mins = Math.max(1, Math.round(words / 220));
+      const rt = document.getElementById('readtime');
+      if (rt) rt.textContent = mins + ' min read';
+    })();
 
-    function setOverlay(open){
-      overlay.classList.toggle('opacity-0', !open);
-      overlay.classList.toggle('opacity-100', open);
-      overlay.classList.toggle('pointer-events-none', !open);
-    }
+    // Build TOC from h2/h3
+    (function(){
+      const headings = Array.from(document.querySelectorAll('#article h2, #article h3'));
+      const toc = document.getElementById('toc');
+      const tocMobile = document.getElementById('toc-mobile');
+      if(!headings.length || !toc || !tocMobile) return;
+      const makeId = (s)=> s.toLowerCase().replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
+      headings.forEach(h => {
+        if(!h.id) h.id = makeId(h.textContent);
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + h.id; a.textContent = h.textContent; a.className = 'hover:text-emerald-600';
+        li.appendChild(a);
+        (h.tagName === 'H2' ? toc : toc).appendChild(li.cloneNode(true)); // desktop
+        tocMobile.appendChild(li); // mobile
+      });
 
-    function setMenu(open){
-      if (open) {
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('open');
-        mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
-        document.body.style.overflow = 'hidden';
-        iconBars.classList.add('hidden');
-        iconX.classList.remove('hidden');
-        menuBtn.setAttribute('aria-expanded', 'true');
-        menuBtn.setAttribute('aria-label', 'Close menu');
-        setOverlay(true);
-      } else {
-        mobileMenu.style.maxHeight = '0px';
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
-        iconBars.classList.remove('hidden');
-        iconX.classList.add('hidden');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        menuBtn.setAttribute('aria-label', 'Open menu');
-        setOverlay(false);
-      }
-    }
+      // Active section highlighting
+      const links = Array.from(document.querySelectorAll('.toc a'));
+      const map = new Map();
+      links.forEach(l => { const id = l.getAttribute('href').slice(1); map.set(id, l); });
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            const id = e.target.id;
+            links.forEach(x=>x.classList.remove('active'));
+            const link = map.get(id); if(link) link.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+      document.querySelectorAll('#article h2').forEach(h=>io.observe(h));
+    })();
 
-    mobileMenu.addEventListener('transitionend', (e) => {
-      if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
-        mobileMenu.classList.add('hidden');
-      }
-    });
-
-    menuBtn.addEventListener('click', () => {
-      const open = menuBtn.getAttribute('aria-expanded') === 'true';
-      setMenu(!open);
-    });
-
-    overlay.addEventListener('click', () => setMenu(false));
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    // Reading progress bar
+    (function(){
+      const bar = document.getElementById('progress');
+      const article = document.getElementById('article');
+      if(!bar || !article) return;
+      const onScroll = () => {
+        const rect = article.getBoundingClientRect();
+        const winH = window.innerHeight || 1;
+        const total = Math.max(1, article.offsetHeight - winH);
+        const passed = Math.min(total, Math.max(0, -rect.top));
+        const p = Math.max(0, Math.min(1, passed / total));
+        bar.style.width = (p * 100).toFixed(2) + '%';
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    })();
   </script>
 </body>
 </html>
