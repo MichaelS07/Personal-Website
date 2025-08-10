@@ -13,24 +13,26 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
 
+    /* ⭐ Anti-Layout-Shift Patch */
+    html { scrollbar-gutter: stable both-edges; }
+    @supports not (scrollbar-gutter: stable) { body { overflow-y: scroll; } }
+    body { overflow-x: hidden; }
+
     /* Reveal animation (kept) */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* --- Overflow safety for mobile --- */
-    /* 1) Force long words/URLs to wrap instead of causing horizontal scroll */
-    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; }
-    /* 2) Make images/media scale down within the column */
-    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; }
-    /* 3) Code blocks and tables can exceed width; allow horizontal scroll just for them */
+    /* --- Overflow safety + reading comfort --- */
+    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
+    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; display: block; border-radius: .5rem; }
     .prose pre, .prose code, .prose table { white-space: pre-wrap; }
     .prose pre { overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch; }
     .prose table { display: block; width: 100%; overflow-x: auto; }
     .prose table thead th, .prose table tbody td { white-space: nowrap; }
-    /* 4) As a last-resort guard (rare edge cases) */
-    body { overflow-x: hidden; }
 
     /* Typography tweaks */
+    :root { --header-offset: 88px; }
+    .prose h2, .prose h3 { scroll-margin-top: var(--header-offset); }
     .prose h2 { font-size: 2rem; line-height: 1.2; font-weight: 800; margin-top: 2.25rem; margin-bottom: 0.75rem; }
     .prose h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.25rem; }
     .prose h2 + p, .prose h3 + p, .prose h3 + ul { margin-top: 0.5rem; }
@@ -44,9 +46,16 @@
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
+
+    /* Reading progress bar */
+    #progress { position: fixed; left: 0; top: 0; height: 3px; width: 0; background: linear-gradient(90deg, rgb(16 185 129), rgb(34 197 94)); z-index: 60; pointer-events: none; transition: width .1s linear; }
+    @media (prefers-reduced-motion: reduce) { #progress { transition: none; } }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+
+  <!-- Reading progress bar -->
+  <div id="progress" aria-hidden="true"></div>
 
   <!-- Backdrop overlay (mobile only) -->
   <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
@@ -96,6 +105,7 @@
       </nav>
     </div>
   </header>
+
 
   <!-- Article -->
   <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -253,7 +263,7 @@
   </footer>
 
   <script>
-    // Footer year
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Read time estimate (~220 wpm)
@@ -264,39 +274,6 @@
       const mins = Math.max(1, Math.round(words / 220));
       const rt = document.getElementById('readtime');
       if (rt) rt.textContent = mins + ' min read';
-    })();
-
-    // Build TOC from h2/h3
-    (function(){
-      const headings = Array.from(document.querySelectorAll('#article h2, #article h3'));
-      const toc = document.getElementById('toc');
-      const tocMobile = document.getElementById('toc-mobile');
-      if(!headings.length || !toc || !tocMobile) return;
-      const makeId = (s)=> s.toLowerCase().replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
-      headings.forEach(h => {
-        if(!h.id) h.id = makeId(h.textContent);
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = '#' + h.id; a.textContent = h.textContent; a.className = 'hover:text-emerald-600';
-        li.appendChild(a);
-        (h.tagName === 'H2' ? toc : toc).appendChild(li.cloneNode(true)); // desktop
-        tocMobile.appendChild(li); // mobile
-      });
-
-      // Active section highlighting
-      const links = Array.from(document.querySelectorAll('.toc a'));
-      const map = new Map();
-      links.forEach(l => { const id = l.getAttribute('href').slice(1); map.set(id, l); });
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            const id = e.target.id;
-            links.forEach(x=>x.classList.remove('active'));
-            const link = map.get(id); if(link) link.classList.add('active');
-          }
-        });
-      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
-      document.querySelectorAll('#article h2').forEach(h=>io.observe(h));
     })();
 
     // Reading progress bar
@@ -316,6 +293,57 @@
       window.addEventListener('resize', onScroll);
       onScroll();
     })();
+
+    // Mobile menu + slide & icon morph + overlay
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuContent = document.getElementById('mobileMenuContent');
+    const iconBars = document.getElementById('iconBars');
+    const iconX = document.getElementById('iconX');
+    const overlay = document.getElementById('menuOverlay');
+
+    function setOverlay(open){
+      overlay.classList.toggle('opacity-0', !open);
+      overlay.classList.toggle('opacity-100', open);
+      overlay.classList.toggle('pointer-events-none', !open);
+    }
+
+    function setMenu(open){
+      if (open) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('open');
+        mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
+        document.body.style.overflow = 'hidden';
+        iconBars.classList.add('hidden');
+        iconX.classList.remove('hidden');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Close menu');
+        setOverlay(true);
+      } else {
+        mobileMenu.style.maxHeight = '0px';
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        iconBars.classList.remove('hidden');
+        iconX.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
+        setOverlay(false);
+      }
+    }
+
+    mobileMenu.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
+    menuBtn.addEventListener('click', () => {
+      const open = menuBtn.getAttribute('aria-expanded') === 'true';
+      setMenu(!open);
+    });
+
+    overlay.addEventListener('click', () => setMenu(false));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   </script>
 </body>
 </html>
