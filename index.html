@@ -17,31 +17,13 @@
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
-    /* Make tap targets comfy on mobile */
     .tap { min-height: 44px; min-width: 44px; }
+    /* Slide-down animation for mobile menu */
+    #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    /* Optional subtle fade */
+    #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
+    #mobileMenu.open #mobileMenuContent { opacity: 1; }
   </style>
-  <!-- Open Graph -->
-  <meta property="og:title" content="Digital Marketing Consulting" />
-  <meta property="og:description" content="SEO/SEM, CRO, Shopify, Customer Journey, Email Marketing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="/" />
-  <meta property="og:image" content="/og-image.png" />
-  <!-- JSON-LD Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "",
-    "url": "",
-    "image": "/og-image.png",
-    "description": "Digital marketing consultancy specialising in SEO/SEM, CRO, Shopify, Customer Journey, and Email Marketing.",
-    "areaServed": "New Zealand, Australia",
-    "sameAs": [],
-    "founder": {"@type": "Person", "name": "Michael"},
-    "knowsAbout": ["SEO", "SEM", "CRO", "Shopify", "Email Marketing", "Customer Journey"],
-    "serviceOffer": ["SEO/SEM services", "Conversion Rate Optimisation", "Shopify Website Management", "Customer Journey Optimisations", "Email Marketing"]
-  }
-  </script>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Header -->
@@ -64,19 +46,25 @@
           <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/></svg>
         </button>
         <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
-        <!-- Mobile menu button (fixed: use stroke instead of fill) -->
+        <!-- Mobile menu button with morphing icon -->
         <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Bars -->
+          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
             <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <!-- X -->
+          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
     </div>
     <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800">
-      <nav class="px-4 py-3 flex flex-col gap-2 bg-white dark:bg-slate-900">
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2">
         <a href="#services" class="hover:text-emerald-600 py-2">Services</a>
         <a href="#work" class="hover:text-emerald-600 py-2">Results</a>
         <a href="#about" class="hover:text-emerald-600 py-2">About</a>
@@ -351,7 +339,7 @@
     </div>
   </section>
 
-  <!-- FAQ (interactive accordion) -->
+  <!-- FAQ -->
   <section class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">FAQ</h2>
@@ -455,21 +443,50 @@
       updateIcon();
     });
 
-    // Mobile menu
+    // Mobile menu + slide & icon morph
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('hidden') === false;
-      document.body.style.overflow = open ? 'hidden' : '';
-      menuBtn.setAttribute('aria-expanded', String(open));
+    const mobileMenuContent = document.getElementById('mobileMenuContent');
+    const iconBars = document.getElementById('iconBars');
+    const iconX = document.getElementById('iconX');
+
+    function setMenu(open){
+      if (open) {
+        // Prepare and open
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('open');
+        mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
+        document.body.style.overflow = 'hidden';
+        iconBars.classList.add('hidden');
+        iconX.classList.remove('hidden');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Close menu');
+      } else {
+        // Close with animation
+        mobileMenu.style.maxHeight = '0px';
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        iconBars.classList.remove('hidden');
+        iconX.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
+      }
+    }
+
+    // After transition to closed, actually hide to remove from flow
+    mobileMenu.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
+        mobileMenu.classList.add('hidden');
+      }
     });
 
-    // Close mobile menu on link click
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      document.body.style.overflow = '';
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }));
+    menuBtn.addEventListener('click', () => {
+      const open = menuBtn.getAttribute('aria-expanded') === 'true';
+      setMenu(!open);
+    });
+
+    // Close on nav click
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -513,3 +530,4 @@
   </script>
 </body>
 </html>
+
