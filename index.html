@@ -297,7 +297,9 @@
       <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
       <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
     </div>
-    <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-8">
+
+    <!-- Toggle Row -->
+    <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
       <span class="text-xs sm:text-sm text-slate-500">One-off</span>
       <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
         <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
@@ -305,57 +307,59 @@
       <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
     </div>
 
+    <!-- Cards -->
     <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
+
       <!-- Starter -->
-      <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 aspect-square flex flex-col justify-between">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col md:justify-between text-left">
         <div>
-          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Starter</div>
+          <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
-          <p class="mt-2 text-sm">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins you can implement right away. Ideal for smaller stores or new products that need a quick boost.</p>
-          <p class="mt-4 text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1 text-left">
+          <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
+          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
             <li>A comprehensive audit of your Search or Email performance</li>
             <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
             <li>Our team's support to implement fixes for two weeks</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
       </div>
 
       <!-- Growth -->
-      <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white aspect-square flex flex-col justify-between">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col md:justify-between text-left">
         <div>
-          <div class="text-[11px] sm:text-sm uppercase tracking-widest opacity-90">Growth</div>
+          <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
-          <p class="mt-2 text-sm/relaxed opacity-90">Our most popular tier, designed for sustained growth and clear results. This package manages your search and email channels, running ongoing CRO sprints with a focus on hitting your targets. We'll work closely with you to build a powerful digital presence.</p>
-          <p class="mt-4 text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-sm list-disc list-inside space-y-1 text-left opacity-90">
+          <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
+          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+          <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
             <li>Ongoing SEO/SEM management</li>
             <li>Full build-out of your lifecycle email flows</li>
             <li>Continuous CRO experiments to boost conversions</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start">Enquire</a>
       </div>
 
       <!-- Scale -->
-      <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 aspect-square flex flex-col justify-between">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col md:justify-between text-left">
         <div>
-          <div class="text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Scale</div>
+          <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
-          <p class="mt-2 text-sm">For established businesses ready to accelerate and dominate their market. We take full ownership of your search and email channels, providing advanced tracking, custom reporting, and a dedicated growth cadence to keep you ahead of the curve.</p>
-          <p class="mt-4 text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1 text-left">
+          <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
+          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
             <li>Complete ownership of your search and email strategies</li>
             <li>Weekly growth standups to align on priorities and results</li>
             <li>Custom performance dashboards for complete clarity</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
       </div>
     </div>
 
-    <p class="mt-4 sm:mt-6 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
+    <p class="mt-6 sm:mt-8 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
   </div>
 </section>
 
