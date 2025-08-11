@@ -228,28 +228,155 @@
   </section>
 
   <!-- Process -->
-  <section class="py-16 sm:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">How we’ll work</h2>
-        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Lean, clear, fast. You’ll always know what’s happening and why.</p>
-      </div>
-      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
-        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-base sm:text-lg font-bold">1. Diagnose</div>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Audit data, find bottlenecks, set targets. If it won’t move the needle, it’s not in scope.</p>
-        </div>
-        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-base sm:text-lg font-bold">2. Design</div>
-          <p class="mt-2 text-sm">Hypotheses, experiments, and a sequenced roadmap prioritised by impact × effort.</p>
-        </div>
-        <div class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-base sm:text-lg font-bold">3. Deliver</div>
-          <p class="mt-2 text-sm">Ship quickly, measure, iterate. Document everything so you get compounding learning.</p>
-        </div>
-      </div>
+<section class="py-16 sm:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">How we’ll work</h2>
+      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">
+        Lean, clear, fast. You’ll always know what’s happening and why.
+      </p>
     </div>
-  </section>
+
+    <div id="process-grid" class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+      <!-- Card -->
+      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <button type="button" class="w-full text-left group" aria-expanded="false">
+          <img src="/images/process-diagnose.jpg" alt="Diagnose: analytics and audit" loading="lazy"
+               class="h-40 w-full object-cover">
+          <div class="p-5 sm:p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base sm:text-lg font-bold">1. Diagnose</h3>
+              <svg class="size-5 transition-transform duration-300 group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+              Audit data, find bottlenecks, set targets. If it won’t move the needle, it’s not in scope.
+            </p>
+          </div>
+        </button>
+        <div class="process-panel grid grid-cols-1 gap-4 px-5 pb-5 sm:px-6 sm:pb-6 max-h-0 overflow-hidden opacity-0 transition-all duration-300">
+          <ul class="text-sm list-disc pl-5 text-slate-600 dark:text-slate-300">
+            <li>GA4/Shopify funnel analysis</li>
+            <li>Speed & UX diagnostics</li>
+            <li>Channel + CAC/LTV review</li>
+          </ul>
+          <img src="/images/process-diagnose-2.jpg" alt="Bottleneck mapping" loading="lazy"
+               class="w-full h-36 object-cover rounded-xl">
+        </div>
+      </article>
+
+      <!-- Card -->
+      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <button type="button" class="w-full text-left group" aria-expanded="false">
+          <img src="/images/process-design.jpg" alt="Design: experiments and roadmap" loading="lazy"
+               class="h-40 w-full object-cover">
+          <div class="p-5 sm:p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base sm:text-lg font-bold">2. Design</h3>
+              <svg class="size-5 transition-transform duration-300 group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+              Hypotheses, experiments, and a sequenced roadmap prioritised by impact × effort.
+            </p>
+          </div>
+        </button>
+        <div class="process-panel grid grid-cols-1 gap-4 px-5 pb-5 sm:px-6 sm:pb-6 max-h-0 overflow-hidden opacity-0 transition-all duration-300">
+          <ul class="text-sm list-disc pl-5 text-slate-600 dark:text-slate-300">
+            <li>Test matrix (A/B, MVT, CRO)</li>
+            <li>Sequenced backlog w/ ICE scoring</li>
+            <li>Resource/brief templates</li>
+          </ul>
+          <img src="/images/process-design-2.jpg" alt="Roadmap board" loading="lazy"
+               class="w-full h-36 object-cover rounded-xl">
+        </div>
+      </article>
+
+      <!-- Card -->
+      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <button type="button" class="w-full text-left group" aria-expanded="false">
+          <img src="/images/process-deliver.jpg" alt="Deliver: shipping and iteration" loading="lazy"
+               class="h-40 w-full object-cover">
+          <div class="p-5 sm:p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base sm:text-lg font-bold">3. Deliver</h3>
+              <svg class="size-5 transition-transform duration-300 group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+              Ship quickly, measure, iterate. Document everything so you get compounding learning.
+            </p>
+          </div>
+        </button>
+        <div class="process-panel grid grid-cols-1 gap-4 px-5 pb-5 sm:px-6 sm:pb-6 max-h-0 overflow-hidden opacity-0 transition-all duration-300">
+          <ul class="text-sm list-disc pl-5 text-slate-600 dark:text-slate-300">
+            <li>Rapid releases & rollback plan</li>
+            <li>Weekly KPI reviews</li>
+            <li>Playbooks + handover docs</li>
+          </ul>
+          <img src="/images/process-deliver-2.jpg" alt="Iteration dashboard" loading="lazy"
+               class="w-full h-36 object-cover rounded-xl">
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    // Accessible accordion-like pop-out for cards
+    (function () {
+      const cards = document.querySelectorAll('.process-card');
+      cards.forEach((card) => {
+        const btn = card.querySelector('button');
+        const panel = card.querySelector('.process-panel');
+
+        // Toggle handler
+        const toggle = () => {
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+          // Close all others
+          cards.forEach((c) => {
+            const b = c.querySelector('button');
+            const p = c.querySelector('.process-panel');
+            b.setAttribute('aria-expanded', 'false');
+            p.style.maxHeight = 0;
+            p.style.opacity = 0;
+          });
+          // Open this one if it was closed
+          if (!isOpen) {
+            btn.setAttribute('aria-expanded', 'true');
+            // let the browser compute content height for smooth transition
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.style.opacity = 1;
+          }
+        };
+
+        // Init collapsed
+        btn.setAttribute('aria-expanded', 'false');
+        panel.style.maxHeight = 0;
+        panel.style.opacity = 0;
+
+        // Click + keyboard
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+
+        // Handle resize so the open panel keeps correct height
+        window.addEventListener('resize', () => {
+          if (btn.getAttribute('aria-expanded') === 'true') {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      });
+    })();
+  </script>
+</section>
+
 
   <!-- About -->
   <section id="about" class="py-16 sm:py-20 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
