@@ -252,9 +252,10 @@
     transition: height .35s ease;
     min-height: 120px; /* fallback so it never collapses if JS hasn't run yet */
   }
-  /* The inner element actually rotates */
+  /* The inner element actually rotates and MUST fill the container */
   .flip-card-inner {
     position: relative;
+    height: 100%;             /* ✅ critical fix so faces have space */
     transform-style: preserve-3d;
     transition: transform .6s ease;
   }
@@ -286,7 +287,7 @@
     const cards = Array.from(document.querySelectorAll('#services .flip-card'));
 
     function faceHeight(face) {
-      // scrollHeight is reliable for absolutely-positioned + transformed nodes
+      // Use scrollHeight so we get the real content height even when absolute
       return face.scrollHeight;
     }
 
@@ -319,7 +320,6 @@
 
       // Click/tap
       card.addEventListener('click', (e) => {
-        // ignore if selecting text
         if (window.getSelection && window.getSelection().toString().length) return;
         openThisAndCloseOthers();
       });
@@ -339,12 +339,13 @@
       };
       window.addEventListener('resize', recalc);
 
-      // Optional: recalc after images load (icons usually small, but safe)
+      // Recalc after images load (in case icon sizes shift)
       const imgs = card.querySelectorAll('img');
       imgs.forEach(img => {
-        if (img.complete) return;
-        img.addEventListener('load', recalc);
-        img.addEventListener('error', recalc);
+        if (!img.complete) {
+          img.addEventListener('load', recalc);
+          img.addEventListener('error', recalc);
+        }
       });
     }
 
@@ -352,7 +353,6 @@
   });
 })();
 </script>
-
 
 
   <!-- Results / Work -->
