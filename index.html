@@ -137,7 +137,7 @@
   </section>
 
 <!-- Services -->
-<section class="py-16 bg-white dark:bg-slate-900">
+<section id="services" class="py-16 bg-white dark:bg-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
@@ -168,7 +168,7 @@
         </div>
       </div>
 
-      <!-- CRO -->
+      <!-- Conversion Rate Optimisation -->
       <div class="flip-card" role="button" tabindex="0" aria-expanded="false" aria-label="Conversion Rate Optimisation. Tap to flip.">
         <div class="flip-card-inner">
           <div class="flip-face front bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
@@ -241,103 +241,118 @@
   </div>
 </section>
 
-<!-- Flip CSS -->
+<!-- Flip styles -->
 <style>
+  /* Container holds perspective and animates height so layout reflows cleanly */
   .flip-card {
     position: relative;
-    /* height will be set via JS so the card can expand/collapse smoothly */
-    transition: height .35s ease;
     cursor: pointer;
     outline: none;
+    perspective: 1000px;
+    transition: height .35s ease;
+    min-height: 120px; /* fallback so it never collapses if JS hasn't run yet */
   }
+  /* The inner element actually rotates */
   .flip-card-inner {
     position: relative;
     transform-style: preserve-3d;
     transition: transform .6s ease;
-    /* perspective on parent for stronger 3D */
-    perspective: 1000px;
   }
-  .flip-card.flipped .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  .flip-face {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  .flip-face.back {
-    transform: rotateY(180deg);
-  }
+  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
 
-  /* Reduced motion: disable 3D, just show back when expanded */
+  /* Two faces */
+  .flip-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  }
+  .flip-face.back { transform: rotateY(180deg); }
+
+  /* Reduced motion: turn off spin */
   @media (prefers-reduced-motion: reduce) {
     .flip-card-inner { transition: none !important; transform: none !important; }
     .flip-card.flipped .flip-card-inner { transform: none !important; }
   }
 </style>
 
-<!-- Flip JS: height auto-resize + click/keyboard -->
+<!-- Flip logic (safe to live anywhere; runs after DOM is ready) -->
 <script>
-  (function () {
-    const cards = document.querySelectorAll('.flip-card');
+(function () {
+  function onReady(fn){ 
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
+  }
 
-    function measureFace(face) {
-      // Temporarily make sure it's measurable
-      // (faces are absolutely positioned but still have offsetHeight)
-      return face.offsetHeight;
+  onReady(function () {
+    const cards = Array.from(document.querySelectorAll('#services .flip-card'));
+
+    function faceHeight(face) {
+      // scrollHeight is reliable for absolutely-positioned + transformed nodes
+      return face.scrollHeight;
     }
 
-    function setCardHeight(card, toFace) {
+    function setCardHeight(card, show) {
       const front = card.querySelector('.flip-face.front');
       const back  = card.querySelector('.flip-face.back');
-      const targetFace = toFace === 'back' ? back : front;
-      const h = measureFace(targetFace);
+      const target = (show === 'back') ? back : front;
+      const h = faceHeight(target);
       card.style.height = h + 'px';
     }
 
     function initCard(card) {
-      // On load, size to front
+      // Size to front on init
       setCardHeight(card, 'front');
 
-      const toggle = () => {
-        const isFlipped = card.classList.toggle('flipped');
-        card.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
-        setCardHeight(card, isFlipped ? 'back' : 'front');
-      };
+      function openThisAndCloseOthers() {
+        // Close others first
+        cards.forEach(c => {
+          if (c !== card && c.classList.contains('flipped')) {
+            c.classList.remove('flipped');
+            c.setAttribute('aria-expanded', 'false');
+            setCardHeight(c, 'front');
+          }
+        });
+        // Toggle current
+        const flipped = card.classList.toggle('flipped');
+        card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+        setCardHeight(card, flipped ? 'back' : 'front');
+      }
 
       // Click/tap
       card.addEventListener('click', (e) => {
-        // Ignore text selection clicks
+        // ignore if selecting text
         if (window.getSelection && window.getSelection().toString().length) return;
-        toggle();
+        openThisAndCloseOthers();
       });
 
       // Keyboard: Enter or Space
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          toggle();
+          openThisAndCloseOthers();
         }
       });
 
-      // Recompute on resize/orientation change
-      const ro = new ResizeObserver(() => {
+      // Recalc on resize/orientation
+      const recalc = () => {
         const isFlipped = card.classList.contains('flipped');
         setCardHeight(card, isFlipped ? 'back' : 'front');
-      });
-      ro.observe(card);
+      };
+      window.addEventListener('resize', recalc);
 
-      // Also listen for window resize (fallback)
-      window.addEventListener('resize', () => {
-        const isFlipped = card.classList.contains('flipped');
-        setCardHeight(card, isFlipped ? 'back' : 'front');
+      // Optional: recalc after images load (icons usually small, but safe)
+      const imgs = card.querySelectorAll('img');
+      imgs.forEach(img => {
+        if (img.complete) return;
+        img.addEventListener('load', recalc);
+        img.addEventListener('error', recalc);
       });
     }
 
     cards.forEach(initCard);
-  })();
+  });
+})();
 </script>
+
 
 
   <!-- Results / Work -->
