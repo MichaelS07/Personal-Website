@@ -22,48 +22,50 @@
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
- /* === Flip Card Styles === */
-.flip-card {
-  position: relative;
-  perspective: 1200px;      /* 3D enabled */
-  height: 100%;
-  isolation: isolate;       /* keep stacking contained */
-}
 
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s ease;
-  will-change: transform;
-}
-
-.flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden; /* iOS Safari */
-  display: flex;
-  flex-direction: column;
-}
-
-.flip-card-back {
-  transform: rotateY(180deg);
-  overflow: auto;           /* mobile-safe if content is tall */
-}
-
-/* Keyboard focus for the invisible button overlay */
-.flip-trigger:focus-visible {
-  outline: 2px solid rgb(16 185 129); /* emerald-500 */
-  outline-offset: 2px;
-}
-
+    /* === Flip Card Styles === */
+    .flip-card {
+      position: relative;
+      perspective: 1200px;
+      height: 100%;
+      isolation: isolate; /* prevents bleed into other cards */
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+      will-change: transform;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+      overflow: auto; /* allow scroll on small screens */
+    }
+    .flip-trigger {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+    .flip-trigger:focus-visible {
+      outline: 2px solid rgb(16 185 129);
+      outline-offset: 2px;
+      border-radius: 0.75rem; /* ~rounded-lg */
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
@@ -178,8 +180,9 @@
     </div>
   </section>
 
+  
 <!-- Services -->
- <section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
+<section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
@@ -189,110 +192,106 @@
       <article class="flip-card">
         <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
           <!-- Front -->
-          <div class="flip-card-front rounded-lg overflow-hidden">
-            <img src="images/seo-icon.png" alt="SEO icon" class="w-full h-32 object-contain p-4 bg-white">
-            <div class="p-6 flex-1 flex flex-col items-center justify-center">
-              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">SEO</h3>
-              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Technical + content + demand capture.</p>
-            </div>
-            <!-- invisible full-card button to flip -->
-            <button class="flip-trigger absolute inset-0" aria-label="Show details about SEO" data-flip></button>
+          <div class="flip-card-front rounded-lg overflow-hidden flex flex-col items-center p-6">
+            <img src="images/seo-icon.png" alt="SEO icon" class="w-full h-32 object-contain p-4 bg-white rounded-md">
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-4">SEO</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Get found. Rank higher. Convert more.</p>
+            <button class="flip-trigger" aria-label="Show SEO details" data-flip></button>
           </div>
-
           <!-- Back -->
-          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
-            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white">SEO — Full-Funnel Search</h3>
-              <p>From technical foundations to content that ranks, plus conversion-minded landing pages to turn clicks into customers.</p>
-              <ul class="list-disc list-inside text-sm space-y-1">
-                <li>Technical audits & fixes</li>
-                <li>Content strategy & briefs</li>
-                <li>On-page & internal linking</li>
-                <li>Measurement & reporting</li>
-              </ul>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Hide details about SEO" data-flip></button>
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 p-6 text-left">
+            <h3 class="text-xl font-semibold">SEO</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3">
+              Full-funnel search: technical fixes, content strategy, internal linking, and measurement. We focus on demand you can win, not fluff.
+            </p>
+            <ul class="mt-4 text-sm list-disc list-inside text-slate-600 dark:text-slate-300 space-y-1">
+              <li>Technical audits & fixes</li>
+              <li>Keyword & content strategy</li>
+              <li>On-page & internal linking</li>
+              <li>Reporting & KPIs tied to revenue</li>
+            </ul>
+            <button class="flip-trigger" aria-label="Hide SEO details" data-flip></button>
           </div>
         </div>
       </article>
 
-      <!-- CRO -->
+      <!-- Conversion Rate Optimisation -->
       <article class="flip-card">
         <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
-          <div class="flip-card-front rounded-lg overflow-hidden">
-            <img src="images/cro-icon.png" alt="CRO icon" class="w-full h-32 object-contain p-4 bg-white">
-            <div class="p-6 flex-1 flex flex-col items-center justify-center">
-              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Fix friction. Ship wins. Repeat.</p>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Show details about CRO" data-flip></button>
+          <!-- Front -->
+          <div class="flip-card-front rounded-lg overflow-hidden flex flex-col items-center p-6">
+            <img src="images/cro-icon.png" alt="CRO icon" class="w-full h-32 object-contain p-4 bg-white rounded-md">
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-4">Conversion Rate Optimisation</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Turn more visits into revenue.</p>
+            <button class="flip-trigger" aria-label="Show CRO details" data-flip></button>
           </div>
-          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
-            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white">CRO — Systematic Experiments</h3>
-              <p>We diagnose why users drop, then test UX changes on PDP, cart, and checkout to unlock revenue fast.</p>
-              <ul class="list-disc list-inside text-sm space-y-1">
-                <li>Heuristic & data audits</li>
-                <li>Rapid A/B testing</li>
-                <li>Checkout friction fixes</li>
-                <li>Learning library & roadmap</li>
-              </ul>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Hide details about CRO" data-flip></button>
+          <!-- Back -->
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 p-6 text-left">
+            <h3 class="text-xl font-semibold">Conversion Rate Optimisation</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3">
+              We find friction in your funnel and fix it via rapid tests. Focus on PDPs, cart, and checkout to lift conversion fast.
+            </p>
+            <ul class="mt-4 text-sm list-disc list-inside text-slate-600 dark:text-slate-300 space-y-1">
+              <li>Heuristic & data-driven audits</li>
+              <li>Experiment roadmap & prioritisation</li>
+              <li>A/B testing & UX improvements</li>
+              <li>Measurable lifts tied to goals</li>
+            </ul>
+            <button class="flip-trigger" aria-label="Hide CRO details" data-flip></button>
           </div>
         </div>
       </article>
 
-      <!-- Shopify -->
+      <!-- Shopify Website Design & Management -->
       <article class="flip-card">
         <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
-          <div class="flip-card-front rounded-lg overflow-hidden">
-            <img src="images/shopify-icon.png" alt="Shopify icon" class="w-full h-32 object-contain p-4 bg-white">
-            <div class="p-6 flex-1 flex flex-col items-center justify-center">
-              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Shopify Website Design & Management</h3>
-              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Fast, clean, sales-ready storefronts.</p>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Show details about Shopify" data-flip></button>
+          <!-- Front -->
+          <div class="flip-card-front rounded-lg overflow-hidden flex flex-col items-center p-6">
+            <img src="images/shopify-icon.png" alt="Shopify icon" class="w-full h-32 object-contain p-4 bg-white rounded-md">
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-4">Shopify Design & Management</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Make your store your best salesperson.</p>
+            <button class="flip-trigger" aria-label="Show Shopify details" data-flip></button>
           </div>
-          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
-            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Shopify — Design & Ops</h3>
-              <p>Speed, navigation, feeds, tagging: we tune the stack so merchandising and marketing can win.</p>
-              <ul class="list-disc list-inside text-sm space-y-1">
-                <li>Theme performance & UX</li>
-                <li>IA & nav optimisation</li>
-                <li>Feeds, tagging, metafields</li>
-                <li>Release process & QA</li>
-              </ul>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Hide details about Shopify" data-flip></button>
+          <!-- Back -->
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 p-6 text-left">
+            <h3 class="text-xl font-semibold">Shopify Design & Management</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3">
+              Faster pages, cleaner IA, bulletproof tracking. We optimise navigation, feeds, tagging, and performance to scale.
+            </p>
+            <ul class="mt-4 text-sm list-disc list-inside text-slate-600 dark:text-slate-300 space-y-1">
+              <li>Theme & performance tuning</li>
+              <li>Navigation & product taxonomy</li>
+              <li>Tracking/GA4 & feed quality</li>
+              <li>Ongoing maintenance & QA</li>
+            </ul>
+            <button class="flip-trigger" aria-label="Hide Shopify details" data-flip></button>
           </div>
         </div>
       </article>
 
-      <!-- Customer Journey -->
+      <!-- Customer Journey Optimisations -->
       <article class="flip-card">
         <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
-          <div class="flip-card-front rounded-lg overflow-hidden">
-            <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="w-full h-32 object-contain p-4 bg-white">
-            <div class="p-6 flex-1 flex flex-col items-center justify-center">
-              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
-              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Reduce friction. Lift LTV.</p>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Show details about Customer Journey Optimisations" data-flip></button>
+          <!-- Front -->
+          <div class="flip-card-front rounded-lg overflow-hidden flex flex-col items-center p-6">
+            <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="w-full h-32 object-contain p-4 bg-white rounded-md">
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-4">Customer Journey Optimisations</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Reduce friction. Raise LTV.</p>
+            <button class="flip-trigger" aria-label="Show Journey details" data-flip></button>
           </div>
-          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
-            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Journey — Lifecycle & CX</h3>
-              <p>Map the full path from first click to repeat purchase. Remove blockers and add value moments.</p>
-              <ul class="list-disc list-inside text-sm space-y-1">
-                <li>Funnel mapping & gaps</li>
-                <li>Onsite messaging & offers</li>
-                <li>Post-purchase & retention</li>
-                <li>Attribution hygiene</li>
-              </ul>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Hide details about Customer Journey Optimisations" data-flip></button>
+          <!-- Back -->
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 p-6 text-left">
+            <h3 class="text-xl font-semibold">Customer Journey Optimisations</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3">
+              Diagnose the full lifecycle—from first click to repeat purchase—then remove friction and scale what works.
+            </p>
+            <ul class="mt-4 text-sm list-disc list-inside text-slate-600 dark:text-slate-300 space-y-1">
+              <li>Journey mapping & analytics</li>
+              <li>Personalisation & segmentation</li>
+              <li>Activation → retention flows</li>
+              <li>LTV-first decision-making</li>
+            </ul>
+            <button class="flip-trigger" aria-label="Hide Journey details" data-flip></button>
           </div>
         </div>
       </article>
@@ -300,40 +299,42 @@
       <!-- Email Marketing -->
       <article class="flip-card">
         <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
-          <div class="flip-card-front rounded-lg overflow-hidden">
-            <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="w-full h-32 object-contain p-4 bg-white">
-            <div class="p-6 flex-1 flex flex-col items-center justify-center">
-              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Lifecycle flows that print money.</p>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Show details about Email Marketing" data-flip></button>
+          <!-- Front -->
+          <div class="flip-card-front rounded-lg overflow-hidden flex flex-col items-center p-6">
+            <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="w-full h-32 object-contain p-4 bg-white rounded-md">
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-4">Email Marketing</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Flows > newsletters. Revenue that compounds.</p>
+            <button class="flip-trigger" aria-label="Show Email details" data-flip></button>
           </div>
-          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
-            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Email — Revenue Engine</h3>
-              <p>Beyond newsletters: automated flows and targeted campaigns that pay for themselves.</p>
-              <ul class="list-disc list-inside text-sm space-y-1">
-                <li>List growth & segmentation</li>
-                <li>Lifecycle flows (welcome, abandon, winback)</li>
-                <li>Campaign calendar & copy</li>
-                <li>Attribution & incrementality</li>
-              </ul>
-            </div>
-            <button class="flip-trigger absolute inset-0" aria-label="Hide details about Email Marketing" data-flip></button>
+          <!-- Back -->
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 p-6 text-left">
+            <h3 class="text-xl font-semibold">Email Marketing</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-3">
+              We build lifecycle flows and targeted campaigns that pay for themselves—plus list growth and smart segmentation.
+            </p>
+            <ul class="mt-4 text-sm list-disc list-inside text-slate-600 dark:text-slate-300 space-y-1">
+              <li>Acquisition & list growth</li>
+              <li>Lifecycle automations (Klaviyo)</li>
+              <li>Segmentation & deliverability</li>
+              <li>Creative, copy, and testing</li>
+            </ul>
+            <button class="flip-trigger" aria-label="Hide Email details" data-flip></button>
           </div>
         </div>
       </article>
 
-      <!-- CTA (non-flipping) -->
+      <!-- CTA Card -->
       <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center h-[360px]">
         <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
         <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
-        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Get a plan</a>
+        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-center">Get a plan</a>
       </div>
 
     </div>
   </div>
 </section>
+
+
 
 
 
@@ -642,20 +643,20 @@
   </footer>
 
   <!-- Scripts -->
- <script>
+<script>
   // Dark mode toggle (persists)
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
-  function updateIcon(){ 
+  function updateIcon(){
     themeIcon.innerHTML = document.documentElement.classList.contains('dark')
       ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
-      : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>'; 
+      : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>';
   }
   updateIcon();
-  themeToggle.addEventListener('click', () => {
+  themeToggle?.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     updateIcon();
@@ -670,50 +671,52 @@
   const overlay = document.getElementById('menuOverlay');
 
   function setOverlay(open){
+    if (!overlay) return;
     overlay.classList.toggle('opacity-0', !open);
     overlay.classList.toggle('opacity-100', open);
     overlay.classList.toggle('pointer-events-none', !open);
   }
 
   function setMenu(open){
+    if (!mobileMenu || !mobileMenuContent) return;
     if (open) {
       mobileMenu.classList.remove('hidden');
       mobileMenu.classList.add('open');
       mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
       document.body.style.overflow = 'hidden';
-      iconBars.classList.add('hidden');
-      iconX.classList.remove('hidden');
-      menuBtn.setAttribute('aria-expanded', 'true');
-      menuBtn.setAttribute('aria-label', 'Close menu');
+      iconBars?.classList.add('hidden');
+      iconX?.classList.remove('hidden');
+      menuBtn?.setAttribute('aria-expanded', 'true');
+      menuBtn?.setAttribute('aria-label', 'Close menu');
       setOverlay(true);
     } else {
       mobileMenu.style.maxHeight = '0px';
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
-      iconBars.classList.remove('hidden');
-      iconX.classList.add('hidden');
-      menuBtn.setAttribute('aria-expanded', 'false');
-      menuBtn.setAttribute('aria-label', 'Open menu');
+      iconBars?.classList.remove('hidden');
+      iconX?.classList.add('hidden');
+      menuBtn?.setAttribute('aria-expanded', 'false');
+      menuBtn?.setAttribute('aria-label', 'Open menu');
       setOverlay(false);
     }
   }
 
-  mobileMenu.addEventListener('transitionend', (e) => {
+  mobileMenu?.addEventListener('transitionend', (e) => {
     if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
       mobileMenu.classList.add('hidden');
     }
   });
 
-  menuBtn.addEventListener('click', () => {
+  menuBtn?.addEventListener('click', () => {
     const open = menuBtn.getAttribute('aria-expanded') === 'true';
     setMenu(!open);
   });
 
-  overlay.addEventListener('click', () => setMenu(false));
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  overlay?.addEventListener('click', () => setMenu(false));
+  mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
   // Year
-  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
   // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
@@ -727,21 +730,21 @@
     const end = parseInt(el.getAttribute('data-counter'), 10);
     let current = 0; const duration = 1200; const start = performance.now();
     function tick(t){
-      const p = Math.min(1, (t - start) / duration); 
+      const p = Math.min(1, (t - start) / duration);
       current = Math.floor(end * p);
       el.textContent = current + (end < 100 ? '%' : '');
-      if (p < 1) requestAnimationFrame(tick); 
+      if (p < 1) requestAnimationFrame(tick);
       else el.textContent = end + (end < 100 ? '%' : '');
     }
     requestAnimationFrame(tick);
   }
   const counters = document.querySelectorAll('[data-counter]');
   const io2 = new IntersectionObserver((entries) => {
-    entries.forEach(e => { 
-      if (e.isIntersecting && !e.target._counted){ 
-        e.target._counted = true; 
-        animateCount(e.target); 
-      } 
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target._counted){
+        e.target._counted = true;
+        animateCount(e.target);
+      }
     });
   }, { threshold: 0.6 });
   counters.forEach(c => io2.observe(c));
@@ -753,6 +756,7 @@
   let monthly = false;
 
   function knobPositions(){
+    if (!toggle || !dot) return { start: 0, end: 0 };
     const trackW = toggle.clientWidth;
     const knobW = dot.clientWidth;
     const margin = 4;
@@ -762,11 +766,11 @@
   }
 
   function renderPrices(){
-    prices.forEach(p => { 
-      p.textContent = p.dataset[monthly ? 'month' : 'one']; 
+    prices.forEach(p => {
+      p.textContent = p.dataset[monthly ? 'month' : 'one'];
     });
     const { start, end } = knobPositions();
-    dot.style.transform = `translateX(${monthly ? end : start}px)`; // ✅ FIXED
+    if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
   }
 
   if (toggle && dot) {
@@ -780,42 +784,34 @@
     document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
   }
 
-/* === Flip Card Styles === */
-  .flip-card {
-    perspective: 1000px;
-    height: 100%;
-  }
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-  .flip-card.flipped .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  .flip-card-front,
-  .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    top: 0;
-    left: 0;
-  }
-  .flip-card-back {
-    transform: rotateY(180deg);
-  }   
-
   // Fake form submit
-  function fakeSubmit(){ 
-    const m = document.getElementById('formMsg'); 
-    m.classList.remove('hidden'); 
-    setTimeout(()=>m.classList.add('hidden'), 3500); 
+  function fakeSubmit(){
+    const m = document.getElementById('formMsg');
+    if (!m) return;
+    m.classList.remove('hidden');
+    setTimeout(()=>m.classList.add('hidden'), 3500);
   }
   window.fakeSubmit = fakeSubmit;
+
+  // === Flip Card: click/tap + keyboard ===
+  document.addEventListener('click', (e) => {
+    // Ignore real links inside a card
+    if (e.target.closest('a[href], [data-no-flip]')) return;
+    const trigger = e.target.closest('[data-flip]');
+    if (!trigger) return;
+    const card = trigger.closest('.flip-card');
+    if (card) card.classList.toggle('flipped');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const trigger = document.activeElement?.closest?.('[data-flip]');
+    if (!trigger) return;
+    e.preventDefault();
+    const card = trigger.closest('.flip-card');
+    if (card) card.classList.toggle('flipped');
+  });
 </script>
+
 </body>
 </html>
