@@ -22,6 +22,34 @@
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
+ /* === Flip Card Styles === */
+  .flip-card {
+    perspective: 1000px;
+    height: 100%;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+  }
+  .flip-card-back {
+    transform: rotateY(180deg);
+  } 
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
@@ -137,67 +165,161 @@
   </section>
 
 <!-- Services -->
-  <!-- Services -->
-  <!-- Services Grid with images on top and text below -->
-<section class="py-16 bg-white dark:bg-slate-900">
+ <!-- Services -->
+<section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- SEO & SEM Growth -->
-      <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
-        <img src="images/seo-icon.png" alt="SEO & SEM icon" class="w-full h-32 object-contain p-4 bg-white">
-        <div class="p-6 flex-1">
-          <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">SEO</h3>
-          <p class="text-slate-600 dark:text-slate-300">Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.</p>
+
+      <!-- SEO -->
+      <div class="card-3d">
+        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle SEO details">
+          <!-- Front -->
+          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
+            <div class="h-32 flex items-center justify-center bg-white">
+              <img src="images/seo-icon.png" alt="SEO icon" class="h-24 w-auto object-contain">
+            </div>
+            <div class="p-6 text-left flex-1 flex flex-col">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">SEO</h3>
+              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Full-Funnel Search, from technical SEO and content to paid search alignment.</p>
+              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+            </div>
+          </div>
+          <!-- Back -->
+          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+              <div class="text-sm uppercase tracking-widest text-slate-500">SEO — Details</div>
+            </div>
+            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
+              <p class="text-slate-700 dark:text-slate-300">
+                Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent ROAS.
+              </p>
+              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Conversion Rate Optimisation -->
-      <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
-        <img src="images/cro-icon.png" alt="Conversion rate optimisation icon" class="w-full h-32 object-contain p-4 bg-white">
-        <div class="p-6 flex-1">
-          <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Conversion Rate Optimisation</h3>
-          <p class="text-slate-600 dark:text-slate-300">Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.</p>
+      <!-- CRO -->
+      <div class="card-3d">
+        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle CRO details">
+          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
+            <div class="h-32 flex items-center justify-center bg-white">
+              <img src="images/cro-icon.png" alt="CRO icon" class="h-24 w-auto object-contain">
+            </div>
+            <div class="p-6 text-left flex-1 flex flex-col">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">A/B testing + UX fixes to unlock add-to-cart and checkout wins.</p>
+              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+            </div>
+          </div>
+          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+              <div class="text-sm uppercase tracking-widest text-slate-500">CRO — Details</div>
+            </div>
+            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
+              <p class="text-slate-700 dark:text-slate-300">
+                We dive into your data to find why people aren’t converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that cost you sales—prioritising PDPs and checkout for outsized impact.
+              </p>
+              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Shopify Website Management -->
-      <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
-        <img src="images/shopify-icon.png" alt="Shopify icon" class="w-full h-32 object-contain p-4 bg-white">
-        <div class="p-6 flex-1">
-          <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Shopify Website Design & Management</h3>
-          <p class="text-slate-600 dark:text-slate-300">Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.</p>
+      <!-- Shopify -->
+      <div class="card-3d">
+        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Shopify details">
+          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
+            <div class="h-32 flex items-center justify-center bg-white">
+              <img src="images/shopify-icon.png" alt="Shopify icon" class="h-24 w-auto object-contain">
+            </div>
+            <div class="p-6 text-left flex-1 flex flex-col">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Shopify Design & Management</h3>
+              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Faster site, cleaner IA, better feeds/tags. Built to scale.</p>
+              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+            </div>
+          </div>
+          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+              <div class="text-sm uppercase tracking-widest text-slate-500">Shopify — Details</div>
+            </div>
+            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
+              <p class="text-slate-700 dark:text-slate-300">
+                We fine-tune your store: performance, navigation, product data, tagging, and merchandising hygiene—so it runs smooth and converts.
+              </p>
+              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Customer Journey Optimisations -->
-      <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
-        <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="w-full h-32 object-contain p-4 bg-white">
-        <div class="p-6 flex-1">
-          <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Customer Journey Optimisations</h3>
-          <p class="text-slate-600 dark:text-slate-300">We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.</p>
+      <!-- Customer Journey -->
+      <div class="card-3d">
+        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Customer Journey details">
+          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
+            <div class="h-32 flex items-center justify-center bg-white">
+              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="h-24 w-auto object-contain">
+            </div>
+            <div class="p-6 text-left flex-1 flex flex-col">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
+              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Reduce friction from first click to repeat purchase.</p>
+              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+            </div>
+          </div>
+          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+              <div class="text-sm uppercase tracking-widest text-slate-500">Journey — Details</div>
+            </div>
+            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
+              <p class="text-slate-700 dark:text-slate-300">
+                We map the entire lifecycle, remove friction points, and use clean data to drive higher LTV and brand loyalty.
+              </p>
+              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Email Marketing -->
-      <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
-        <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="w-full h-32 object-contain p-4 bg-white">
-        <div class="p-6 flex-1">
-          <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Email Marketing</h3>
-          <p class="text-slate-600 dark:text-slate-300">We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.</p>
+      <div class="card-3d">
+        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Email Marketing details">
+          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
+            <div class="h-32 flex items-center justify-center bg-white">
+              <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="h-24 w-auto object-contain">
+            </div>
+            <div class="p-6 text-left flex-1 flex flex-col">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Lifecycle flows + targeted campaigns that pay for themselves.</p>
+              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+            </div>
+          </div>
+          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+              <div class="text-sm uppercase tracking-widest text-slate-500">Email — Details</div>
+            </div>
+            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
+              <p class="text-slate-700 dark:text-slate-300">
+                Beyond newsletters: automated lifecycle flows, segmentation, compelling copy, and list growth to turn email into a revenue engine.
+              </p>
+              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- CTA Card aligned beside Email Marketing -->
-      <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center">
-        <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
-        <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
-        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Get a plan</a>
+      <!-- CTA (non-flip) -->
+      <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center card-size">
+        <div class="text-lg font-bold">Not sure where to start?</div>
+        <p class="mt-2 opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
+        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start">Get a plan</a>
       </div>
+
     </div>
   </div>
 </section>
+
 
 
   <!-- Results / Work -->
@@ -641,6 +763,35 @@
     window.addEventListener('resize', renderPrices);
     document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
   }
+
+/* === Flip Card Styles === */
+  .flip-card {
+    perspective: 1000px;
+    height: 100%;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+  }
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }   
 
   // Fake form submit
   function fakeSubmit(){ 
