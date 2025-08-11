@@ -23,15 +23,15 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* === Full-card flip with auto height (no inner scrolling) === */
+    /* === Full-card flip (whole card rotates) + auto height (no inner scroll) === */
 .service-card {
   position: relative;
-  -webkit-tap-highlight-color: transparent;
-  perspective: 1000px;             /* 3D context for the flip */
-  transition: height .35s ease;     /* smooth expand/shrink */
+  perspective: 1000px;          /* 3D context */
+  transition: height .35s ease; /* smooth expand/shrink */
 }
 
-.service-card .flip-inner {
+/* the rotating element (the whole card shell) */
+.service-card .rotator {
   position: relative;
   width: 100%;
   height: 100%;
@@ -40,19 +40,19 @@
   will-change: transform;
 }
 
+/* front/back faces fill the rotator */
 .service-card .face {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-/* we put padding on the .content wrapper so height measuring is simple */
+/* padding lives on a content wrapper so height measuring is easy */
 .service-card .content {
-  padding: 1.5rem; /* p-6 */
+  padding: 1.5rem; /* = p-6 */
   display: flex;
   flex-direction: column;
   gap: .5rem;
@@ -62,15 +62,10 @@
   transform: rotateY(180deg);
 }
 
-.service-card.flipped .flip-inner {
+.service-card.is-flipped .rotator {
   transform: rotateY(180deg);
 }
 
-/* Focus ring for keyboard users */
-.service-card:focus-visible {
-  outline: 2px solid rgba(16,185,129,.9);
-  outline-offset: 4px;
-}
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
@@ -194,19 +189,19 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
 
       <!-- SEO -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
-               tabindex="0" aria-label="SEO card. Press to flip.">
-        <div class="flip-inner">
-          <!-- FRONT -->
-          <div class="face front">
+      <article class="service-card cursor-pointer" tabindex="0" aria-label="SEO. Press or tap to flip">
+        <div class="rotator">
+          <!-- FRONT FACE (add the visual shell here) -->
+          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <img src="images/seo-icon.png" alt="SEO icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
             </div>
           </div>
-          <!-- BACK -->
-          <div class="face back">
+
+          <!-- BACK FACE -->
+          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
@@ -226,17 +221,16 @@
       </article>
 
       <!-- CRO -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
-               tabindex="0" aria-label="CRO card. Press to flip.">
-        <div class="flip-inner">
-          <div class="face front">
+      <article class="service-card cursor-pointer" tabindex="0" aria-label="CRO. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <img src="images/cro-icon.png" alt="CRO icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
             </div>
           </div>
-          <div class="face back">
+          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">CRO</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
@@ -248,25 +242,23 @@
                 <li>A/B testing & UX improvements</li>
                 <li>Measurable lifts tied to goals</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
-                      data-flip-close>Back</button>
+              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- Shopify -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
-               tabindex="0" aria-label="Shopify card. Press to flip.">
-        <div class="flip-inner">
-          <div class="face front">
+      <article class="service-card cursor-pointer" tabindex="0" aria-label="Shopify. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <img src="images/shopify-icon.png" alt="Shopify icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design & Management</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
             </div>
           </div>
-          <div class="face back">
+          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
@@ -278,25 +270,23 @@
                 <li>Tracking/GA4 & feed quality</li>
                 <li>Ongoing maintenance & QA</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
-                      data-flip-close>Back</button>
+              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- Customer Journey -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
-               tabindex="0" aria-label="Customer Journey card. Press to flip.">
-        <div class="flip-inner">
-          <div class="face front">
+      <article class="service-card cursor-pointer" tabindex="0" aria-label="Customer Journey. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
             </div>
           </div>
-          <div class="face back">
+          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
@@ -308,25 +298,23 @@
                 <li>Activation → retention flows</li>
                 <li>LTV-first decision-making</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
-                      data-flip-close>Back</button>
+              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- Email -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
-               tabindex="0" aria-label="Email Marketing card. Press to flip.">
-        <div class="flip-inner">
-          <div class="face front">
+      <article class="service-card cursor-pointer" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Flows & campaigns that compound revenue.</p>
             </div>
           </div>
-          <div class="face back">
+          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
@@ -338,8 +326,7 @@
                 <li>Segmentation & deliverability</li>
                 <li>Creative, copy, and testing</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
-                      data-flip-close>Back</button>
+              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
@@ -812,85 +799,80 @@
   }
   window.fakeSubmit = fakeSubmit;
 
-// === Services: flip + auto height (no inner scrolling) ===
-function measureFaceHeight(card, selector) {
-  const content = card.querySelector(selector + ' .content');
-  return content ? content.scrollHeight : 0;
+// === Full-card flip + auto height ===
+function faceContent(card, which) {
+  return card.querySelector(`.${which} .content`);
 }
 
-function setCardHeight(card, heightPx) {
-  card.style.height = heightPx + 'px';
+function measure(card) {
+  const f = faceContent(card, 'front');
+  const b = faceContent(card, 'back');
+  card._frontH = f ? f.scrollHeight : 0;
+  card._backH  = b ? b.scrollHeight : 0;
 }
 
-function updateCardHeights(card) {
-  // cache current measurements
-  card._frontH = measureFaceHeight(card, '.front');
-  card._backH  = measureFaceHeight(card, '.back');
-  const target = card.classList.contains('flipped') ? card._backH : card._frontH;
-  setCardHeight(card, target);
+function setH(card, h) {
+  card.style.height = h + 'px';
 }
 
-function initServiceFlip() {
+function initFullFlip() {
   const cards = document.querySelectorAll('.service-card');
   if (!cards.length) return;
 
-  // Initial measurement
+  // Prepare each card: measure and set to front height
   cards.forEach(card => {
-    // Temporarily ensure we're showing front for first measure
-    card.classList.remove('flipped');
-    updateCardHeights(card);
-  });
+    card.classList.remove('is-flipped');
+    measure(card);
+    setH(card, card._frontH);
 
-  // Click/tap to toggle
-  cards.forEach(card => {
+    // Flip on click (but ignore clicks on controls)
     card.addEventListener('click', (e) => {
-      // avoid toggling if clicking a real control (links, buttons, fields)
       if (e.target.closest('a,button,input,select,textarea,label')) return;
-
-      const willFlipToBack = !card.classList.contains('flipped');
-      // measure both faces before transition for smooth height animation
-      updateCardHeights(card);
-
-      // set height to the target face and flip
-      const targetH = willFlipToBack ? card._backH : card._frontH;
-      setCardHeight(card, targetH);
-      card.classList.toggle('flipped', willFlipToBack);
+      const toBack = !card.classList.contains('is-flipped');
+      // ensure fresh measurements (in case of reflow)
+      measure(card);
+      setH(card, toBack ? card._backH : card._frontH);
+      card.classList.toggle('is-flipped', toBack);
     });
 
-    // Back button inside the back face
+    // Back buttons on the back face
     card.querySelectorAll('[data-flip-close]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        updateCardHeights(card);
-        setCardHeight(card, card._frontH);
-        card.classList.remove('flipped');
+        measure(card);
+        setH(card, card._frontH);
+        card.classList.remove('is-flipped');
       });
     });
 
-    // Keyboard accessibility
+    // Keyboard support
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const willFlipToBack = !card.classList.contains('flipped');
-        updateCardHeights(card);
-        const targetH = willFlipToBack ? card._backH : card._frontH;
-        setCardHeight(card, targetH);
-        card.classList.toggle('flipped', willFlipToBack);
+        const toBack = !card.classList.contains('is-flipped');
+        measure(card);
+        setH(card, toBack ? card._backH : card._frontH);
+        card.classList.toggle('is-flipped', toBack);
       }
     });
   });
 
-  // Recalculate on resize so text rewraps correctly
-  let resizeTO;
+  // Recalculate on resize (text rewrap can change heights)
+  let to;
   window.addEventListener('resize', () => {
-    clearTimeout(resizeTO);
-    resizeTO = setTimeout(() => {
-      cards.forEach(card => updateCardHeights(card));
+    clearTimeout(to);
+    to = setTimeout(() => {
+      document.querySelectorAll('.service-card').forEach(card => {
+        measure(card);
+        const target = card.classList.contains('is-flipped') ? card._backH : card._frontH;
+        setH(card, target);
+      });
     }, 120);
   });
 }
 
-initServiceFlip();
+initFullFlip();
+
 
 
 
