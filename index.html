@@ -247,7 +247,6 @@
           <div class="p-5 sm:p-6">
             <div class="flex items-center justify-between">
               <h3 class="text-base sm:text-lg font-bold">1. Diagnose</h3>
-              <svg class="size-5 transition-transform duration-300 group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
               </svg>
             </div>
@@ -265,7 +264,6 @@
           <div class="p-5 sm:p-6">
             <div class="flex items-center justify-between">
               <h3 class="text-base sm:text-lg font-bold">2. Design</h3>
-              <svg class="size-5 transition-transform duration-300 group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
               </svg>
             </div>
@@ -283,79 +281,13 @@
           <div class="p-5 sm:p-6">
             <div class="flex items-center justify-between">
               <h3 class="text-base sm:text-lg font-bold">3. Deliver</h3>
-              <svg class="size-5 transition-transform duration-300 group-aria-expanded:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
               </svg>
             </div>
             <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              Ship quickly, measure, iterate. Document everything so you get compounding learning.
+              SNow it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
             </p>
           </div>
-        </button>
-        <div class="process-panel grid grid-cols-1 gap-4 px-5 pb-5 sm:px-6 sm:pb-6 max-h-0 overflow-hidden opacity-0 transition-all duration-300">
-          <ul class="text-sm list-disc pl-5 text-slate-600 dark:text-slate-300">
-            <li>Rapid releases & rollback plan</li>
-            <li>Weekly KPI reviews</li>
-            <li>Playbooks + handover docs</li>
-          </ul>
-          <img src="/images/process-deliver-2.jpg" alt="Iteration dashboard" loading="lazy"
-               class="w-full h-36 object-cover rounded-xl">
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <script>
-    // Accessible accordion-like pop-out for cards
-    (function () {
-      const cards = document.querySelectorAll('.process-card');
-      cards.forEach((card) => {
-        const btn = card.querySelector('button');
-        const panel = card.querySelector('.process-panel');
-
-        // Toggle handler
-        const toggle = () => {
-          const isOpen = btn.getAttribute('aria-expanded') === 'true';
-          // Close all others
-          cards.forEach((c) => {
-            const b = c.querySelector('button');
-            const p = c.querySelector('.process-panel');
-            b.setAttribute('aria-expanded', 'false');
-            p.style.maxHeight = 0;
-            p.style.opacity = 0;
-          });
-          // Open this one if it was closed
-          if (!isOpen) {
-            btn.setAttribute('aria-expanded', 'true');
-            // let the browser compute content height for smooth transition
-            panel.style.maxHeight = panel.scrollHeight + 'px';
-            panel.style.opacity = 1;
-          }
-        };
-
-        // Init collapsed
-        btn.setAttribute('aria-expanded', 'false');
-        panel.style.maxHeight = 0;
-        panel.style.opacity = 0;
-
-        // Click + keyboard
-        btn.addEventListener('click', toggle);
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggle();
-          }
-        });
-
-        // Handle resize so the open panel keeps correct height
-        window.addEventListener('resize', () => {
-          if (btn.getAttribute('aria-expanded') === 'true') {
-            panel.style.maxHeight = panel.scrollHeight + 'px';
-          }
-        });
-      });
-    })();
-  </script>
 </section>
 
 
