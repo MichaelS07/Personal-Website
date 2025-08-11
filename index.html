@@ -18,56 +18,55 @@
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
     .tap { min-height: 44px; min-width: 44px; }
-    /* Slide-down animation for mobile menu */
+
+    /* Mobile menu slide */
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* === Full-card flip (whole card rotates) + auto height (no inner scroll) === */
-.service-card {
-  position: relative;
-  perspective: 1000px;          /* 3D context */
-  transition: height .35s ease; /* smooth expand/shrink */
-}
+    /* ===== Service cards: FULL CARD FLIP (centered, larger icons) ===== */
+    .service-card{ position:relative; perspective:1200px; -webkit-tap-highlight-color:transparent; cursor:pointer; }
+    .service-card .rotator{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s ease; will-change:transform; }
+    .service-card.is-flipped .rotator{ transform:rotateY(180deg); }
 
-/* the rotating element (the whole card shell) */
-.service-card .rotator {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform .6s ease;
-  will-change: transform;
-}
+    .service-card .face{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; }
+    .service-card .front{ transform:rotateY(0); }
+    .service-card .back{ transform:rotateY(180deg); }
 
-/* front/back faces fill the rotator */
-.service-card .face {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
+    /* Card chrome lives on the faces so both sides look the same */
+    .service-card .front,
+    .service-card .back{
+      border-radius: .75rem; /* ~rounded-xl */
+      border: 1px solid rgb(226 232 240 / 1);          /* slate-200 */
+      background: rgb(248 250 252 / 1);                /* slate-50 */
+      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
+    }
+    .dark .service-card .front,
+    .dark .service-card .back{
+      border-color: rgb(30 41 59 / 1);                 /* slate-800 */
+      background: rgb(30 41 59 / 1);                   /* slate-800 */
+    }
 
-/* padding lives on a content wrapper so height measuring is easy */
-.service-card .content {
-  padding: 1.5rem; /* = p-6 */
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
+    /* Center content on both faces */
+    .service-card .content{
+      padding: 1.5rem;               /* p-6 */
+      display:flex; flex-direction:column; align-items:center; gap:.75rem;
+      text-align:center;
+      width:100%;
+    }
 
-.service-card .back {
-  transform: rotateY(180deg);
-}
+    /* Larger icons */
+    .service-card .icon{ width: 5.5rem; height: 5.5rem; }
+    @media (min-width:640px){ .service-card .icon{ width:6rem; height:6rem; } }
 
-.service-card.is-flipped .rotator {
-  transform: rotateY(180deg);
-}
+    /* Back face lists: left-align for readability but keep centered headings */
+    .service-card .content ul{ text-align:left; align-self:stretch; }
 
+    /* Grid: do not stretch rows to tallest item (prevents CTA stretching) */
+    #services .cards-grid{ align-items:start; } /* tailwind: items-start */
   </style>
 </head>
+
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Backdrop overlay (mobile only) -->
   <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
@@ -186,154 +185,148 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+    <!-- NOTE: items-start class (also enforced by CSS) -->
+    <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
       <!-- SEO -->
-      <article class="service-card cursor-pointer" tabindex="0" aria-label="SEO. Press or tap to flip">
+      <article class="service-card" tabindex="0" aria-label="SEO. Press or tap to flip">
         <div class="rotator">
-          <!-- FRONT FACE (add the visual shell here) -->
-          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <!-- FRONT -->
+          <div class="face front">
             <div class="content">
-              <img src="images/seo-icon.png" alt="SEO icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+              <img src="images/seo-icon.png" alt="SEO icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
             </div>
           </div>
-
-          <!-- BACK FACE -->
-          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <!-- BACK -->
+          <div class="face back">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
                 Full-funnel search: technical fixes, content strategy, internal linking, and measurement focused on demand you can win.
               </p>
               <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Technical audits & fixes</li>
-                <li>Keyword & content strategy</li>
-                <li>On-page & internal linking</li>
-                <li>Reporting & KPIs tied to revenue</li>
+                <li>Technical audits &amp; fixes</li>
+                <li>Keyword &amp; content strategy</li>
+                <li>On-page &amp; internal linking</li>
+                <li>Reporting &amp; KPIs tied to revenue</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
-                      data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- CRO -->
-      <article class="service-card cursor-pointer" tabindex="0" aria-label="CRO. Press or tap to flip">
+      <article class="service-card" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
         <div class="rotator">
-          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face front">
             <div class="content">
-              <img src="images/cro-icon.png" alt="CRO icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+              <img src="images/cro-icon.png" alt="CRO icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
             </div>
           </div>
-          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face back">
             <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">CRO</h3>
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
                 We find friction in your funnel and fix it via rapid tests. Focus on PDPs, cart, and checkout to lift conversion fast.
               </p>
               <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Heuristic & data-driven audits</li>
-                <li>Experiment roadmap & prioritisation</li>
-                <li>A/B testing & UX improvements</li>
+                <li>Heuristic &amp; data-driven audits</li>
+                <li>Experiment roadmap &amp; prioritisation</li>
+                <li>A/B testing &amp; UX improvements</li>
                 <li>Measurable lifts tied to goals</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- Shopify -->
-      <article class="service-card cursor-pointer" tabindex="0" aria-label="Shopify. Press or tap to flip">
+      <article class="service-card" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
         <div class="rotator">
-          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face front">
             <div class="content">
-              <img src="images/shopify-icon.png" alt="Shopify icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design & Management</h3>
+              <img src="images/shopify-icon.png" alt="Shopify icon" class="icon object-contain bg-white rounded-md p-2">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
             </div>
           </div>
-          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face back">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
                 Faster pages, cleaner IA, and bulletproof tracking. We optimise navigation, feeds, tagging, and performance to scale.
               </p>
               <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Theme & performance tuning</li>
-                <li>Navigation & product taxonomy</li>
-                <li>Tracking/GA4 & feed quality</li>
-                <li>Ongoing maintenance & QA</li>
+                <li>Theme &amp; performance tuning</li>
+                <li>Navigation &amp; product taxonomy</li>
+                <li>Tracking/GA4 &amp; feed quality</li>
+                <li>Ongoing maintenance &amp; QA</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- Customer Journey -->
-      <article class="service-card cursor-pointer" tabindex="0" aria-label="Customer Journey. Press or tap to flip">
+      <article class="service-card" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
         <div class="rotator">
-          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face front">
             <div class="content">
-              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
             </div>
           </div>
-          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face back">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
                 Diagnose the full lifecycle—from first click to repeat purchase—then remove friction and scale what works.
               </p>
               <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Journey mapping & analytics</li>
-                <li>Personalisation & segmentation</li>
+                <li>Journey mapping &amp; analytics</li>
+                <li>Personalisation &amp; segmentation</li>
                 <li>Activation → retention flows</li>
                 <li>LTV-first decision-making</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
       <!-- Email -->
-      <article class="service-card cursor-pointer" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+      <article class="service-card" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
         <div class="rotator">
-          <div class="face front rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face front">
             <div class="content">
-              <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+              <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">Flows & campaigns that compound revenue.</p>
+              <p class="text-sm text-slate-600 dark:text-slate-300">Flows &amp; campaigns that compound revenue.</p>
             </div>
           </div>
-          <div class="face back rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
+          <div class="face back">
             <div class="content">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
               <p class="text-sm text-slate-700 dark:text-slate-300">
                 Lifecycle flows and targeted campaigns that pay for themselves—plus list growth and smart segmentation.
               </p>
               <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Acquisition & list growth</li>
+                <li>Acquisition &amp; list growth</li>
                 <li>Lifecycle automations (Klaviyo)</li>
-                <li>Segmentation & deliverability</li>
+                <li>Segmentation &amp; deliverability</li>
                 <li>Creative, copy, and testing</li>
               </ul>
-              <button class="mt-2 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm" data-flip-close>Back</button>
             </div>
           </div>
         </div>
       </article>
 
-      <!-- CTA (unchanged) -->
-      <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center">
+      <!-- CTA (won't stretch due to items-start + self-start) -->
+      <div class="reveal self-start p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center">
         <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
         <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
         <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-center">Get a plan</a>
@@ -657,6 +650,7 @@
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
   function updateIcon(){
+    if (!themeIcon) return;
     themeIcon.innerHTML = document.documentElement.classList.contains('dark')
       ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
       : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>';
@@ -682,7 +676,6 @@
     overlay.classList.toggle('opacity-100', open);
     overlay.classList.toggle('pointer-events-none', !open);
   }
-
   function setMenu(open){
     if (!mobileMenu || !mobileMenuContent) return;
     if (open) {
@@ -706,23 +699,21 @@
       setOverlay(false);
     }
   }
-
   mobileMenu?.addEventListener('transitionend', (e) => {
     if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
       mobileMenu.classList.add('hidden');
     }
   });
-
   menuBtn?.addEventListener('click', () => {
     const open = menuBtn.getAttribute('aria-expanded') === 'true';
     setMenu(!open);
   });
-
   overlay?.addEventListener('click', () => setMenu(false));
   mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
   // Year
-  document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
@@ -760,7 +751,6 @@
   const dot = document.getElementById('priceDot');
   const prices = document.querySelectorAll('.price');
   let monthly = false;
-
   function knobPositions(){
     if (!toggle || !dot) return { start: 0, end: 0 };
     const trackW = toggle.clientWidth;
@@ -770,15 +760,11 @@
     const end = Math.max(margin, trackW - knobW - margin);
     return { start, end };
   }
-
   function renderPrices(){
-    prices.forEach(p => {
-      p.textContent = p.dataset[monthly ? 'month' : 'one'];
-    });
+    prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
     const { start, end } = knobPositions();
     if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
   }
-
   if (toggle && dot) {
     renderPrices();
     toggle.addEventListener('click', () => {
@@ -799,84 +785,60 @@
   }
   window.fakeSubmit = fakeSubmit;
 
-// === Full-card flip + auto height ===
-function faceContent(card, which) {
-  return card.querySelector(`.${which} .content`);
-}
-
-function measure(card) {
-  const f = faceContent(card, 'front');
-  const b = faceContent(card, 'back');
-  card._frontH = f ? f.scrollHeight : 0;
-  card._backH  = b ? b.scrollHeight : 0;
-}
-
-function setH(card, h) {
-  card.style.height = h + 'px';
-}
-
-function initFullFlip() {
-  const cards = document.querySelectorAll('.service-card');
-  if (!cards.length) return;
-
-  // Prepare each card: measure and set to front height
-  cards.forEach(card => {
-    card.classList.remove('is-flipped');
+  // ===== FULL-CARD FLIP + AUTO HEIGHT =====
+  function faceContent(card, which) {
+    return card.querySelector(`.${which} .content`);
+  }
+  function measure(card) {
+    const f = faceContent(card, 'front');
+    const b = faceContent(card, 'back');
+    card._frontH = f ? f.scrollHeight : 0;
+    card._backH  = b ? b.scrollHeight : 0;
+  }
+  function setH(card, h) { card.style.height = h + 'px'; }
+  function flipTo(card, toBack){
     measure(card);
-    setH(card, card._frontH);
-
-    // Flip on click (but ignore clicks on controls)
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('a,button,input,select,textarea,label')) return;
-      const toBack = !card.classList.contains('is-flipped');
-      // ensure fresh measurements (in case of reflow)
+    setH(card, toBack ? card._backH : card._frontH);
+    card.classList.toggle('is-flipped', toBack);
+  }
+  function initFullFlip() {
+    const cards = document.querySelectorAll('.service-card');
+    if (!cards.length) return;
+    cards.forEach(card => {
+      // start on front at natural (front) height
+      card.classList.remove('is-flipped');
       measure(card);
-      setH(card, toBack ? card._backH : card._frontH);
-      card.classList.toggle('is-flipped', toBack);
-    });
+      setH(card, card._frontH);
 
-    // Back buttons on the back face
-    card.querySelectorAll('[data-flip-close]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        measure(card);
-        setH(card, card._frontH);
-        card.classList.remove('is-flipped');
+      // Click anywhere on card (ignore inner links/controls)
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a,button,input,select,textarea,label')) return;
+        flipTo(card, !card.classList.contains('is-flipped'));
+      });
+
+      // Keyboard support
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flipTo(card, !card.classList.contains('is-flipped'));
+        }
       });
     });
 
-    // Keyboard support
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const toBack = !card.classList.contains('is-flipped');
-        measure(card);
-        setH(card, toBack ? card._backH : card._frontH);
-        card.classList.toggle('is-flipped', toBack);
-      }
+    // Re-measure on resize
+    let to;
+    window.addEventListener('resize', () => {
+      clearTimeout(to);
+      to = setTimeout(() => {
+        document.querySelectorAll('.service-card').forEach(card => {
+          measure(card);
+          const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
+          setH(card, h);
+        });
+      }, 120);
     });
-  });
-
-  // Recalculate on resize (text rewrap can change heights)
-  let to;
-  window.addEventListener('resize', () => {
-    clearTimeout(to);
-    to = setTimeout(() => {
-      document.querySelectorAll('.service-card').forEach(card => {
-        measure(card);
-        const target = card.classList.contains('is-flipped') ? card._backH : card._frontH;
-        setH(card, target);
-      });
-    }, 120);
-  });
-}
-
-initFullFlip();
-
-
-
-
+  }
+  initFullFlip();
 </script>
-
 </body>
 </html>
