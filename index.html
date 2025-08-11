@@ -23,37 +23,46 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* === Service cards: flip header + expand panel === */
-.service-card { position: relative; -webkit-tap-highlight-color: transparent; }
+    /* === Full-card flip (fixed height, back scrolls) === */
+.service-card {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  perspective: 1000px; /* 3D context */
+}
 
-.service-card .flip-header { perspective: 1000px; }
-.service-card .flip-header-inner {
+.service-card .flip-inner {
   position: relative;
   height: 100%;
+  width: 100%;
   transform-style: preserve-3d;
   transition: transform .6s ease;
   will-change: transform;
 }
-.service-card .flip-face {
+
+.service-card .face {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  gap: .75rem;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5rem;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  padding: 1.5rem; /* matches p-6 on faces */
 }
-.service-card .flip-back { transform: rotateY(180deg); }
 
-.service-card.expanded .flip-header-inner { transform: rotateY(180deg); }
+.service-card .back {
+  transform: rotateY(180deg);
+}
 
-/* Accordion panel for the long content */
-.service-card .acc-panel { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.service-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
 
-/* Chevron rotate */
-.service-card .acc-toggle-icon { transition: transform .2s ease; }
-.service-card.expanded .acc-toggle-icon { transform: rotate(180deg); }
+/* Nice focus ring for keyboard users */
+.service-card:focus-visible {
+  outline: 2px solid rgba(16,185,129,.9); /* emerald */
+  outline-offset: 4px;
+}
 
   </style>
 </head>
@@ -178,197 +187,138 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
 
       <!-- SEO -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
-        <button class="w-full text-left block focus:outline-none" data-service-toggle aria-expanded="false" aria-controls="svc-seo">
-          <div class="flip-header h-28 relative">
-            <div class="flip-header-inner">
-              <!-- FRONT -->
-              <div class="flip-face flip-front">
-                <img src="images/seo-icon.png" alt="SEO icon" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <!-- BACK -->
-              <div class="flip-face flip-back">
-                <img src="images/seo-icon.png" alt="" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO — Details</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Tap again to collapse</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-            </div>
+      <article class="service-card h-48 sm:h-56 lg:h-64 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
+               tabindex="0" aria-label="SEO card. Press to flip.">
+        <div class="flip-inner">
+          <!-- FRONT -->
+          <div class="face front items-center p-6">
+            <img src="images/seo-icon.png" alt="SEO icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
           </div>
-        </button>
-        <div id="svc-seo" class="acc-panel">
-          <div class="p-6 pt-0 text-sm text-slate-700 dark:text-slate-300 space-y-3">
-            <p>Full-funnel search: technical fixes, content strategy, internal linking, and measurement focused on demand you can win.</p>
-            <ul class="list-disc list-inside space-y-1">
+          <!-- BACK -->
+          <div class="face back p-6 overflow-y-auto">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+              Full-funnel search: technical fixes, content strategy, internal linking, and measurement focused on demand you can win.
+            </p>
+            <ul class="mt-3 text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
               <li>Technical audits & fixes</li>
               <li>Keyword & content strategy</li>
               <li>On-page & internal linking</li>
               <li>Reporting & KPIs tied to revenue</li>
             </ul>
+            <button class="mt-4 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
+                    data-flip-close>Back</button>
           </div>
         </div>
       </article>
 
       <!-- CRO -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
-        <button class="w-full text-left block focus:outline-none" data-service-toggle aria-expanded="false" aria-controls="svc-cro">
-          <div class="flip-header h-28 relative">
-            <div class="flip-header-inner">
-              <div class="flip-face flip-front">
-                <img src="images/cro-icon.png" alt="CRO icon" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-              <div class="flip-face flip-back">
-                <img src="images/cro-icon.png" alt="" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">CRO — Details</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Tap again to collapse</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-            </div>
+      <article class="service-card h-48 sm:h-56 lg:h-64 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
+               tabindex="0" aria-label="CRO card. Press to flip.">
+        <div class="flip-inner">
+          <div class="face front items-center p-6">
+            <img src="images/cro-icon.png" alt="CRO icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
           </div>
-        </button>
-        <div id="svc-cro" class="acc-panel">
-          <div class="p-6 pt-0 text-sm text-slate-700 dark:text-slate-300 space-y-3">
-            <p>We find friction in your funnel and fix it via rapid tests. Focus on PDPs, cart, and checkout to lift conversion fast.</p>
-            <ul class="list-disc list-inside space-y-1">
+          <div class="face back p-6 overflow-y-auto">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">CRO</h3>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+              We find friction in your funnel and fix it via rapid tests. Focus on PDPs, cart, and checkout to lift conversion fast.
+            </p>
+            <ul class="mt-3 text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
               <li>Heuristic & data-driven audits</li>
               <li>Experiment roadmap & prioritisation</li>
               <li>A/B testing & UX improvements</li>
               <li>Measurable lifts tied to goals</li>
             </ul>
+            <button class="mt-4 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
+                    data-flip-close>Back</button>
           </div>
         </div>
       </article>
 
       <!-- Shopify -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
-        <button class="w-full text-left block focus:outline-none" data-service-toggle aria-expanded="false" aria-controls="svc-shopify">
-          <div class="flip-header h-28 relative">
-            <div class="flip-header-inner">
-              <div class="flip-face flip-front">
-                <img src="images/shopify-icon.png" alt="Shopify icon" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design & Management</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-              <div class="flip-face flip-back">
-                <img src="images/shopify-icon.png" alt="" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify — Details</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Tap again to collapse</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-            </div>
+      <article class="service-card h-48 sm:h-56 lg:h-64 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
+               tabindex="0" aria-label="Shopify card. Press to flip.">
+        <div class="flip-inner">
+          <div class="face front items-center p-6">
+            <img src="images/shopify-icon.png" alt="Shopify icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design & Management</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
           </div>
-        </button>
-        <div id="svc-shopify" class="acc-panel">
-          <div class="p-6 pt-0 text-sm text-slate-700 dark:text-slate-300 space-y-3">
-            <p>Faster pages, cleaner IA, and bulletproof tracking. We optimise navigation, feeds, tagging, and performance to scale.</p>
-            <ul class="list-disc list-inside space-y-1">
+          <div class="face back p-6 overflow-y-auto">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify</h3>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+              Faster pages, cleaner IA, and bulletproof tracking. We optimise navigation, feeds, tagging, and performance to scale.
+            </p>
+            <ul class="mt-3 text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
               <li>Theme & performance tuning</li>
               <li>Navigation & product taxonomy</li>
               <li>Tracking/GA4 & feed quality</li>
               <li>Ongoing maintenance & QA</li>
             </ul>
+            <button class="mt-4 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
+                    data-flip-close>Back</button>
           </div>
         </div>
       </article>
 
       <!-- Customer Journey -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
-        <button class="w-full text-left block focus:outline-none" data-service-toggle aria-expanded="false" aria-controls="svc-journey">
-          <div class="flip-header h-28 relative">
-            <div class="flip-header-inner">
-              <div class="flip-face flip-front">
-                <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-              <div class="flip-face flip-back">
-                <img src="images/customer-journey-icon.png" alt="" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Journey — Details</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Tap again to collapse</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-            </div>
+      <article class="service-card h-48 sm:h-56 lg:h-64 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
+               tabindex="0" aria-label="Customer Journey card. Press to flip.">
+        <div class="flip-inner">
+          <div class="face front items-center p-6">
+            <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
           </div>
-        </button>
-        <div id="svc-journey" class="acc-panel">
-          <div class="p-6 pt-0 text-sm text-slate-700 dark:text-slate-300 space-y-3">
-            <p>Diagnose the full lifecycle—from first click to repeat purchase—then remove friction and scale what works.</p>
-            <ul class="list-disc list-inside space-y-1">
+          <div class="face back p-6 overflow-y-auto">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+              Diagnose the full lifecycle—from first click to repeat purchase—then remove friction and scale what works.
+            </p>
+            <ul class="mt-3 text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
               <li>Journey mapping & analytics</li>
               <li>Personalisation & segmentation</li>
               <li>Activation → retention flows</li>
               <li>LTV-first decision-making</li>
             </ul>
+            <button class="mt-4 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
+                    data-flip-close>Back</button>
           </div>
         </div>
       </article>
 
       <!-- Email -->
-      <article class="service-card rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow">
-        <button class="w-full text-left block focus:outline-none" data-service-toggle aria-expanded="false" aria-controls="svc-email">
-          <div class="flip-header h-28 relative">
-            <div class="flip-header-inner">
-              <div class="flip-face flip-front">
-                <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Flows & campaigns that compound revenue.</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-              <div class="flip-face flip-back">
-                <img src="images/email-marketing-icon.png" alt="" class="h-16 w-16 object-contain bg-white rounded-md p-2 shrink-0">
-                <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email — Details</h3>
-                  <p class="text-sm text-slate-600 dark:text-slate-300">Tap again to collapse</p>
-                </div>
-                <svg class="acc-toggle-icon h-5 w-5 text-slate-500 ml-auto" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
-              </div>
-            </div>
+      <article class="service-card h-48 sm:h-56 lg:h-64 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 shadow cursor-pointer"
+               tabindex="0" aria-label="Email Marketing card. Press to flip.">
+        <div class="flip-inner">
+          <div class="face front items-center p-6">
+            <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="h-14 w-14 object-contain bg-white rounded-md p-2">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Flows & campaigns that compound revenue.</p>
           </div>
-        </button>
-        <div id="svc-email" class="acc-panel">
-          <div class="p-6 pt-0 text-sm text-slate-700 dark:text-slate-300 space-y-3">
-            <p>Lifecycle flows and targeted campaigns that pay for themselves—plus list growth and smart segmentation.</p>
-            <ul class="list-disc list-inside space-y-1">
+          <div class="face back p-6 overflow-y-auto">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+              Lifecycle flows and targeted campaigns that pay for themselves—plus list growth and smart segmentation.
+            </p>
+            <ul class="mt-3 text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
               <li>Acquisition & list growth</li>
               <li>Lifecycle automations (Klaviyo)</li>
               <li>Segmentation & deliverability</li>
               <li>Creative, copy, and testing</li>
             </ul>
+            <button class="mt-4 inline-flex px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm"
+                    data-flip-close>Back</button>
           </div>
         </div>
       </article>
 
-      <!-- CTA -->
+      <!-- CTA (unchanged) -->
       <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center">
         <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
         <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
@@ -378,6 +328,7 @@
     </div>
   </div>
 </section>
+
 
 
 
@@ -838,42 +789,38 @@
   }
   window.fakeSubmit = fakeSubmit;
 
-// === Services: flip header + expand panel ===
-function setAccHeight(panel, expanded){
-  if (!panel) return;
-  panel.style.maxHeight = expanded ? panel.scrollHeight + 'px' : '0px';
+// === Services: full-card flip ===
+function flipCard(card, flip = true) {
+  if (!card) return;
+  if (flip) card.classList.add('flipped');
+  else card.classList.remove('flipped');
 }
 
-document.querySelectorAll('[data-service-toggle]').forEach(btn => {
-  const card = btn.closest('.service-card');
-  const panel = document.getElementById(btn.getAttribute('aria-controls'));
-  // init closed
-  btn.setAttribute('aria-expanded', 'false');
-  setAccHeight(panel, false);
+document.querySelectorAll('.service-card').forEach(card => {
+  // Click / tap anywhere on the card to flip
+  card.addEventListener('click', (e) => {
+    // If the click is on the "Back" button, unflip
+    if (e.target && e.target.matches('[data-flip-close]')) {
+      e.stopPropagation();
+      flipCard(card, false);
+      return;
+    }
+    // If currently flipped and user clicks the back content (not the Back button), do nothing
+    if (card.classList.contains('flipped') && !e.target.matches('[data-flip-close]')) return;
 
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    const next = !expanded;
-    btn.setAttribute('aria-expanded', String(next));
-    card.classList.toggle('expanded', next);
-    setAccHeight(panel, next);
+    flipCard(card, true);
   });
 
-  // keyboard: Space/Enter toggle (for extra accessibility)
-  btn.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter') {
+  // Keyboard accessibility (Enter/Space)
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      btn.click();
+      if (card.classList.contains('flipped')) flipCard(card, false);
+      else flipCard(card, true);
     }
   });
 });
 
-// Keep expanded panels sized correctly on resize
-window.addEventListener('resize', () => {
-  document.querySelectorAll('.service-card.expanded .acc-panel').forEach(panel => {
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-  });
-});
 
 </script>
 
