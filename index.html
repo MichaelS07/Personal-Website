@@ -248,78 +248,78 @@
 
 <!-- Flip styles -->
 <style>
-  /* Fallback: if JS fails or is blocked, show the front face in normal flow */
-  :root:not(.js) #services .flip-card { height: auto !important; min-height: 0 !important; }
-  :root:not(.js) #services .flip-card .flip-card-inner { position: static !important; transform: none !important; }
-  :root:not(.js) #services .flip-card .flip-face { position: relative !important; inset: auto !important; transform: none !important; backface-visibility: visible !important; }
+  /* Always-visible default (no JS): faces in normal flow, no 3D */
+  #services .flip-card { position: relative; cursor: pointer; outline: none; transition: height .35s ease; }
+  #services .flip-card-inner { position: static; transform: none; }
+  #services .flip-face { position: relative; inset: auto; transform: none; backface-visibility: visible; }
 
-  /* Flip layout */
-  #services .flip-card {
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    perspective: 1000px;
-    transition: height .35s ease;
-    min-height: 120px; /* safety so it never collapses before JS measures */
-  }
-  #services .flip-card-inner {
+  /* Only after JS arms it with .flip-ready do we use 3D + absolute layers */
+  #services.flip-ready .flip-card { perspective: 1000px; }
+  #services.flip-ready .flip-card-inner {
     position: relative;
     transform-style: preserve-3d;
     transition: transform .6s ease;
   }
-  #services .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+  #services.flip-ready .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
 
-  #services .flip-face {
+  #services.flip-ready .flip-face {
     position: absolute; inset: 0;
     backface-visibility: hidden; -webkit-backface-visibility: hidden;
   }
-  #services .flip-face.back { transform: rotateY(180deg); }
+  #services.flip-ready .flip-face.back { transform: rotateY(180deg); }
 
   @media (prefers-reduced-motion: reduce) {
-    #services .flip-card-inner { transition: none !important; transform: none !important; }
-    #services .flip-card.flipped .flip-card-inner { transform: none !important; }
+    #services.flip-ready .flip-card-inner { transition: none !important; transform: none !important; }
+    #services.flip-ready .flip-card.flipped .flip-card-inner { transform: none !important; }
   }
 </style>
+
 
 <!-- Flip logic -->
 <script>
 (function () {
-  // run after DOM is ready
   function onReady(fn){
     if (document.readyState !== 'loading') fn();
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
   onReady(function () {
+    const services = document.getElementById('services');
     const cards = Array.from(document.querySelectorAll('#services .flip-card'));
-    if (!cards.length) return;
+    if (!services || !cards.length) return;
 
-    function measure(face){
-      // Temporarily make it measurable even though it's absolutely positioned + transformed
-      const prevPos = face.style.position;
-      const prevTrans = face.style.transform;
-      face.style.position = 'relative';
-      face.style.transform = 'none';
-      const h = Math.max(face.scrollHeight, face.getBoundingClientRect().height);
-      face.style.position = prevPos;
-      face.style.transform = prevTrans;
+    // Measure helper that works even before absolute/3D is applied
+    function measure(el){
+      // Use scrollHeight; if 0 (rare), clone to measure
+      let h = el.scrollHeight;
+      if (!h) {
+        const clone = el.cloneNode(true);
+        clone.style.position = 'absolute';
+        clone.style.visibility = 'hidden';
+        clone.style.transform = 'none';
+        clone.style.inset = 'auto';
+        services.appendChild(clone);
+        h = Math.max(clone.scrollHeight, clone.getBoundingClientRect().height);
+        services.removeChild(clone);
+      }
       return h;
     }
 
+    // Set heights *after* we arm flip so absolute faces can fit exactly
     function setCardHeight(card){
       const front = card.querySelector('.flip-face.front');
       const back  = card.querySelector('.flip-face.back');
       if (!front || !back) return;
-      const isFlipped = card.classList.contains('flipped');
-      const target = isFlipped ? back : front;
+      const showBack = card.classList.contains('flipped');
+      const target = showBack ? back : front;
       const h = measure(target);
       card.style.height = h + 'px';
     }
 
-    function init(card){
-      setCardHeight(card);
-
-      function openThisAndCloseOthers(){
+    function initCard(card){
+      // Initial height using FLOW layout (before arming flip)
+      // Once we arm, we immediately recalibrate.
+      function toggleThis(){
         cards.forEach(c => {
           if (c !== card && c.classList.contains('flipped')) {
             c.classList.remove('flipped');
@@ -332,40 +332,34 @@
         setCardHeight(card);
       }
 
-      // Click/tap
       card.addEventListener('click', (e) => {
-        // ignore clicks while selecting text
         if (window.getSelection?.toString()) return;
-        openThisAndCloseOthers();
+        toggleThis();
       });
-
-      // Keyboard
       card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openThisAndCloseOthers();
-        }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleThis(); }
       });
 
-      // Recalculate on resize & when assets load
       const recalc = () => setCardHeight(card);
       window.addEventListener('resize', recalc);
-
       card.querySelectorAll('img').forEach(img => {
-        if (!img.complete) {
-          img.addEventListener('load', recalc);
-          img.addEventListener('error', recalc);
-        }
+        if (!img.complete) { img.addEventListener('load', recalc); img.addEventListener('error', recalc); }
       });
-
-      // Fonts can change height after they load
       if (document.fonts?.ready) document.fonts.ready.then(recalc);
     }
 
-    cards.forEach(init);
+    // 1) Init listeners while still in non-3D safe mode
+    cards.forEach(initCard);
+
+    // 2) Arm flipping: switch CSS to 3D/absolute only now
+    services.classList.add('flip-ready');
+
+    // 3) Now that faces are absolute, size each card properly
+    cards.forEach(setCardHeight);
   });
 })();
 </script>
+
 <!-- =================== /SERVICES (DROP-IN) =================== -->
 
 
