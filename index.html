@@ -137,230 +137,63 @@
   </section>
 
 <!-- ===================== SERVICES (DROP-IN) ===================== -->
-<!-- Adds a 'js' class asap so fallback only applies if JS truly fails -->
-<script>
-  document.documentElement.classList.add('js');
-</script>
-
+<!-- ======= SERVICES (STATIC DEBUG) ======= -->
 <section id="services" class="py-16 bg-white dark:bg-slate-900">
+  <style>
+    /* Debug visuals */
+    #services { outline: 2px dashed #22c55e; }
+    #services .flip-card { border: 1px solid rgba(100,116,139,.3); }
+  </style>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
 
-      <!-- SEO -->
-      <div class="flip-card" role="button" tabindex="0" aria-expanded="false" aria-label="SEO. Tap to flip.">
-        <div class="flip-card-inner">
-          <!-- Front -->
-          <div class="flip-face front bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="flex items-center gap-4 p-4 sm:p-5">
-              <img src="images/seo-icon.png" alt="SEO & SEM icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
-              <div>
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-                <p class="text-slate-600 dark:text-slate-300 text-sm">Tap to flip</p>
-              </div>
-            </div>
+      <div class="flip-card rounded-lg bg-slate-50 dark:bg-slate-800 shadow">
+        <div class="flex items-center gap-4 p-5">
+          <img src="images/seo-icon.png" alt="SEO & SEM icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm">(static test)</p>
           </div>
-          <!-- Back -->
-          <div class="flip-face back bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="p-4 sm:p-5">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">SEO &amp; SEM Growth</h3>
-              <p class="text-slate-600 dark:text-slate-300">
-                Full‑Funnel Search: We handle technical SEO and content to bring people in, then optimise paid ad campaigns — including account setup and creative testing — to deliver a strong, consistent ROAS.
-              </p>
-            </div>
-          </div>
+        </div>
+        <div class="px-5 pb-5 text-slate-600 dark:text-slate-300">
+          Full‑Funnel Search. Technical SEO + content + paid search optimisation.
         </div>
       </div>
 
-      <!-- Conversion Rate Optimisation -->
-      <div class="flip-card" role="button" tabindex="0" aria-expanded="false" aria-label="Conversion Rate Optimisation. Tap to flip.">
-        <div class="flip-card-inner">
-          <div class="flip-face front bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="flex items-center gap-4 p-4 sm:p-5">
-              <img src="images/cro-icon.png" alt="Conversion rate optimisation icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
-              <div>
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-                <p class="text-slate-600 dark:text-slate-300 text-sm">Tap to flip</p>
-              </div>
-            </div>
+      <div class="flip-card rounded-lg bg-slate-50 dark:bg-slate-800 shadow">
+        <div class="flex items-center gap-4 p-5">
+          <img src="images/cro-icon.png" alt="Conversion rate optimisation icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm">(static test)</p>
           </div>
-          <div class="flip-face back bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="p-4 sm:p-5">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Conversion Rate Optimisation</h3>
-              <p class="text-slate-600 dark:text-slate-300">
-                We find and fix bottlenecks with rapid A/B tests and UX improvements. Focus areas: PDPs and checkout. Aim: more conversions from the traffic you already have.
-              </p>
-            </div>
-          </div>
+        </div>
+        <div class="px-5 pb-5 text-slate-600 dark:text-slate-300">
+          Find and fix bottlenecks with A/B tests and UX improvements.
         </div>
       </div>
 
-      <!-- Shopify -->
-      <div class="flip-card" role="button" tabindex="0" aria-expanded="false" aria-label="Shopify Website Design & Management. Tap to flip.">
-        <div class="flip-card-inner">
-          <div class="flip-face front bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="flex items-center gap-4 p-4 sm:p-5">
-              <img src="images/shopify-icon.png" alt="Shopify icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
-              <div>
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Website Design &amp; Management</h3>
-                <p class="text-slate-600 dark:text-slate-300 text-sm">Tap to flip</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-face back bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="p-4 sm:p-5">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Shopify Website Design &amp; Management</h3>
-              <p class="text-slate-600 dark:text-slate-300">
-                Speed, structure, and scale: we optimise performance, navigation, product feeds and tagging so your store runs smooth and sells more.
-              </p>
-            </div>
+      <div class="flip-card rounded-lg bg-slate-50 dark:bg-slate-800 shadow">
+        <div class="flex items-center gap-4 p-5">
+          <img src="images/shopify-icon.png" alt="Shopify icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Website Design &amp; Management</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm">(static test)</p>
           </div>
         </div>
-      </div>
-
-      <!-- Customer Journey -->
-      <div class="flip-card" role="button" tabindex="0" aria-expanded="false" aria-label="Customer Journey Optimisations. Tap to flip.">
-        <div class="flip-card-inner">
-          <div class="flip-face front bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="flex items-center gap-4 p-4 sm:p-5">
-              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="w-14 h-14 object-contain bg-white rounded-md p-2">
-              <div>
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
-                <p class="text-slate-600 dark:text-slate-300 text-sm">Tap to flip</p>
-              </div>
-            </div>
-          </div>
-          <div class="flip-face back bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow">
-            <div class="p-4 sm:p-5">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Customer Journey Optimisations</h3>
-              <p class="text-slate-600 dark:text-slate-300">
-                From first click to repeat purchase: we remove friction, personalise key moments, and lift LTV with data‑led decisions.
-              </p>
-            </div>
-          </div>
+        <div class="px-5 pb-5 text-slate-600 dark:text-slate-300">
+          Performance, navigation, feeds, tagging — make it fast and scalable.
         </div>
       </div>
 
     </div>
   </div>
 </section>
+<!-- ===== /SERVICES (STATIC DEBUG) ===== -->
 
-<!-- Flip styles -->
-<style>
-  /* Always-visible default (no JS): faces in normal flow, no 3D */
-  #services .flip-card { position: relative; cursor: pointer; outline: none; transition: height .35s ease; }
-  #services .flip-card-inner { position: static; transform: none; }
-  #services .flip-face { position: relative; inset: auto; transform: none; backface-visibility: visible; }
-
-  /* Only after JS arms it with .flip-ready do we use 3D + absolute layers */
-  #services.flip-ready .flip-card { perspective: 1000px; }
-  #services.flip-ready .flip-card-inner {
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform .6s ease;
-  }
-  #services.flip-ready .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-
-  #services.flip-ready .flip-face {
-    position: absolute; inset: 0;
-    backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  }
-  #services.flip-ready .flip-face.back { transform: rotateY(180deg); }
-
-  @media (prefers-reduced-motion: reduce) {
-    #services.flip-ready .flip-card-inner { transition: none !important; transform: none !important; }
-    #services.flip-ready .flip-card.flipped .flip-card-inner { transform: none !important; }
-  }
-</style>
-
-
-<!-- Flip logic -->
-<script>
-(function () {
-  function onReady(fn){
-    if (document.readyState !== 'loading') fn();
-    else document.addEventListener('DOMContentLoaded', fn);
-  }
-
-  onReady(function () {
-    const services = document.getElementById('services');
-    const cards = Array.from(document.querySelectorAll('#services .flip-card'));
-    if (!services || !cards.length) return;
-
-    // Measure helper that works even before absolute/3D is applied
-    function measure(el){
-      // Use scrollHeight; if 0 (rare), clone to measure
-      let h = el.scrollHeight;
-      if (!h) {
-        const clone = el.cloneNode(true);
-        clone.style.position = 'absolute';
-        clone.style.visibility = 'hidden';
-        clone.style.transform = 'none';
-        clone.style.inset = 'auto';
-        services.appendChild(clone);
-        h = Math.max(clone.scrollHeight, clone.getBoundingClientRect().height);
-        services.removeChild(clone);
-      }
-      return h;
-    }
-
-    // Set heights *after* we arm flip so absolute faces can fit exactly
-    function setCardHeight(card){
-      const front = card.querySelector('.flip-face.front');
-      const back  = card.querySelector('.flip-face.back');
-      if (!front || !back) return;
-      const showBack = card.classList.contains('flipped');
-      const target = showBack ? back : front;
-      const h = measure(target);
-      card.style.height = h + 'px';
-    }
-
-    function initCard(card){
-      // Initial height using FLOW layout (before arming flip)
-      // Once we arm, we immediately recalibrate.
-      function toggleThis(){
-        cards.forEach(c => {
-          if (c !== card && c.classList.contains('flipped')) {
-            c.classList.remove('flipped');
-            c.setAttribute('aria-expanded', 'false');
-            setCardHeight(c);
-          }
-        });
-        const flipped = card.classList.toggle('flipped');
-        card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
-        setCardHeight(card);
-      }
-
-      card.addEventListener('click', (e) => {
-        if (window.getSelection?.toString()) return;
-        toggleThis();
-      });
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleThis(); }
-      });
-
-      const recalc = () => setCardHeight(card);
-      window.addEventListener('resize', recalc);
-      card.querySelectorAll('img').forEach(img => {
-        if (!img.complete) { img.addEventListener('load', recalc); img.addEventListener('error', recalc); }
-      });
-      if (document.fonts?.ready) document.fonts.ready.then(recalc);
-    }
-
-    // 1) Init listeners while still in non-3D safe mode
-    cards.forEach(initCard);
-
-    // 2) Arm flipping: switch CSS to 3D/absolute only now
-    services.classList.add('flip-ready');
-
-    // 3) Now that faces are absolute, size each card properly
-    cards.forEach(setCardHeight);
-  });
-})();
-</script>
-
-<!-- =================== /SERVICES (DROP-IN) =================== -->
 
 
 
