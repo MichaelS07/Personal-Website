@@ -229,17 +229,21 @@
 <style>
   .flip-card { perspective: 1000px; cursor: pointer; outline: none; }
   .flip-card-inner {
-    position: relative; width: 100%; height: 100%;
+    position: relative; width: 100%;
+    min-height: 360px;              /* <-- ensure height */
     transition: transform 0.6s; transform-style: preserve-3d;
+  }
+  @media (min-width: 768px) {
+    .flip-card-inner { min-height: 420px; }
   }
   .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
   .flip-card-face {
-    position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    position: absolute; inset: 0;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
     display: flex; flex-direction: column;
   }
   .flip-card-back { transform: rotateY(180deg); }
 
-  /* Reduced motion fallback: don’t flip, just reveal back face */
   @media (prefers-reduced-motion: reduce) {
     .flip-card-inner { transition: none; transform: none !important; }
     .flip-card:not(.flipped) .flip-card-back { display: none; }
@@ -247,34 +251,6 @@
     .flip-card .flip-card-front { display: none; }
   }
 </style>
-
-<!-- Tiny JS for click + keyboard toggle and ARIA state -->
-<script>
-  (function () {
-    const cards = document.querySelectorAll('.flip-card');
-    cards.forEach(card => {
-      const toggle = () => {
-        card.classList.toggle('flipped');
-        card.setAttribute('aria-expanded', card.classList.contains('flipped') ? 'true' : 'false');
-      };
-
-      // Click/tap
-      card.addEventListener('click', (e) => {
-        // Avoid toggling if user selects text inside
-        if (window.getSelection && window.getSelection().toString().length) return;
-        toggle();
-      });
-
-      // Keyboard: Enter or Space
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle();
-        }
-      });
-    });
-  })();
-</script>
 
   <!-- Results / Work -->
 <section id="work" class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
