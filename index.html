@@ -23,33 +23,47 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
  /* === Flip Card Styles === */
-  .flip-card {
-    perspective: 1000px;
-    height: 100%;
-  }
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-  .flip-card.flipped .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  .flip-card-front,
-  .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    top: 0;
-    left: 0;
-  }
-  .flip-card-back {
-    transform: rotateY(180deg);
-  } 
+.flip-card {
+  position: relative;
+  perspective: 1200px;      /* 3D enabled */
+  height: 100%;
+  isolation: isolate;       /* keep stacking contained */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  will-change: transform;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* iOS Safari */
+  display: flex;
+  flex-direction: column;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  overflow: auto;           /* mobile-safe if content is tall */
+}
+
+/* Keyboard focus for the invisible button overlay */
+.flip-trigger:focus-visible {
+  outline: 2px solid rgb(16 185 129); /* emerald-500 */
+  outline-offset: 2px;
+}
+
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
@@ -165,160 +179,162 @@
   </section>
 
 <!-- Services -->
- <!-- Services -->
-<section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
+ <section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
       <!-- SEO -->
-      <div class="card-3d">
-        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle SEO details">
+      <article class="flip-card">
+        <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
           <!-- Front -->
-          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
-            <div class="h-32 flex items-center justify-center bg-white">
-              <img src="images/seo-icon.png" alt="SEO icon" class="h-24 w-auto object-contain">
-            </div>
-            <div class="p-6 text-left flex-1 flex flex-col">
+          <div class="flip-card-front rounded-lg overflow-hidden">
+            <img src="images/seo-icon.png" alt="SEO icon" class="w-full h-32 object-contain p-4 bg-white">
+            <div class="p-6 flex-1 flex flex-col items-center justify-center">
               <h3 class="text-xl font-semibold text-slate-900 dark:text-white">SEO</h3>
-              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Full-Funnel Search, from technical SEO and content to paid search alignment.</p>
-              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Technical + content + demand capture.</p>
             </div>
+            <!-- invisible full-card button to flip -->
+            <button class="flip-trigger absolute inset-0" aria-label="Show details about SEO" data-flip></button>
           </div>
+
           <!-- Back -->
-          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
-              <div class="text-sm uppercase tracking-widest text-slate-500">SEO — Details</div>
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
+            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">SEO — Full-Funnel Search</h3>
+              <p>From technical foundations to content that ranks, plus conversion-minded landing pages to turn clicks into customers.</p>
+              <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Technical audits & fixes</li>
+                <li>Content strategy & briefs</li>
+                <li>On-page & internal linking</li>
+                <li>Measurement & reporting</li>
+              </ul>
             </div>
-            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
-              <p class="text-slate-700 dark:text-slate-300">
-                Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent ROAS.
-              </p>
-              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
-            </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Hide details about SEO" data-flip></button>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- CRO -->
-      <div class="card-3d">
-        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle CRO details">
-          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
-            <div class="h-32 flex items-center justify-center bg-white">
-              <img src="images/cro-icon.png" alt="CRO icon" class="h-24 w-auto object-contain">
-            </div>
-            <div class="p-6 text-left flex-1 flex flex-col">
+      <article class="flip-card">
+        <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
+          <div class="flip-card-front rounded-lg overflow-hidden">
+            <img src="images/cro-icon.png" alt="CRO icon" class="w-full h-32 object-contain p-4 bg-white">
+            <div class="p-6 flex-1 flex flex-col items-center justify-center">
               <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">A/B testing + UX fixes to unlock add-to-cart and checkout wins.</p>
-              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Fix friction. Ship wins. Repeat.</p>
             </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Show details about CRO" data-flip></button>
           </div>
-          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
-              <div class="text-sm uppercase tracking-widest text-slate-500">CRO — Details</div>
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
+            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">CRO — Systematic Experiments</h3>
+              <p>We diagnose why users drop, then test UX changes on PDP, cart, and checkout to unlock revenue fast.</p>
+              <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Heuristic & data audits</li>
+                <li>Rapid A/B testing</li>
+                <li>Checkout friction fixes</li>
+                <li>Learning library & roadmap</li>
+              </ul>
             </div>
-            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
-              <p class="text-slate-700 dark:text-slate-300">
-                We dive into your data to find why people aren’t converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that cost you sales—prioritising PDPs and checkout for outsized impact.
-              </p>
-              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
-            </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Hide details about CRO" data-flip></button>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- Shopify -->
-      <div class="card-3d">
-        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Shopify details">
-          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
-            <div class="h-32 flex items-center justify-center bg-white">
-              <img src="images/shopify-icon.png" alt="Shopify icon" class="h-24 w-auto object-contain">
+      <article class="flip-card">
+        <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
+          <div class="flip-card-front rounded-lg overflow-hidden">
+            <img src="images/shopify-icon.png" alt="Shopify icon" class="w-full h-32 object-contain p-4 bg-white">
+            <div class="p-6 flex-1 flex flex-col items-center justify-center">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Shopify Website Design & Management</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Fast, clean, sales-ready storefronts.</p>
             </div>
-            <div class="p-6 text-left flex-1 flex flex-col">
-              <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Shopify Design & Management</h3>
-              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Faster site, cleaner IA, better feeds/tags. Built to scale.</p>
-              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
-            </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Show details about Shopify" data-flip></button>
           </div>
-          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
-              <div class="text-sm uppercase tracking-widest text-slate-500">Shopify — Details</div>
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
+            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Shopify — Design & Ops</h3>
+              <p>Speed, navigation, feeds, tagging: we tune the stack so merchandising and marketing can win.</p>
+              <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Theme performance & UX</li>
+                <li>IA & nav optimisation</li>
+                <li>Feeds, tagging, metafields</li>
+                <li>Release process & QA</li>
+              </ul>
             </div>
-            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
-              <p class="text-slate-700 dark:text-slate-300">
-                We fine-tune your store: performance, navigation, product data, tagging, and merchandising hygiene—so it runs smooth and converts.
-              </p>
-              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
-            </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Hide details about Shopify" data-flip></button>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- Customer Journey -->
-      <div class="card-3d">
-        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Customer Journey details">
-          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
-            <div class="h-32 flex items-center justify-center bg-white">
-              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="h-24 w-auto object-contain">
-            </div>
-            <div class="p-6 text-left flex-1 flex flex-col">
+      <article class="flip-card">
+        <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
+          <div class="flip-card-front rounded-lg overflow-hidden">
+            <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="w-full h-32 object-contain p-4 bg-white">
+            <div class="p-6 flex-1 flex flex-col items-center justify-center">
               <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
-              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Reduce friction from first click to repeat purchase.</p>
-              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Reduce friction. Lift LTV.</p>
             </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Show details about Customer Journey Optimisations" data-flip></button>
           </div>
-          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
-              <div class="text-sm uppercase tracking-widest text-slate-500">Journey — Details</div>
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
+            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Journey — Lifecycle & CX</h3>
+              <p>Map the full path from first click to repeat purchase. Remove blockers and add value moments.</p>
+              <ul class="list-disc list-inside text-sm space-y-1">
+                <li>Funnel mapping & gaps</li>
+                <li>Onsite messaging & offers</li>
+                <li>Post-purchase & retention</li>
+                <li>Attribution hygiene</li>
+              </ul>
             </div>
-            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
-              <p class="text-slate-700 dark:text-slate-300">
-                We map the entire lifecycle, remove friction points, and use clean data to drive higher LTV and brand loyalty.
-              </p>
-              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
-            </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Hide details about Customer Journey Optimisations" data-flip></button>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- Email Marketing -->
-      <div class="card-3d">
-        <div class="flip-trigger card-3d-inner card-size cursor-pointer" role="button" tabindex="0" aria-expanded="false" aria-label="Toggle Email Marketing details">
-          <div class="card-face card-front bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col">
-            <div class="h-32 flex items-center justify-center bg-white">
-              <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="h-24 w-auto object-contain">
-            </div>
-            <div class="p-6 text-left flex-1 flex flex-col">
+      <article class="flip-card">
+        <div class="flip-card-inner rounded-lg shadow border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 h-[360px]">
+          <div class="flip-card-front rounded-lg overflow-hidden">
+            <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="w-full h-32 object-contain p-4 bg-white">
+            <div class="p-6 flex-1 flex flex-col items-center justify-center">
               <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              <p class="mt-2 text-slate-600 dark:text-slate-300 line-clamp-3">Lifecycle flows + targeted campaigns that pay for themselves.</p>
-              <span class="mt-auto text-emerald-600 font-medium">Tap to flip ↻</span>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Lifecycle flows that print money.</p>
             </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Show details about Email Marketing" data-flip></button>
           </div>
-          <div class="card-face card-back bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-            <div class="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800">
-              <div class="text-sm uppercase tracking-widest text-slate-500">Email — Details</div>
+          <div class="flip-card-back rounded-lg overflow-hidden bg-white dark:bg-slate-900 text-left">
+            <div class="p-6 space-y-3 text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">Email — Revenue Engine</h3>
+              <p>Beyond newsletters: automated flows and targeted campaigns that pay for themselves.</p>
+              <ul class="list-disc list-inside text-sm space-y-1">
+                <li>List growth & segmentation</li>
+                <li>Lifecycle flows (welcome, abandon, winback)</li>
+                <li>Campaign calendar & copy</li>
+                <li>Attribution & incrementality</li>
+              </ul>
             </div>
-            <div class="p-6 text-left overflow-y-auto h-[calc(100%-8rem)]">
-              <p class="text-slate-700 dark:text-slate-300">
-                Beyond newsletters: automated lifecycle flows, segmentation, compelling copy, and list growth to turn email into a revenue engine.
-              </p>
-              <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Enquire</a>
-            </div>
+            <button class="flip-trigger absolute inset-0" aria-label="Hide details about Email Marketing" data-flip></button>
           </div>
         </div>
-      </div>
+      </article>
 
-      <!-- CTA (non-flip) -->
-      <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center card-size">
-        <div class="text-lg font-bold">Not sure where to start?</div>
-        <p class="mt-2 opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
-        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start">Get a plan</a>
+      <!-- CTA (non-flipping) -->
+      <div class="reveal p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center h-[360px]">
+        <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
+        <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
+        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">Get a plan</a>
       </div>
 
     </div>
   </div>
 </section>
+
 
 
 
