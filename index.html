@@ -136,7 +136,12 @@
     </div>
   </section>
 
-<!-- Services -->
+<!-- ===================== SERVICES (DROP-IN) ===================== -->
+<!-- Adds a 'js' class asap so fallback only applies if JS truly fails -->
+<script>
+  document.documentElement.classList.add('js');
+</script>
+
 <section id="services" class="py-16 bg-white dark:bg-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
@@ -161,7 +166,7 @@
             <div class="p-4 sm:p-5">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">SEO &amp; SEM Growth</h3>
               <p class="text-slate-600 dark:text-slate-300">
-                Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
+                Full‑Funnel Search: We handle technical SEO and content to bring people in, then optimise paid ad campaigns — including account setup and creative testing — to deliver a strong, consistent ROAS.
               </p>
             </div>
           </div>
@@ -184,7 +189,7 @@
             <div class="p-4 sm:p-5">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Conversion Rate Optimisation</h3>
               <p class="text-slate-600 dark:text-slate-300">
-                Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
+                We find and fix bottlenecks with rapid A/B tests and UX improvements. Focus areas: PDPs and checkout. Aim: more conversions from the traffic you already have.
               </p>
             </div>
           </div>
@@ -207,7 +212,7 @@
             <div class="p-4 sm:p-5">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Shopify Website Design &amp; Management</h3>
               <p class="text-slate-600 dark:text-slate-300">
-                Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.
+                Speed, structure, and scale: we optimise performance, navigation, product feeds and tagging so your store runs smooth and sells more.
               </p>
             </div>
           </div>
@@ -230,7 +235,7 @@
             <div class="p-4 sm:p-5">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Customer Journey Optimisations</h3>
               <p class="text-slate-600 dark:text-slate-300">
-                We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
+                From first click to repeat purchase: we remove friction, personalise key moments, and lift LTV with data‑led decisions.
               </p>
             </div>
           </div>
@@ -243,88 +248,98 @@
 
 <!-- Flip styles -->
 <style>
-  /* Container holds perspective and animates height so layout reflows cleanly */
-  .flip-card {
+  /* Fallback: if JS fails or is blocked, show the front face in normal flow */
+  :root:not(.js) #services .flip-card { height: auto !important; min-height: 0 !important; }
+  :root:not(.js) #services .flip-card .flip-card-inner { position: static !important; transform: none !important; }
+  :root:not(.js) #services .flip-card .flip-face { position: relative !important; inset: auto !important; transform: none !important; backface-visibility: visible !important; }
+
+  /* Flip layout */
+  #services .flip-card {
     position: relative;
     cursor: pointer;
     outline: none;
     perspective: 1000px;
     transition: height .35s ease;
-    min-height: 120px; /* fallback so it never collapses if JS hasn't run yet */
+    min-height: 120px; /* safety so it never collapses before JS measures */
   }
-  /* The inner element actually rotates and MUST fill the container */
-  .flip-card-inner {
+  #services .flip-card-inner {
     position: relative;
-    height: 100%;             /* ✅ critical fix so faces have space */
     transform-style: preserve-3d;
     transition: transform .6s ease;
   }
-  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+  #services .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
 
-  /* Two faces */
-  .flip-face {
+  #services .flip-face {
     position: absolute; inset: 0;
     backface-visibility: hidden; -webkit-backface-visibility: hidden;
   }
-  .flip-face.back { transform: rotateY(180deg); }
+  #services .flip-face.back { transform: rotateY(180deg); }
 
-  /* Reduced motion: turn off spin */
   @media (prefers-reduced-motion: reduce) {
-    .flip-card-inner { transition: none !important; transform: none !important; }
-    .flip-card.flipped .flip-card-inner { transform: none !important; }
+    #services .flip-card-inner { transition: none !important; transform: none !important; }
+    #services .flip-card.flipped .flip-card-inner { transform: none !important; }
   }
 </style>
 
-<!-- Flip logic (safe to live anywhere; runs after DOM is ready) -->
+<!-- Flip logic -->
 <script>
 (function () {
-  function onReady(fn){ 
+  // run after DOM is ready
+  function onReady(fn){
     if (document.readyState !== 'loading') fn();
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
   onReady(function () {
     const cards = Array.from(document.querySelectorAll('#services .flip-card'));
+    if (!cards.length) return;
 
-    function faceHeight(face) {
-      // Use scrollHeight so we get the real content height even when absolute
-      return face.scrollHeight;
+    function measure(face){
+      // Temporarily make it measurable even though it's absolutely positioned + transformed
+      const prevPos = face.style.position;
+      const prevTrans = face.style.transform;
+      face.style.position = 'relative';
+      face.style.transform = 'none';
+      const h = Math.max(face.scrollHeight, face.getBoundingClientRect().height);
+      face.style.position = prevPos;
+      face.style.transform = prevTrans;
+      return h;
     }
 
-    function setCardHeight(card, show) {
+    function setCardHeight(card){
       const front = card.querySelector('.flip-face.front');
       const back  = card.querySelector('.flip-face.back');
-      const target = (show === 'back') ? back : front;
-      const h = faceHeight(target);
+      if (!front || !back) return;
+      const isFlipped = card.classList.contains('flipped');
+      const target = isFlipped ? back : front;
+      const h = measure(target);
       card.style.height = h + 'px';
     }
 
-    function initCard(card) {
-      // Size to front on init
-      setCardHeight(card, 'front');
+    function init(card){
+      setCardHeight(card);
 
-      function openThisAndCloseOthers() {
-        // Close others first
+      function openThisAndCloseOthers(){
         cards.forEach(c => {
           if (c !== card && c.classList.contains('flipped')) {
             c.classList.remove('flipped');
             c.setAttribute('aria-expanded', 'false');
-            setCardHeight(c, 'front');
+            setCardHeight(c);
           }
         });
-        // Toggle current
         const flipped = card.classList.toggle('flipped');
         card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
-        setCardHeight(card, flipped ? 'back' : 'front');
+        setCardHeight(card);
       }
 
       // Click/tap
       card.addEventListener('click', (e) => {
-        if (window.getSelection && window.getSelection().toString().length) return;
+        // ignore clicks while selecting text
+        if (window.getSelection?.toString()) return;
         openThisAndCloseOthers();
       });
 
-      // Keyboard: Enter or Space
+      // Keyboard
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -332,27 +347,27 @@
         }
       });
 
-      // Recalc on resize/orientation
-      const recalc = () => {
-        const isFlipped = card.classList.contains('flipped');
-        setCardHeight(card, isFlipped ? 'back' : 'front');
-      };
+      // Recalculate on resize & when assets load
+      const recalc = () => setCardHeight(card);
       window.addEventListener('resize', recalc);
 
-      // Recalc after images load (in case icon sizes shift)
-      const imgs = card.querySelectorAll('img');
-      imgs.forEach(img => {
+      card.querySelectorAll('img').forEach(img => {
         if (!img.complete) {
           img.addEventListener('load', recalc);
           img.addEventListener('error', recalc);
         }
       });
+
+      // Fonts can change height after they load
+      if (document.fonts?.ready) document.fonts.ready.then(recalc);
     }
 
-    cards.forEach(initCard);
+    cards.forEach(init);
   });
 })();
 </script>
+<!-- =================== /SERVICES (DROP-IN) =================== -->
+
 
 
   <!-- Results / Work -->
