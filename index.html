@@ -429,143 +429,151 @@
   </footer>
 
   <!-- Scripts -->
-  <script>
-    // Dark mode toggle (persists)
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
-    function updateIcon(){ themeIcon.innerHTML = document.documentElement.classList.contains('dark')
+ <script>
+  // Dark mode toggle (persists)
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
+  function updateIcon(){ 
+    themeIcon.innerHTML = document.documentElement.classList.contains('dark')
       ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
-      : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>'; }
+      : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>'; 
+  }
+  updateIcon();
+  themeToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     updateIcon();
-    themeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-      updateIcon();
+  });
+
+  // Mobile menu + slide & icon morph + overlay
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuContent = document.getElementById('mobileMenuContent');
+  const iconBars = document.getElementById('iconBars');
+  const iconX = document.getElementById('iconX');
+  const overlay = document.getElementById('menuOverlay');
+
+  function setOverlay(open){
+    overlay.classList.toggle('opacity-0', !open);
+    overlay.classList.toggle('opacity-100', open);
+    overlay.classList.toggle('pointer-events-none', !open);
+  }
+
+  function setMenu(open){
+    if (open) {
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('open');
+      mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
+      document.body.style.overflow = 'hidden';
+      iconBars.classList.add('hidden');
+      iconX.classList.remove('hidden');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menuBtn.setAttribute('aria-label', 'Close menu');
+      setOverlay(true);
+    } else {
+      mobileMenu.style.maxHeight = '0px';
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      iconBars.classList.remove('hidden');
+      iconX.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'Open menu');
+      setOverlay(false);
+    }
+  }
+
+  mobileMenu.addEventListener('transitionend', (e) => {
+    if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+
+  menuBtn.addEventListener('click', () => {
+    const open = menuBtn.getAttribute('aria-expanded') === 'true';
+    setMenu(!open);
+  });
+
+  overlay.addEventListener('click', () => setMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Count up numbers when visible
+  function animateCount(el){
+    const end = parseInt(el.getAttribute('data-counter'), 10);
+    let current = 0; const duration = 1200; const start = performance.now();
+    function tick(t){
+      const p = Math.min(1, (t - start) / duration); 
+      current = Math.floor(end * p);
+      el.textContent = current + (end < 100 ? '%' : '');
+      if (p < 1) requestAnimationFrame(tick); 
+      else el.textContent = end + (end < 100 ? '%' : '');
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('[data-counter]');
+  const io2 = new IntersectionObserver((entries) => {
+    entries.forEach(e => { 
+      if (e.isIntersecting && !e.target._counted){ 
+        e.target._counted = true; 
+        animateCount(e.target); 
+      } 
     });
+  }, { threshold: 0.6 });
+  counters.forEach(c => io2.observe(c));
 
-    // Mobile menu + slide & icon morph + overlay
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuContent = document.getElementById('mobileMenuContent');
-    const iconBars = document.getElementById('iconBars');
-    const iconX = document.getElementById('iconX');
-    const overlay = document.getElementById('menuOverlay');
+  // Pricing toggle
+  const toggle = document.getElementById('priceToggle');
+  const dot = document.getElementById('priceDot');
+  const prices = document.querySelectorAll('.price');
+  let monthly = false;
 
-    function setOverlay(open){
-      overlay.classList.toggle('opacity-0', !open);
-      overlay.classList.toggle('opacity-100', open);
-      overlay.classList.toggle('pointer-events-none', !open);
-    }
+  function knobPositions(){
+    const trackW = toggle.clientWidth;
+    const knobW = dot.clientWidth;
+    const margin = 4;
+    const start = margin;
+    const end = Math.max(margin, trackW - knobW - margin);
+    return { start, end };
+  }
 
-    function setMenu(open){
-      if (open) {
-        // Prepare and open
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('open');
-        mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
-        document.body.style.overflow = 'hidden';
-        iconBars.classList.add('hidden');
-        iconX.classList.remove('hidden');
-        menuBtn.setAttribute('aria-expanded', 'true');
-        menuBtn.setAttribute('aria-label', 'Close menu');
-        setOverlay(true);
-      } else {
-        // Close with animation
-        mobileMenu.style.maxHeight = '0px';
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
-        iconBars.classList.remove('hidden');
-        iconX.classList.add('hidden');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        menuBtn.setAttribute('aria-label', 'Open menu');
-        setOverlay(false);
-      }
-    }
-
-    // After transition to closed, actually hide to remove from flow
-    mobileMenu.addEventListener('transitionend', (e) => {
-      if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
-        mobileMenu.classList.add('hidden');
-      }
+  function renderPrices(){
+    prices.forEach(p => { 
+      p.textContent = p.dataset[monthly ? 'month' : 'one']; 
     });
+    const { start, end } = knobPositions();
+    dot.style.transform = `translateX(${monthly ? end : start}px)`; // ✅ FIXED
+  }
 
-    menuBtn.addEventListener('click', () => {
-      const open = menuBtn.getAttribute('aria-expanded') === 'true';
-      setMenu(!open);
-    });
-
-    overlay.addEventListener('click', () => setMenu(false));
-
-    // Close on nav click
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Reveal on scroll
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.15 });
-    revealEls.forEach(el => io.observe(el));
-
-    // Count up numbers when visible
-    function animateCount(el){
-      const end = parseInt(el.getAttribute('data-counter'), 10);
-      let current = 0; const duration = 1200; const start = performance.now();
-      function tick(t){
-        const p = Math.min(1, (t - start) / duration); current = Math.floor(end * p);
-        el.textContent = current + (end < 100 ? '%' : '');
-        if (p < 1) requestAnimationFrame(tick); else el.textContent = end + (end < 100 ? '%' : '');
-      }
-      requestAnimationFrame(tick);
-    }
-    const counters = document.querySelectorAll('[data-counter]');
-    const io2 = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting && !e.target._counted){ e.target._counted = true; animateCount(e.target); } });
-    }, { threshold: 0.6 });
-    counters.forEach(c => io2.observe(c));
-
-    // Pricing toggle - precise knob travel based on actual sizes
-    const toggle = document.getElementById('priceToggle');
-    const dot = document.getElementById('priceDot');
-    const prices = document.querySelectorAll('.price');
-    let monthly = false;
-
-    function knobPositions(){
-      // Compute travel distance so the dot lands flush with the right inner edge
-      const trackW = toggle.clientWidth; // e.g. 64px for w-16
-      const knobW = dot.clientWidth;     // e.g. 24px for h-6 w-6
-      const margin = 4;                  // visual padding we want on both sides
-      const start = margin;              // left resting position
-      const end = Math.max(margin, trackW - knobW - margin); // right resting position
-      return { start, end };
-    }
-
-    function renderPrices(){
-      prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
-      const { start, end } = knobPositions();
-      dot.style.transform = translateX(${monthly ? end : start}px);
-    }
-
+  if (toggle && dot) {
     renderPrices();
-
     toggle.addEventListener('click', () => {
       monthly = !monthly;
       renderPrices();
       toggle.setAttribute('aria-pressed', String(monthly));
     });
-
-    // Recalculate on resize/rotation or when fonts load
     window.addEventListener('resize', renderPrices);
     document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
+  }
 
-    // Fake form submit
-    function fakeSubmit(){ const m = document.getElementById('formMsg'); m.classList.remove('hidden'); setTimeout(()=>m.classList.add('hidden'), 3500); }
-    window.fakeSubmit = fakeSubmit;
-  </script>
+  // Fake form submit
+  function fakeSubmit(){ 
+    const m = document.getElementById('formMsg'); 
+    m.classList.remove('hidden'); 
+    setTimeout(()=>m.classList.add('hidden'), 3500); 
+  }
+  window.fakeSubmit = fakeSubmit;
+</script>
 </body>
 </html>
