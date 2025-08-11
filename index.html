@@ -136,21 +136,34 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <!-- Services Grid with images on top and text below -->
+<!-- Services -->
 <section class="py-16 bg-white dark:bg-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- SEO & SEM Growth -->
-      <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
-        <img src="images/seo-icon.png" alt="SEO & SEM icon" class="w-full h-32 object-contain p-4 bg-white">
-        <div class="p-6 flex-1">
-          <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">SEO</h3>
-          <p class="text-slate-600 dark:text-slate-300">Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.</p>
+
+      <!-- Service Card -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <!-- Front -->
+          <div class="flip-card-front bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
+            <img src="images/seo-icon.png" alt="SEO" class="w-full h-32 object-contain p-4 bg-white">
+            <div class="p-6 flex-1">
+              <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">SEO</h3>
+              <p class="text-slate-600 dark:text-slate-300">Tap to learn more...</p>
+            </div>
+          </div>
+          <!-- Back -->
+          <div class="flip-card-back bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col p-6">
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">SEO & SEM Growth</h3>
+            <p class="text-slate-600 dark:text-slate-300">
+              Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle technical SEO, content, and optimize paid ad campaigns for a strong, consistent ROAS.
+            </p>
+          </div>
         </div>
       </div>
+
 
       <!-- Conversion Rate Optimisation -->
       <div class="bg-slate-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow flex flex-col">
@@ -198,6 +211,33 @@
   </div>
 </section>
 
+  
+<!-- Flip Card CSS -->
+<style>
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+</style>
 
 
   <!-- Results / Work -->
