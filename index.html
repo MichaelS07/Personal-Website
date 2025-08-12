@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
@@ -24,56 +25,111 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* ===== Service cards: FULL CARD FLIP (centered) ===== */
-    #services .cards-grid{ align-items:start; } /* don't stretch rows */
-
-    .service-card{ position:relative; perspective:1200px; -webkit-tap-highlight-color:transparent; cursor:pointer; }
-    .rotator{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s ease; will-change:transform; }
-    .service-card.is-flipped .rotator{ transform:rotateY(180deg); }
-
-    .face{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; }
-    .front{ transform:rotateY(0); }
-    .back{ transform:rotateY(180deg); }
-
-    /* card chrome on faces */
-    .front,.back{
-      border-radius:.75rem;                 /* rounded-xl */
-      border:1px solid rgb(226 232 240);    /* slate-200 */
-      background:rgb(248 250 252);          /* slate-50 */
-      box-shadow:0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
-    }
-    .dark .front,.dark .back{
-      border-color:rgb(30 41 59);           /* slate-800 */
-      background:rgb(30 41 59);             /* slate-800 */
+    /* ========= Service cards (FULL CARD FLIP) ========= */
+    :root{
+      /* Tweak these two to change size balance globally */
+      --svc-card-minh: 19rem;
+      --svc-icon-size: 10.5rem;
     }
 
-    .content{ padding:1.5rem; display:flex; flex-direction:column; align-items:center; gap:.75rem; text-align:center; width:100%; }
-
-    /* keep front tall so icon dominates BEFORE images load */
-    .content-front{ min-height:16rem; }
-    @media (min-width:640px){ .content-front{ min-height:18rem; } }
-
-    /* Big icon on front (no white square) */
-    .icon{
-      width:clamp(9rem, 65%, 12rem);
-      aspect-ratio:1/1;
-      display:block;
-      object-fit:contain;
+    /* Card container + 3D */
+    .service-card{
+      position: relative;
+      perspective: 1200px;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+      min-height: var(--svc-card-minh);
     }
 
-    /* back lists: left-align for readability */
-    .back .content ul{ text-align:left; align-self:stretch; }
-
-    /* CTA tile matches card size */
-    .cta-card{
-      border-radius:.75rem; border:1px solid rgb(226 232 240);
-      padding:1.5rem; box-shadow:0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
-      min-height:16rem; display:flex; flex-direction:column; justify-content:center; align-items:center;
+    .service-card .rotator{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform .6s ease;
+      will-change: transform;
     }
-    @media (min-width:640px){ .cta-card{ min-height:18rem; } }
-    .dark .cta-card{ border-color:rgb(30 41 59); }
+    .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
+
+    /* Faces */
+    .service-card .face{
+      position: absolute;
+      inset: 0;
+      display: flex;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .service-card .front{ transform: rotateY(0); }
+    .service-card .back{ transform: rotateY(180deg); }
+
+    /* Card chrome (both faces) */
+    .service-card .front,
+    .service-card .back{
+      border-radius: .75rem; /* rounded-xl */
+      border: 1px solid rgb(226 232 240 / 1);      /* slate-200 */
+      background: rgb(248 250 252 / 1);            /* slate-50 */
+      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
+    }
+    .dark .service-card .front,
+    .dark .service-card .back{
+      border-color: rgb(30 41 59 / 1);             /* slate-800 */
+      background: rgb(30 41 59 / 1);               /* slate-800 */
+    }
+
+    /* Shared content layout */
+    .service-card .content{
+      width: 100%;
+      padding: 1.5rem;                 /* p-6 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .85rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* Front: center everything (prevents text hugging the bottom) */
+    .service-card .content-front{
+      min-height: var(--svc-card-minh);
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    /* Back: same min-height; lists left-align for readability */
+    .service-card .content-back{
+      min-height: var(--svc-card-minh);
+      justify-content: center; /* keeps copy visually centered vertically */
+    }
+    .service-card .content-back ul{
+      text-align: left;
+      align-self: stretch;
+      margin-top: .25rem;
+    }
+
+    /* Big icon; no white box */
+    .service-card .icon{
+      width: var(--svc-icon-size);
+      height: var(--svc-icon-size);
+      object-fit: contain;
+      display: block;
+      background: transparent !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+    @media (min-width: 640px){
+      :root{
+        --svc-card-minh: 20rem;
+        --svc-icon-size: 11.5rem;
+      }
+    }
+
+    /* Make every grid child share the same min-height (keeps CTA tile in sync) */
+    #services .cards-grid > *{
+      min-height: var(--svc-card-minh);
+    }
   </style>
 </head>
+
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Backdrop overlay (mobile only) -->
