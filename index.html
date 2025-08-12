@@ -203,64 +203,83 @@
   </header>
 
   <!-- Hero (depthy banner) -->
-  <section id="home" class="relative overflow-hidden">
-    <!-- Gradient blobs (existing) -->
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-      <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
-      <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
-    </div>
+<section id="home" class="relative overflow-hidden">
+  <!-- Gradient blobs (existing) -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
+    <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
+  </div>
 
-    <!-- Mesh + grid + optional parallax -->
-    <div id="hero-bg" class="absolute inset-0 -z-10 opacity-80">
-      <div class="absolute inset-0" style="background:
-        radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.18), transparent 70%),
-        radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.16), transparent 70%),
-        radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.14), transparent 70%);"></div>
-      <div class="absolute inset-0 hero-grid"></div>
-    </div>
+  <!-- Banner image + overlays -->
+  <div id="hero-bg" class="absolute inset-0 -z-10 opacity-80">
+    <!-- Background image -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('hero-banner.png');"></div>
+    <!-- Color gradient overlays -->
+    <div class="absolute inset-0" style="background:
+      radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.18), transparent 70%),
+      radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.16), transparent 70%),
+      radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.14), transparent 70%);
+    "></div>
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 hero-grid"></div>
+  </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
-      <div class="reveal">
-        <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Digital Marketing Specialists</span>
-        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Performance-first marketing for brands that want results.</h1>
-        <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategy's.</p>
-        <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
-          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">Book a free consult</a>
-          <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto lift">Explore services</a>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
+    <!-- Left: Text content -->
+    <div class="reveal">
+      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        Digital Marketing Specialists
+      </span>
+      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+        Performance-first marketing for brands that want results.
+      </h1>
+      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">
+        I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategies.
+      </p>
+      <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
+        <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">
+          Book a free consult
+        </a>
+        <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto lift">
+          Explore services
+        </a>
+      </div>
+
+      <!-- KPI tiles -->
+      <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
+        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
+          <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
         </div>
+        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
+          <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
+        </div>
+        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
+          <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
+        </div>
+      </div>
+    </div>
 
-        <!-- KPI tiles with stronger separation -->
-        <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
-            <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
-          </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
-            <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
-          </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
-            <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
+    <!-- Right: Case study card -->
+    <div class="relative reveal">
+      <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl tilt">
+        <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 flex items-center justify-center">
+          <div class="text-center p-6">
+            <div class="text-sm uppercase tracking-widest text-slate-500">Case Study Snapshot</div>
+            <div class="mt-2 text-2xl font-bold">CRO + Email = +19% Revenue/Visitor</div>
+            <p class="mt-3 text-slate-600 dark:text-slate-300">
+              Incremental wins from checkout UX fixes, better list growth, and lifecycle flows. Ask for the deep-dive.
+            </p>
           </div>
         </div>
       </div>
-
-      <!-- Right: case study card with tilt -->
-      <div class="relative reveal">
-        <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl tilt">
-          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 flex items-center justify-center">
-            <div class="text-center p-6">
-              <div class="text-sm uppercase tracking-widest text-slate-500">Case Study Snapshot</div>
-              <div class="mt-2 text-2xl font-bold">CRO + Email = +19% Revenue/Visitor</div>
-              <p class="mt-3 text-slate-600 dark:text-slate-300">Incremental wins from checkout UX fixes, better list growth, and lifecycle flows. Ask for the deep-dive.</p>
-            </div>
-          </div>
-        </div>
-        <div class="absolute -bottom-6 -right-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-400 blur-2xl opacity-60"></div>
-      </div>
+      <div class="absolute -bottom-6 -right-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-400 blur-2xl opacity-60"></div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Thin gradient separator -->
   <hr class="grad-rule mx-auto w-[90%] opacity-60" />
