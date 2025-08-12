@@ -127,6 +127,19 @@
     #services .cards-grid > *{
       min-height: var(--svc-card-minh);
     }
+    /* CTA tile: same height as cards + centered content */
+#services .cta-tile{
+  min-height: var(--svc-card-minh);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;           /* p-6 */
+  border-radius: .75rem;     /* rounded-xl */
+}
+
   </style>
 </head>
 
@@ -380,16 +393,16 @@
           </div>
         </article>
 
-        <!-- CTA (same size as cards) -->
-        <div class="cta-card reveal bg-gradient-to-br from-emerald-600 to-green-500 text-white self-start">
-          <div class="text-base sm:text-lg font-bold text-center">Not sure where to start?</div>
-          <p class="mt-2 text-sm/relaxed opacity-90 text-center">
-            Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
-          </p>
-          <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">
-            Get a plan
-          </a>
-        </div>
+        <!-- CTA -->
+<div class="cta-tile reveal h-full border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white shadow">
+  <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
+  <p class="mt-2 text-sm sm:text-base opacity-90">
+    Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
+  </p>
+  <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">
+    Get a plan
+  </a>
+</div>
 
       </div>
     </div>
