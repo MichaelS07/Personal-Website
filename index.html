@@ -1,63 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><!-- Nova Reach --> Digital Marketing Consulting</title>
   <meta name="description" content="Digital marketing consultancy specialising in SEO/SEM, CRO, Shopify management, customer journey optimisation, and email marketing." />
-
-  <!-- Keep the site in light mode even if the OS is dark -->
-  <meta name="color-scheme" content="light" />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Tailwind: force class-based dark mode (we won't add the .dark class, so site stays light) -->
-  <script>
-    tailwind = { config: { darkMode: 'class' } };
-  </script>
+  <!-- Stop iPhone/macOS dark mode from changing site -->
+  <meta name="color-scheme" content="light">
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Force Tailwind to only use class-based dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
 
   <style>
-    /* Lock UA theming to light as well */
-    :root { color-scheme: light; }
-
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+
     .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
     .dark .glass { background: rgba(17,24,39,0.5); }
+
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
+
     .tap { min-height: 44px; min-width: 44px; }
 
-    /* Mobile menu slide */
+    /* Slide-down animation for mobile menu */
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* ========= Service cards (FULL CARD FLIP) ========= */
+    /* === Flip Card Styles === */
     :root{
-      --svc-card-minh: 19rem;    /* Match “How we’ll work” icon size area */
-      --svc-icon-size: 10rem;    /* h-40 */
+      --svc-card-minh: 19rem;
+      --svc-icon-size: 10rem;
     }
     @media (min-width: 640px){
       :root{ --svc-card-minh: 20rem; }
     }
 
-    /* Card container + 3D */
     .service-card{
       position: relative;
       perspective: 1200px;
       -webkit-tap-highlight-color: transparent;
       cursor: pointer;
       min-height: var(--svc-card-minh);
-      color: black;                 /* Light mode default text color */
+      color: #0f172a; /* Force default dark text */
     }
-    .dark .service-card{ color: white; }  /* If you ever add .dark class, text goes white */
-
     .service-card .rotator{
       position: relative;
       width: 100%;
@@ -68,7 +62,6 @@
     }
     .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
 
-    /* Faces */
     .service-card .face{
       position: absolute;
       inset: 0;
@@ -79,24 +72,28 @@
     .service-card .front{ transform: rotateY(0); }
     .service-card .back{ transform: rotateY(180deg); }
 
-    /* Card chrome (both faces) */
     .service-card .front,
     .service-card .back{
-      border-radius: .75rem; /* rounded-xl */
-      border: 1px solid rgb(226 232 240 / 1);      /* slate-200 */
-      background: rgb(248 250 252 / 1);            /* slate-50 */
+      border-radius: .75rem;
+      border: 1px solid rgb(226 232 240 / 1);
+      background: rgb(248 250 252 / 1);
       box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
     }
+
     .dark .service-card .front,
     .dark .service-card .back{
-      border-color: rgb(30 41 59 / 1);             /* slate-800 */
-      background: rgb(30 41 59 / 1);               /* slate-800 */
+      border-color: rgb(30 41 59 / 1);
+      background: rgb(30 41 59 / 1);
     }
 
-    /* Shared content layout */
+    /* Force service card text to stay black in OS dark mode */
+    @media (prefers-color-scheme: dark) {
+      .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
+    }
+
     .service-card .content{
       width: 100%;
-      padding: 1.5rem;                 /* p-6 */
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -105,24 +102,14 @@
       line-height: 1.5;
     }
 
-    /* Front: center everything */
-    .service-card .content-front{
-      min-height: var(--svc-card-minh);
-      justify-content: center;
-    }
-
-    /* Back: same min-height; lists left-align for readability */
-    .service-card .content-back{
-      min-height: var(--svc-card-minh);
-      justify-content: center;
-    }
+    .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
+    .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
     .service-card .content-back ul{
       text-align: left;
       align-self: stretch;
       margin-top: .25rem;
     }
 
-    /* Big icon; no white box */
     .service-card .icon{
       width: var(--svc-icon-size);
       height: var(--svc-icon-size);
@@ -134,7 +121,6 @@
       border-radius: 0 !important;
     }
 
-    /* Grid + CTA tile */
     #services .cards-grid > *{ min-height: var(--svc-card-minh); }
     #services .cta-tile{
       min-height: var(--svc-card-minh);
@@ -144,8 +130,8 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 1.5rem;         /* p-6 */
-      border-radius: .75rem;   /* rounded-xl */
+      padding: 1.5rem;
+      border-radius: .75rem;
     }
   </style>
 </head>
