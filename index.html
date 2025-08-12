@@ -25,59 +25,55 @@
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
     /* ===== Service cards: FULL CARD FLIP (centered) ===== */
+    #services .cards-grid{ align-items:start; } /* don't stretch rows */
+
     .service-card{ position:relative; perspective:1200px; -webkit-tap-highlight-color:transparent; cursor:pointer; }
-    .service-card .rotator{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s ease; will-change:transform; }
+    .rotator{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s ease; will-change:transform; }
     .service-card.is-flipped .rotator{ transform:rotateY(180deg); }
 
-    .service-card .face{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; }
-    .service-card .front{ transform:rotateY(0); }
-    .service-card .back{ transform:rotateY(180deg); }
+    .face{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; }
+    .front{ transform:rotateY(0); }
+    .back{ transform:rotateY(180deg); }
 
-    /* Card chrome on both faces */
-    .service-card .front,
-    .service-card .back{
-      border-radius: .75rem; /* rounded-xl */
-      border: 1px solid rgb(226 232 240 / 1);          /* slate-200 */
-      background: rgb(248 250 252 / 1);                /* slate-50 */
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
+    /* card chrome on faces */
+    .front,.back{
+      border-radius:.75rem;                 /* rounded-xl */
+      border:1px solid rgb(226 232 240);    /* slate-200 */
+      background:rgb(248 250 252);          /* slate-50 */
+      box-shadow:0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
     }
-    .dark .service-card .front,
-    .dark .service-card .back{
-      border-color: rgb(30 41 59 / 1);                 /* slate-800 */
-      background: rgb(30 41 59 / 1);                   /* slate-800 */
+    .dark .front,.dark .back{
+      border-color:rgb(30 41 59);           /* slate-800 */
+      background:rgb(30 41 59);             /* slate-800 */
     }
 
-    /* Shared content layout */
-    .service-card .content{
-      padding: 1.5rem;               /* p-6 */
-      display:flex; flex-direction:column; align-items:center; gap:.75rem;
-      text-align:center; width:100%;
+    .content{ padding:1.5rem; display:flex; flex-direction:column; align-items:center; gap:.75rem; text-align:center; width:100%; }
+
+    /* keep front tall so icon dominates BEFORE images load */
+    .content-front{ min-height:16rem; }
+    @media (min-width:640px){ .content-front{ min-height:18rem; } }
+
+    /* Big icon on front (no white square) */
+    .icon{
+      width:clamp(9rem, 65%, 12rem);
+      aspect-ratio:1/1;
+      display:block;
+      object-fit:contain;
     }
 
-    /* FRONT face gets a taller min-height so the icon can dominate */
-    .service-card .content-front{
-      min-height: 16rem;             /* bigger box initially */
-    }
-    @media (min-width:640px){
-      .service-card .content-front{ min-height: 18rem; }
-    }
+    /* back lists: left-align for readability */
+    .back .content ul{ text-align:left; align-self:stretch; }
 
-    /* Bigger icon — takes up most of the box on the front */
-    .service-card .icon{
-      width: 8.5rem; height: 8.5rem;
+    /* CTA tile matches card size */
+    .cta-card{
+      border-radius:.75rem; border:1px solid rgb(226 232 240);
+      padding:1.5rem; box-shadow:0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
+      min-height:16rem; display:flex; flex-direction:column; justify-content:center; align-items:center;
     }
-    @media (min-width:640px){
-      .service-card .icon{ width: 9.5rem; height: 9.5rem; }
-    }
-
-    /* Back lists: left-align text for readability (headings still centered) */
-    .service-card .content ul{ text-align:left; align-self:stretch; }
-
-    /* Grid: do not stretch rows to tallest item (keeps CTA from stretching) */
-    #services .cards-grid{ align-items:start; }
+    @media (min-width:640px){ .cta-card{ min-height:18rem; } }
+    .dark .cta-card{ border-color:rgb(30 41 59); }
   </style>
 </head>
-
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Backdrop overlay (mobile only) -->
@@ -103,15 +99,12 @@
           <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/></svg>
         </button>
         <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
-        <!-- Mobile menu button with morphing icon -->
         <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <!-- Bars -->
           <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
             <line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
-          <!-- X -->
           <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
@@ -119,7 +112,6 @@
         </button>
       </div>
     </div>
-    <!-- Mobile menu -->
     <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
       <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2">
         <a href="#services" class="hover:text-emerald-600 py-2">Services</a>
@@ -191,411 +183,377 @@
     </div>
   </section>
 
-  
-<!-- Services -->
-<section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
+  <!-- Services -->
+  <section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
-    <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <!-- SEO -->
-      <article class="service-card" tabindex="0" aria-label="SEO. Press or tap to flip">
-        <div class="rotator">
-          <!-- FRONT -->
-          <div class="face front">
-            <div class="content content-front">
-              <img src="images/seo-icon.png" alt="SEO icon" class="icon object-contain bg-white rounded-md p-2">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
+        <!-- SEO -->
+        <article class="service-card" tabindex="0" aria-label="SEO. Press or tap to flip">
+          <div class="rotator">
+            <div class="face front">
+              <div class="content content-front">
+                <img src="images/seo-icon.png" alt="SEO icon" class="icon object-contain">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="content">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+                <p class="text-sm text-slate-700 dark:text-slate-300">
+                  Full-funnel search: technical fixes, content strategy, internal linking, and measurement focused on demand you can win.
+                </p>
+                <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+                  <li>Technical audits &amp; fixes</li>
+                  <li>Keyword &amp; content strategy</li>
+                  <li>On-page &amp; internal linking</li>
+                  <li>Reporting &amp; KPIs tied to revenue</li>
+                </ul>
+              </div>
             </div>
           </div>
-          <!-- BACK -->
-          <div class="face back">
-            <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
-                Full-funnel search: technical fixes, content strategy, internal linking, and measurement focused on demand you can win.
-              </p>
-              <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Technical audits &amp; fixes</li>
-                <li>Keyword &amp; content strategy</li>
-                <li>On-page &amp; internal linking</li>
-                <li>Reporting &amp; KPIs tied to revenue</li>
-              </ul>
+        </article>
+
+        <!-- CRO -->
+        <article class="service-card" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
+          <div class="rotator">
+            <div class="face front">
+              <div class="content content-front">
+                <img src="images/cro-icon.png" alt="CRO icon" class="icon object-contain">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="content">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+                <p class="text-sm text-slate-700 dark:text-slate-300">
+                  We find friction in your funnel and fix it via rapid tests. Focus on PDPs, cart, and checkout to lift conversion fast.
+                </p>
+                <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+                  <li>Heuristic &amp; data-driven audits</li>
+                  <li>Experiment roadmap &amp; prioritisation</li>
+                  <li>A/B testing &amp; UX improvements</li>
+                  <li>Measurable lifts tied to goals</li>
+                </ul>
+              </div>
             </div>
           </div>
+        </article>
+
+        <!-- Shopify -->
+        <article class="service-card" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
+          <div class="rotator">
+            <div class="face front">
+              <div class="content content-front">
+                <img src="images/shopify-icon.png" alt="Shopify icon" class="icon object-contain">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="content">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Shopify</h3>
+                <p class="text-sm text-slate-700 dark:text-slate-300">
+                  Faster pages, cleaner IA, and bulletproof tracking. We optimise navigation, feeds, tagging, and performance to scale.
+                </p>
+                <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+                  <li>Theme &amp; performance tuning</li>
+                  <li>Navigation &amp; product taxonomy</li>
+                  <li>Tracking/GA4 &amp; feed quality</li>
+                  <li>Ongoing maintenance &amp; QA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Customer Journey -->
+        <article class="service-card" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
+          <div class="rotator">
+            <div class="face front">
+              <div class="content content-front">
+                <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="content">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
+                <p class="text-sm text-slate-700 dark:text-slate-300">
+                  Diagnose the full lifecycle—from first click to repeat purchase—then remove friction and scale what works.
+                </p>
+                <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+                  <li>Journey mapping &amp; analytics</li>
+                  <li>Personalisation &amp; segmentation</li>
+                  <li>Activation → retention flows</li>
+                  <li>LTV-first decision-making</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Email -->
+        <article class="service-card" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+          <div class="rotator">
+            <div class="face front">
+              <div class="content content-front">
+                <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="icon object-contain">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300">Flows &amp; campaigns that compound revenue.</p>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="content">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+                <p class="text-sm text-slate-700 dark:text-slate-300">
+                  Lifecycle flows and targeted campaigns that pay for themselves—plus list growth and smart segmentation.
+                </p>
+                <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+                  <li>Acquisition &amp; list growth</li>
+                  <li>Lifecycle automations (Klaviyo)</li>
+                  <li>Segmentation &amp; deliverability</li>
+                  <li>Creative, copy, and testing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CTA (same size as cards) -->
+        <div class="cta-card reveal bg-gradient-to-br from-emerald-600 to-green-500 text-white self-start">
+          <div class="text-base sm:text-lg font-bold text-center">Not sure where to start?</div>
+          <p class="mt-2 text-sm/relaxed opacity-90 text-center">
+            Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
+          </p>
+          <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">
+            Get a plan
+          </a>
         </div>
-      </article>
 
-      <!-- CRO -->
-      <article class="service-card" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
-        <div class="rotator">
-          <div class="face front">
-            <div class="content content-front">
-              <img src="images/cro-icon.png" alt="CRO icon" class="icon object-contain bg-white rounded-md p-2">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
-            </div>
-          </div>
-          <div class="face back">
-            <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
-                We find friction in your funnel and fix it via rapid tests. Focus on PDPs, cart, and checkout to lift conversion fast.
-              </p>
-              <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Heuristic &amp; data-driven audits</li>
-                <li>Experiment roadmap &amp; prioritisation</li>
-                <li>A/B testing &amp; UX improvements</li>
-                <li>Measurable lifts tied to goals</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Shopify -->
-      <article class="service-card" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
-        <div class="rotator">
-          <div class="face front">
-            <div class="content content-front">
-              <img src="images/shopify-icon.png" alt="Shopify icon" class="icon object-contain bg-white rounded-md p-2">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
-            </div>
-          </div>
-          <div class="face back">
-            <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
-                Faster pages, cleaner IA, and bulletproof tracking. We optimise navigation, feeds, tagging, and performance to scale.
-              </p>
-              <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Theme &amp; performance tuning</li>
-                <li>Navigation &amp; product taxonomy</li>
-                <li>Tracking/GA4 &amp; feed quality</li>
-                <li>Ongoing maintenance &amp; QA</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Customer Journey -->
-      <article class="service-card" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
-        <div class="rotator">
-          <div class="face front">
-            <div class="content content-front">
-              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain bg-white rounded-md p-2">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
-            </div>
-          </div>
-          <div class="face back">
-            <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
-                Diagnose the full lifecycle—from first click to repeat purchase—then remove friction and scale what works.
-              </p>
-              <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Journey mapping &amp; analytics</li>
-                <li>Personalisation &amp; segmentation</li>
-                <li>Activation → retention flows</li>
-                <li>LTV-first decision-making</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Email -->
-      <article class="service-card" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
-        <div class="rotator">
-          <div class="face front">
-            <div class="content content-front">
-              <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="icon object-contain bg-white rounded-md p-2">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">Flows &amp; campaigns that compound revenue.</p>
-            </div>
-          </div>
-          <div class="face back">
-            <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
-                Lifecycle flows and targeted campaigns that pay for themselves—plus list growth and smart segmentation.
-              </p>
-              <ul class="text-sm list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
-                <li>Acquisition &amp; list growth</li>
-                <li>Lifecycle automations (Klaviyo)</li>
-                <li>Segmentation &amp; deliverability</li>
-                <li>Creative, copy, and testing</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- CTA -->
-      <div class="reveal self-start p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center">
-        <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
-        <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
-        <a href="#contact" class="inline-flex mt-4 items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-center">Get a plan</a>
       </div>
-
     </div>
-  </div>
-</section>
-
-
+  </section>
 
   <!-- Results / Work -->
-<section id="work" class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
-    </div>
-
-    <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
-
-      <!-- CRO + Email -->
-      <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
-        <!-- Mini line chart header -->
-        <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
-          <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Line chart showing upward revenue per visitor trend">
-            <defs>
-              <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="currentColor" stop-opacity="0.25" />
-                <stop offset="100%" stop-color="currentColor" stop-opacity="0.02" />
-              </linearGradient>
-            </defs>
-            <!-- area -->
-            <path d="M0,80 L40,75 L80,72 L120,68 L160,60 L200,52 L240,44 L300,30 L300,100 L0,100 Z" fill="url(#revGrad)" />
-            <!-- line -->
-            <polyline points="0,80 40,75 80,72 120,68 160,60 200,52 240,44 300,30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-            <!-- markers -->
-            <g fill="currentColor">
-              <circle cx="0" cy="80" r="3"/><circle cx="120" cy="68" r="3"/><circle cx="240" cy="44" r="3"/><circle cx="300" cy="30" r="3"/>
-            </g>
-          </svg>
-        </div>
-        <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">CRO + Email</div>
-        <div class="mt-1 text-xl sm:text-2xl font-bold">+19% Revenue/Visitor</div>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and three lifecycle flows built from zero.</p>
-      </article>
-
-      <!-- SEM -->
-      <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
-        <!-- Mini bar chart header -->
-        <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
-          <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Bar chart showing CPA down and conversions up">
-            <!-- CPA bars (down) -->
-            <rect x="20" y="20" width="30" height="60" rx="4" class="fill-red-500/70 dark:fill-red-400/70"/>
-            <rect x="70" y="35" width="30" height="45" rx="4" class="fill-red-500/50 dark:fill-red-400/50"/>
-            <rect x="120" y="45" width="30" height="35" rx="4" class="fill-red-500/30 dark:fill-red-400/30"/>
-            <!-- Conv bars (up) -->
-            <rect x="200" y="60" width="30" height="20" rx="4" class="fill-emerald-500/30"/>
-            <rect x="250" y="40" width="30" height="40" rx="4" class="fill-emerald-500/70"/>
-          </svg>
-        </div>
-        <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEM</div>
-        <div class="mt-1 text-xl sm:text-2xl font-bold">-35% CPA @ +22% Conv.</div>
-        <p class="mt-2 text-sm">Account restructure, negative sculpting, query mapping, and creative refresh cadence.</p>
-      </article>
-
-      <!-- SEO -->
-      <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
-        <!-- Mini funnel/stacked chart header -->
-        <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
-          <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Stacked bars showing growth in non-brand traffic">
-            <rect x="20" y="55" width="40" height="25" rx="4" class="fill-slate-400/60"/>
-            <rect x="20" y="40" width="40" height="15" rx="4" class="fill-emerald-500/70"/>
-            <rect x="120" y="45" width="40" height="35" rx="4" class="fill-slate-400/60"/>
-            <rect x="120" y="25" width="40" height="20" rx="4" class="fill-emerald-500/70"/>
-            <rect x="220" y="30" width="40" height="50" rx="4" class="fill-slate-400/60"/>
-            <rect x="220" y="10" width="40" height="20" rx="4" class="fill-emerald-500/70"/>
-          </svg>
-        </div>
-        <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEO</div>
-        <div class="mt-1 text-xl sm:text-2xl font-bold">+74% Non‑brand Traffic</div>
-        <p class="mt-2 text-sm">IA clean-up, templated metadata, and a pragmatic content moat targeting demand, not fluff.</p>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Process -->
-<section class="py-16 sm:py-20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-center">How we’ll work</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-center">
-        Lean, clear, fast. You’ll always know what’s happening and why.
-      </p>
-    </div>
-
-    <div id="process-grid" class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
-      <!-- Card -->
-      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
-        <button type="button" class="w-full text-left group" aria-expanded="false">
-          <div class="bg-white p-4 flex items-center justify-center h-40">
-            <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
-          </div>
-          <div class="p-5 sm:p-6">
-            <h3 class="text-base sm:text-lg font-bold text-center">1. Diagnose</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-              We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
-            </p>
-          </div>
-        </button>
-      </article>
-
-      <!-- Card -->
-      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
-        <button type="button" class="w-full text-left group" aria-expanded="false">
-          <div class="bg-white p-4 flex items-center justify-center h-40">
-            <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
-          </div>
-          <div class="p-5 sm:p-6">
-            <h3 class="text-base sm:text-lg font-bold text-center">2. Design</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-              Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.
-            </p>
-          </div>
-        </button>
-      </article>
-
-      <!-- Card -->
-      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
-        <button type="button" class="w-full text-left group" aria-expanded="false">
-          <div class="bg-white p-4 flex items-center justify-center h-40">
-            <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
-          </div>
-          <div class="p-5 sm:p-6">
-            <h3 class="text-base sm:text-lg font-bold text-center">3. Deliver</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-              Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
-            </p>
-          </div>
-        </button>
-      </article>
-    </div>
-  </div>
-</section>
-
-
-
-  
-<!-- Pricing -->
-<section id="pricing" class="py-16 sm:py-20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
-    </div>
-
-    <!-- Toggle Row -->
-    <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
-      <span class="text-xs sm:text-sm text-slate-500">One-off</span>
-      <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
-        <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
-      </button>
-      <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
-    </div>
-
-    <!-- Cards -->
-    <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
-
-      <!-- Starter -->
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
-        <div class="flex-1">
-          <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
-          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
-          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-            <li>A comprehensive audit of your Search or Email performance</li>
-            <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
-            <li>Our team's support to implement fixes for two weeks</li>
-          </ul>
-        </div>
-        <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
+  <section id="work" class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
       </div>
 
-      <!-- Growth -->
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
-        <div class="flex-1">
-          <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
-          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
-          <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
-          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
-            <li>Ongoing SEO/SEM management</li>
-            <li>Full build-out of your lifecycle email flows</li>
-            <li>Continuous CRO experiments to boost conversions</li>
-          </ul>
-        </div>
-        <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start">Enquire</a>
-      </div>
+      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
 
-      <!-- Scale -->
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
-        <div class="flex-1">
-          <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
-          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
-          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-            <li>Complete ownership of your search and email strategies</li>
-            <li>Weekly growth standups to align on priorities and results</li>
-            <li>Custom performance dashboards for complete clarity</li>
-          </ul>
-        </div>
-        <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
+        <!-- CRO + Email -->
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
+            <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Line chart showing upward revenue per visitor trend">
+              <defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity="0.25" /><stop offset="100%" stop-color="currentColor" stop-opacity="0.02" /></linearGradient></defs>
+              <path d="M0,80 L40,75 L80,72 L120,68 L160,60 L200,52 L240,44 L300,30 L300,100 L0,100 Z" fill="url(#revGrad)" />
+              <polyline points="0,80 40,75 80,72 120,68 160,60 200,52 240,44 300,30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <g fill="currentColor"><circle cx="0" cy="80" r="3"/><circle cx="120" cy="68" r="3"/><circle cx="240" cy="44" r="3"/><circle cx="300" cy="30" r="3"/></g>
+            </svg>
+          </div>
+          <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">CRO + Email</div>
+          <div class="mt-1 text-xl sm:text-2xl font-bold">+19% Revenue/Visitor</div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and three lifecycle flows built from zero.</p>
+        </article>
+
+        <!-- SEM -->
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
+            <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Bar chart showing CPA down and conversions up">
+              <rect x="20" y="20" width="30" height="60" rx="4" class="fill-red-500/70 dark:fill-red-400/70"/>
+              <rect x="70" y="35" width="30" height="45" rx="4" class="fill-red-500/50 dark:fill-red-400/50"/>
+              <rect x="120" y="45" width="30" height="35" rx="4" class="fill-red-500/30 dark:fill-red-400/30"/>
+              <rect x="200" y="60" width="30" height="20" rx="4" class="fill-emerald-500/30"/>
+              <rect x="250" y="40" width="30" height="40" rx="4" class="fill-emerald-500/70"/>
+            </svg>
+          </div>
+          <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEM</div>
+          <div class="mt-1 text-xl sm:text-2xl font-bold">-35% CPA @ +22% Conv.</div>
+          <p class="mt-2 text-sm">Account restructure, negative sculpting, query mapping, and creative refresh cadence.</p>
+        </article>
+
+        <!-- SEO -->
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
+            <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Stacked bars showing growth in non-brand traffic">
+              <rect x="20" y="55" width="40" height="25" rx="4" class="fill-slate-400/60"/>
+              <rect x="20" y="40" width="40" height="15" rx="4" class="fill-emerald-500/70"/>
+              <rect x="120" y="45" width="40" height="35" rx="4" class="fill-slate-400/60"/>
+              <rect x="120" y="25" width="40" height="20" rx="4" class="fill-emerald-500/70"/>
+              <rect x="220" y="30" width="40" height="50" rx="4" class="fill-slate-400/60"/>
+              <rect x="220" y="10" width="40" height="20" rx="4" class="fill-emerald-500/70"/>
+            </svg>
+          </div>
+          <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEO</div>
+          <div class="mt-1 text-xl sm:text-2xl font-bold">+74% Non-brand Traffic</div>
+          <p class="mt-2 text-sm">IA clean-up, templated metadata, and a pragmatic content moat targeting demand, not fluff.</p>
+        </article>
+
       </div>
     </div>
+  </section>
 
-    <p class="mt-6 sm:mt-8 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
-  </div>
-</section>
+  <!-- Process -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-center">How we’ll work</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-center">
+          Lean, clear, fast. You’ll always know what’s happening and why.
+        </p>
+      </div>
 
+      <div id="process-grid" class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold text-center">1. Diagnose</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
+                We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
+              </p>
+            </div>
+          </button>
+        </article>
 
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold text-center">2. Design</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
+                Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.
+              </p>
+            </div>
+          </button>
+        </article>
 
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold text-center">3. Deliver</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
+                Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
+              </p>
+            </div>
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
+      </div>
+
+      <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
+        <span class="text-xs sm:text-sm text-slate-500">One-off</span>
+        <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
+          <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
+        </button>
+        <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
+      </div>
+
+      <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
+          <div class="flex-1">
+            <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
+            <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
+            <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+            <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+              <li>A comprehensive audit of your Search or Email performance</li>
+              <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
+              <li>Our team's support to implement fixes for two weeks</li>
+            </ul>
+          </div>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
+        </div>
+
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
+          <div class="flex-1">
+            <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
+            <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
+            <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+            <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
+              <li>Ongoing SEO/SEM management</li>
+              <li>Full build-out of your lifecycle email flows</li>
+              <li>Continuous CRO experiments to boost conversions</li>
+            </ul>
+          </div>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start">Enquire</a>
+        </div>
+
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
+          <div class="flex-1">
+            <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
+            <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
+            <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+            <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+              <li>Complete ownership of your search and email strategies</li>
+              <li>Weekly growth standups to align on priorities and results</li>
+              <li>Custom performance dashboards for complete clarity</li>
+            </ul>
+          </div>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
+        </div>
+      </div>
+
+      <p class="mt-6 sm:mt-8 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
+    </div>
+  </section>
 
   <!-- About -->
   <section id="about" class="py-16 sm:py-20 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
-    <div class="reveal">
-      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
-      <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high‑performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
-      <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
-      <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
+      <div class="reveal">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
+        <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
+        <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
+          </div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
+          </div>
         </div>
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
+      </div>
+      <div class="reveal">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+          <h3 class="font-bold text-lg">Mission Statement</h3>
+          <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
+            We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that don't just attract visitors, but convert them into loyal customers, ensuring every decision is driven by data and designed for sustainable, long-term success.
+          </p>
         </div>
       </div>
     </div>
-    <div class="reveal">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
-        <h3 class="font-bold text-lg">Mission Statement</h3>
-        <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
-          We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that don't just attract visitors, but convert them into loyal customers, ensuring every decision is driven by data and designed for sustainable, long-term success.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-  
   <!-- Contact -->
   <section id="contact" class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12">
@@ -639,250 +597,222 @@
 
   <!-- Footer -->
   <footer class="py-10 border-t border-slate-200 dark:border-slate-800">
-     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-       <div class="flex items-center gap-3">
-         <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
-         <span class="text-sm">© <span id="year"></span> <!-- Brand Name --> Your Brand. All rights reserved.</span>
-       </div>
-       <div class="flex items-center gap-6 text-sm">
-         <a href="#home" class="hover:text-emerald-600">Home</a>
-         <a href="#services" class="hover:text-emerald-600">Services</a>
-         <a href="#contact" class="hover:text-emerald-600">Contact</a>
-       </div>
-     </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
+        <span class="text-sm">© <span id="year"></span> <!-- Brand Name --> Your Brand. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="#home" class="hover:text-emerald-600">Home</a>
+        <a href="#services" class="hover:text-emerald-600">Services</a>
+        <a href="#contact" class="hover:text-emerald-600">Contact</a>
+      </div>
+    </div>
   </footer>
 
   <!-- Scripts -->
-<script>
-  // Dark mode toggle (persists)
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
-  function updateIcon(){
-    if (!themeIcon) return;
-    themeIcon.innerHTML = document.documentElement.classList.contains('dark')
-      ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
-      : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>';
-  }
-  updateIcon();
-  themeToggle?.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  <script>
+    // Dark mode toggle (persists)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
+    function updateIcon(){
+      if (!themeIcon) return;
+      themeIcon.innerHTML = document.documentElement.classList.contains('dark')
+        ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
+        : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>';
+    }
     updateIcon();
-  });
+    themeToggle?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      updateIcon();
+    });
 
-  // Mobile menu + slide & icon morph + overlay
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileMenuContent = document.getElementById('mobileMenuContent');
-  const iconBars = document.getElementById('iconBars');
-  const iconX = document.getElementById('iconX');
-  const overlay = document.getElementById('menuOverlay');
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuContent = document.getElementById('mobileMenuContent');
+    const iconBars = document.getElementById('iconBars');
+    const iconX = document.getElementById('iconX');
+    const overlay = document.getElementById('menuOverlay');
 
-  function setOverlay(open){
-    if (!overlay) return;
-    overlay.classList.toggle('opacity-0', !open);
-    overlay.classList.toggle('opacity-100', open);
-    overlay.classList.toggle('pointer-events-none', !open);
-  }
-  function setMenu(open){
-    if (!mobileMenu || !mobileMenuContent) return;
-    if (open) {
-      mobileMenu.classList.remove('hidden');
-      mobileMenu.classList.add('open');
-      mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
-      document.body.style.overflow = 'hidden';
-      iconBars?.classList.add('hidden');
-      iconX?.classList.remove('hidden');
-      menuBtn?.setAttribute('aria-expanded', 'true');
-      menuBtn?.setAttribute('aria-label', 'Close menu');
-      setOverlay(true);
-    } else {
-      mobileMenu.style.maxHeight = '0px';
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-      iconBars?.classList.remove('hidden');
-      iconX?.classList.add('hidden');
-      menuBtn?.setAttribute('aria-expanded', 'false');
-      menuBtn?.setAttribute('aria-label', 'Open menu');
-      setOverlay(false);
+    function setOverlay(open){
+      if (!overlay) return;
+      overlay.classList.toggle('opacity-0', !open);
+      overlay.classList.toggle('opacity-100', open);
+      overlay.classList.toggle('pointer-events-none', !open);
     }
-  }
-  mobileMenu?.addEventListener('transitionend', (e) => {
-    if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
-      mobileMenu.classList.add('hidden');
+    function setMenu(open){
+      if (!mobileMenu || !mobileMenuContent) return;
+      if (open) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('open');
+        mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
+        document.body.style.overflow = 'hidden';
+        iconBars?.classList.add('hidden');
+        iconX?.classList.remove('hidden');
+        menuBtn?.setAttribute('aria-expanded', 'true');
+        menuBtn?.setAttribute('aria-label', 'Close menu');
+        setOverlay(true);
+      } else {
+        mobileMenu.style.maxHeight = '0px';
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        iconBars?.classList.remove('hidden');
+        iconX?.classList.add('hidden');
+        menuBtn?.setAttribute('aria-expanded', 'false');
+        menuBtn?.setAttribute('aria-label', 'Open menu');
+        setOverlay(false);
+      }
     }
-  });
-  menuBtn?.addEventListener('click', () => {
-    const open = menuBtn.getAttribute('aria-expanded') === 'true';
-    setMenu(!open);
-  });
-  overlay?.addEventListener('click', () => setMenu(false));
-  mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-
-  // Year
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => io.observe(el));
-
-  // Count up numbers when visible
-  function animateCount(el){
-    const end = parseInt(el.getAttribute('data-counter'), 10);
-    let current = 0; const duration = 1200; const start = performance.now();
-    function tick(t){
-      const p = Math.min(1, (t - start) / duration);
-      current = Math.floor(end * p);
-      el.textContent = current + (end < 100 ? '%' : '');
-      if (p < 1) requestAnimationFrame(tick);
-      else el.textContent = end + (end < 100 ? '%' : '');
-    }
-    requestAnimationFrame(tick);
-  }
-  const counters = document.querySelectorAll('[data-counter]');
-  const io2 = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !e.target._counted){
-        e.target._counted = true;
-        animateCount(e.target);
+    mobileMenu?.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
+        mobileMenu.classList.add('hidden');
       }
     });
-  }, { threshold: 0.6 });
-  counters.forEach(c => io2.observe(c));
+    menuBtn?.addEventListener('click', () => {
+      const open = menuBtn.getAttribute('aria-expanded') === 'true';
+      setMenu(!open);
+    });
+    overlay?.addEventListener('click', () => setMenu(false));
+    mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-  // Pricing toggle
-  const toggle = document.getElementById('priceToggle');
-  const dot = document.getElementById('priceDot');
-  const prices = document.querySelectorAll('.price');
-  let monthly = false;
-  function knobPositions(){
-    if (!toggle || !dot) return { start: 0, end: 0 };
-    const trackW = toggle.clientWidth;
-    const knobW = dot.clientWidth;
-    const margin = 4;
-    const start = margin;
-    const end = Math.max(margin, trackW - knobW - margin);
-    return { start, end };
-  }
-  function renderPrices(){
-    prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
-    const { start, end } = knobPositions();
-    if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
-  }
-  if (toggle && dot) {
-    renderPrices();
-    toggle.addEventListener('click', () => {
-      monthly = !monthly;
+    // Year
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Counters
+    function animateCount(el){
+      const end = parseInt(el.getAttribute('data-counter'), 10);
+      let current = 0; const duration = 1200; const start = performance.now();
+      function tick(t){
+        const p = Math.min(1, (t - start) / duration);
+        current = Math.floor(end * p);
+        el.textContent = current + (end < 100 ? '%' : '');
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = end + (end < 100 ? '%' : '');
+      }
+      requestAnimationFrame(tick);
+    }
+    const counters = document.querySelectorAll('[data-counter]');
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !e.target._counted){
+          e.target._counted = true;
+          animateCount(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(c => io2.observe(c));
+
+    // Pricing toggle
+    const toggle = document.getElementById('priceToggle');
+    const dot = document.getElementById('priceDot');
+    const prices = document.querySelectorAll('.price');
+    let monthly = false;
+    function knobPositions(){
+      if (!toggle || !dot) return { start: 0, end: 0 };
+      const trackW = toggle.clientWidth;
+      const knobW = dot.clientWidth;
+      const margin = 4;
+      const start = margin;
+      const end = Math.max(margin, trackW - knobW - margin);
+      return { start, end };
+    }
+    function renderPrices(){
+      prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
+      const { start, end } = knobPositions();
+      if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
+    }
+    if (toggle && dot) {
       renderPrices();
-      toggle.setAttribute('aria-pressed', String(monthly));
-    });
-    window.addEventListener('resize', renderPrices);
-    document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
-  }
-
-  // Fake form submit
-  function fakeSubmit(){
-    const m = document.getElementById('formMsg');
-    if (!m) return;
-    m.classList.remove('hidden');
-    setTimeout(()=>m.classList.add('hidden'), 3500);
-  }
-  window.fakeSubmit = fakeSubmit;
-
-  // ===== FULL-CARD FLIP + ROBUST INITIAL HEIGHT =====
-  function faceContent(card, which) {
-    return card.querySelector(`.${which} .content`);
-  }
-  function measure(card) {
-    const f = faceContent(card, 'front');
-    const b = faceContent(card, 'back');
-    card._frontH = f ? f.scrollHeight : 0;
-    card._backH  = b ? b.scrollHeight : 0;
-  }
-  function setH(card, h) { card.style.height = h + 'px'; }
-  function flipTo(card, toBack){
-    measure(card);
-    setH(card, toBack ? card._backH : card._frontH);
-    card.classList.toggle('is-flipped', toBack);
-  }
-
-  function prepareCard(card){
-    // Avoid double-binding if we re-init after fonts/images load
-    if (card.dataset.flipReady === '1') {
-      // just re-measure + set height
-      measure(card);
-      const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
-      setH(card, h);
-      return;
+      toggle.addEventListener('click', () => {
+        monthly = !monthly;
+        renderPrices();
+        toggle.setAttribute('aria-pressed', String(monthly));
+      });
+      window.addEventListener('resize', renderPrices);
+      document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
     }
-    card.dataset.flipReady = '1';
 
-    // Start on front at correct height
-    card.classList.remove('is-flipped');
-    measure(card);
-    setH(card, card._frontH);
-
-    // Click/keyboard to flip
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('a,button,input,select,textarea,label')) return;
-      flipTo(card, !card.classList.contains('is-flipped'));
-    });
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        flipTo(card, !card.classList.contains('is-flipped'));
-      }
-    });
-
-    // Re-measure when icons finish loading
-    card.querySelectorAll('img').forEach(img => {
-      if (!img.complete) {
-        img.addEventListener('load', () => {
-          measure(card);
-          const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
-          setH(card, h);
-        }, { once:true });
-      }
-    });
-  }
-
-  function initFullFlip() {
-    document.querySelectorAll('.service-card').forEach(prepareCard);
-
-    // Re-measure on resize
-    let to;
-    window.addEventListener('resize', () => {
-      clearTimeout(to);
-      to = setTimeout(() => {
-        document.querySelectorAll('.service-card').forEach(card => {
-          measure(card);
-          const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
-          setH(card, h);
-        });
-      }, 120);
-    }, { passive:true });
-  }
-
-  // Initialize after fonts and images to prevent “too small before first flip”
-  function initAfterAssets(){
-    initFullFlip(); // baseline (in case assets are already cached)
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => initFullFlip());
+    // Fake form submit
+    function fakeSubmit(){
+      const m = document.getElementById('formMsg');
+      if (!m) return;
+      m.classList.remove('hidden');
+      setTimeout(()=>m.classList.add('hidden'), 3500);
     }
-    window.addEventListener('load', () => initFullFlip());
-    // tiny fallback bump
-    setTimeout(() => initFullFlip(), 250);
-  }
-  initAfterAssets();
-</script>
+    window.fakeSubmit = fakeSubmit;
 
+    // ===== Service Cards: measure & flip (no internal scroll; card height adapts) =====
+    const cards = Array.from(document.querySelectorAll('.service-card'));
+
+    function measureHeights(card){
+      const frontContent = card.querySelector('.front .content');
+      const backContent  = card.querySelector('.back .content');
+      // Temporarily ensure both faces are measurable
+      const rotator = card.querySelector('.rotator');
+      const wasFlipped = card.classList.contains('is-flipped');
+      rotator.style.transition = 'none';
+      card.classList.remove('is-flipped');
+      const frontH = frontContent.offsetHeight;
+      card.classList.add('is-flipped');
+      const backH = backContent.offsetHeight;
+      // restore
+      card.classList.toggle('is-flipped', wasFlipped);
+      rotator.offsetHeight; // force reflow
+      rotator.style.transition = '';
+
+      card._frontH = frontH;
+      card._backH  = backH;
+    }
+
+    function applyHeight(card){
+      const showingBack = card.classList.contains('is-flipped');
+      const h = showingBack ? card._backH : card._frontH;
+      if (h) card.style.height = h + 'px';
+    }
+
+    function recalcAll(){
+      cards.forEach(c => { measureHeights(c); applyHeight(c); });
+    }
+
+    // Set up interactions
+    cards.forEach(card => {
+      measureHeights(card);
+      applyHeight(card);
+
+      // click / tap
+      card.addEventListener('click', (e) => {
+        // ignore clicks on links inside back content
+        if (e.target.closest('a')) return;
+        card.classList.toggle('is-flipped');
+        applyHeight(card);
+      });
+
+      // keyboard for accessibility
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('is-flipped');
+          applyHeight(card);
+        }
+      });
+    });
+
+    // Recalculate after images/fonts load and on resize
+    window.addEventListener('load', recalcAll);
+    window.addEventListener('resize', recalcAll);
+    document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
+  </script>
 </body>
 </html>
