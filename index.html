@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,7 +22,7 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* ===== Service cards: FULL CARD FLIP (centered, larger icons) ===== */
+    /* ===== Service cards: FULL CARD FLIP (centered) ===== */
     .service-card{ position:relative; perspective:1200px; -webkit-tap-highlight-color:transparent; cursor:pointer; }
     .service-card .rotator{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s ease; will-change:transform; }
     .service-card.is-flipped .rotator{ transform:rotateY(180deg); }
@@ -33,10 +31,10 @@
     .service-card .front{ transform:rotateY(0); }
     .service-card .back{ transform:rotateY(180deg); }
 
-    /* Card chrome lives on the faces so both sides look the same */
+    /* Card chrome on both faces */
     .service-card .front,
     .service-card .back{
-      border-radius: .75rem; /* ~rounded-xl */
+      border-radius: .75rem; /* rounded-xl */
       border: 1px solid rgb(226 232 240 / 1);          /* slate-200 */
       background: rgb(248 250 252 / 1);                /* slate-50 */
       box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
@@ -47,25 +45,37 @@
       background: rgb(30 41 59 / 1);                   /* slate-800 */
     }
 
-    /* Center content on both faces */
+    /* Shared content layout */
     .service-card .content{
       padding: 1.5rem;               /* p-6 */
       display:flex; flex-direction:column; align-items:center; gap:.75rem;
-      text-align:center;
-      width:100%;
+      text-align:center; width:100%;
     }
 
-    /* Larger icons */
-    .service-card .icon{ width: 5.5rem; height: 5.5rem; }
-    @media (min-width:640px){ .service-card .icon{ width:6rem; height:6rem; } }
+    /* FRONT face gets a taller min-height so the icon can dominate */
+    .service-card .content-front{
+      min-height: 16rem;             /* bigger box initially */
+    }
+    @media (min-width:640px){
+      .service-card .content-front{ min-height: 18rem; }
+    }
 
-    /* Back face lists: left-align for readability but keep centered headings */
+    /* Bigger icon — takes up most of the box on the front */
+    .service-card .icon{
+      width: 8.5rem; height: 8.5rem;
+    }
+    @media (min-width:640px){
+      .service-card .icon{ width: 9.5rem; height: 9.5rem; }
+    }
+
+    /* Back lists: left-align text for readability (headings still centered) */
     .service-card .content ul{ text-align:left; align-self:stretch; }
 
-    /* Grid: do not stretch rows to tallest item (prevents CTA stretching) */
-    #services .cards-grid{ align-items:start; } /* tailwind: items-start */
+    /* Grid: do not stretch rows to tallest item (keeps CTA from stretching) */
+    #services .cards-grid{ align-items:start; }
   </style>
 </head>
+
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Backdrop overlay (mobile only) -->
@@ -185,7 +195,6 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
-    <!-- NOTE: items-start class (also enforced by CSS) -->
     <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
       <!-- SEO -->
@@ -193,7 +202,7 @@
         <div class="rotator">
           <!-- FRONT -->
           <div class="face front">
-            <div class="content">
+            <div class="content content-front">
               <img src="images/seo-icon.png" alt="SEO icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Get found. Rank higher. Convert more.</p>
@@ -221,7 +230,7 @@
       <article class="service-card" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
         <div class="rotator">
           <div class="face front">
-            <div class="content">
+            <div class="content content-front">
               <img src="images/cro-icon.png" alt="CRO icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Turn more visits into revenue.</p>
@@ -248,7 +257,7 @@
       <article class="service-card" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
         <div class="rotator">
           <div class="face front">
-            <div class="content">
+            <div class="content content-front">
               <img src="images/shopify-icon.png" alt="Shopify icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Make your store your best salesperson.</p>
@@ -275,7 +284,7 @@
       <article class="service-card" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
         <div class="rotator">
           <div class="face front">
-            <div class="content">
+            <div class="content content-front">
               <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Reduce friction. Raise LTV.</p>
@@ -302,7 +311,7 @@
       <article class="service-card" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
         <div class="rotator">
           <div class="face front">
-            <div class="content">
+            <div class="content content-front">
               <img src="images/email-marketing-icon.png" alt="Email marketing icon" class="icon object-contain bg-white rounded-md p-2">
               <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
               <p class="text-sm text-slate-600 dark:text-slate-300">Flows &amp; campaigns that compound revenue.</p>
@@ -325,7 +334,7 @@
         </div>
       </article>
 
-      <!-- CTA (won't stretch due to items-start + self-start) -->
+      <!-- CTA -->
       <div class="reveal self-start p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white flex flex-col justify-center">
         <div class="text-base sm:text-lg font-bold">Not sure where to start?</div>
         <p class="mt-2 text-sm/relaxed opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
@@ -716,129 +725,7 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => io.observe(el));
+  const revealEls
 
-  // Count up numbers when visible
-  function animateCount(el){
-    const end = parseInt(el.getAttribute('data-counter'), 10);
-    let current = 0; const duration = 1200; const start = performance.now();
-    function tick(t){
-      const p = Math.min(1, (t - start) / duration);
-      current = Math.floor(end * p);
-      el.textContent = current + (end < 100 ? '%' : '');
-      if (p < 1) requestAnimationFrame(tick);
-      else el.textContent = end + (end < 100 ? '%' : '');
-    }
-    requestAnimationFrame(tick);
-  }
-  const counters = document.querySelectorAll('[data-counter]');
-  const io2 = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !e.target._counted){
-        e.target._counted = true;
-        animateCount(e.target);
-      }
-    });
-  }, { threshold: 0.6 });
-  counters.forEach(c => io2.observe(c));
-
-  // Pricing toggle
-  const toggle = document.getElementById('priceToggle');
-  const dot = document.getElementById('priceDot');
-  const prices = document.querySelectorAll('.price');
-  let monthly = false;
-  function knobPositions(){
-    if (!toggle || !dot) return { start: 0, end: 0 };
-    const trackW = toggle.clientWidth;
-    const knobW = dot.clientWidth;
-    const margin = 4;
-    const start = margin;
-    const end = Math.max(margin, trackW - knobW - margin);
-    return { start, end };
-  }
-  function renderPrices(){
-    prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
-    const { start, end } = knobPositions();
-    if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
-  }
-  if (toggle && dot) {
-    renderPrices();
-    toggle.addEventListener('click', () => {
-      monthly = !monthly;
-      renderPrices();
-      toggle.setAttribute('aria-pressed', String(monthly));
-    });
-    window.addEventListener('resize', renderPrices);
-    document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
-  }
-
-  // Fake form submit
-  function fakeSubmit(){
-    const m = document.getElementById('formMsg');
-    if (!m) return;
-    m.classList.remove('hidden');
-    setTimeout(()=>m.classList.add('hidden'), 3500);
-  }
-  window.fakeSubmit = fakeSubmit;
-
-  // ===== FULL-CARD FLIP + AUTO HEIGHT =====
-  function faceContent(card, which) {
-    return card.querySelector(`.${which} .content`);
-  }
-  function measure(card) {
-    const f = faceContent(card, 'front');
-    const b = faceContent(card, 'back');
-    card._frontH = f ? f.scrollHeight : 0;
-    card._backH  = b ? b.scrollHeight : 0;
-  }
-  function setH(card, h) { card.style.height = h + 'px'; }
-  function flipTo(card, toBack){
-    measure(card);
-    setH(card, toBack ? card._backH : card._frontH);
-    card.classList.toggle('is-flipped', toBack);
-  }
-  function initFullFlip() {
-    const cards = document.querySelectorAll('.service-card');
-    if (!cards.length) return;
-    cards.forEach(card => {
-      // start on front at natural (front) height
-      card.classList.remove('is-flipped');
-      measure(card);
-      setH(card, card._frontH);
-
-      // Click anywhere on card (ignore inner links/controls)
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('a,button,input,select,textarea,label')) return;
-        flipTo(card, !card.classList.contains('is-flipped'));
-      });
-
-      // Keyboard support
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          flipTo(card, !card.classList.contains('is-flipped'));
-        }
-      });
-    });
-
-    // Re-measure on resize
-    let to;
-    window.addEventListener('resize', () => {
-      clearTimeout(to);
-      to = setTimeout(() => {
-        document.querySelectorAll('.service-card').forEach(card => {
-          measure(card);
-          const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
-          setH(card, h);
-        });
-      }, 120);
-    });
-  }
-  initFullFlip();
-</script>
 </body>
 </html>
