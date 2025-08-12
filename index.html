@@ -1,8 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><!-- Nova Reach --> Digital Marketing Consulting</title>
   <meta name="description" content="Digital marketing consultancy specialising in SEO/SEM, CRO, Shopify management, customer journey optimisation, and email marketing." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +15,6 @@
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Force Tailwind to only use class-based dark mode -->
   <script>
     tailwind.config = { darkMode: 'class' };
   </script>
@@ -20,10 +22,13 @@
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    body { overflow-x: hidden; }
 
+    /* Glass helper */
     .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
     .dark .glass { background: rgba(17,24,39,0.5); }
 
+    /* Reveal on scroll */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
@@ -39,6 +44,7 @@
     :root{
       --svc-card-minh: 19rem;
       --svc-icon-size: 10rem;
+      --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
     }
     @media (min-width: 640px){
       :root{ --svc-card-minh: 20rem; }
@@ -50,25 +56,14 @@
       -webkit-tap-highlight-color: transparent;
       cursor: pointer;
       min-height: var(--svc-card-minh);
-      color: #0f172a; /* Force default dark text */
+      color: #0f172a;
     }
     .service-card .rotator{
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform .6s ease;
-      will-change: transform;
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d; transition: transform .6s ease; will-change: transform;
     }
     .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
-
-    .service-card .face{
-      position: absolute;
-      inset: 0;
-      display: flex;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
+    .service-card .face{ position: absolute; inset: 0; display: flex; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .service-card .front{ transform: rotateY(0); }
     .service-card .back{ transform: rotateY(180deg); }
 
@@ -77,155 +72,178 @@
       border-radius: .75rem;
       border: 1px solid rgb(226 232 240 / 1);
       background: rgb(248 250 252 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
+      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
     }
-
     .dark .service-card .front,
     .dark .service-card .back{
       border-color: rgb(30 41 59 / 1);
       background: rgb(30 41 59 / 1);
+      box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
     }
 
-    /* Force service card text to stay black in OS dark mode */
+    /* Keep service card text dark in OS dark mode if user hasn't toggled site dark */
     @media (prefers-color-scheme: dark) {
       .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
     }
 
     .service-card .content{
-      width: 100%;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-      text-align: center;
-      line-height: 1.5;
+      width: 100%; padding: 1.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; line-height: 1.5;
     }
-
     .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
     .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back ul{
-      text-align: left;
-      align-self: stretch;
-      margin-top: .25rem;
-    }
+    .service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
 
     .service-card .icon{
-      width: var(--svc-icon-size);
-      height: var(--svc-icon-size);
-      object-fit: contain;
-      object-position: center;
-      display: block;
-      background: transparent !important;
-      padding: 0 !important;
-      border-radius: 0 !important;
+      width: var(--svc-icon-size); height: var(--svc-icon-size); object-fit: contain; object-position: center; display: block;
+      background: transparent !important; padding: 0 !important; border-radius: 0 !important;
+      filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
     }
 
     #services .cards-grid > *{ min-height: var(--svc-card-minh); }
     #services .cta-tile{
-      min-height: var(--svc-card-minh);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 1.5rem;
-      border-radius: .75rem;
+      min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 1.5rem; border-radius: .75rem;
+      box-shadow: 0 10px 30px rgba(16,185,129,.35);
     }
+
+    /* Section heading accents */
+    .section-head { position: relative; }
+    .section-head::after{
+      content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-.6rem; width:96px; height:3px; border-radius:9999px;
+      background: var(--section-accent);
+    }
+
+    /* Gradient rule */
+    .grad-rule{ height:2px; border:0; background: var(--section-accent); }
+
+    /* Hero grid overlay mask */
+    .hero-grid {
+      background-image:
+        linear-gradient(to right, rgba(100,116,139,0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(100,116,139,0.18) 1px, transparent 1px);
+      background-size:24px 24px;
+      mask-image: radial-gradient(80% 60% at 50% 35%, black, transparent);
+    }
+
+    /* Shy tilt for hero image/cards */
+    .tilt:hover { transform: perspective(1200px) rotateX(5deg) rotateY(-5deg); }
+    .tilt { transition: transform .3s ease; will-change: transform; }
+
+    /* CTA micro-lift */
+    .lift { transition: transform .15s ease, box-shadow .2s ease; }
+    .lift:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(2,6,23,.12); }
+    .lift:active { transform: translateY(0); }
+
   </style>
 </head>
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+  <!-- Layered site background (gradient mesh + subtle noise) -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(16,185,129,0.10),transparent_60%),radial-gradient(40%_50%_at_0%_100%,rgba(59,130,246,0.08),transparent_60%),radial-gradient(30%_30%_at_100%_100%,rgba(139,92,246,0.10),transparent_60%)]"></div>
+    <div class="absolute inset-0 opacity-[0.03] mix-blend-multiply" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22><rect width=%224%22 height=%224%22 fill=%22%23fff%22/><circle cx=%221%22 cy=%221%22 r=%220.5%22 fill=%22%23000%22/></svg>')"></div>
+  </div>
+
   <!-- Backdrop overlay (mobile only) -->
   <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
- <!-- Header -->
-<header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
-    <!-- Left: Logo -->
-    <a href="#home" class="flex items-center gap-3">
-      <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
-      <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
-    </a>
+  <!-- Header (lifted) -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
+      <!-- Left: Logo -->
+      <a href="#home" class="flex items-center gap-3">
+        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
+        <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
+      </a>
 
-    <!-- Center (desktop only): Nav absolutely centered -->
-    <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-      <a href="#services" class="py-1 hover:text-emerald-600 tap">Services</a>
-      <a href="#work" class="py-1 hover:text-emerald-600 tap">Results</a>
-      <a href="#about" class="py-1 hover:text-emerald-600 tap">About</a>
-      <a href="#pricing" class="py-1 hover:text-emerald-600 tap">Pricing</a>
-      <a href="blog.html" class="py-1 hover:text-emerald-600 tap">Blog</a>
-      <a href="#contact" class="py-1 hover:text-emerald-600 tap">Contact</a>
-    </nav>
+      <!-- Center (desktop only): Nav absolutely centered -->
+      <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <a href="#services" class="py-1 hover:text-emerald-600 tap">Services</a>
+        <a href="#work" class="py-1 hover:text-emerald-600 tap">Results</a>
+        <a href="#about" class="py-1 hover:text-emerald-600 tap">About</a>
+        <a href="#pricing" class="py-1 hover:text-emerald-600 tap">Pricing</a>
+        <a href="blog.html" class="py-1 hover:text-emerald-600 tap">Blog</a>
+        <a href="#contact" class="py-1 hover:text-emerald-600 tap">Contact</a>
+      </nav>
 
-    <!-- Right: CTA / Mobile Toggle (stays right on all sizes) -->
-    <div class="ml-auto flex items-center gap-2 sm:gap-3">
-      <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
-      <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-        <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
+      <!-- Right: CTA / Mobile Toggle -->
+      <div class="ml-auto flex items-center gap-2 sm:gap-3">
+        <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
+        <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-    <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
-      <a href="#services" class="hover:text-emerald-600 py-2">Services</a>
-      <a href="#work" class="hover:text-emerald-600 py-2">Results</a>
-      <a href="#about" class="hover:text-emerald-600 py-2">About</a>
-      <a href="#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
-      <a href="blog.html" class="hover:text-emerald-600 py-2">Blog</a>
-      <a href="#contact" class="hover:text-emerald-600 py-2">Contact</a>
-    </nav>
-  </div>
-</header>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
+      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
+        <a href="#services" class="hover:text-emerald-600 py-2">Services</a>
+        <a href="#work" class="hover:text-emerald-600 py-2">Results</a>
+        <a href="#about" class="hover:text-emerald-600 py-2">About</a>
+        <a href="#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
+        <a href="blog.html" class="hover:text-emerald-600 py-2">Blog</a>
+        <a href="#contact" class="hover:text-emerald-600 py-2">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-
-
-
-
-
-  <!-- Hero -->
+  <!-- Hero (depthy banner) -->
   <section id="home" class="relative overflow-hidden">
+    <!-- Gradient blobs (existing) -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
       <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
       <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
     </div>
+
+    <!-- Mesh + grid + optional parallax -->
+    <div id="hero-bg" class="absolute inset-0 -z-10 opacity-80">
+      <div class="absolute inset-0" style="background:
+        radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.18), transparent 70%),
+        radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.16), transparent 70%),
+        radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.14), transparent 70%);"></div>
+      <div class="absolute inset-0 hero-grid"></div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
       <div class="reveal">
         <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Digital Marketing Specialists</span>
         <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Performance-first marketing for brands that want results.</h1>
         <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategy's.</p>
         <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
-          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow w-full xs:w-auto">Book a free consult</a>
-          <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto">Explore services</a>
+          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">Book a free consult</a>
+          <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto lift">Explore services</a>
         </div>
+
+        <!-- KPI tiles with stronger separation -->
         <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
             <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
           </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
             <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
           </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
             <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
           </div>
         </div>
       </div>
+
+      <!-- Right: case study card with tilt -->
       <div class="relative reveal">
-        <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl">
+        <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl tilt">
           <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 flex items-center justify-center">
             <div class="text-center p-6">
               <div class="text-sm uppercase tracking-widest text-slate-500">Case Study Snapshot</div>
@@ -238,6 +256,9 @@
       </div>
     </div>
   </section>
+
+  <!-- Thin gradient separator -->
+  <hr class="grad-rule mx-auto w-[90%] opacity-60" />
 
   <!-- Logos / Tech Stack -->
   <section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
@@ -254,14 +275,13 @@
   </section>
 
   <!-- Services -->
-  <section id="services" class="py-16 bg-white dark:bg-slate-900 scroll-mt-24">
+  <section id="services" class="py-16 bg-white/70 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
+      <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
       <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
         <!-- SEO -->
-        <article class="service-card" tabindex="0" aria-label="SEO. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="SEO. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -273,7 +293,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                 Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
+                  Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
                 </p>
               </div>
             </div>
@@ -281,7 +301,7 @@
         </article>
 
         <!-- CRO -->
-        <article class="service-card" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -293,7 +313,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                 Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
+                  Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
                 </p>
               </div>
             </div>
@@ -301,7 +321,7 @@
         </article>
 
         <!-- Shopify -->
-        <article class="service-card" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -321,7 +341,7 @@
         </article>
 
         <!-- Customer Journey -->
-        <article class="service-card" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -333,7 +353,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                 We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
+                  We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
                 </p>
               </div>
             </div>
@@ -341,7 +361,7 @@
         </article>
 
         <!-- Email -->
-        <article class="service-card" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -353,7 +373,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                 We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
+                  We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
                 </p>
               </div>
             </div>
@@ -361,32 +381,30 @@
         </article>
 
         <!-- CTA -->
-<div class="cta-tile reveal h-full border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white shadow">
-  <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
-  <p class="mt-2 text-sm sm:text-base opacity-90">
-    Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
-  </p>
-  <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20">
-    Get a plan
-  </a>
-</div>
-
+        <div class="cta-tile reveal h-full border border-emerald-500/50 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+          <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
+          <p class="mt-2 text-sm sm:text-base opacity-90">
+            Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
+          </p>
+          <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
+            Get a plan
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Results / Work -->
-  <section id="work" class="py-16 sm:py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/60 dark:border-slate-800/60">
+  <section id="work" class="py-16 sm:py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
+        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
         <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
       </div>
 
       <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
-
         <!-- Email -->
-        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
           <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
             <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Line chart showing upward revenue per visitor trend">
               <defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity="0.25" /><stop offset="100%" stop-color="currentColor" stop-opacity="0.02" /></linearGradient></defs>
@@ -401,7 +419,7 @@
         </article>
 
         <!-- Online Sales -->
-        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
           <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
             <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Bar chart showing CPA down and conversions up">
               <rect x="20" y="20" width="30" height="60" rx="4" class="fill-red-500/70 dark:fill-red-400/70"/>
@@ -417,7 +435,7 @@
         </article>
 
         <!-- CRO -->
-        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-left">
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
           <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
             <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Stacked bars showing growth in non-brand traffic">
               <rect x="20" y="55" width="40" height="25" rx="4" class="fill-slate-400/60"/>
@@ -432,7 +450,6 @@
           <div class="mt-1 text-xl sm:text-2xl font-bold">18.93% Increase in Conversion Rate</div>
           <p class="mt-2 text-sm">Since working for Bargain Chemist, we have seen a conversion rate increase of 2.37% in the first year, and an 16.17% increase the second.</p>
         </article>
-
       </div>
     </div>
   </section>
@@ -441,14 +458,14 @@
   <section class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-center">How we’ll work</h2>
+        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight text-center">How we’ll work</h2>
         <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-center">
           Lean, clear, fast. You’ll always know what’s happening and why.
         </p>
       </div>
 
       <div id="process-grid" class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
-        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <button type="button" class="w-full text-left group" aria-expanded="false">
             <div class="bg-white p-4 flex items-center justify-center h-40">
               <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
@@ -462,7 +479,7 @@
           </button>
         </article>
 
-        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <button type="button" class="w-full text-left group" aria-expanded="false">
             <div class="bg-white p-4 flex items-center justify-center h-40">
               <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
@@ -476,7 +493,7 @@
           </button>
         </article>
 
-        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center">
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <button type="button" class="w-full text-left group" aria-expanded="false">
             <div class="bg-white p-4 flex items-center justify-center h-40">
               <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
@@ -497,7 +514,7 @@
   <section id="pricing" class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
+        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
         <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
       </div>
 
@@ -510,7 +527,7 @@
       </div>
 
       <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
-        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
@@ -522,10 +539,10 @@
               <li>Our team's support to implement fixes for two weeks</li>
             </ul>
           </div>
-          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
         </div>
 
-        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
@@ -537,10 +554,10 @@
               <li>Continuous CRO experiments to boost conversions</li>
             </ul>
           </div>
-          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start">Enquire</a>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
         </div>
 
-        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
@@ -552,7 +569,7 @@
               <li>Custom performance dashboards for complete clarity</li>
             </ul>
           </div>
-          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start">Enquire</a>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
         </div>
       </div>
 
@@ -561,25 +578,25 @@
   </section>
 
   <!-- About -->
-  <section id="about" class="py-16 sm:py-20 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200/60 dark:border-slate-800/60">
+  <section id="about" class="py-16 sm:py-20 bg-white/60 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
       <div class="reveal">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
+        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
         <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
         <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
         <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
             <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
           </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
             <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
           </div>
         </div>
       </div>
       <div class="reveal">
-        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <h3 class="font-bold text-lg">Mission Statement</h3>
           <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
             We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that don't just attract visitors, but convert them into loyal customers, ensuring every decision is driven by data and designed for sustainable, long-term success.
@@ -593,9 +610,9 @@
   <section id="contact" class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12">
       <div class="reveal">
-        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
+        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
         <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals. I’ll reply within one business day with next steps and availability.</p>
-        <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+        <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="text-sm">Prefer email?</div>
           <a href="mailto:hello@example.com" class="text-emerald-600 font-semibold break-all">hello@example.com</a>
           <div class="mt-3 text-[11px] sm:text-xs text-slate-500">Send me an email with your questions, goals, or anything you want some help on and I will get back to you</div>
@@ -624,18 +641,18 @@
           <label class="block text-sm font-medium">Message</label>
           <textarea rows="4" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2"></textarea>
         </div>
-        <button class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700">Send message</button>
+        <button class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 lift">Send message</button>
         <p id="formMsg" class="hidden text-sm text-emerald-600">Thanks! I’ll be in touch shortly.</p>
       </form>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-10 border-t border-slate-200 dark:border-slate-800">
+  <footer class="py-10 border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
-        <span class="text-sm">© <span id="year"></span> <!-- Brand Name --> Your Brand. All rights reserved.</span>
+        <span class="text-sm">© <span id="year"></span> Nova Reach. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-6 text-sm">
         <a href="#home" class="hover:text-emerald-600">Home</a>
@@ -769,13 +786,11 @@
     }
     window.fakeSubmit = fakeSubmit;
 
-    // ===== Service Cards: measure & flip (no internal scroll; card height adapts) =====
+    // Service Cards: measure & flip
     const cards = Array.from(document.querySelectorAll('.service-card'));
-
     function measureHeights(card){
       const frontContent = card.querySelector('.front .content');
       const backContent  = card.querySelector('.back .content');
-      // Temporarily ensure both faces are measurable
       const rotator = card.querySelector('.rotator');
       const wasFlipped = card.classList.contains('is-flipped');
       rotator.style.transition = 'none';
@@ -783,52 +798,47 @@
       const frontH = frontContent.offsetHeight;
       card.classList.add('is-flipped');
       const backH = backContent.offsetHeight;
-      // restore
       card.classList.toggle('is-flipped', wasFlipped);
-      rotator.offsetHeight; // force reflow
+      rotator.offsetHeight;
       rotator.style.transition = '';
-
       card._frontH = frontH;
       card._backH  = backH;
     }
-
     function applyHeight(card){
       const showingBack = card.classList.contains('is-flipped');
       const h = showingBack ? card._backH : card._frontH;
       if (h) card.style.height = h + 'px';
     }
-
-    function recalcAll(){
-      cards.forEach(c => { measureHeights(c); applyHeight(c); });
-    }
-
-    // Set up interactions
+    function recalcAll(){ cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
     cards.forEach(card => {
-      measureHeights(card);
-      applyHeight(card);
-
-      // click / tap
+      measureHeights(card); applyHeight(card);
       card.addEventListener('click', (e) => {
-        // ignore clicks on links inside back content
         if (e.target.closest('a')) return;
-        card.classList.toggle('is-flipped');
-        applyHeight(card);
+        card.classList.toggle('is-flipped'); applyHeight(card);
       });
-
-      // keyboard for accessibility
       card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.classList.toggle('is-flipped');
-          applyHeight(card);
-        }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('is-flipped'); applyHeight(card); }
       });
     });
-
-    // Recalculate after images/fonts load and on resize
     window.addEventListener('load', recalcAll);
     window.addEventListener('resize', recalcAll);
     document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
+
+    // Lightweight parallax for hero background (optional)
+    (function(){
+      const el = document.getElementById('hero-bg');
+      if(!el) return;
+      let y=0, t=0;
+      const onScroll = () => { y = window.scrollY || 0; };
+      const raf = () => {
+        t += (y - t) * 0.06;
+        el.style.transform = `translate3d(0, ${t * -0.08}px, 0)`;
+        requestAnimationFrame(raf);
+      };
+      window.addEventListener('scroll', onScroll, { passive:true });
+      raf();
+    })();
   </script>
 </body>
 </html>
+
