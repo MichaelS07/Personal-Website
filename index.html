@@ -50,20 +50,26 @@
       :root{ --svc-card-minh: 20rem; }
     }
 
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-      color: #0f172a;
-      border-radius: .75rem;
-      overflow: hidden;
-      background: rgb(248 250 252 / 1); /* underpaint matches faces */
-      isolation: isolate;
-      transform: translateZ(0);
-      will-change: transform;
-    }
+   .service-card{
+  position: relative;
+  perspective: 1200px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-height: var(--svc-card-minh);
+  color: #0f172a;
+  border-radius: .75rem;
+  overflow: hidden;
+
+  /* REMOVE the background here */
+  background: transparent; /* instead of rgb(248 250 252 / 1) */
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.dark .service-card{
+  background: transparent; /* same for dark mode */
+}
+
     .dark .service-card{ background: rgb(30 41 59 / 1); }
 
     .service-card .rotator{
