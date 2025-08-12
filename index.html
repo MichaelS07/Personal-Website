@@ -28,7 +28,7 @@
     .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
     .dark .glass { background: rgba(17,24,39,0.5); }
 
-    /* Reveal on scroll (Alive Pack upgrades below will enhance these) */
+    /* Reveal on scroll */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
@@ -40,83 +40,57 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* Section heading accents */
+    /* === Flip Card Styles — Full Card Rotates === */
     :root{
       --svc-card-minh: 19rem;
       --svc-icon-size: 10rem;
       --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
-      /* Alive Pack shadow tokens */
-      --e1: 0 1px 2px rgba(2,6,23,.06), 0 1px 1px rgba(2,6,23,.04);
-      --e2: 0 4px 10px rgba(2,6,23,.08), 0 1px 1px rgba(2,6,23,.04);
-      --e3: 0 10px 24px rgba(2,6,23,.10), 0 2px 2px rgba(2,6,23,.04);
-      --eGlow: 0 12px 30px rgba(16,185,129,.25);
     }
     @media (min-width: 640px){
       :root{ --svc-card-minh: 20rem; }
     }
-    .section-head { position: relative; }
-    .section-head::after{
-      content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-.6rem; width:96px; height:3px; border-radius:9999px;
-      background: var(--section-accent);
-    }
-    .grad-rule{ height:2px; border:0; background: var(--section-accent); opacity:.7; }
 
-    /* === HERO MEDIA (banner image behind hero) === */
-    .hero-media{
-      position:absolute; inset:0; z-index:-1; overflow:hidden;
-    }
-    .hero-media picture, .hero-media img{
-      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-      object-position:center 30%;
-      transform: translateZ(0) scale(1.03);
-      will-change: transform;
-      animation: kenburns 18s ease-in-out both;
-    }
-    @keyframes kenburns{
-      0%   { transform: translateZ(0) scale(1.05); }
-      100% { transform: translateZ(0) scale(1.02); }
-    }
-    .hero-media::after{
-      content:""; position:absolute; inset:0; pointer-events:none;
-      /* soft overlay for text contrast + brand tint */
-      background:
-        linear-gradient(180deg, rgba(2,6,23,.42), rgba(2,6,23,.22) 35%, rgba(2,6,23,0) 60%),
-        radial-gradient(60% 40% at 50% 0%, rgba(16,185,129,.18), transparent 60%);
-    }
-    @media (prefers-reduced-motion: reduce){
-      .hero-media picture, .hero-media img{ animation:none !important; transform: none !important; }
-    }
+   .service-card{
+  position: relative;
+  perspective: 1200px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-height: var(--svc-card-minh);
+  color: #0f172a;
+  border-radius: .75rem;
+  overflow: hidden;
 
-    /* === Flip Card Styles — Full Card Rotates (transparent underpaint) === */
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-      color: #0f172a;
-      border-radius: .75rem;
-      overflow: hidden;
-      background: transparent; /* critical: no underpaint */
-      isolation: isolate;
-      transform: translateZ(0);
-      will-change: transform;
-      transition: transform .25s ease; /* tiny 3D tilt on hover (Alive Pack) */
-      transform-style: preserve-3d;
-    }
-    @media (hover:hover){
-      .service-card:hover{ transform: perspective(1000px) rotateX(.8deg) rotateY(.8deg); }
-    }
+  /* REMOVE the background here */
+  background: transparent; /* instead of rgb(248 250 252 / 1) */
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.dark .service-card{
+  background: transparent; /* same for dark mode */
+}
+
+    .dark .service-card{ background: rgb(30 41 59 / 1); }
+
     .service-card .rotator{
-      position: relative; width: 100%; height: 100%;
-      transform-style: preserve-3d; transition: transform .6s ease; will-change: transform;
-      border-radius: inherit; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform .6s ease;
+      will-change: transform;
+      border-radius: inherit;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
+
     .service-card .face{
-      position: absolute; inset: 0; display: flex;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
-      transform: translateZ(0); border-radius: inherit;
+      position: absolute; inset: 0;
+      display: flex;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      border-radius: inherit;
       border: 1px solid rgb(226 232 240 / 1);
       background: rgb(248 250 252 / 1);
       box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
@@ -127,24 +101,37 @@
       background: rgb(30 41 59 / 1);
       box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
     }
+
     .service-card .front{ transform: rotateY(0); }
     .service-card .back { transform: rotateY(180deg); }
+
     .service-card .content{
       width: 100%; padding: 1.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; line-height: 1.5;
+      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+      text-align: center; line-height: 1.5;
     }
     .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
     .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
     .service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
+
     .service-card .icon{
-      width: var(--svc-icon-size); height: var(--svc-icon-size); object-fit: contain; object-position: center; display: block;
+      width: var(--svc-icon-size); height: var(--svc-icon-size);
+      object-fit: contain; object-position: center; display: block;
       background: transparent !important; padding: 0 !important; border-radius: 0 !important;
       filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
     }
+
     @media (prefers-color-scheme: dark) {
       .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
     }
-    .service-card::after{ content:""; position:absolute; inset:0; border-radius: inherit; outline: 1px solid transparent; pointer-events:none; }
+
+    .service-card::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius: inherit;
+      outline: 1px solid transparent;
+      pointer-events:none;
+    }
 
     #services .cards-grid > *{ min-height: var(--svc-card-minh); }
     #services .cta-tile{
@@ -152,65 +139,11 @@
       text-align: center; padding: 1.5rem; border-radius: .75rem;
       box-shadow: 0 10px 30px rgba(16,185,129,.35);
     }
-
-    /* === ALIVE PACK — Depth, Light, Micro-motion === */
-    .lift{ transition: transform .18s ease, box-shadow .25s ease; box-shadow: var(--e1); }
-    .lift:hover{ transform: translateY(-2px); box-shadow: var(--e2); }
-    .lift:active{ transform: translateY(0); }
-
-    .shadow-sm{ box-shadow: var(--e1); transition: box-shadow .25s ease; }
-    .shadow-md{ box-shadow: var(--e2); transition: box-shadow .25s ease; }
-    .shadow-md:hover{ box-shadow: var(--e3); }
-
-    /* Spotlight follows cursor */
-    #alive-spotlight {
-      position: fixed; inset: -20vmax; pointer-events: none; z-index: 0;
-      background: radial-gradient(20vmax 20vmax at var(--sx,50%) var(--sy,30%), rgba(16,185,129,.10), transparent 60%),
-                  radial-gradient(26vmax 20vmax at calc(var(--sx,50%) + 12%) calc(var(--sy,30%) + 8%), rgba(59,130,246,.08), transparent 65%);
-      filter: saturate(1.1);
-      transition: opacity .3s ease; opacity: .9;
-    }
-    @media (prefers-reduced-motion: reduce){ #alive-spotlight{ display:none; } }
-
-    /* Gradient border highlight (apply to tiles you want to pop) */
-    .gradient-border{
-      position: relative; border: 1px solid transparent; border-radius: 1rem;
-      background:
-        linear-gradient(rgb(255 255 255 / .9), rgb(255 255 255 / .9)) padding-box,
-        linear-gradient(135deg, rgba(16,185,129,.6), rgba(59,130,246,.5)) border-box;
-    }
-    .dark .gradient-border{
-      background:
-        linear-gradient(rgb(15 23 42 / .9), rgb(15 23 42 / .9)) padding-box,
-        linear-gradient(135deg, rgba(16,185,129,.5), rgba(139,92,246,.5)) border-box;
-    }
-
-    /* Magnetic buttons (opt-in with [data-magnetic]) */
-    [data-magnetic]{ position: relative; will-change: transform; transition: transform .12s ease-out, box-shadow .2s ease; box-shadow: var(--e1); }
-    [data-magnetic]:hover{ box-shadow: var(--e2), var(--eGlow); }
-    @media (hover:none){ [data-magnetic]{ transition: box-shadow .2s ease; } }
-
-    /* Staggered reveal: add a tiny scale for warmth */
-    .reveal{ opacity:0; transform: translateY(16px) scale(.98); }
-    .reveal.in{ opacity:1; transform: translateY(0) scale(1); transition: transform .55s cubic-bezier(.22,.7,0,1), opacity .55s ease; }
-
-    /* Logos row: grayscale → color hover */
-    .tools-row img{ filter: grayscale(1) contrast(1.05); transition: transform .18s ease, filter .25s ease, opacity .25s ease; opacity:.75; }
-    .tools-row img:hover{ filter: grayscale(0); transform: translateY(-2px); opacity:1; }
-
-    /* Process cards: float the image area */
-    .process-card .bg-white{ transition: transform .25s ease; }
-    .process-card:hover .bg-white{ transform: translateY(-3px); }
-
-    /* Accessible focus ring */
-    :focus-visible{ outline: 2px solid rgba(16,185,129,.7); outline-offset: 3px; border-radius: .75rem; }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
-  <!-- Ambient spotlight -->
-  <div id="alive-spotlight"></div>
 
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Layered site background (gradient mesh + subtle noise) -->
   <div class="pointer-events-none fixed inset-0 -z-10">
     <div class="absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(16,185,129,0.10),transparent_60%),radial-gradient(40%_50%_at_0%_100%,rgba(59,130,246,0.08),transparent_60%),radial-gradient(30%_30%_at_100%_100%,rgba(139,92,246,0.10),transparent_60%)]"></div>
@@ -241,7 +174,7 @@
 
       <!-- Right: CTA / Mobile Toggle -->
       <div class="ml-auto flex items-center gap-2 sm:gap-3">
-        <a href="#contact" data-magnetic class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
+        <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
         <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
           <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
@@ -271,16 +204,6 @@
 
   <!-- Hero (depthy banner) -->
   <section id="home" class="relative overflow-hidden">
-    <!-- HERO MEDIA: your banner -->
-    <div class="hero-media" aria-hidden="true">
-      <picture>
-        <!-- Optional modern formats if you add them later -->
-        <!-- <source srcset="images/hero-banner.avif" type="image/avif"> -->
-        <!-- <source srcset="images/hero-banner.webp" type="image/webp"> -->
-        <img src="images/hero-banner.png" alt="" loading="eager" fetchpriority="high">
-      </picture>
-    </div>
-
     <!-- Gradient blobs (existing) -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
       <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
@@ -298,27 +221,27 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
       <div class="reveal">
-        <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80">Digital Marketing Specialists</span>
+        <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Digital Marketing Specialists</span>
         <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Performance-first marketing for brands that want results.</h1>
-        <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-100/95 md:text-white/90">I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategies.</p>
+        <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategy's.</p>
         <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
-          <a href="#contact" data-magnetic class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">Book a free consult</a>
-          <a href="#services" data-magnetic class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-white/40 hover:bg-white/10 text-white w-full xs:w-auto lift">Explore services</a>
+          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">Book a free consult</a>
+          <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto lift">Explore services</a>
         </div>
 
-        <!-- KPI tiles -->
+        <!-- KPI tiles with stronger separation -->
         <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
-          <div class="p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm reveal">
-            <div class="text-2xl sm:text-3xl font-extrabold counter-pop" data-counter="28">0%</div>
-            <div class="text-xs sm:text-sm text-slate-600">Average lift in CTR</div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
           </div>
-          <div class="p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm reveal">
-            <div class="text-2xl sm:text-3xl font-extrabold counter-pop" data-counter="35">0%</div>
-            <div class="text-xs sm:text-sm text-slate-600">Reduction in CPA</div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
           </div>
-          <div class="p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm reveal">
-            <div class="text-2xl sm:text-3xl font-extrabold counter-pop" data-counter="52">0%</div>
-            <div class="text-xs sm:text-sm text-slate-600">Email revenue share</div>
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
+            <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
           </div>
         </div>
       </div>
@@ -345,13 +268,13 @@
   <!-- Logos / Tech Stack -->
   <section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500 tools-row">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
         <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
-        <img alt="Google Ads" class="h-5 sm:h-6 opacity-80" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy"/>
-        <img alt="GA4" class="h-5 sm:h-6 opacity-80" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" loading="lazy"/>
-        <img alt="Klaviyo" class="h-5 sm:h-6 opacity-80" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" loading="lazy"/>
-        <img alt="Shopify" class="h-5 sm:h-6 opacity-80" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy"/>
-        <img alt="Meta" class="h-5 sm:h-6 opacity-80" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" loading="lazy"/>
+        <img alt="Google Ads" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy"/>
+        <img alt="Google Analytics 4" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" loading="lazy"/>
+        <img alt="Klaviyo" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" loading="lazy"/>
+        <img alt="Shopify" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy"/>
+        <img alt="Meta" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" loading="lazy"/>
       </div>
     </div>
   </section>
@@ -363,7 +286,7 @@
 
       <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- SEO -->
-        <article class="service-card lift reveal" tabindex="0" aria-label="SEO. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="SEO. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -375,7 +298,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Full-Funnel Search: technical SEO + content to bring people in, then optimise paid search for consistent ROAS.
+                  Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
                 </p>
               </div>
             </div>
@@ -383,7 +306,7 @@
         </article>
 
         <!-- CRO -->
-        <article class="service-card lift reveal" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -395,7 +318,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Rapid A/B tests and UX fixes targeting PDP and checkout to lift conversion without more traffic.
+                  Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
                 </p>
               </div>
             </div>
@@ -403,7 +326,7 @@
         </article>
 
         <!-- Shopify -->
-        <article class="service-card lift reveal" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -415,7 +338,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Shopify</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Faster store, cleaner nav, better feeds and tagging. Designed to scale and sell.
+                  Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.
                 </p>
               </div>
             </div>
@@ -423,7 +346,7 @@
         </article>
 
         <!-- Customer Journey -->
-        <article class="service-card lift reveal" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -435,7 +358,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Map friction, instrument the funnel, raise LTV with targeted fixes and clear data.
+                  We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
                 </p>
               </div>
             </div>
@@ -443,7 +366,7 @@
         </article>
 
         <!-- Email -->
-        <article class="service-card lift reveal" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -455,20 +378,20 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Lifecycle flows + targeted campaigns that pay for themselves and keep customers coming back.
+                  We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
                 </p>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- CTA (gradient border highlight) -->
-        <div class="cta-tile reveal h-full gradient-border bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+        <!-- CTA -->
+        <div class="cta-tile reveal h-full border border-emerald-500/50 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
           <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
           <p class="mt-2 text-sm sm:text-base opacity-90">
             Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
           </p>
-          <a href="#contact" data-magnetic class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
+          <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
             Get a plan
           </a>
         </div>
@@ -555,7 +478,7 @@
             <div class="p-5 sm:p-6">
               <h3 class="text-base sm:text-lg font-bold text-center">1. Diagnose</h3>
               <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-                We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back.
+                We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
               </p>
             </div>
           </button>
@@ -569,7 +492,7 @@
             <div class="p-5 sm:p-6">
               <h3 class="text-base sm:text-lg font-bold text-center">2. Design</h3>
               <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-                We’ll design a roadmap of experiments, prioritised by impact and effort.
+                Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.
               </p>
             </div>
           </button>
@@ -583,7 +506,7 @@
             <div class="p-5 sm:p-6">
               <h3 class="text-base sm:text-lg font-bold text-center">3. Deliver</h3>
               <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-                Rapid deploy and iterate. Measure, learn, document — build a compounding playbook.
+                Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
               </p>
             </div>
           </button>
@@ -602,7 +525,7 @@
 
       <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
         <span class="text-xs sm:text-sm text-slate-500">One-off</span>
-        <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false" data-magnetic>
+        <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
           <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
         </button>
         <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
@@ -613,45 +536,45 @@
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
-            <p class="mt-2 text-[13px] sm:text-sm leading-snug">We’ll audit a key area and deliver quick, impactful wins.</p>
+            <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
             <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
             <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>SEO or Email performance audit</li>
-              <li>10-point CRO checklist</li>
-              <li>Implementation support (2 weeks)</li>
+              <li>A comprehensive audit of your Search or Email performance</li>
+              <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
+              <li>Our team's support to implement fixes for two weeks</li>
             </ul>
           </div>
-          <a href="#contact" data-magnetic class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
         </div>
 
         <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
-            <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Ongoing SEO/SEM + lifecycle email + CRO sprints.</p>
+            <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
             <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
             <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
-              <li>SEO/SEM management</li>
-              <li>Lifecycle flows build-out</li>
-              <li>Continuous CRO experiments</li>
+              <li>Ongoing SEO/SEM management</li>
+              <li>Full build-out of your lifecycle email flows</li>
+              <li>Continuous CRO experiments to boost conversions</li>
             </ul>
           </div>
-          <a href="#contact" data-magnetic class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
         </div>
 
         <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
-            <p class="mt-2 text-[13px] sm:text-sm leading-snug">Full ownership of search + email, advanced tracking, custom reporting.</p>
+            <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
             <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
             <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Search & email strategy</li>
-              <li>Weekly growth standups</li>
-              <li>Custom dashboards</li>
+              <li>Complete ownership of your search and email strategies</li>
+              <li>Weekly growth standups to align on priorities and results</li>
+              <li>Custom performance dashboards for complete clarity</li>
             </ul>
           </div>
-          <a href="#contact" data-magnetic class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+          <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
         </div>
       </div>
 
@@ -723,7 +646,7 @@
           <label class="block text-sm font-medium">Message</label>
           <textarea rows="4" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2"></textarea>
         </div>
-        <button data-magnetic class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 lift">Send message</button>
+        <button class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 lift">Send message</button>
         <p id="formMsg" class="hidden text-sm text-emerald-600">Thanks! I’ll be in touch shortly.</p>
       </form>
     </div>
@@ -799,23 +722,14 @@
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Reveal on scroll (upgraded stagger)
-    (function(){
-      const revealEls = Array.from(document.querySelectorAll('.reveal'));
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            const idx = revealEls.indexOf(e.target);
-            e.target.style.transitionDelay = (Math.min(idx, 6) * 40) + 'ms';
-            e.target.classList.add('in');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      revealEls.forEach(el => io.observe(el));
-    })();
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
 
-    // KPI counters (with underline pop)
+    // Counters
     function animateCount(el){
       const end = parseInt(el.getAttribute('data-counter'), 10);
       let current = 0; const duration = 1200; const start = performance.now();
@@ -823,10 +737,7 @@
         const p = Math.min(1, (t - start) / duration);
         current = Math.floor(end * p);
         el.textContent = current + (end < 100 ? '%' : '');
-        if (p < 1) requestAnimationFrame(tick); else {
-          el.textContent = end + (end < 100 ? '%' : '');
-          el.classList.add('in'); // underline grow
-        }
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = end + (end < 100 ? '%' : '');
       }
       requestAnimationFrame(tick);
     }
@@ -918,71 +829,23 @@
     window.addEventListener('resize', recalcAll);
     document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
 
-    // Parallax for hero background AND banner image
+    // Lightweight parallax for hero background (optional)
     (function(){
-      const bg = document.getElementById('hero-bg');
-      const mediaImg = document.querySelector('.hero-media img');
-      if(!bg && !mediaImg) return;
+      const el = document.getElementById('hero-bg');
+      if(!el) return;
       let y=0, t=0;
       const onScroll = () => { y = window.scrollY || 0; };
       const raf = () => {
         t += (y - t) * 0.06;
-        if (bg) bg.style.transform = `translate3d(0, ${t * -0.08}px, 0)`;
-        if (mediaImg) mediaImg.style.transform = `translate3d(0, ${t * -0.03}px, 0) scale(1.03)`;
+        el.style.transform = `translate3d(0, ${t * -0.08}px, 0)`;
         requestAnimationFrame(raf);
       };
       window.addEventListener('scroll', onScroll, { passive:true });
       raf();
     })();
-
-    // Cursor spotlight (follows pointer)
-    (function(){
-      const s = document.getElementById('alive-spotlight');
-      if(!s) return;
-      let x = 50, y = 30, tX = x, tY = y;
-      const move = e => {
-        const r = document.documentElement.getBoundingClientRect();
-        x = (e.clientX - r.left) / r.width * 100;
-        y = (e.clientY - r.top) / r.height * 100;
-      };
-      const loop = () => {
-        tX += (x - tX) * 0.08; tY += (y - tY) * 0.08;
-        s.style.setProperty('--sx', tX + '%');
-        s.style.setProperty('--sy', tY + '%');
-        requestAnimationFrame(loop);
-      };
-      window.addEventListener('mousemove', move, {passive:true});
-      loop();
-    })();
-
-    // Magnetic buttons (opt-in via [data-magnetic])
-    (function(){
-      const els = document.querySelectorAll('[data-magnetic]');
-      const lerp = (a,b,t)=>a+(b-a)*t;
-      els.forEach(el=>{
-        let rx=0, ry=0, tx=0, ty=0, af;
-        const onMove = e=>{
-          const r = el.getBoundingClientRect();
-          const mx = e.clientX - (r.left + r.width/2);
-          const my = e.clientY - (r.top + r.height/2);
-          rx = Math.max(-8, Math.min(8, mx*0.08));
-          ry = Math.max(-6, Math.min(6, my*0.10));
-          if(!af) af = requestAnimationFrame(loop);
-        };
-        const onLeave = ()=>{ rx=0; ry=0; if(!af) af = requestAnimationFrame(loop); };
-        const loop = ()=>{
-          tx = lerp(tx, rx, 0.18);
-          ty = lerp(ty, ry, 0.18);
-          el.style.transform = `translate(${tx}px, ${ty}px)`;
-          if(Math.abs(tx-rx)>.1 || Math.abs(ty-ry)>.1){ af = requestAnimationFrame(loop); } else { af = null; }
-        };
-        el.addEventListener('mousemove', onMove, {passive:true});
-        el.addEventListener('mouseleave', onLeave, {passive:true});
-        el.addEventListener('touchstart', ()=>el.style.transform='', {passive:true});
-      });
-    })();
   </script>
 </body>
 </html>
+
 
 
