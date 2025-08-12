@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,9 +26,14 @@
 
     /* ========= Service cards (FULL CARD FLIP) ========= */
     :root{
-      /* Tweak these two to change size balance globally */
+      /* Match “How we’ll work” icon size = 10rem (h-40) */
       --svc-card-minh: 19rem;
-      --svc-icon-size: 10.5rem;
+      --svc-icon-size: 10rem;
+    }
+    @media (min-width: 640px){
+      :root{
+        --svc-card-minh: 20rem;   /* keep icon at 10rem for consistency */
+      }
     }
 
     /* Card container + 3D */
@@ -40,7 +44,6 @@
       cursor: pointer;
       min-height: var(--svc-card-minh);
     }
-
     .service-card .rotator{
       position: relative;
       width: 100%;
@@ -88,17 +91,17 @@
       line-height: 1.5;
     }
 
-    /* Front: center everything (prevents text hugging the bottom) */
+    /* Front: center everything */
     .service-card .content-front{
       min-height: var(--svc-card-minh);
       justify-content: center;
-      gap: 1rem;
+      gap: 1.25rem;   /* a touch more breathing room below the icon */
     }
 
     /* Back: same min-height; lists left-align for readability */
     .service-card .content-back{
       min-height: var(--svc-card-minh);
-      justify-content: center; /* keeps copy visually centered vertically */
+      justify-content: center;
     }
     .service-card .content-back ul{
       text-align: left;
@@ -111,38 +114,30 @@
       width: var(--svc-icon-size);
       height: var(--svc-icon-size);
       object-fit: contain;
-      display: block;
+      object-position: center;
+      display: block;                 /* removes inline-image baseline gap */
       background: transparent !important;
       padding: 0 !important;
       border-radius: 0 !important;
     }
-    @media (min-width: 640px){
-      :root{
-        --svc-card-minh: 20rem;
-        --svc-icon-size: 11.5rem;
-      }
-    }
 
     /* Make every grid child share the same min-height (keeps CTA tile in sync) */
-    #services .cards-grid > *{
-      min-height: var(--svc-card-minh);
-    }
-    /* CTA tile: same height as cards + centered content */
-#services .cta-tile{
-  min-height: var(--svc-card-minh);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 1.5rem;           /* p-6 */
-  border-radius: .75rem;     /* rounded-xl */
-}
+    #services .cards-grid > *{ min-height: var(--svc-card-minh); }
 
+    /* CTA tile: same height as cards + centered content */
+    #services .cta-tile{
+      min-height: var(--svc-card-minh);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;         /* p-6 */
+      border-radius: .75rem;   /* rounded-xl */
+    }
   </style>
 </head>
-
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Backdrop overlay (mobile only) -->
@@ -272,7 +267,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                 Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.<
+                 Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
                 </p>
               </div>
             </div>
@@ -332,7 +327,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                 We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.<
+                 We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
                 </p>
               </div>
             </div>
