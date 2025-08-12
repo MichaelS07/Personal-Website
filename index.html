@@ -139,6 +139,13 @@
       text-align: center; padding: 1.5rem; border-radius: .75rem;
       box-shadow: 0 10px 30px rgba(16,185,129,.35);
     }
+
+    /* --- Added: sparkline animation tied to your existing .reveal.in --- */
+    .reveal.in .spark-draw { animation: drawline 900ms cubic-bezier(.22,1,.36,1) forwards; }
+    @keyframes drawline { to { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: reduce){
+      .reveal.in .spark-draw { animation: none; stroke-dashoffset: 0; }
+    }
   </style>
 </head>
 
@@ -430,14 +437,21 @@
       </div>
 
       <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
-        <!-- Email -->
+
+        <!-- 1) Circle that fills up (EDM) -->
         <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
-          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
-            <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Line chart showing upward revenue per visitor trend">
-              <defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity="0.25" /><stop offset="100%" stop-color="currentColor" stop-opacity="0.02" /></linearGradient></defs>
-              <path d="M0,80 L40,75 L80,72 L120,68 L160,60 L200,52 L240,44 L300,30 L300,100 L0,100 Z" fill="url(#revGrad)" />
-              <polyline points="0,80 40,75 80,72 120,68 160,60 200,52 240,44 300,30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              <g fill="currentColor"><circle cx="0" cy="80" r="3"/><circle cx="120" cy="68" r="3"/><circle cx="240" cy="44" r="3"/><circle cx="300" cy="30" r="3"/></g>
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+            <svg viewBox="0 0 120 120" class="progress-chart h-full w-full text-emerald-500"
+                 role="img" aria-label="70.44% increase in EDM revenue" data-percent="70.44">
+              <!-- Track -->
+              <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" opacity="0.15" stroke-width="10" pathLength="100"></circle>
+              <!-- Progress -->
+              <circle class="fg" cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="10"
+                      stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"
+                      transform="rotate(-90 60 60)"></circle>
+              <!-- Label -->
+              <text class="pct" x="60" y="60" text-anchor="middle" dominant-baseline="central"
+                    font-size="18" font-weight="800" fill="currentColor">0%</text>
             </svg>
           </div>
           <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Email</div>
@@ -445,38 +459,44 @@
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and three lifecycle flows built from zero.</p>
         </article>
 
-        <!-- Online Sales -->
+        <!-- 2) Graph (sparkline) (SEM) -->
         <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
-          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
-            <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Bar chart showing CPA down and conversions up">
-              <rect x="20" y="20" width="30" height="60" rx="4" class="fill-red-500/70 dark:fill-red-400/70"/>
-              <rect x="70" y="35" width="30" height="45" rx="4" class="fill-red-500/50 dark:fill-red-400/50"/>
-              <rect x="120" y="45" width="30" height="35" rx="4" class="fill-red-500/30 dark:fill-red-400/30"/>
-              <rect x="200" y="60" width="30" height="20" rx="4" class="fill-emerald-500/30"/>
-              <rect x="250" y="40" width="30" height="40" rx="4" class="fill-emerald-500/70"/>
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+            <svg viewBox="0 0 300 100" class="w-full h-full text-sky-500" role="img" aria-label="Trend graph for total online revenue">
+              <g opacity=".08" stroke="currentColor">
+                <line x1="0" y1="80" x2="300" y2="80"></line>
+                <line x1="0" y1="20" x2="300" y2="20"></line>
+              </g>
+              <!-- Will animate when .reveal gets .in -->
+              <path class="spark-draw" pathLength="100"
+                    d="M8,82 L80,74 L120,70 L160,62 L210,48 L250,34 L292,18"
+                    fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"
+                    stroke-dasharray="100" stroke-dashoffset="100"></path>
             </svg>
           </div>
           <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEM</div>
-          <div class="mt-1 text-xl sm:text-2xl font-bold">13.91% Increase In Total online Revenue</div>
+          <div class="mt-1 text-xl sm:text-2xl font-bold">13.91% Increase In Total Online Revenue</div>
           <p class="mt-2 text-sm">Account restructure, negative sculpting, query mapping, and creative refresh cadence.</p>
         </article>
 
-        <!-- CRO -->
+        <!-- 3) Iconographic win (SEO) -->
         <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
-          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3">
-            <svg viewBox="0 0 300 100" class="h-full w-full" role="img" aria-label="Stacked bars showing growth in non-brand traffic">
-              <rect x="20" y="55" width="40" height="25" rx="4" class="fill-slate-400/60"/>
-              <rect x="20" y="40" width="40" height="15" rx="4" class="fill-emerald-500/70"/>
-              <rect x="120" y="45" width="40" height="35" rx="4" class="fill-slate-400/60"/>
-              <rect x="120" y="25" width="40" height="20" rx="4" class="fill-emerald-500/70"/>
-              <rect x="220" y="30" width="40" height="50" rx="4" class="fill-slate-400/60"/>
-              <rect x="220" y="10" width="40" height="20" rx="4" class="fill-emerald-500/70"/>
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+            <!-- Laptop + upward arrow to read as “revenue up online” -->
+            <svg viewBox="0 0 200 100" class="w-full h-full text-violet-500" role="img" aria-label="Conversion up">
+              <!-- Laptop -->
+              <rect x="30" y="30" width="90" height="40" rx="6" fill="currentColor" opacity="0.12"></rect>
+              <rect x="25" y="70" width="100" height="6" rx="3" fill="currentColor" opacity="0.25"></rect>
+              <!-- Up arrow -->
+              <path d="M150 76 V34" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
+              <path d="M138 46 L150 34 L162 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </div>
           <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEO</div>
           <div class="mt-1 text-xl sm:text-2xl font-bold">18.93% Increase in Conversion Rate</div>
           <p class="mt-2 text-sm">Since working for Bargain Chemist, we have seen a conversion rate increase of 2.37% in the first year, and an 16.17% increase the second.</p>
         </article>
+
       </div>
     </div>
   </section>
@@ -865,9 +885,52 @@
       window.addEventListener('scroll', onScroll, { passive:true });
       raf();
     })();
+
+    /* ------ Added: Progress ring animation (isolated) ------ */
+    (function () {
+      const charts = document.querySelectorAll('svg.progress-chart[data-percent]');
+      if (!charts.length) return;
+
+      function animate(svg) {
+        const pct = Math.max(0, Math.min(100, parseFloat(svg.dataset.percent) || 0));
+        const fg = svg.querySelector('.fg');
+        const label = svg.querySelector('.pct');
+        if (fg) {
+          fg.style.transition = 'stroke-dashoffset 900ms cubic-bezier(.22,1,.36,1)';
+          // Important: camelCase property to avoid invalid assignment
+          requestAnimationFrame(() => { fg.style.strokeDashoffset = (100 - pct) + ''; });
+        }
+        if (label) label.textContent = pct.toFixed(2) + '%';
+      }
+
+      // Separate observer so we don't disturb your existing ones
+      const ioProgress = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !e.target.dataset.animated) {
+            e.target.dataset.animated = '1';
+            animate(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      charts.forEach(svg => ioProgress.observe(svg));
+
+      // --- Lightweight tests (safe) ---
+      setTimeout(() => {
+        const svg = document.querySelector('svg.progress-chart');
+        const fg = svg && svg.querySelector('.fg');
+        console.assert(!!svg, '[TEST] Progress SVG exists');
+        console.assert(!!fg, '[TEST] Progress foreground circle exists');
+        if (fg && typeof fg.style.strokeDashoffset !== 'undefined') {
+          const val = parseFloat(fg.style.strokeDashoffset);
+          if (!Number.isNaN(val)) {
+            console.assert(val <= 30.5, `[TEST] strokeDashoffset ~= 29.56 for 70.44%. Got ${val}`);
+          }
+        }
+        const spark = document.querySelector('.spark-draw');
+        console.assert(!!spark, '[TEST] Sparkline path exists');
+      }, 1500);
+    })();
   </script>
 </body>
 </html>
-
-
-
