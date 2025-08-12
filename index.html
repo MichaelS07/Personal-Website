@@ -142,15 +142,15 @@
 
   <!-- Header -->
 <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-[1fr,auto,1fr] items-center h-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center relative">
     <!-- Left: Logo -->
-    <a href="#home" class="justify-self-start flex items-center gap-3">
+    <a href="#home" class="flex items-center gap-3">
       <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
       <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
     </a>
 
-    <!-- Center: Desktop Nav (true page center) -->
-    <nav class="hidden md:flex items-center gap-6 justify-self-center">
+    <!-- Center (desktop only): Nav absolutely centered -->
+    <nav class="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
       <a href="#services" class="hover:text-emerald-600 tap">Services</a>
       <a href="#work" class="hover:text-emerald-600 tap">Results</a>
       <a href="#about" class="hover:text-emerald-600 tap">About</a>
@@ -159,8 +159,8 @@
       <a href="#contact" class="hover:text-emerald-600 tap">Contact</a>
     </nav>
 
-    <!-- Right: CTA / Mobile Toggle -->
-    <div class="justify-self-end flex items-center gap-2 sm:gap-3">
+    <!-- Right: CTA / Mobile Toggle (stays right on all sizes) -->
+    <div class="ml-auto flex items-center gap-2 sm:gap-3">
       <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
       <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -188,6 +188,7 @@
     </nav>
   </div>
 </header>
+
 
 
 
