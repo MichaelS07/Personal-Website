@@ -19,123 +19,119 @@
     tailwind.config = { darkMode: 'class' };
   </script>
 
-  <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
-    body { overflow-x: hidden; }
+ <style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+  body { overflow-x: hidden; }
 
-    /* Glass helper */
-    .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
-    .dark .glass { background: rgba(17,24,39,0.5); }
+  /* Glass helper */
+  .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
+  .dark .glass { background: rgba(17,24,39,0.5); }
 
-    /* Reveal on scroll */
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
 
-    .tap { min-height: 44px; min-width: 44px; }
+  .tap { min-height: 44px; min-width: 44px; }
 
-    /* Slide-down animation for mobile menu */
-    #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
-    #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
-    #mobileMenu.open #mobileMenuContent { opacity: 1; }
+  /* Slide-down animation for mobile menu */
+  #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
+  #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* === Flip Card Styles === */
-    :root{
-      --svc-card-minh: 19rem;
-      --svc-icon-size: 10rem;
-      --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
-    }
-    @media (min-width: 640px){
-      :root{ --svc-card-minh: 20rem; }
-    }
+  /* === Flip Card Styles — FIXED === */
+  :root{
+    --svc-card-minh: 19rem;
+    --svc-icon-size: 10rem;
+    --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
+  }
+  @media (min-width: 640px){
+    :root{ --svc-card-minh: 20rem; }
+  }
 
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-      color: #0f172a;
-    }
-    .service-card .rotator{
-      position: relative; width: 100%; height: 100%;
-      transform-style: preserve-3d; transition: transform .6s ease; will-change: transform;
-    }
-    .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
-    .service-card .face{ position: absolute; inset: 0; display: flex; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-    .service-card .front{ transform: rotateY(0); }
-    .service-card .back{ transform: rotateY(180deg); }
+  .service-card{
+    position: relative;
+    perspective: 1200px;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    min-height: var(--svc-card-minh);
+    color: #0f172a;
+    border-radius: .75rem;
+    overflow: hidden;
+    border: 1px solid rgb(226 232 240 / 1);
+    background: rgb(248 250 252 / 1);
+    box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
+    isolation: isolate;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  .dark .service-card{
+    border-color: rgb(30 41 59 / 1);
+    background: rgb(30 41 59 / 1);
+    box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
+  }
 
-    .service-card .front,
-    .service-card .back{
-      border-radius: .75rem;
-      border: 1px solid rgb(226 232 240 / 1);
-      background: rgb(248 250 252 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
-    }
-    .dark .service-card .front,
-    .dark .service-card .back{
-      border-color: rgb(30 41 59 / 1);
-      background: rgb(30 41 59 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
-    }
+  .service-card .rotator{
+    position: relative;
+    width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .6s ease;
+    will-change: transform;
+    border-radius: inherit;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
 
-    /* Keep service card text dark in OS dark mode if user hasn't toggled site dark */
-    @media (prefers-color-scheme: dark) {
-      .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
-    }
+  .service-card .face{
+    position: absolute; inset: 0;
+    display: flex;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  .service-card .front{ transform: rotateY(0); }
+  .service-card .back { transform: rotateY(180deg); }
 
-    .service-card .content{
-      width: 100%; padding: 1.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; line-height: 1.5;
-    }
-    .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
+  .service-card .content{
+    width: 100%; padding: 1.5rem;
+    display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+    text-align: center; line-height: 1.5;
+  }
+  .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
+  .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
+  .service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
 
-    .service-card .icon{
-      width: var(--svc-icon-size); height: var(--svc-icon-size); object-fit: contain; object-position: center; display: block;
-      background: transparent !important; padding: 0 !important; border-radius: 0 !important;
-      filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
-    }
+  .service-card .icon{
+    width: var(--svc-icon-size); height: var(--svc-icon-size);
+    object-fit: contain; object-position: center; display: block;
+    background: transparent !important; padding: 0 !important; border-radius: 0 !important;
+    filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
+  }
 
-    #services .cards-grid > *{ min-height: var(--svc-card-minh); }
-    #services .cta-tile{
-      min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 1.5rem; border-radius: .75rem;
-      box-shadow: 0 10px 30px rgba(16,185,129,.35);
-    }
+  @media (prefers-color-scheme: dark) {
+    .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
+  }
 
-    /* Section heading accents */
-    .section-head { position: relative; }
-    .section-head::after{
-      content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-.6rem; width:96px; height:3px; border-radius:9999px;
-      background: var(--section-accent);
-    }
+  .service-card::after{
+    content:"";
+    position:absolute; inset:0;
+    border-radius: inherit;
+    outline: 1px solid transparent;
+    pointer-events:none;
+  }
 
-    /* Gradient rule */
-    .grad-rule{ height:2px; border:0; background: var(--section-accent); }
-
-    /* Hero grid overlay mask */
-    .hero-grid {
-      background-image:
-        linear-gradient(to right, rgba(100,116,139,0.18) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(100,116,139,0.18) 1px, transparent 1px);
-      background-size:24px 24px;
-      mask-image: radial-gradient(80% 60% at 50% 35%, black, transparent);
-    }
-
-    /* Shy tilt for hero image/cards */
-    .tilt:hover { transform: perspective(1200px) rotateX(5deg) rotateY(-5deg); }
-    .tilt { transition: transform .3s ease; will-change: transform; }
-
-    /* CTA micro-lift */
-    .lift { transition: transform .15s ease, box-shadow .2s ease; }
-    .lift:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(2,6,23,.12); }
-    .lift:active { transform: translateY(0); }
-
-  </style>
+  #services .cards-grid > *{ min-height: var(--svc-card-minh); }
+  #services .cta-tile{
+    min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 1.5rem; border-radius: .75rem;
+    box-shadow: 0 10px 30px rgba(16,185,129,.35);
+  }
+</style>
 </head>
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
