@@ -727,7 +727,162 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Reveal on scroll
-  const revealEls
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Count up numbers when visible
+  function animateCount(el){
+    const end = parseInt(el.getAttribute('data-counter'), 10);
+    let current = 0; const duration = 1200; const start = performance.now();
+    function tick(t){
+      const p = Math.min(1, (t - start) / duration);
+      current = Math.floor(end * p);
+      el.textContent = current + (end < 100 ? '%' : '');
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = end + (end < 100 ? '%' : '');
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('[data-counter]');
+  const io2 = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target._counted){
+        e.target._counted = true;
+        animateCount(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(c => io2.observe(c));
+
+  // Pricing toggle
+  const toggle = document.getElementById('priceToggle');
+  const dot = document.getElementById('priceDot');
+  const prices = document.querySelectorAll('.price');
+  let monthly = false;
+  function knobPositions(){
+    if (!toggle || !dot) return { start: 0, end: 0 };
+    const trackW = toggle.clientWidth;
+    const knobW = dot.clientWidth;
+    const margin = 4;
+    const start = margin;
+    const end = Math.max(margin, trackW - knobW - margin);
+    return { start, end };
+  }
+  function renderPrices(){
+    prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
+    const { start, end } = knobPositions();
+    if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
+  }
+  if (toggle && dot) {
+    renderPrices();
+    toggle.addEventListener('click', () => {
+      monthly = !monthly;
+      renderPrices();
+      toggle.setAttribute('aria-pressed', String(monthly));
+    });
+    window.addEventListener('resize', renderPrices);
+    document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
+  }
+
+  // Fake form submit
+  function fakeSubmit(){
+    const m = document.getElementById('formMsg');
+    if (!m) return;
+    m.classList.remove('hidden');
+    setTimeout(()=>m.classList.add('hidden'), 3500);
+  }
+  window.fakeSubmit = fakeSubmit;
+
+  // ===== FULL-CARD FLIP + ROBUST INITIAL HEIGHT =====
+  function faceContent(card, which) {
+    return card.querySelector(`.${which} .content`);
+  }
+  function measure(card) {
+    const f = faceContent(card, 'front');
+    const b = faceContent(card, 'back');
+    card._frontH = f ? f.scrollHeight : 0;
+    card._backH  = b ? b.scrollHeight : 0;
+  }
+  function setH(card, h) { card.style.height = h + 'px'; }
+  function flipTo(card, toBack){
+    measure(card);
+    setH(card, toBack ? card._backH : card._frontH);
+    card.classList.toggle('is-flipped', toBack);
+  }
+
+  function prepareCard(card){
+    // Avoid double-binding if we re-init after fonts/images load
+    if (card.dataset.flipReady === '1') {
+      // just re-measure + set height
+      measure(card);
+      const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
+      setH(card, h);
+      return;
+    }
+    card.dataset.flipReady = '1';
+
+    // Start on front at correct height
+    card.classList.remove('is-flipped');
+    measure(card);
+    setH(card, card._frontH);
+
+    // Click/keyboard to flip
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a,button,input,select,textarea,label')) return;
+      flipTo(card, !card.classList.contains('is-flipped'));
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        flipTo(card, !card.classList.contains('is-flipped'));
+      }
+    });
+
+    // Re-measure when icons finish loading
+    card.querySelectorAll('img').forEach(img => {
+      if (!img.complete) {
+        img.addEventListener('load', () => {
+          measure(card);
+          const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
+          setH(card, h);
+        }, { once:true });
+      }
+    });
+  }
+
+  function initFullFlip() {
+    document.querySelectorAll('.service-card').forEach(prepareCard);
+
+    // Re-measure on resize
+    let to;
+    window.addEventListener('resize', () => {
+      clearTimeout(to);
+      to = setTimeout(() => {
+        document.querySelectorAll('.service-card').forEach(card => {
+          measure(card);
+          const h = card.classList.contains('is-flipped') ? card._backH : card._frontH;
+          setH(card, h);
+        });
+      }, 120);
+    }, { passive:true });
+  }
+
+  // Initialize after fonts and images to prevent “too small before first flip”
+  function initAfterAssets(){
+    initFullFlip(); // baseline (in case assets are already cached)
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => initFullFlip());
+    }
+    window.addEventListener('load', () => initFullFlip());
+    // tiny fallback bump
+    setTimeout(() => initFullFlip(), 250);
+  }
+  initAfterAssets();
+</script>
 
 </body>
 </html>
