@@ -164,9 +164,6 @@
         <a href="#contact" class="hover:text-emerald-600 tap">Contact</a>
       </nav>
       <div class="flex items-center gap-2 sm:gap-3">
-        <button id="themeToggle" class="tap p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Toggle theme">
-          <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/></svg>
-        </button>
         <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">Let's Talk</a>
         <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
           <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -646,25 +643,6 @@
 
   <!-- Scripts -->
   <script>
-    // Dark mode toggle (persists)
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark');
-    function updateIcon(){
-      if (!themeIcon) return;
-      themeIcon.innerHTML = document.documentElement.classList.contains('dark')
-        ? '<path d="M21.64 13A9 9 0 1111 2.36 7 7 0 1021.64 13z"/>'
-        : '<path d="M12 18a6 6 0 100-12 6 6 0 000 12zm0 4v-2m0-16V2m10 10h-2M4 12H2m15.657 6.343l-1.414-1.414M7.757 8.757 6.343 7.343m0 9.9 1.414-1.414M16.243 7.757l1.414-1.414"/>';
-    }
-    updateIcon();
-    themeToggle?.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-      updateIcon();
-    });
-
     // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
