@@ -121,6 +121,11 @@
       border-radius: 0 !important;
     }
 
+    /* Dark mode: force service icons to white */
+.dark .service-card .icon {
+  filter: grayscale(1) brightness(0) invert(1) contrast(1.05);
+}
+
     /* Make every grid child share the same min-height (keeps CTA tile in sync) */
     #services .cards-grid > *{ min-height: var(--svc-card-minh); }
 
