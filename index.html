@@ -38,116 +38,120 @@
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
     /* ========= Service cards (FULL CARD FLIP) ========= */
-    :root{
-      /* Match “How we’ll work” icon size = 10rem (h-40) */
-      --svc-card-minh: 19rem;
-      --svc-icon-size: 10rem;
-    }
-    @media (min-width: 640px){
-      :root{
-        --svc-card-minh: 20rem;   /* keep icon at 10rem for consistency */
-      }
-    }
+:root{
+  /* Match “How we’ll work” icon size = 10rem (h-40) */
+  --svc-card-minh: 19rem;
+  --svc-icon-size: 10rem;
+}
+@media (min-width: 640px){
+  :root{
+    --svc-card-minh: 20rem;   /* keep icon at 10rem for consistency */
+  }
+}
 
-    /* Card container + 3D */
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-    }
-    .service-card .rotator{
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform .6s ease;
-      will-change: transform;
-    }
-    .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
+/* Card container + 3D */
+.service-card{
+  position: relative;
+  perspective: 1200px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-height: var(--svc-card-minh);
+  color: black; /* Light mode default text color */
+}
+.dark .service-card{
+  color: white; /* Dark mode text color */
+}
 
-    /* Faces */
-    .service-card .face{
-      position: absolute;
-      inset: 0;
-      display: flex;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .service-card .front{ transform: rotateY(0); }
-    .service-card .back{ transform: rotateY(180deg); }
+.service-card .rotator{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .6s ease;
+  will-change: transform;
+}
+.service-card.is-flipped .rotator{ transform: rotateY(180deg); }
 
-    /* Card chrome (both faces) */
-    .service-card .front,
-    .service-card .back{
-      border-radius: .75rem; /* rounded-xl */
-      border: 1px solid rgb(226 232 240 / 1);      /* slate-200 */
-      background: rgb(248 250 252 / 1);            /* slate-50 */
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
-    }
-    .dark .service-card .front,
-    .dark .service-card .back{
-      border-color: rgb(30 41 59 / 1);             /* slate-800 */
-      background: rgb(30 41 59 / 1);               /* slate-800 */
-    }
+/* Faces */
+.service-card .face{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.service-card .front{ transform: rotateY(0); }
+.service-card .back{ transform: rotateY(180deg); }
 
-    /* Shared content layout */
-    .service-card .content{
-      width: 100%;
-      padding: 1.5rem;                 /* p-6 */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-      text-align: center;
-      line-height: 1.5;
-    }
+/* Card chrome (both faces) */
+.service-card .front,
+.service-card .back{
+  border-radius: .75rem; /* rounded-xl */
+  border: 1px solid rgb(226 232 240 / 1);      /* slate-200 */
+  background: rgb(248 250 252 / 1);            /* slate-50 */
+  box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
+}
+.dark .service-card .front,
+.dark .service-card .back{
+  border-color: rgb(30 41 59 / 1);             /* slate-800 */
+  background: rgb(30 41 59 / 1);               /* slate-800 */
+}
 
-    /* Front: center everything */
-    .service-card .content-front{
-      min-height: var(--svc-card-minh);
-      justify-content: center;
-    }
+/* Shared content layout */
+.service-card .content{
+  width: 100%;
+  padding: 1.5rem;                 /* p-6 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  line-height: 1.5;
+}
 
-    /* Back: same min-height; lists left-align for readability */
-    .service-card .content-back{
-      min-height: var(--svc-card-minh);
-      justify-content: center;
-    }
-    .service-card .content-back ul{
-      text-align: left;
-      align-self: stretch;
-      margin-top: .25rem;
-    }
+/* Front: center everything */
+.service-card .content-front{
+  min-height: var(--svc-card-minh);
+  justify-content: center;
+}
 
-    /* Big icon; no white box */
-    .service-card .icon{
-      width: var(--svc-icon-size);
-      height: var(--svc-icon-size);
-      object-fit: contain;
-      object-position: center;
-      display: block;
-      background: transparent !important;
-      padding: 0 !important;
-      border-radius: 0 !important;
-    }
+/* Back: same min-height; lists left-align for readability */
+.service-card .content-back{
+  min-height: var(--svc-card-minh);
+  justify-content: center;
+}
+.service-card .content-back ul{
+  text-align: left;
+  align-self: stretch;
+  margin-top: .25rem;
+}
 
-    /* Grid + CTA tile */
-    #services .cards-grid > *{ min-height: var(--svc-card-minh); }
-    #services .cta-tile{
-      min-height: var(--svc-card-minh);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 1.5rem;         /* p-6 */
-      border-radius: .75rem;   /* rounded-xl */
-    }
-  </style>
-</head>
+/* Big icon; no white box */
+.service-card .icon{
+  width: var(--svc-icon-size);
+  height: var(--svc-icon-size);
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Grid + CTA tile */
+#services .cards-grid > *{ min-height: var(--svc-card-minh); }
+#services .cta-tile{
+  min-height: var(--svc-card-minh);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;         /* p-6 */
+  border-radius: .75rem;   /* rounded-xl */
+}
+
 
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
