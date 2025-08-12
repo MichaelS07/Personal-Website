@@ -4,12 +4,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><!-- Nova Reach --> Digital Marketing Consulting</title>
   <meta name="description" content="Digital marketing consultancy specialising in SEO/SEM, CRO, Shopify management, customer journey optimisation, and email marketing." />
+
+  <!-- Keep the site in light mode even if the OS is dark -->
+  <meta name="color-scheme" content="light" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind: force class-based dark mode (we won't add the .dark class, so site stays light) -->
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    /* Lock UA theming to light as well */
+    :root { color-scheme: light; }
+
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
     .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
@@ -86,7 +99,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: .85rem;
+      gap: 1.25rem;
       text-align: center;
       line-height: 1.5;
     }
@@ -95,7 +108,6 @@
     .service-card .content-front{
       min-height: var(--svc-card-minh);
       justify-content: center;
-      gap: 1.25rem;   /* a touch more breathing room below the icon */
     }
 
     /* Back: same min-height; lists left-align for readability */
@@ -115,21 +127,14 @@
       height: var(--svc-icon-size);
       object-fit: contain;
       object-position: center;
-      display: block;                 /* removes inline-image baseline gap */
+      display: block;
       background: transparent !important;
       padding: 0 !important;
       border-radius: 0 !important;
     }
 
-    /* Dark mode: force service icons to white */
-.dark .service-card .icon {
-  filter: grayscale(1) brightness(0) invert(1) contrast(1.05);
-}
-
-    /* Make every grid child share the same min-height (keeps CTA tile in sync) */
+    /* Grid + CTA tile */
     #services .cards-grid > *{ min-height: var(--svc-card-minh); }
-
-    /* CTA tile: same height as cards + centered content */
     #services .cta-tile{
       min-height: var(--svc-card-minh);
       height: 100%;
@@ -143,6 +148,7 @@
     }
   </style>
 </head>
+
 
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
   <!-- Backdrop overlay (mobile only) -->
