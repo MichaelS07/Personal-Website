@@ -74,44 +74,40 @@
    Paste over your existing flip-card CSS
    ========================= */
 
-/* Root sizing variables are already in your file; this respects them.
-   If missing, the fallbacks below keep things sane. */
+/* === Flip Card Styles — Full Card Rotates (robust) === */
+:root{
+  --svc-card-minh: 19rem;
+  --svc-icon-size: 10rem;
+  --svc-face-light: rgb(248 250 252 / 1);
+  --svc-face-dark:  rgb(30 41 59 / 1);
+}
 
 .service-card{
-  /* container */
   position: relative;
+  /* perspective on the container; do NOT also transform it */
   perspective: 1200px;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 
-  /* sizing */
-  min-height: var(--svc-card-minh, 20rem);
+  min-height: var(--svc-card-minh);
   border-radius: .75rem;
-
-  /* CRITICAL: Opaque backdrop so you don't see through at 90° */
-  background: rgb(248 250 252 / 1);
-  color: #0f172a;
-
-  /* 3D containment */
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-
-  /* clipping for rounded corners during rotation */
   overflow: hidden;
 
-  /* perf */
-  isolation: isolate;
-  will-change: transform;
-}
-.dark .service-card{
-  background: rgb(30 41 59 / 1);
-}
+  /* Opaque backdrop so there’s never a “hole” mid-flip */
+  background: var(--svc-face-light);
+  color: #0f172a;
 
-/* Rotator holds both faces and rotates as one slab */
+  /* keep 3D context on the rotator only */
+  transform-style: flat;
+  will-change: transform;
+  isolation: isolate;
+}
+.dark .service-card{ background: var(--svc-face-dark); }
+
+/* Rotating slab that holds both faces */
 .service-card .rotator{
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   border-radius: inherit;
 
   transform-style: preserve-3d;
@@ -120,89 +116,73 @@
   transition: transform .6s ease;
   will-change: transform;
 
-  /* Safari compositing nudge */
+  /* compositing nudge */
   outline: 1px solid transparent;
 }
 
-/* Optional: a thin “core” to eliminate sub-pixel seams at 90° */
+/* Tiny “core” so there’s never true nothingness at 90° */
 .service-card .rotator::before{
   content:"";
   position:absolute; inset:0;
   border-radius: inherit;
-  background: inherit;          /* matches .service-card backdrop */
-  transform: translateZ(-0.01px);
+  background: inherit;                 /* match container backdrop */
+  transform: translateZ(-0.02px);      /* sit between faces */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   pointer-events: none;
 }
 
-.service-card.is-flipped .rotator{
-  transform: rotateY(180deg);
-}
+.service-card.is-flipped .rotator{ transform: rotateY(180deg); }
 
-/* Faces: solid planes, NO Z-nudges */
+/* Faces */
 .service-card .face{
   position: absolute; inset: 0;
   display: flex;
 
-  /* keep each face on a single exact plane */
-  transform: none;
-
-  /* IMPORTANT: don’t show backfaces when edge-on */
+  /* important: no extra transforms besides orientation */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 
-  /* visuals (same look you had) */
   border-radius: inherit;
   border: 1px solid rgb(226 232 240 / 1);
-  background: rgb(248 250 252 / 1);
+  background: var(--svc-face-light);
   box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
   outline: 1px solid transparent;  /* anti-alias nudge */
 }
 .dark .service-card .face{
-  border-color: rgb(30 41 59 / 1);
-  background: rgb(30 41 59 / 1);
+  border-color: var(--svc-face-dark);
+  background: var(--svc-face-dark);
   box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
 }
 
-/* Face orientations */
-.service-card .front{ transform: rotateY(0deg); }
-.service-card .back { transform: rotateY(180deg); }
+/* Orientations + micro Z-shim prevents see-through flicker */
+.service-card .front{ transform: rotateY(0deg) translateZ(0.02px); }
+.service-card .back { transform: rotateY(180deg) translateZ(0.02px); }
 
-/* Inner content (kept from your original semantics) */
+/* Inner content (kept semantics) */
 .service-card .content{
-  width: 100%;
-  padding: 1.5rem;
+  width: 100%; padding: 1.5rem;
   display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
   text-align: center; line-height: 1.5;
 }
-.service-card .content-front{
-  min-height: var(--svc-card-minh, 20rem);
-  justify-content: center;
-}
-.service-card .content-back{
-  min-height: var(--svc-card-minh, 20rem);
-  justify-content: center;
-}
-.service-card .content-back ul{
-  text-align: left; align-self: stretch; margin-top: .25rem;
-}
+.service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
+.service-card .content-back{  min-height: var(--svc-card-minh); justify-content: center; }
+.service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
 
 /* Icon treatment */
 .service-card .icon{
-  width: var(--svc-icon-size, 10rem);
-  height: var(--svc-icon-size, 10rem);
+  width: var(--svc-icon-size); height: var(--svc-icon-size);
   object-fit: contain; object-position: center; display: block;
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
+  background: transparent !important; padding: 0 !important; border-radius: 0 !important;
   filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
 }
 
-/* Ensure text colours remain as you intended in dark mode */
+/* keep your original text colour override */
 @media (prefers-color-scheme: dark) {
   .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
 }
 
-/* Decorative overlay hook you already had (safe to keep) */
+/* decorative overlay hook (unchanged) */
 .service-card::after{
   content:"";
   position:absolute; inset:0;
@@ -211,13 +191,21 @@
   pointer-events:none;
 }
 
-/* Grid helpers you referenced */
-#services .cards-grid > *{ min-height: var(--svc-card-minh, 20rem); }
+/* Grid helpers (unchanged) */
+#services .cards-grid > *{ min-height: var(--svc-card-minh); }
 
-/* Motion-respect (your IntersectionObserver handles reveal timing) */
+/* CTA tile (keep – unchanged) */
+#services .cta-tile{
+  min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 1.5rem; border-radius: .75rem;
+  box-shadow: 0 10px 30px rgba(16,185,129,.35);
+}
+
+/* motion respect */
 @media (prefers-reduced-motion: reduce){
   .service-card .rotator{ transition: none; }
 }
+
 
 
     /* Sparkline animation tied to .reveal.in */
@@ -1065,41 +1053,45 @@
     })();
 
     // Pointer tilt / magnetic hover (works with touch too)
-    (function(){
-      const els = Array.from(document.querySelectorAll('[data-tilt]'));
-      const max = (el)=> parseFloat(el.getAttribute('data-tilt-max') || 6);
+(function(){
+  // EXCLUDE flip cards from tilt to avoid conflicting transforms
+  const els = Array.from(document.querySelectorAll('[data-tilt]'))
+    .filter(el => !el.classList.contains('service-card'));
 
-      function attach(el){
-        let rAF, rect;
-        const onEnter = ()=> { rect = el.getBoundingClientRect(); };
-        const onMove = (e)=>{
-          const cx = e.clientX ?? (e.touches && e.touches[0].clientX);
-          const cy = e.clientY ?? (e.touches && e.touches[0].clientY);
-          if (cx == null || cy == null || !rect) return;
-          const x = cx - rect.left;
-          const y = cy - rect.top;
-          const rx = ((y/rect.height) - .5) * -max(el);
-          const ry = ((x/rect.width)  - .5) *  max(el);
-          cancelAnimationFrame(rAF);
-          rAF = requestAnimationFrame(()=> {
-            el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
-            el.style.boxShadow = `0 18px 44px rgba(2,6,23,.12)`;
-          });
-        };
-        const onLeave = ()=>{
-          cancelAnimationFrame(rAF);
-          el.style.transform = '';
-          el.style.boxShadow  = '';
-        };
-        el.addEventListener('mouseenter', onEnter);
-        el.addEventListener('mousemove', onMove);
-        el.addEventListener('mouseleave', onLeave);
-        el.addEventListener('touchstart', onEnter, {passive:true});
-        el.addEventListener('touchmove', onMove, {passive:true});
-        el.addEventListener('touchend', onLeave, {passive:true});
-      }
-      els.forEach(attach);
-    })();
+  const max = (el)=> parseFloat(el.getAttribute('data-tilt-max') || 6);
+
+  function attach(el){
+    let rAF, rect;
+    const onEnter = ()=> { rect = el.getBoundingClientRect(); };
+    const onMove = (e)=>{
+      const cx = e.clientX ?? (e.touches && e.touches[0].clientX);
+      const cy = e.clientY ?? (e.touches && e.touches[0].clientY);
+      if (cx == null || cy == null || !rect) return;
+      const x = cx - rect.left;
+      const y = cy - rect.top;
+      const rx = ((y/rect.height) - .5) * -max(el);
+      const ry = ((x/rect.width)  - .5) *  max(el);
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(()=> {
+        el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+        el.style.boxShadow = `0 18px 44px rgba(2,6,23,.12)`;
+      });
+    };
+    const onLeave = ()=>{
+      cancelAnimationFrame(rAF);
+      el.style.transform = '';
+      el.style.boxShadow  = '';
+    };
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    el.addEventListener('touchstart', onEnter, {passive:true});
+    el.addEventListener('touchmove', onMove, {passive:true});
+    el.addEventListener('touchend', onLeave, {passive:true});
+  }
+  els.forEach(attach);
+})();
+
   </script>
 </body>
 </html>
