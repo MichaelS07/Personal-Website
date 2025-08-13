@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Force light mode for the site; respect your dark styles where present -->
+  <!-- Stop iPhone/macOS dark mode from changing site -->
   <meta name="color-scheme" content="light">
 
   <!-- Tailwind CDN -->
@@ -21,7 +21,8 @@
 
   <style>
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; overflow-x: hidden; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    body { overflow-x: hidden; }
 
     /* Glass helper */
     .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
@@ -39,53 +40,41 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* ---------- Highlights & Flip-Safe Accents ---------- */
+    /* === Flip Card Styles — Full Card Rotates === */
     :root{
       --svc-card-minh: 19rem;
       --svc-icon-size: 10rem;
-      --emerald-rgb: 16,185,129; /* emerald-500 */
-      --card-bg-light: 248,250,252;
-      --card-bg-dark: 30,41,59;
-      --card-border-light: 226,232,240;
-      --card-border-dark: 30,41,59;
+      --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
     }
     @media (min-width: 640px){
       :root{ --svc-card-minh: 20rem; }
     }
 
-    /* Reusable hover/focus accent for non-flipping blocks */
-    .accentize {
-      position: relative;
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease;
-      box-shadow: 0 0 0 0 rgba(var(--emerald-rgb),0), 0 8px 24px rgba(0,0,0,0.04);
-    }
-    .accentize:hover,
-    .accentize:focus-within {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 0 1px rgba(var(--emerald-rgb), .55) inset,
-        0 14px 36px rgba(var(--emerald-rgb), .28);
-    }
+   .service-card{
+  position: relative;
+  perspective: 1200px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  min-height: var(--svc-card-minh);
+  color: #0f172a;
+  border-radius: .75rem;
+  overflow: hidden;
 
-    /* ---------- Flip Card Styles (full card rotates) ---------- */
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-      color: #0f172a;
-      border-radius: .75rem;
-      overflow: hidden;
-      /* Keep parent transparent; styling goes on faces */
-      background: transparent !important;
-      isolation: isolate;
-      transform: translateZ(0);
-      will-change: transform;
-    }
+  /* REMOVE the background here */
+  background: transparent; /* instead of rgb(248 250 252 / 1) */
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.dark .service-card{
+  background: transparent; /* same for dark mode */
+}
+
+    .dark .service-card{ background: rgb(30 41 59 / 1); }
 
     .service-card .rotator{
-      position: relative; width: 100%; height: 100%;
+      position: relative;
+      width: 100%; height: 100%;
       transform-style: preserve-3d;
       transition: transform .6s ease;
       will-change: transform;
@@ -96,24 +85,25 @@
     .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
 
     .service-card .face{
-      position: absolute; inset: 0; display: flex;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      position: absolute; inset: 0;
+      display: flex;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       transform: translateZ(0);
       border-radius: inherit;
-      border: 1px solid rgba(var(--card-border-light), 1);
-      background: rgb(var(--card-bg-light));
-      outline: 1px solid transparent;
+      border: 1px solid rgb(226 232 240 / 1);
+      background: rgb(248 250 252 / 1);
       box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
+      outline: 1px solid transparent;
     }
     .dark .service-card .face{
-      border-color: rgb(var(--card-border-dark));
-      background: rgb(var(--card-bg-dark));
+      border-color: rgb(30 41 59 / 1);
+      background: rgb(30 41 59 / 1);
       box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
     }
 
-    /* tiny nudge prevents backface seams (Safari) */
-    .service-card .front{ transform: rotateY(0) translateZ(0.5px); }
-    .service-card .back { transform: rotateY(180deg) translateZ(0.5px); }
+    .service-card .front{ transform: rotateY(0); }
+    .service-card .back { transform: rotateY(180deg); }
 
     .service-card .content{
       width: 100%; padding: 1.5rem;
@@ -131,82 +121,37 @@
       filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
     }
 
-    /* Emerald glow that rotates with the face (flip-safe) */
-    .service-card .face::after{
-      content: "";
-      position: absolute; inset: -1px;
-      border-radius: inherit; pointer-events: none;
-      background:
-        linear-gradient(120deg,
-          rgba(var(--emerald-rgb), .55),
-          rgba(var(--emerald-rgb), .18) 40%,
-          rgba(var(--emerald-rgb), 0) 70%);
-      box-shadow:
-        inset 0 0 0 1px rgba(var(--emerald-rgb), .15),
-        0 12px 28px rgba(var(--emerald-rgb), .14);
-      opacity: .32;
-      transition: opacity .25s ease, filter .25s ease;
+    @media (prefers-color-scheme: dark) {
+      .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
     }
-    .service-card:hover .face::after,
-    .service-card:focus-within .face::after,
-    .service-card.is-flipped .face::after { opacity: .6; filter: saturate(1.08); }
-    .service-card.accent-always .face::after { opacity: .55; }
 
-    /* Thin emerald top stripe for depth */
-    .service-card .face::before{
+    .service-card::after{
       content:"";
-      position:absolute; left:0; right:0; top:0; height:4px;
-      border-top-left-radius: inherit; border-top-right-radius: inherit;
-      background: linear-gradient(90deg,
-        rgba(var(--emerald-rgb),.85),
-        rgba(var(--emerald-rgb),.35) 45%,
-        rgba(var(--emerald-rgb),0) 90%);
-      opacity:.75; pointer-events:none; backface-visibility:hidden;
+      position:absolute; inset:0;
+      border-radius: inherit;
+      outline: 1px solid transparent;
+      pointer-events:none;
     }
 
-    /* Reveal-tied sparkline animation */
+    #services .cards-grid > *{ min-height: var(--svc-card-minh); }
+    #services .cta-tile{
+      min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 1.5rem; border-radius: .75rem;
+      box-shadow: 0 10px 30px rgba(16,185,129,.35);
+    }
+
+    /* --- Added: sparkline animation tied to your existing .reveal.in --- */
     .reveal.in .spark-draw { animation: drawline 900ms cubic-bezier(.22,1,.36,1) forwards; }
     @keyframes drawline { to { stroke-dashoffset: 0; } }
     @media (prefers-reduced-motion: reduce){
       .reveal.in .spark-draw { animation: none; stroke-dashoffset: 0; }
     }
-
-    /* Hero accent rule line */
-    .grad-rule { height: 1px; background: linear-gradient(90deg, rgba(16,185,129,.6), rgba(16,185,129,0)); border: 0; }
-
-    /* Timeline styles (Process) */
-    .timeline { position: relative; }
-    .timeline::before{
-      content:""; position:absolute; left:50%; top:0; bottom:0; width:2px;
-      background: linear-gradient(to bottom, rgba(16,185,129,.6), transparent);
-      transform: translateX(-50%);
-      display:none;
-    }
-    @media (min-width:1024px){
-      .timeline::before{ display:block; }
-    }
-    .tl-item { position: relative; }
-    @media (min-width:1024px){
-      .tl-item{ width:50%; }
-      .tl-left { padding-right: 2rem; }
-      .tl-right{ margin-left: auto; padding-left: 2rem; }
-      .tl-dot{
-        position:absolute; top: 2.5rem; left: 50%; transform: translate(-50%,-50%);
-        height: 12px; width: 12px; border-radius: 9999px; background: rgb(16 185 129);
-        box-shadow: 0 0 0 4px rgba(16,185,129,.15);
-      }
-    }
-    /* Mobile timeline scroll */
-    .tl-scroll { display:flex; gap:1rem; overflow-x:auto; scroll-snap-type: x mandatory; padding-bottom:.5rem; }
-    .tl-scroll > * { min-width: 80%; scroll-snap-align: start; }
-    @media (min-width:640px){ .tl-scroll > * { min-width: 60%; } }
-    @media (min-width:1024px){ .tl-scroll { display:block; overflow:visible; } }
-
   </style>
 </head>
 
+
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
-  <!-- Layered site background -->
+  <!-- Layered site background (gradient mesh + subtle noise) -->
   <div class="pointer-events-none fixed inset-0 -z-10">
     <div class="absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(16,185,129,0.10),transparent_60%),radial-gradient(40%_50%_at_0%_100%,rgba(59,130,246,0.08),transparent_60%),radial-gradient(30%_30%_at_100%_100%,rgba(139,92,246,0.10),transparent_60%)]"></div>
     <div class="absolute inset-0 opacity-[0.03] mix-blend-multiply" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22><rect width=%224%22 height=%224%22 fill=%22%23fff%22/><circle cx=%221%22 cy=%221%22 r=%220.5%22 fill=%22%23000%22/></svg>')"></div>
@@ -215,7 +160,7 @@
   <!-- Backdrop overlay (mobile only) -->
   <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
-  <!-- Header -->
+  <!-- Header (lifted) -->
   <header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
       <!-- Left: Logo -->
@@ -224,7 +169,7 @@
         <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
       </a>
 
-      <!-- Center nav -->
+      <!-- Center (desktop only): Nav absolutely centered -->
       <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <a href="#services" class="py-1 hover:text-emerald-600 tap">Services</a>
         <a href="#work" class="py-1 hover:text-emerald-600 tap">Results</a>
@@ -264,80 +209,87 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="relative overflow-hidden">
-    <!-- Background image + overlays -->
-    <div id="hero-bg" class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('images/hero-banner.png');"></div>
-      <div class="absolute inset-0" style="background:
-        radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.18), transparent 70%),
-        radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.16), transparent 70%),
-        radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.14), transparent 70%);
-      "></div>
-      <div class="absolute inset-0 hero-grid pointer-events-none"></div>
-    </div>
+<!-- Hero (depthy banner) -->
+<section id="home" class="relative overflow-hidden">
+  <!-- Background image + overlays (z-0) -->
+  <div id="hero-bg" class="absolute inset-0 z-0">
+    <!-- Background image -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('images/hero-banner.png');"></div>
 
-    <!-- Glow blobs -->
-    <div class="absolute inset-0 pointer-events-none z-10" aria-hidden="true">
-      <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
-      <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
-    </div>
+    <!-- Color gradient overlays -->
+    <div class="absolute inset-0" style="background:
+      radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.18), transparent 70%),
+      radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.16), transparent 70%),
+      radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.14), transparent 70%);
+    "></div>
 
-    <!-- Content -->
-    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
-      <div class="reveal">
-        <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-          Digital Marketing Specialists
-        </span>
-        <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-          Performance-first marketing for brands that want results.
-        </h1>
-        <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">
-          I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategies.
-        </p>
-        <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
-          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">
-            Book a free consult
-          </a>
-          <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto lift">
-            Explore services
-          </a>
+    <!-- Optional grid overlay (only shows if you style .hero-grid elsewhere) -->
+    <div class="absolute inset-0 hero-grid pointer-events-none"></div>
+  </div>
+
+  <!-- Glow blobs (above bg, below content) -->
+  <div class="absolute inset-0 pointer-events-none z-10" aria-hidden="true">
+    <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
+    <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
+  </div>
+
+  <!-- Content (z-20) -->
+  <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
+    <div class="reveal">
+      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        Digital Marketing Specialists
+      </span>
+      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+        Performance-first marketing for brands that want results.
+      </h1>
+      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">
+        I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategies.
+      </p>
+      <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
+        <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">
+          Book a free consult
+        </a>
+        <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 w-full xs:w-auto lift">
+          Explore services
+        </a>
+      </div>
+
+      <!-- KPI tiles -->
+      <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
+        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
+          <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
         </div>
+        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
+          <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
+        </div>
+        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
+          <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
+        </div>
+      </div>
+    </div>
 
-        <!-- KPI tiles (accentize) -->
-        <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm accentize">
-            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
-            <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
-          </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm accentize">
-            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
-            <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
-          </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm accentize">
-            <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
-            <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
+    <!-- Right: Case study card -->
+    <div class="relative reveal">
+      <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl tilt">
+        <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 flex items-center justify-center">
+          <div class="text-center p-6">
+            <div class="text-sm uppercase tracking-widest text-slate-500">Case Study Snapshot</div>
+            <div class="mt-2 text-2xl font-bold">CRO + Email = +19% Revenue/Visitor</div>
+            <p class="mt-3 text-slate-600 dark:text-slate-300">
+              Incremental wins from checkout UX fixes, better list growth, and lifecycle flows. Ask for the deep-dive.
+            </p>
           </div>
         </div>
       </div>
-
-      <!-- Right: Case study card -->
-      <div class="relative reveal">
-        <div class="glass rounded-3xl p-4 border border-slate-200 dark:border-slate-800 shadow-xl tilt accentize">
-          <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-white dark:from-slate-800 dark:to-slate-900 flex items-center justify-center">
-            <div class="text-center p-6">
-              <div class="text-sm uppercase tracking-widest text-slate-500">Case Study Snapshot</div>
-              <div class="mt-2 text-2xl font-bold">CRO + Email = +19% Revenue/Visitor</div>
-              <p class="mt-3 text-slate-600 dark:text-slate-300">
-                Incremental wins from checkout UX fixes, better list growth, and lifecycle flows. Ask for the deep-dive.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="absolute -bottom-6 -right-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-400 blur-2xl opacity-60"></div>
-      </div>
+      <div class="absolute -bottom-6 -right-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-400 blur-2xl opacity-60"></div>
     </div>
-  </section>
+  </div>
+</section>
+
+
 
   <!-- Thin gradient separator -->
   <hr class="grad-rule mx-auto w-[90%] opacity-60" />
@@ -356,27 +308,14 @@
     </div>
   </section>
 
-  <!-- Services (asymmetric, flip-safe accents always on) -->
+  <!-- Services -->
   <section id="services" class="py-16 bg-white/70 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Services</h2>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">Same content. Smarter layout and livelier accents.</p>
-      </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
-      <!-- Top banner breaks the grid rhythm -->
-      <div class="mt-8 reveal p-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-600 to-green-500 text-white shadow accentize">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div class="text-lg font-semibold">Not sure where to start?</div>
-          <p class="opacity-90">Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.</p>
-          <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">Get a plan</a>
-        </div>
-      </div>
-
-      <!-- Asymmetric grid -->
-      <div class="mt-8 grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6">
-        <!-- SEO (wide on desktop) -->
-        <article class="service-card lift accent-always md:col-span-6 lg:col-span-7" tabindex="0" aria-label="SEO. Press or tap to flip">
+      <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- SEO -->
+        <article class="service-card lift" tabindex="0" aria-label="SEO. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -388,15 +327,15 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Full-Funnel Search: technical SEO + content to bring people in, then optimise landing experiences to convert. Tight feedback loop to compounding growth.
+                  Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
                 </p>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- CRO (tall feel via extra padding) -->
-        <article class="service-card lift accent-always md:col-span-6 lg:col-span-5" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
+        <!-- CRO -->
+        <article class="service-card lift" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -408,7 +347,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Identify bottlenecks, ship A/B tests, fix UX debt where it hurts most (PDP → cart → checkout). Systematic uplift, not lucky breaks.
+                  Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
                 </p>
               </div>
             </div>
@@ -416,7 +355,7 @@
         </article>
 
         <!-- Shopify -->
-        <article class="service-card lift accent-always md:col-span-6 lg:col-span-6" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -428,7 +367,7 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Shopify</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Faster site, cleaner nav, smarter feeds/tagging. Built for stability and scale so marketing spends pay back.
+                  Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.
                 </p>
               </div>
             </div>
@@ -436,7 +375,7 @@
         </article>
 
         <!-- Customer Journey -->
-        <article class="service-card lift accent-always md:col-span-6 lg:col-span-6" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -448,15 +387,15 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Map the whole path and remove friction. Lift LTV with better onboarding, education, and post-purchase experience.
+                  We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
                 </p>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- Email (full width on desktop to close the section) -->
-        <article class="service-card lift accent-always md:col-span-6 lg:col-span-12" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+        <!-- Email -->
+        <article class="service-card lift" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
           <div class="rotator">
             <div class="face front">
               <div class="content content-front">
@@ -468,33 +407,67 @@
               <div class="content">
                 <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
                 <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Lifecycle flows + targeted campaigns that print revenue. List growth, segmentation, and creative that earns attention.
+                  We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
                 </p>
               </div>
             </div>
           </div>
         </article>
+
+        <!-- CTA -->
+        <div class="cta-tile reveal h-full border border-emerald-500/50 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+          <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
+          <p class="mt-2 text-sm sm:text-base opacity-90">
+            Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
+          </p>
+          <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
+            Get a plan
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Results / Work (1 wide + 2 compact) -->
+  <!-- Results / Work -->
   <section id="work" class="py-16 sm:py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-3xl mx-auto">
         <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
         <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
       </div>
 
-      <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Wide chart card -->
-        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 accentize lg:col-span-7">
-          <div class="h-44 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
-            <svg viewBox="0 0 300 100" class="w-full h-full text-emerald-500" role="img" aria-label="Total online revenue trend">
-              <g opacity=".1" stroke="currentColor">
+      <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+
+        <!-- 1) Circle that fills up (EDM) -->
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+            <svg viewBox="0 0 120 120" class="progress-chart h-full w-full text-emerald-500"
+                 role="img" aria-label="70.44% increase in EDM revenue" data-percent="70.44">
+              <!-- Track -->
+              <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" opacity="0.15" stroke-width="10" pathLength="100"></circle>
+              <!-- Progress -->
+              <circle class="fg" cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="10"
+                      stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"
+                      transform="rotate(-90 60 60)"></circle>
+              <!-- Label -->
+              <text class="pct" x="60" y="60" text-anchor="middle" dominant-baseline="central"
+                    font-size="18" font-weight="800" fill="currentColor">0%</text>
+            </svg>
+          </div>
+          <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Email</div>
+          <div class="mt-1 text-xl sm:text-2xl font-bold">70.44% Increase in EDM Revenue</div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and three lifecycle flows built from zero.</p>
+        </article>
+
+        <!-- 2) Graph (sparkline) (SEM) -->
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+            <svg viewBox="0 0 300 100" class="w-full h-full text-sky-500" role="img" aria-label="Trend graph for total online revenue">
+              <g opacity=".08" stroke="currentColor">
                 <line x1="0" y1="80" x2="300" y2="80"></line>
                 <line x1="0" y1="20" x2="300" y2="20"></line>
               </g>
+              <!-- Will animate when .reveal gets .in -->
               <path class="spark-draw" pathLength="100"
                     d="M8,82 L80,74 L120,70 L160,62 L210,48 L250,34 L292,18"
                     fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"
@@ -506,44 +479,29 @@
           <p class="mt-2 text-sm">Account restructure, negative sculpting, query mapping, and creative refresh cadence.</p>
         </article>
 
-        <!-- Two compact cards stacked on desktop -->
-        <div class="lg:col-span-5 grid grid-cols-1 gap-6">
-          <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 accentize">
-            <div class="h-40 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
-              <svg viewBox="0 0 120 120" class="progress-chart h-full w-full text-emerald-500"
-                   role="img" aria-label="70.44% increase in EDM revenue" data-percent="70.44">
-                <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" opacity="0.15" stroke-width="10" pathLength="100"></circle>
-                <circle class="fg" cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="10"
-                        stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"
-                        transform="rotate(-90 60 60)"></circle>
-                <text class="pct" x="60" y="60" text-anchor="middle" dominant-baseline="central"
-                      font-size="18" font-weight="800" fill="currentColor">0%</text>
-              </svg>
-            </div>
-            <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Email</div>
-            <div class="mt-1 text-xl sm:text-2xl font-bold">70.44% Increase in EDM Revenue</div>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Checkout friction fixes, PDP improvements, and lifecycle flows.</p>
-          </article>
+        <!-- 3) Iconographic win (SEO) -->
+        <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5">
+          <div class="h-32 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+            <!-- Laptop + upward arrow to read as “revenue up online” -->
+            <svg viewBox="0 0 200 100" class="w-full h-full text-violet-500" role="img" aria-label="Conversion up">
+              <!-- Laptop -->
+              <rect x="30" y="30" width="90" height="40" rx="6" fill="currentColor" opacity="0.12"></rect>
+              <rect x="25" y="70" width="100" height="6" rx="3" fill="currentColor" opacity="0.25"></rect>
+              <!-- Up arrow -->
+              <path d="M150 76 V34" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
+              <path d="M138 46 L150 34 L162 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEO</div>
+          <div class="mt-1 text-xl sm:text-2xl font-bold">18.93% Increase in Conversion Rate</div>
+          <p class="mt-2 text-sm">Since working for Bargain Chemist, we have seen a conversion rate increase of 2.37% in the first year, and an 16.17% increase the second.</p>
+        </article>
 
-          <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 accentize">
-            <div class="h-40 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
-              <svg viewBox="0 0 200 100" class="w-full h-full text-violet-500" role="img" aria-label="Conversion up">
-                <rect x="30" y="30" width="90" height="40" rx="6" fill="currentColor" opacity="0.12"></rect>
-                <rect x="25" y="70" width="100" height="6" rx="3" fill="currentColor" opacity="0.25"></rect>
-                <path d="M150 76 V34" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
-                <path d="M138 46 L150 34 L162 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </div>
-            <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">SEO</div>
-            <div class="mt-1 text-xl sm:text-2xl font-bold">18.93% Increase in Conversion Rate</div>
-            <p class="mt-2 text-sm">Year-over-year gains driven by speed, UX, and intent mapping improvements.</p>
-          </article>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Process (timeline: zig-zag on desktop, scroller on mobile) -->
+  <!-- Process -->
   <section class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto text-center">
@@ -553,60 +511,53 @@
         </p>
       </div>
 
-      <div class="timeline mt-8">
-        <!-- Mobile/H-overflow -->
-        <div class="tl-scroll lg:block">
-          <!-- 1 -->
-          <div class="tl-item tl-left">
-            <span class="hidden lg:block tl-dot"></span>
-            <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize">
-              <div class="bg-white p-4 flex items-center justify-center h-40">
-                <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
-              </div>
-              <div class="p-5 sm:p-6">
-                <h3 class="text-base sm:text-lg font-bold text-center">1. Diagnose</h3>
-                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-                  Audit your data, site and funnels. Find the true blockers and quantify impact.
-                </p>
-              </div>
-            </article>
-          </div>
-          <!-- 2 -->
-          <div class="tl-item tl-right mt-6 lg:mt-16">
-            <span class="hidden lg:block tl-dot"></span>
-            <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize">
-              <div class="bg-white p-4 flex items-center justify-center h-40">
-                <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
-              </div>
-              <div class="p-5 sm:p-6">
-                <h3 class="text-base sm:text-lg font-bold text-center">2. Design</h3>
-                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-                  Prioritised roadmap of experiments and initiatives. Highest ROI first.
-                </p>
-              </div>
-            </article>
-          </div>
-          <!-- 3 -->
-          <div class="tl-item tl-left mt-6 lg:mt-16">
-            <span class="hidden lg:block tl-dot"></span>
-            <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize">
-              <div class="bg-white p-4 flex items-center justify-center h-40">
-                <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
-              </div>
-              <div class="p-5 sm:p-6">
-                <h3 class="text-base sm:text-lg font-bold text-center">3. Deliver</h3>
-                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-                  Ship, measure, iterate. Document learnings into a compounding playbook.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
+      <div id="process-grid" class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold text-center">1. Diagnose</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
+                We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
+              </p>
+            </div>
+          </button>
+        </article>
+
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold text-center">2. Design</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
+                Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.
+              </p>
+            </div>
+          </button>
+        </article>
+
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold text-center">3. Deliver</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
+                Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
+              </p>
+            </div>
+          </button>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Pricing (subtle asymmetry) -->
+  <!-- Pricing -->
   <section id="pricing" class="py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="max-w-3xl mx-auto text-center">
@@ -622,47 +573,47 @@
         <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
       </div>
 
-      <div class="grid gap-4 sm:gap-6 md:grid-cols-12">
-        <div class="reveal w-full mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize md:col-span-4">
+      <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
-            <p class="mt-2 text-[13px] sm:text-sm leading-snug">Audit a key area and deliver quick, impactful wins.</p>
+            <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
             <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
             <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Search or Email audit</li>
-              <li>10-point CRO checklist</li>
-              <li>Implementation help for two weeks</li>
+              <li>A comprehensive audit of your Search or Email performance</li>
+              <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
+              <li>Our team's support to implement fixes for two weeks</li>
             </ul>
           </div>
           <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
         </div>
 
-        <div class="reveal w-full mx-auto p-4 sm:p-5 rounded-xl border border-emerald-500/40 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow md:col-span-4">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
-            <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Sustained growth: manage search & email, ongoing CRO sprints.</p>
+            <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
             <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
             <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
               <li>Ongoing SEO/SEM management</li>
-              <li>Lifecycle email flows</li>
-              <li>Continuous CRO experiments</li>
+              <li>Full build-out of your lifecycle email flows</li>
+              <li>Continuous CRO experiments to boost conversions</li>
             </ul>
           </div>
           <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
         </div>
 
-        <div class="reveal w-full mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize md:col-span-4">
+        <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="flex-1">
             <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
             <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
-            <p class="mt-2 text-[13px] sm:text-sm leading-snug">Full ownership of search & email with advanced tracking + reporting.</p>
+            <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
             <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
             <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Complete strategy ownership</li>
-              <li>Weekly growth standups</li>
-              <li>Custom dashboards</li>
+              <li>Complete ownership of your search and email strategies</li>
+              <li>Weekly growth standups to align on priorities and results</li>
+              <li>Custom performance dashboards for complete clarity</li>
             </ul>
           </div>
           <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
@@ -678,24 +629,24 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
       <div class="reveal">
         <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
-        <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, managing a large Shopify site, SEO/SEM, high-performing Klaviyo EDMs, and CRO initiatives that moved core metrics.</p>
-        <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so work is creative and operationally sound.</p>
+        <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
         <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm accentize">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
             <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
           </div>
-          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm accentize">
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
             <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
             <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
           </div>
         </div>
       </div>
       <div class="reveal">
-        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <h3 class="font-bold text-lg">Mission Statement</h3>
           <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
-            We transform your digital presence into a growth engine. Full-funnel strategies that attract, convert, and retain—measured, repeatable, and durable.
+            We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that don't just attract visitors, but convert them into loyal customers, ensuring every decision is driven by data and designed for sustainable, long-term success.
           </p>
         </div>
       </div>
@@ -708,10 +659,10 @@
       <div class="reveal">
         <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
         <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals. I’ll reply within one business day with next steps and availability.</p>
-        <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow accentize">
+        <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <div class="text-sm">Prefer email?</div>
           <a href="mailto:hello@example.com" class="text-emerald-600 font-semibold break-all">hello@example.com</a>
-          <div class="mt-3 text-[11px] sm:text-xs text-slate-500">Send me an email with your questions, goals, or anything you want help on and I’ll get back to you.</div>
+          <div class="mt-3 text-[11px] sm:text-xs text-slate-500">Send me an email with your questions, goals, or anything you want some help on and I will get back to you</div>
         </div>
       </div>
       <form class="reveal space-y-4" onsubmit="event.preventDefault(); fakeSubmit();">
@@ -882,7 +833,7 @@
     }
     window.fakeSubmit = fakeSubmit;
 
-    // Service Cards: measure & flip (height-lock to avoid jump)
+    // Service Cards: measure & flip
     const cards = Array.from(document.querySelectorAll('.service-card'));
     function measureHeights(card){
       const frontContent = card.querySelector('.front .content');
@@ -935,20 +886,24 @@
       raf();
     })();
 
-    // Progress ring animation
+    /* ------ Added: Progress ring animation (isolated) ------ */
     (function () {
       const charts = document.querySelectorAll('svg.progress-chart[data-percent]');
       if (!charts.length) return;
+
       function animate(svg) {
         const pct = Math.max(0, Math.min(100, parseFloat(svg.dataset.percent) || 0));
         const fg = svg.querySelector('.fg');
         const label = svg.querySelector('.pct');
         if (fg) {
           fg.style.transition = 'stroke-dashoffset 900ms cubic-bezier(.22,1,.36,1)';
+          // Important: camelCase property to avoid invalid assignment
           requestAnimationFrame(() => { fg.style.strokeDashoffset = (100 - pct) + ''; });
         }
         if (label) label.textContent = pct.toFixed(2) + '%';
       }
+
+      // Separate observer so we don't disturb your existing ones
       const ioProgress = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting && !e.target.dataset.animated) {
@@ -957,11 +912,25 @@
           }
         });
       }, { threshold: 0.4 });
+
       charts.forEach(svg => ioProgress.observe(svg));
+
+      // --- Lightweight tests (safe) ---
+      setTimeout(() => {
+        const svg = document.querySelector('svg.progress-chart');
+        const fg = svg && svg.querySelector('.fg');
+        console.assert(!!svg, '[TEST] Progress SVG exists');
+        console.assert(!!fg, '[TEST] Progress foreground circle exists');
+        if (fg && typeof fg.style.strokeDashoffset !== 'undefined') {
+          const val = parseFloat(fg.style.strokeDashoffset);
+          if (!Number.isNaN(val)) {
+            console.assert(val <= 30.5, `[TEST] strokeDashoffset ~= 29.56 for 70.44%. Got ${val}`);
+          }
+        }
+        const spark = document.querySelector('.spark-draw');
+        console.assert(!!spark, '[TEST] Sparkline path exists');
+      }, 1500);
     })();
   </script>
 </body>
 </html>
-
-
-
