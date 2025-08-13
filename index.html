@@ -69,93 +69,156 @@
     #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
     #mobileMenu.open #mobileMenuContent { opacity: 1; }
 
-    /* === Flip Card Styles — Full Card Rotates === */
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-      color: #0f172a;
-      border-radius: .75rem;
-      overflow: hidden;
-      background: transparent;
-      isolation: isolate;
-      transform: translateZ(0);
-      will-change: transform;
-    }
-    .dark .service-card{
-      background: transparent;
-    }
+/* =========================
+   Flip Card Component (DROP-IN)
+   Paste over your existing flip-card CSS
+   ========================= */
 
-    /* faces hardened to prevent white flash on mobile */
-    .service-card .rotator{
-      position: relative;
-      width: 100%; height: 100%;
-      transform-style: preserve-3d;
-      transition: transform .6s ease;
-      will-change: transform;
-      border-radius: inherit;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
+/* Root sizing variables are already in your file; this respects them.
+   If missing, the fallbacks below keep things sane. */
 
-    .service-card .face{
-      position: absolute; inset: 0;
-      display: flex;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
-      transform: translateZ(1px); /* own layer to avoid flash */
-      will-change: transform;
-      border-radius: inherit;
-      border: 1px solid rgb(226 232 240 / 1);
-      background: rgb(248 250 252 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
-      outline: 1px solid transparent;
-    }
-    .service-card .front{ transform: rotateY(0) translateZ(0.01px); }
-    .service-card .back { transform: rotateY(180deg) translateZ(0.01px); }
+.service-card{
+  /* container */
+  position: relative;
+  perspective: 1200px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 
-    .dark .service-card .face{
-      border-color: rgb(30 41 59 / 1);
-      background: rgb(30 41 59 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
-    }
+  /* sizing */
+  min-height: var(--svc-card-minh, 20rem);
+  border-radius: .75rem;
 
-    .service-card .content{
-      width: 100%; padding: 1.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
-      text-align: center; line-height: 1.5;
-    }
-    .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
+  /* CRITICAL: Opaque backdrop so you don't see through at 90° */
+  background: rgb(248 250 252 / 1);
+  color: #0f172a;
 
-    .service-card .icon{
-      width: var(--svc-icon-size); height: var(--svc-icon-size);
-      object-fit: contain; object-position: center; display: block;
-      background: transparent !important; padding: 0 !important; border-radius: 0 !important;
-      filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
-    }
+  /* 3D containment */
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 
-    @media (prefers-color-scheme: dark) {
-      .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
-    }
+  /* clipping for rounded corners during rotation */
+  overflow: hidden;
 
-    .service-card::after{
-      content:"";
-      position:absolute; inset:0;
-      border-radius: inherit;
-      outline: 1px solid transparent;
-      pointer-events:none;
-    }
+  /* perf */
+  isolation: isolate;
+  will-change: transform;
+}
+.dark .service-card{
+  background: rgb(30 41 59 / 1);
+}
 
-    #services .cards-grid > *{ min-height: var(--svc-card-minh); }
-    #services .cta-tile{
-      min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 1.5rem; border-radius: .75rem;
-      box-shadow: 0 10px 30px rgba(16,185,129,.35);
-    }
+/* Rotator holds both faces and rotates as one slab */
+.service-card .rotator{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+
+  transition: transform .6s ease;
+  will-change: transform;
+
+  /* Safari compositing nudge */
+  outline: 1px solid transparent;
+}
+
+/* Optional: a thin “core” to eliminate sub-pixel seams at 90° */
+.service-card .rotator::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  background: inherit;          /* matches .service-card backdrop */
+  transform: translateZ(-0.01px);
+  pointer-events: none;
+}
+
+.service-card.is-flipped .rotator{
+  transform: rotateY(180deg);
+}
+
+/* Faces: solid planes, NO Z-nudges */
+.service-card .face{
+  position: absolute; inset: 0;
+  display: flex;
+
+  /* keep each face on a single exact plane */
+  transform: none;
+
+  /* IMPORTANT: don’t show backfaces when edge-on */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /* visuals (same look you had) */
+  border-radius: inherit;
+  border: 1px solid rgb(226 232 240 / 1);
+  background: rgb(248 250 252 / 1);
+  box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
+  outline: 1px solid transparent;  /* anti-alias nudge */
+}
+.dark .service-card .face{
+  border-color: rgb(30 41 59 / 1);
+  background: rgb(30 41 59 / 1);
+  box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
+}
+
+/* Face orientations */
+.service-card .front{ transform: rotateY(0deg); }
+.service-card .back { transform: rotateY(180deg); }
+
+/* Inner content (kept from your original semantics) */
+.service-card .content{
+  width: 100%;
+  padding: 1.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+  text-align: center; line-height: 1.5;
+}
+.service-card .content-front{
+  min-height: var(--svc-card-minh, 20rem);
+  justify-content: center;
+}
+.service-card .content-back{
+  min-height: var(--svc-card-minh, 20rem);
+  justify-content: center;
+}
+.service-card .content-back ul{
+  text-align: left; align-self: stretch; margin-top: .25rem;
+}
+
+/* Icon treatment */
+.service-card .icon{
+  width: var(--svc-icon-size, 10rem);
+  height: var(--svc-icon-size, 10rem);
+  object-fit: contain; object-position: center; display: block;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
+}
+
+/* Ensure text colours remain as you intended in dark mode */
+@media (prefers-color-scheme: dark) {
+  .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
+}
+
+/* Decorative overlay hook you already had (safe to keep) */
+.service-card::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  outline: 1px solid transparent;
+  pointer-events:none;
+}
+
+/* Grid helpers you referenced */
+#services .cards-grid > *{ min-height: var(--svc-card-minh, 20rem); }
+
+/* Motion-respect (your IntersectionObserver handles reveal timing) */
+@media (prefers-reduced-motion: reduce){
+  .service-card .rotator{ transition: none; }
+}
+
 
     /* Sparkline animation tied to .reveal.in */
     .reveal.in .spark-draw { animation: drawline 900ms cubic-bezier(.22,1,.36,1) forwards; }
