@@ -501,45 +501,18 @@
     </div>
   </section>
 
-<!-- Process (Alternating Timeline + Mobile Carousel) -->
-<section id="process" class="py-16 sm:py-20 relative">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight text-center">How we’ll work</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-center">
-        Lean, clear, fast. You’ll always know what’s happening and why.
-      </p>
-    </div>
-
-    <!-- Timeline wrapper -->
-    <div class="relative mt-8 sm:mt-12">
-      <!-- Center line (desktop) -->
-      <div class="hidden md:block absolute left-1/2 top-0 -translate-x-1/2 h-full w-px">
-        <div class="absolute inset-0 bg-gradient-to-b from-emerald-400/70 via-emerald-500/40 to-emerald-400/70 rounded"></div>
-        <!-- Progress fill controlled by JS -->
-        <div id="process-progress" class="absolute top-0 left-0 w-full bg-emerald-500 rounded" style="height: 0;"></div>
+  <!-- Process -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight text-center">How we’ll work</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-center">
+          Lean, clear, fast. You’ll always know what’s happening and why.
+        </p>
       </div>
 
-      <!-- Cards container -->
-      <div
-        id="process-stream"
-        class="grid gap-6 md:gap-10
-               md:grid-cols-2 md:auto-rows-fr
-               md:[&>article:nth-child(odd)]:mr-10
-               md:[&>article:nth-child(even)]:ml-10
-               overflow-x-auto md:overflow-visible
-               grid-flow-col auto-cols-[82%] md:grid-flow-row snap-x md:snap-none snap-mandatory pb-2"
-      >
-        <!-- Dot anchors for desktop -->
-        <div class="hidden md:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-[9.5rem] w-4 h-4 rounded-full bg-white dark:bg-slate-900/80 border-2 border-emerald-500 shadow"></div>
-        <div class="hidden md:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-[32rem] w-4 h-4 rounded-full bg-white dark:bg-slate-900/80 border-2 border-emerald-500 shadow"></div>
-        <div class="hidden md:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-[54.5rem] w-4 h-4 rounded-full bg-white dark:bg-slate-900/80 border-2 border-emerald-500 shadow"></div>
-
-        <!-- 1. Diagnose (left on desktop) -->
-        <article
-          class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow
-                 snap-center transition will-change-transform"
-        >
+      <div id="process-grid" class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-3">
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <button type="button" class="w-full text-left group" aria-expanded="false">
             <div class="bg-white p-4 flex items-center justify-center h-40">
               <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
@@ -553,11 +526,7 @@
           </button>
         </article>
 
-        <!-- 2. Design (right on desktop) -->
-        <article
-          class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow
-                 snap-center transition will-change-transform md:translate-y-8"
-        >
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <button type="button" class="w-full text-left group" aria-expanded="false">
             <div class="bg-white p-4 flex items-center justify-center h-40">
               <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
@@ -571,11 +540,7 @@
           </button>
         </article>
 
-        <!-- 3. Deliver (left on desktop) -->
-        <article
-          class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow
-                 snap-center transition will-change-transform md:-translate-y-2"
-        >
+        <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
           <button type="button" class="w-full text-left group" aria-expanded="false">
             <div class="bg-white p-4 flex items-center justify-center h-40">
               <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
@@ -590,56 +555,7 @@
         </article>
       </div>
     </div>
-  </div>
-
-  <!-- Scoped styles -->
-  <style>
-    /* Gentle lift + emerald ring on hover/focus without breaking layout */
-    #process .process-card:hover,
-    #process .process-card:focus-within {
-      box-shadow: 0 14px 40px rgba(16,185,129,0.18);
-      outline: 2px solid rgba(16,185,129,0.35);
-      outline-offset: 0;
-    }
-    /* Reveal motion */
-    #process .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
-    #process .reveal.in-view { opacity: 1; transform: translateY(0); }
-    /* Make mobile carousel feel deliberate */
-    #process #process-stream > article { scroll-snap-align: center; }
-  </style>
-
-  <!-- Scroll progress + reveal -->
-  <script>
-    (function(){
-      const section = document.getElementById('process');
-      const cards = section.querySelectorAll('.reveal');
-      const progress = document.getElementById('process-progress');
-
-      // Reveal-on-scroll
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) e.target.classList.add('in-view');
-        });
-      }, { threshold: 0.2 });
-      cards.forEach(c => io.observe(c));
-
-      // Vertical progress fill for the center line (desktop only)
-      const onScroll = () => {
-        if (!progress) return;
-        const rect = section.getBoundingClientRect();
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const total = rect.height;
-        const seen = Math.min(Math.max(vh - Math.max(0, rect.top), 0), total);
-        const pct = Math.max(0, Math.min(seen / total, 1));
-        progress.style.height = (pct * 100) + '%';
-      };
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-    })();
-  </script>
-</section>
-
+  </section>
 
   <!-- Pricing -->
   <section id="pricing" class="py-16 sm:py-20">
