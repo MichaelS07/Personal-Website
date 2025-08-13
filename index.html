@@ -501,7 +501,7 @@
     </div>
   </section>
 
-  <!-- Process -->
+  <!-- Process (Alternating Timeline) -->
 <section class="py-16 sm:py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto text-center">
@@ -511,66 +511,96 @@
       </p>
     </div>
 
-    <!-- Asymmetric grid: big left, two stacked right -->
-    <div
-      id="process-grid"
-      class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 md:grid-rows-2 md:[grid-auto-rows:1fr]"
-    >
+    <!-- Mobile: simple left border timeline -->
+    <div class="relative mt-10 md:hidden">
+      <div class="absolute left-3 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800"></div>
 
-      <!-- BIG LEFT CARD (spans 2 cols x 2 rows on md+) -->
-      <article
-        class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow md:col-span-2 md:row-span-2 h-full"
-      >
-        <button type="button" class="w-full text-left group h-full" aria-expanded="false">
-          <div class="bg-white p-4 flex items-center justify-center h-56 sm:h-64 md:h-72">
-            <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
-          </div>
-          <div class="p-5 sm:p-6">
-            <h3 class="text-base sm:text-lg font-bold text-center">1. Diagnose</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-              We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
-            </p>
-          </div>
-        </button>
-      </article>
+      <!-- 1. Diagnose -->
+      <div class="relative pl-10">
+        <span class="absolute left-0 top-8 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700"></span>
+        <article class="process-card reveal mt-6 p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-48">
+              <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold">1. Diagnose</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
+              </p>
+            </div>
+          </button>
+        </article>
+      </div>
 
-      <!-- TOP RIGHT CARD -->
-      <article
-        class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow h-full"
-      >
-        <button type="button" class="w-full text-left group h-full" aria-expanded="false">
-          <div class="bg-white p-4 flex items-center justify-center h-40">
-            <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
-          </div>
-          <div class="p-5 sm:p-6">
-            <h3 class="text-base sm:text-lg font-bold text-center">2. Design</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-              Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.
-            </p>
-          </div>
-        </button>
-      </article>
+      <!-- 2. Design -->
+      <div class="relative pl-10">
+        <span class="absolute left-0 top-8 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700"></span>
+        <article class="process-card reveal mt-8 p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/design.png" alt="Design" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold">2. Design</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.
+              </p>
+            </div>
+          </button>
+        </article>
+      </div>
 
-      <!-- BOTTOM RIGHT CARD -->
-      <article
-        class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden text-center bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow h-full"
-      >
-        <button type="button" class="w-full text-left group h-full" aria-expanded="false">
-          <div class="bg-white p-4 flex items-center justify-center h-40">
-            <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
-          </div>
-          <div class="p-5 sm:p-6">
-            <h3 class="text-base sm:text-lg font-bold text-center">3. Deliver</h3>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 text-center">
-              Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
-            </p>
-          </div>
-        </button>
-      </article>
-
+      <!-- 3. Deliver -->
+      <div class="relative pl-10">
+        <span class="absolute left-0 top-8 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700"></span>
+        <article class="process-card reveal mt-8 p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+          <button type="button" class="w-full text-left group" aria-expanded="false">
+            <div class="bg-white p-4 flex items-center justify-center h-40">
+              <img src="images/deliver.png" alt="Deliver" loading="lazy" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5 sm:p-6">
+              <h3 class="text-base sm:text-lg font-bold">3. Deliver</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.
+              </p>
+            </div>
+          </button>
+        </article>
+      </div>
     </div>
-  </div>
-</section>
+
+    <!-- Desktop/Tablet: alternating right/left/right around a centered line -->
+    <div class="relative mt-10 hidden md:block">
+      <!-- Center vertical line -->
+      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800"></div>
+
+      <ol class="grid grid-cols-2 gap-y-12">
+        <!-- RIGHT (top) -->
+        <li class="col-start-2 relative">
+          <!-- dot -->
+          <span class="absolute -left-3 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
+
+          <div class="pl-10">
+            <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+              <button type="button" class="w-full text-left group" aria-expanded="false">
+                <div class="bg-white p-4 flex items-center justify-center h-56">
+                  <img src="images/diagnose.png" alt="Diagnose" loading="lazy" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="p-6">
+                  <h3 class="text-lg font-bold text-center md:text-left">1. Diagnose</h3>
+                  <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                    We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.
+                  </p>
+                </div>
+              </button>
+            </article>
+          </div>
+        </li>
+
+        <!-- LEFT (middle) -->
+        <li class="col-start-1 relative">
+
 
 
   <!-- Pricing -->
