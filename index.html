@@ -308,125 +308,232 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="py-16 bg-white/70 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
+ <!-- Services (Mosaic + Mobile Carousel) -->
+<section id="services" class="py-16 bg-white/70 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-center section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
 
-      <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- SEO -->
-        <article class="service-card lift" tabindex="0" aria-label="SEO. Press or tap to flip">
-          <div class="rotator">
-            <div class="face front">
-              <div class="content content-front">
-                <img src="images/seo-icon-colour.png" alt="SEO icon" class="icon object-contain">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-              </div>
-            </div>
-            <div class="face back">
-              <div class="content">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-                <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
-                </p>
-              </div>
+    <!--
+      Mobile: horizontal snap carousel (grid-flow-col)
+      Desktop: 6-col mosaic with varied spans
+    -->
+    <div id="services-mosaic"
+         class="grid grid-flow-col auto-cols-[82%] overflow-x-auto snap-x snap-mandatory gap-5 pb-2
+                sm:grid-flow-row sm:auto-cols-auto sm:overflow-visible sm:grid-cols-2 lg:grid-cols-6 sm:gap-6">
+
+      <!-- === SEO (tall feature) === -->
+      <article class="service-card lift snap-center focus:outline-none
+                      lg:col-span-2 lg:row-span-2"
+               tabindex="0" aria-label="SEO. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front">
+            <div class="content content-front">
+              <img src="images/seo-icon-colour.png" alt="SEO icon" class="icon object-contain">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
             </div>
           </div>
-        </article>
-
-        <!-- CRO -->
-        <article class="service-card lift" tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
-          <div class="rotator">
-            <div class="face front">
-              <div class="content content-front">
-                <img src="images/cro-icon-colour.png" alt="CRO icon" class="icon object-contain">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-              </div>
-            </div>
-            <div class="face back">
-              <div class="content">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-                <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
-                </p>
-              </div>
+          <div class="face back">
+            <div class="content">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">
+                Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
+              </p>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Shopify -->
-        <article class="service-card lift" tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
-          <div class="rotator">
-            <div class="face front">
-              <div class="content content-front">
-                <img src="images/shopify-icon-colour.png" alt="Shopify icon" class="icon object-contain">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
-              </div>
-            </div>
-            <div class="face back">
-              <div class="content">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Shopify</h3>
-                <p class="text-sm text-slate-700 dark:text-slate-300">
-                  Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.
-                </p>
-              </div>
+      <!-- === CRO (standard) === -->
+      <article class="service-card lift snap-center focus:outline-none
+                      lg:col-span-2"
+               tabindex="0" aria-label="Conversion Rate Optimisation. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front">
+            <div class="content content-front">
+              <img src="images/cro-icon-colour.png" alt="CRO icon" class="icon object-contain">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
             </div>
           </div>
-        </article>
-
-        <!-- Customer Journey -->
-        <article class="service-card lift" tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
-          <div class="rotator">
-            <div class="face front">
-              <div class="content content-front">
-                <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
-              </div>
-            </div>
-            <div class="face back">
-              <div class="content">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
-                <p class="text-sm text-slate-700 dark:text-slate-300">
-                  We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
-                </p>
-              </div>
+          <div class="face back">
+            <div class="content">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">
+                Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
+              </p>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Email -->
-        <article class="service-card lift" tabindex="0" aria-label="Email Marketing. Press or tap to flip">
-          <div class="rotator">
-            <div class="face front">
-              <div class="content content-front">
-                <img src="images/email-marketing-icon-colour.png" alt="Email marketing icon" class="icon object-contain">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              </div>
-            </div>
-            <div class="face back">
-              <div class="content">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-                <p class="text-sm text-slate-700 dark:text-slate-300">
-                  We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
-                </p>
-              </div>
+      <!-- === Shopify (standard) === -->
+      <article class="service-card lift snap-center focus:outline-none
+                      lg:col-span-2"
+               tabindex="0" aria-label="Shopify Design and Management. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front">
+            <div class="content content-front">
+              <img src="images/shopify-icon-colour.png" alt="Shopify icon" class="icon object-contain">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
             </div>
           </div>
-        </article>
+          <div class="face back">
+            <div class="content">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Shopify</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">
+                Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
 
-        <!-- CTA -->
-        <div class="cta-tile reveal h-full border border-emerald-500/50 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+      <!-- === Customer Journey (tall feature) === -->
+      <article class="service-card lift snap-center focus:outline-none
+                      lg:col-span-2 lg:row-span-2"
+               tabindex="0" aria-label="Customer Journey Optimisations. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front">
+            <div class="content content-front">
+              <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
+            </div>
+          </div>
+          <div class="face back">
+            <div class="content">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">
+                We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- === Email (standard) === -->
+      <article class="service-card lift snap-center focus:outline-none
+                      lg:col-span-2"
+               tabindex="0" aria-label="Email Marketing. Press or tap to flip">
+        <div class="rotator">
+          <div class="face front">
+            <div class="content content-front">
+              <img src="images/email-marketing-icon-colour.png" alt="Email marketing icon" class="icon object-contain">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+            </div>
+          </div>
+          <div class="face back">
+            <div class="content">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">
+                We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- === CTA (wide banner) === -->
+      <div class="cta-tile reveal snap-center h-full border border-emerald-500/50 bg-gradient-to-br from-emerald-600 to-green-500 text-white
+                  flex flex-col justify-between p-6 rounded-2xl
+                  lg:col-span-4">
+        <div>
           <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
           <p class="mt-2 text-sm sm:text-base opacity-90">
             Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
           </p>
-          <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
-            Get a plan
-          </a>
         </div>
+        <a href="#contact" class="mt-6 inline-flex w-fit items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
+          Get a plan
+        </a>
       </div>
     </div>
-  </section>
+  </div>
+
+  <!-- Fixes + emerald hover accents (scoped to services-mosaic) -->
+  <style>
+    #services-mosaic .service-card,
+    #services-mosaic .cta-tile {
+      min-height: 14rem; /* base height */
+    }
+    @media (min-width: 1024px) {
+      #services-mosaic .service-card.lg\:row-span-2 { min-height: 30rem; }
+    }
+
+    /* Flip: preserve 3D and hide backface to stop white box showing mid-flip */
+    #services-mosaic .rotator {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 600ms cubic-bezier(.22,1,.36,1);
+    }
+    #services-mosaic .face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    #services-mosaic .face.front { transform: rotateY(0deg); }
+    #services-mosaic .face.back  { transform: rotateY(180deg); }
+
+    /* Card body layout */
+    #services-mosaic .service-card .content,
+    #services-mosaic .content-front {
+      display: grid;
+      place-items: center;
+      gap: .75rem;
+      padding: 1.25rem;
+      height: 100%;
+      background: rgba(255,255,255,0.7);
+    }
+    @media (prefers-color-scheme: dark) {
+      #services-mosaic .service-card .content,
+      #services-mosaic .content-front {
+        background: rgba(2,6,23,0.5); /* dark slate with transparency */
+      }
+    }
+    #services-mosaic .icon { width: 56px; height: 56px; }
+
+    /* Flip trigger state */
+    #services-mosaic .service-card.flipped .rotator { transform: rotateY(180deg); }
+
+    /* Subtle emerald accents on hover/focus that do NOT affect 3D flip */
+    #services-mosaic .service-card:hover .face.front,
+    #services-mosaic .service-card:focus-visible .face.front {
+      outline: 2px solid rgba(16,185,129,0.6); /* emerald-500 */
+      box-shadow: 0 10px 30px rgba(16,185,129,0.15);
+    }
+
+    /* Make the mobile carousel feel snappy */
+    #services-mosaic > * { scroll-snap-align: center; }
+  </style>
+
+  <script>
+    // Keep the same 'press/tap to flip' behaviour, add keyboard support
+    (function () {
+      const cards = document.querySelectorAll('#services-mosaic .service-card');
+      cards.forEach(card => {
+        const toggle = () => card.classList.toggle('flipped');
+        // Tap / click
+        card.addEventListener('click', (e) => {
+          // Avoid flipping when clicking links/buttons inside the card back
+          if ((e.target.closest('a') || e.target.closest('button'))) return;
+          toggle();
+        });
+        // Keyboard
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault(); toggle();
+          }
+          if (e.key === 'Escape') {
+            card.classList.remove('flipped');
+          }
+        });
+      });
+    })();
+  </script>
+</section>
+
 
   <!-- Results / Work -->
   <section id="work" class="py-16 sm:py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
