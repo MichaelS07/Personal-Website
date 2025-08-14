@@ -48,6 +48,18 @@
     }
     .service-card:active, .process-card:active, .cta-tile:active, .lift:active { transform: translateY(0); }
 
+    /* Remove hover hues/lift inside services */
+    body.tech-canvas #services .service-card:hover,
+    body.tech-canvas #services .service-card:focus-visible{
+      box-shadow: none !important; border-color: rgba(226,232,240,.55) !important; transform:none !important;
+    }
+
+    /* Strong green hue on all other boxes (rounded + border + shadow), excluding service cards */
+    body.tech-canvas :where(article,div,aside,section)[class*="rounded-"][class*="border"][class*="shadow"]:not(#services .service-card):not(#services .service-card *):not(.no-green){
+      box-shadow: 0 12px 36px rgba(16,185,129,.28), 0 1px 1px rgba(0,0,0,.05);
+      border-color: rgba(16,185,129,.5) !important;
+    }
+
     /* Mobile: make cards solid for stronger contrast */
     @media (max-width: 640px){
       body.tech-canvas :where(article,div,aside)[class*="bg-white/"]{ background:#ffffff !important }
@@ -109,16 +121,17 @@
       -webkit-backface-visibility: hidden;
       transform: translateZ(0);
       border-radius: inherit;
-      border: 1px solid rgb(226 232 240 / 1);
-      background: rgb(248 250 252 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.06);
+      border: 0;
+      background: #ffffff;
+      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.12);
       outline: 1px solid transparent;
+      z-index: 1;
     }
-    .dark .service-card .face{
-      border-color: rgb(30 41 59 / 1);
-      background: rgb(30 41 59 / 1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
-    }
+    .dark .service-card .face{ border: 0; background: rgb(2 6 23 / 1); box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35); }
+
+    /* Remove container underlay so the grey tech background shows mid-flip */
+    body.tech-canvas #services .service-card{ position: relative; background: transparent !important }
+    body.tech-canvas #services .service-card::before{ content:none }
 
     .service-card .front{ transform: rotateY(0); }
     .service-card .back { transform: rotateY(180deg); }
@@ -143,13 +156,7 @@
       .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
     }
 
-    .service-card::after{
-      content:"";
-      position:absolute; inset:0;
-      border-radius: inherit;
-      outline: 1px solid transparent;
-      pointer-events:none;
-    }
+    .service-card::after{ content:none }
 
     #services .cards-grid > *{ min-height: var(--svc-card-minh); }
     #services .cta-tile{
@@ -186,28 +193,18 @@
       box-shadow:0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
     }
 
-    /* Service card faces always glass */
+    /* Reset service card container to be transparent by default */
     body.tech-canvas .service-card{ background:transparent !important }
-    body.tech-canvas .service-card .face{
-      background:rgba(255,255,255,.06) !important;
-      border-color:rgba(148,163,184,.28) !important;
-      backdrop-filter:blur(12px) saturate(110%);
-    }
-    .dark body.tech-canvas .service-card .face{
-      background:rgba(2,6,23,.5) !important;
-      border-color:rgba(30,41,59,.6) !important;
-    }
 
     /* Hero/banner: use original colours (no dimming) */
     /* (intentionally no overrides here) */
 
     
-    /* Override: make service card faces opaque on flip (hide background textures) */
-    body.tech-canvas .service-card .face{ background:#ffffff !important; backdrop-filter:none !important }
-    .dark body.tech-canvas .service-card .face{ background:rgb(2 6 23 / 1) !important; backdrop-filter:none !important }
-    /* Ensure container under flip has no background to avoid halo */
-    body.tech-canvas .service-card{ background:transparent !important }
-    body.tech-canvas .service-card .rotator{ background:transparent !important }
+    /* (removed forced opaque faces/underlay in services to avoid flash during flip) */
+
+    /* Remove any forced underlay in services to avoid white flash */
+    body.tech-canvas #services .service-card .rotator{ position: relative }
+    body.tech-canvas #services .service-card .rotator::before{ content:none }
   </style>
 </head>
 
@@ -380,15 +377,12 @@
     </div>
 </section>
 
-<section id="services" class="relative overflow-hidden py-16 bg-white/70 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute inset-0 opacity-[0.045] mix-blend-overlay" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22 viewBox=%220 0 400 400%22><g fill=%22none%22 stroke=%22%2394A3B8%22 stroke-width=%220.7%22 opacity=%220.9%22><path d=%22M0 40H400 M0 80H400 M0 120H400 M0 160H400 M0 200H400 M0 240H400 M0 280H400 M0 320H400 M0 360H400%22/><path d=%22M40 0V400 M80 0V400 M120 0V400 M160 0V400 M200 0V400 M240 0V400 M280 0V400 M320 0V400 M360 0V400%22/></g><g stroke=%22%2310B981%22 stroke-width=%221.5%22 opacity=%220.6%22><path d=%22M40 60 H120 V140 H200 V220 H280%22/><circle cx=%22120%22 cy=%22140%22 r=%223%22 fill=%22none%22/><circle cx=%22200%22 cy=%22220%22 r=%223%22 fill=%22none%22/><circle cx=%22280%22 cy=%22220%22 r=%223%22 fill=%22none%22/></g></svg>'); background-size:400px 400px;"></div>
-    <div class="absolute -top-20 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/15"></div>
-    <div class="absolute bottom-[-10%] right-[-5%] h-64 w-64 rounded-full blur-3xl bg-emerald-500/10"></div>
-  </div>
+<section id="services" class="relative overflow-hidden py-16 bg-transparent border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-12">Our Services</h2>
+    <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-3 mb-12">
+      <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Services</h2>
+    </div>
 
     <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <article class="service-card lift" tabindex="0" aria-label="SEO. Press or tap to flip">
@@ -513,7 +507,7 @@
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="max-w-3xl mx-auto">
-      <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-4 text-left">
+      <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-4 text-center">
         <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
         <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
       </div>
@@ -696,9 +690,9 @@
       <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
     </div>
 
-    <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
-        <div class="flex-1">
+    <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-stretch">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+        <div class="flex-1 flex flex-col">
           <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
           <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
@@ -709,11 +703,11 @@
             <li>Our team's support to implement fixes for two weeks</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
       </div>
 
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl md:aspect-square flex flex-col text-left h-full shadow">
-        <div class="flex-1">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
+        <div class="flex-1 flex flex-col">
           <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
           <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
@@ -724,11 +718,11 @@
             <li>Continuous CRO experiments to boost conversions</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
       </div>
 
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl md:aspect-square flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
-        <div class="flex-1">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+        <div class="flex-1 flex flex-col">
           <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
           <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
@@ -739,7 +733,7 @@
             <li>Custom performance dashboards for complete clarity</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 md:mt-auto inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
       </div>
     </div>
 
