@@ -29,6 +29,11 @@
     .reveal.in { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
 
+    /* Directional reveals for timeline cards */
+    .reveal.from-left { transform: translateX(-24px); }
+    .reveal.from-right { transform: translateX(24px); }
+    .reveal.in.from-left, .reveal.in.from-right { transform: translateX(0); }
+
     .tap { min-height: 44px; min-width: 44px; }
 
     #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
@@ -314,17 +319,19 @@
 
 <hr class="grad-rule mx-auto w-[90%] opacity-60" />
 
-<section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
+  <section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
+        <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
       <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
       <img alt="Google Ads" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy"/>
       <img alt="Google Analytics 4" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" loading="lazy"/>
       <img alt="Klaviyo" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" loading="lazy"/>
       <img alt="Shopify" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy"/>
       <img alt="Meta" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" loading="lazy"/>
+        </div>
+      </div>
     </div>
-  </div>
 </section>
 
 <section id="services" class="relative overflow-hidden py-16 bg-white/70 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
@@ -466,7 +473,7 @@
 
     <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 md:[grid-template-rows:1fr_1fr]">
       <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 md:col-span-2 md:row-span-2 h-full flex flex-col min-h-0">
-        <div class="h-44 sm:h-48 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+        <div class="h-72 sm:h-80 md:h-96 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-2 flex items-center justify-center">
           <svg viewBox="0 0 120 120" class="progress-chart h-full w-full text-emerald-500" role="img" aria-label="70.44% increase in EDM revenue" data-percent="70.44">
             <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" opacity="0.15" stroke-width="10" pathLength="100"></circle>
             <circle class="fg" cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 60 60)"></circle>
@@ -533,7 +540,7 @@
         </div>
         <div class="p-5 sm:p-6 text-center">
           <h3 class="text-base sm:text-lg font-bold">1. Diagnose</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">We start by analysing your business...</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">We start by analysing your business. We'll audit your current data, analyse your website and marketing funnels, and pinpoint anything that is holding you back. Our goal is to identify what's truly stopping you from growing, so we can focus our energy on solutions that will actually move the needle for your business.</p>
         </div>
       </article>
 
@@ -543,7 +550,7 @@
         </div>
         <div class="p-5 sm:p-6 text-center">
           <h3 class="text-base sm:text-lg font-bold">2. Design</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now that we know what needs to be fixed...</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now that we know what needs to be fixed, it's time to create a clear plan. We'll design a strategic roadmap of experiments and initiatives, prioritizing each one based on its potential impact and the effort required. This ensures we're always working on the most valuable tasks first, setting you up for scalable, long-term growth.</p>
         </div>
       </article>
 
@@ -553,19 +560,19 @@
         </div>
         <div class="p-5 sm:p-6 text-center">
           <h3 class="text-base sm:text-lg font-bold">3. Deliver</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now it's time to put our plan into action...</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now it's time to put our plan into action. We’ll rapidly deploy and test our solutions, constantly measuring their performance and making real-time adjustments. Everything we do is thoroughly documented, creating a compounding library of learnings and a clear playbook you can use long after our work is done.</p>
         </div>
       </article>
     </div>
 
     <div class="relative mt-10 hidden md:block">
-      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800"></div>
+      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-slate-400/70 dark:bg-slate-600/70 z-0"></div>
 
       <ol class="space-y-16">
         <li class="relative flex justify-start">
           <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
           <div class="w-1/2 pr-10">
-            <article class="process-card p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
+            <article class="process-card reveal from-left p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
               <div class="bg-white p-4 flex items-center justify-center h-44">
                 <img src="images/diagnose.png" alt="Diagnose" class="max-h-full max-w-full object-contain">
               </div>
@@ -580,7 +587,7 @@
         <li class="relative flex justify-end">
           <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
           <div class="w-1/2 pl-10">
-            <article class="process-card p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
+            <article class="process-card reveal from-right p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
               <div class="bg-white p-4 flex items-center justify-center h-44">
                 <img src="images/design.png" alt="Design" class="max-h-full max-w-full object-contain">
               </div>
@@ -595,7 +602,7 @@
         <li class="relative flex justify-start">
           <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
           <div class="w-1/2 pr-10">
-            <article class="process-card p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
+            <article class="process-card reveal from-left p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
               <div class="bg-white p-4 flex items-center justify-center h-44">
                 <img src="images/deliver.png" alt="Deliver" class="max-h-full max-w-full object-contain">
               </div>
@@ -697,7 +704,9 @@
     <div class="absolute right-[-10%] top-[-10%] h-72 w-72 rounded-full blur-3xl bg-sky-400/15"></div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
+      <div class="grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
     <div class="reveal">
       <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
       <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
@@ -721,22 +730,25 @@
         </p>
       </div>
     </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="contact" class="relative overflow-hidden py-16 sm:py-20">
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute inset-0 opacity-[0.06] mix-blend-overlay" style="background-image:
+  <section id="contact" class="relative overflow-hidden py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow p-6 sm:p-8">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-[0.06] mix-blend-overlay" style="background-image:
       repeating-linear-gradient(to bottom, rgba(15,23,42,.65) 0 2px, transparent 2px 6px);
     "></div>
-    <div class="absolute inset-0" style="background:
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="background:
       radial-gradient(40% 40% at 75% 30%, rgba(16,185,129,.22), transparent 60%),
       radial-gradient(30% 30% at 20% 70%, rgba(34,197,94,.16), transparent 60%);
       filter: saturate(110%);
     "></div>
-  </div>
+  
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 sm:gap-12">
+        <div class="grid lg:grid-cols-2 gap-10 sm:gap-12">
     <div class="reveal">
       <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
       <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals...</p>
@@ -772,7 +784,9 @@
       <button class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 lift">Send message</button>
       <p id="formMsg" class="hidden text-sm text-emerald-600">Thanks! I’ll be in touch shortly.</p>
     </form>
-  </div>
+        </div>
+      </div>
+    </div>
 </section>
 
 <footer class="py-10 border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
@@ -965,7 +979,7 @@
       const fg = svg.querySelector('.fg');
       const label = svg.querySelector('.pct');
       if (fg) {
-        fg.style.transition = 'stroke-dashoffset 900ms cubic-bezier(.22,1,.36,1)';
+        fg.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1)';
         requestAnimationFrame(() => { fg.style.strokeDashoffset = (100 - pct) + ''; });
       }
       if (label) label.textContent = pct.toFixed(2) + '%';
@@ -979,6 +993,19 @@
       });
     }, { threshold: 0.4 });
     charts.forEach(svg => ioProgress.observe(svg));
+
+    // Animate sparkline path when revealed
+    const sparklines = document.querySelectorAll('.spark-draw');
+    const ioSpark = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1)';
+          requestAnimationFrame(() => { e.target.style.strokeDashoffset = '0'; });
+          ioSpark.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    sparklines.forEach(p => ioSpark.observe(p));
     setTimeout(() => {
       const svg = document.querySelector('svg.progress-chart');
       const fg = svg && svg.querySelector('.fg');
