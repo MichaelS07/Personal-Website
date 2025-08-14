@@ -171,6 +171,11 @@
     /* Tone down hero image so the global tech bg remains continuous */
     body.tech-canvas #hero-bg > .bg-cover{ opacity:.05; filter:saturate(75%) }
     body.tech-canvas #hero-bg .hero-grid{ opacity:.06 }
+
+    /* Banner: remove pixel canvas under hero and bring banner forward */
+    body.tech-canvas section#home{ background: rgb(241 245 249 / 0.96) !important }
+    .dark body.tech-canvas section#home{ background: rgb(2 6 23 / 0.92) !important }
+    body.tech-canvas section#home #hero-bg > .bg-cover{ opacity:.5; filter:saturate(105%) }
   </style>
 </head>
 
