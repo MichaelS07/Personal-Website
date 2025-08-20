@@ -12,200 +12,14 @@
 
   <meta name="color-scheme" content="light">
 
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode: 'class' };
   </script>
 
-  <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
-    body { overflow-x: hidden; }
-
-    .glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
-    .dark .glass { background: rgba(17,24,39,0.5); }
-
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform:none; transition:none; } }
-
-    /* Interactive emerald highlights */
-    .lift, .service-card, .process-card, .cta-tile, header nav a, button, a {
-      transition: box-shadow .25s ease, transform .2s ease, border-color .2s ease, background-color .2s ease;
-    }
-    .service-card:hover, .process-card:hover, .cta-tile:hover, .lift:hover {
-      box-shadow: 0 10px 30px rgba(16,185,129,.20), 0 1px 1px rgba(16,185,129,.15);
-      border-color: rgba(16,185,129,.55) !important;
-      transform: translateY(-2px);
-    }
-    header nav a:hover, header nav a:focus-visible {
-      color: rgb(5 150 105);
-      text-shadow: 0 0 12px rgba(16,185,129,.35);
-    }
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid rgba(16,185,129,.6);
-      outline-offset: 3px;
-    }
-    .service-card:active, .process-card:active, .cta-tile:active, .lift:active { transform: translateY(0); }
-
-    /* Remove hover hues/lift inside services */
-    body.tech-canvas #services .service-card:hover,
-    body.tech-canvas #services .service-card:focus-visible{
-      box-shadow: none !important; border-color: rgba(226,232,240,.55) !important; transform:none !important;
-    }
-
-    /* Strong green hue on all other boxes (rounded + border + shadow), excluding service cards */
-    body.tech-canvas :where(article,div,aside,section)[class*="rounded-"][class*="border"][class*="shadow"]:not(#services .service-card):not(#services .service-card *):not(.no-green){
-      box-shadow: 0 12px 36px rgba(16,185,129,.28), 0 1px 1px rgba(0,0,0,.05);
-      border-color: rgba(16,185,129,.5) !important;
-    }
-
-    /* Mobile: make cards solid for stronger contrast */
-    @media (max-width: 640px){
-      body.tech-canvas :where(article,div,aside)[class*="bg-white/"]{ background:#ffffff !important }
-      .dark body.tech-canvas :where(article,div,aside)[class*="bg-slate-900/"]{ background:#020617 !important }
-    }
-
-    /* Directional reveals for timeline cards */
-    .reveal.from-left { transform: translateX(-24px); }
-    .reveal.from-right { transform: translateX(24px); }
-    .reveal.in.from-left, .reveal.in.from-right { transform: translateX(0); }
-
-    .tap { min-height: 44px; min-width: 44px; }
-
-    #mobileMenu { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
-    #mobileMenuContent { opacity: 0; transition: opacity .2s ease; }
-    #mobileMenu.open #mobileMenuContent { opacity: 1; }
-
-    :root{
-      --svc-card-minh: 19rem;
-      --svc-icon-size: 10rem;
-      --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
-    }
-    @media (min-width: 640px){
-      :root{ --svc-card-minh: 20rem; }
-    }
-
-    .service-card{
-      position: relative;
-      perspective: 1200px;
-      -webkit-tap-highlight-color: transparent;
-      cursor: pointer;
-      min-height: var(--svc-card-minh);
-      color: #0f172a;
-      border-radius: .75rem;
-      overflow: hidden;
-      background: transparent;
-      isolation: isolate;
-      transform: translateZ(0);
-      will-change: transform;
-    }
-    .dark .service-card{ background: transparent; }
-
-    .service-card .rotator{
-      position: relative;
-      width: 100%; height: 100%;
-      transform-style: preserve-3d;
-      transition: transform .6s ease;
-      will-change: transform;
-      border-radius: inherit;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .service-card.is-flipped .rotator{ transform: rotateY(180deg); }
-
-    .service-card .face{
-      position: absolute; inset: 0;
-      display: flex;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      transform: translateZ(0);
-      border-radius: inherit;
-      border: 0;
-      background: #ffffff;
-      box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.12);
-      outline: 1px solid transparent;
-      z-index: 1;
-    }
-    .dark .service-card .face{ border: 0; background: rgb(2 6 23 / 1); box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35); }
-
-    /* Remove container underlay so the grey tech background shows mid-flip */
-    body.tech-canvas #services .service-card{ position: relative; background: transparent !important }
-    body.tech-canvas #services .service-card::before{ content:none }
-
-    .service-card .front{ transform: rotateY(0); }
-    .service-card .back { transform: rotateY(180deg); }
-
-    .service-card .content{
-      width: 100%; padding: 1.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
-      text-align: center; line-height: 1.5;
-    }
-    .service-card .content-front{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back{ min-height: var(--svc-card-minh); justify-content: center; }
-    .service-card .content-back ul{ text-align: left; align-self: stretch; margin-top: .25rem; }
-
-    .service-card .icon{
-      width: var(--svc-icon-size); height: var(--svc-icon-size);
-      object-fit: contain; object-position: center; display: block;
-      background: transparent !important; padding: 0 !important; border-radius: 0 !important;
-      filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
-    }
-
-    .service-card::after{ content:none }
-
-    #services .cards-grid > *{ min-height: var(--svc-card-minh); }
-    #services .cta-tile{
-      min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 1.5rem; border-radius: .75rem;
-      box-shadow: 0 10px 30px rgba(16,185,129,.35);
-    }
-
-    .reveal.in .spark-draw { animation: drawline 900ms cubic-bezier(.22,1,.36,1) forwards; }
-    @keyframes drawline { to { stroke-dashoffset: 0; } }
-    @media (prefers-reduced-motion: reduce){
-      .reveal.in .spark-draw { animation: none; stroke-dashoffset: 0; }
-    }
-
-    /* GLOBAL tech canvas – unifies sections and floats surfaces */
-    body.tech-canvas section{ background:transparent !important; border-color:transparent !important; backdrop-filter:none !important }
-    body.tech-canvas section > [aria-hidden="true"][class*="absolute"][class*="-z-10"]{ display:none !important }
-    body.tech-canvas .grad-rule{ opacity:.08 !important }
-
-    /* Make white/light surfaces glassy (avoid buttons/anchors) */
-    body.tech-canvas :where(article,div,aside)[class*="bg-white"],
-    body.tech-canvas :where(article,div,aside)[class*="bg-slate-50"],
-    body.tech-canvas :where(article,div,aside)[class*="bg-slate-100"]{
-      background:rgba(255,255,255,.06) !important;
-      backdrop-filter:blur(12px) saturate(110%);
-      border-color:rgba(148,163,184,.28) !important;
-      box-shadow:0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.12);
-    }
-    .dark body.tech-canvas :where(article,div,aside)[class*="bg-white"],
-    .dark body.tech-canvas :where(article,div,aside)[class*="bg-slate-50"],
-    .dark body.tech-canvas :where(article,div,aside)[class*="bg-slate-100"]{
-      background:rgba(2,6,23,.5) !important;
-      border-color:rgba(30,41,59,.6) !important;
-      box-shadow:0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
-    }
-
-    /* Reset service card container to be transparent by default */
-    body.tech-canvas .service-card{ background:transparent !important }
-
-    /* Hero/banner: use original colours (no dimming) */
-    /* (intentionally no overrides here) */
-
-    
-    /* (removed forced opaque faces/underlay in services to avoid flash during flip) */
-
-    /* Remove any forced underlay in services to avoid white flash */
-    body.tech-canvas #services .service-card .rotator{ position: relative }
-    body.tech-canvas #services .service-card .rotator::before{ content:none }
-  </style>
+  <!-- Your extracted site styles -->
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 
 <body class="tech-canvas bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
@@ -362,23 +176,22 @@
 
 <hr class="grad-rule mx-auto w-[90%] opacity-60" />
 
-  <section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
-        <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
-      <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
-      <img alt="Google Ads" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy"/>
-      <img alt="Google Analytics 4" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" loading="lazy"/>
-      <img alt="Klaviyo" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" loading="lazy"/>
-      <img alt="Shopify" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy"/>
-      <img alt="Meta" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" loading="lazy"/>
-        </div>
+<section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
+        <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
+        <img alt="Google Ads" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy"/>
+        <img alt="Google Analytics 4" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" loading="lazy"/>
+        <img alt="Klaviyo" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" loading="lazy"/>
+        <img alt="Shopify" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy"/>
+        <img alt="Meta" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" loading="lazy"/>
       </div>
     </div>
+  </div>
 </section>
 
 <section id="services" class="relative overflow-hidden py-16 bg-transparent border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
-
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-3 mb-12">
       <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Services</h2>
@@ -665,80 +478,80 @@
 <section id="pricing" class="relative overflow-hidden py-16 sm:py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 hidden">
-    <div class="absolute inset-0 opacity-[0.05] mix-blend-overlay" style="background-image:
-      repeating-linear-gradient(to right, rgba(100,116,139,.5) 0 1px, transparent 1px 28px),
-      repeating-linear-gradient(to bottom, rgba(100,116,139,.5) 0 1px, transparent 1px 28px);
-    "></div>
-    <div class="absolute inset-0" style="background:
-      radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.10), transparent 70%),
-      radial-gradient(70% 100% at 10% 100%, rgba(16,185,129,0.07), transparent 70%);
-    "></div>
-  </div>
-
-  <div class="text-center">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
-    </div>
-
-    <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
-      <span class="text-xs sm:text-sm text-slate-500">One-off</span>
-      <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
-        <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
-      </button>
-      <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
-    </div>
-
-    <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-stretch">
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
-        <div class="flex-1 flex flex-col">
-          <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
-          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
-          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-            <li>A comprehensive audit of your Search or Email performance</li>
-            <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
-            <li>Our team's support to implement fixes for two weeks</li>
-          </ul>
-        </div>
-        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 hidden">
+        <div class="absolute inset-0 opacity-[0.05] mix-blend-overlay" style="background-image:
+          repeating-linear-gradient(to right, rgba(100,116,139,.5) 0 1px, transparent 1px 28px),
+          repeating-linear-gradient(to bottom, rgba(100,116,139,.5) 0 1px, transparent 1px 28px);
+        "></div>
+        <div class="absolute inset-0" style="background:
+          radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.10), transparent 70%),
+          radial-gradient(70% 100% at 10% 100%, rgba(16,185,129,0.07), transparent 70%);
+        "></div>
       </div>
 
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
-        <div class="flex-1 flex flex-col">
-          <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
-          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
-          <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
-          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
-            <li>Ongoing SEO/SEM management</li>
-            <li>Full build-out of your lifecycle email flows</li>
-            <li>Continuous CRO experiments to boost conversions</li>
-          </ul>
+      <div class="text-center">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
-      </div>
 
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
-        <div class="flex-1 flex flex-col">
-          <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
-          <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
-          <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-            <li>Complete ownership of your search and email strategies</li>
-            <li>Weekly growth standups to align on priorities and results</li>
-            <li>Custom performance dashboards for complete clarity</li>
-          </ul>
+        <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
+          <span class="text-xs sm:text-sm text-slate-500">One-off</span>
+          <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-slate-200 dark:bg-slate-800 transition" aria-pressed="false">
+            <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 transition-transform duration-200 ease-out"></span>
+          </button>
+          <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">Monthly</span>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
-      </div>
-    </div>
 
-    <p class="mt-6 sm:mt-8 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
-  </div>
+        <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-stretch">
+          <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+            <div class="flex-1 flex flex-col">
+              <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
+              <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
+              <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+              <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+                <li>A comprehensive audit of your Search or Email performance</li>
+                <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
+                <li>Our team's support to implement fixes for two weeks</li>
+              </ul>
+            </div>
+            <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+          </div>
+
+          <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
+            <div class="flex-1 flex flex-col">
+              <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
+              <p class="mt-2 text-[13px] sm:text-sm/relaxed opacity-90 leading-snug">Our most popular tier for sustained growth. We manage search & email, and run ongoing CRO sprints to hit your targets.</p>
+              <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+              <ul class="mt-2 text-[13px] sm:text-sm list-disc list-inside space-y-1 opacity-90">
+                <li>Ongoing SEO/SEM management</li>
+                <li>Full build-out of your lifecycle email flows</li>
+                <li>Continuous CRO experiments to boost conversions</li>
+              </ul>
+            </div>
+            <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
+          </div>
+
+          <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+            <div class="flex-1 flex flex-col">
+              <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500" data-month="NZ$3,000">NZ$3,500</span></div>
+              <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
+              <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
+              <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+                <li>Complete ownership of your search and email strategies</li>
+                <li>Weekly growth standups to align on priorities and results</li>
+                <li>Custom performance dashboards for complete clarity</li>
+              </ul>
+            </div>
+            <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 self-start lift">Enquire</a>
+          </div>
+        </div>
+
+        <p class="mt-6 sm:mt-8 text-[11px] sm:text-xs text-slate-500">Indicative rates in NZD. Final pricing set after discovery.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -755,78 +568,76 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
       <div class="grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
-    <div class="reveal">
-      <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
-      <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
-      <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
-      <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
+        <div class="reveal">
+          <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
+          <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <strong>Bargain Chemist</strong>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <strong>Bachelor of Commerce</strong> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
+          <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+            <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+              <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
+              <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
+            </div>
+            <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
+              <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
+              <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
+            </div>
+          </div>
         </div>
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
+        <div class="reveal">
+          <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+            <h3 class="font-bold text-lg">Mission Statement</h3>
+            <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
+                We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that don't just attract visitors, but convert them into loyal customers, ensuring every decision is driven by data and designed for sustainable, long-term success.
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="reveal">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
-        <h3 class="font-bold text-lg">Mission Statement</h3>
-        <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
-            We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that don't just attract visitors, but convert them into loyal customers, ensuring every decision is driven by data and designed for sustainable, long-term success.
-        </p>
-      </div>
-    </div>
       </div>
     </div>
   </div>
 </section>
 
-  <section id="contact" class="relative overflow-hidden py-16 sm:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="relative rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow p-6 sm:p-8">
-  
-
-        <div class="grid lg:grid-cols-2 gap-10 sm:gap-12">
-    <div class="reveal">
-      <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
-      <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals...</p>
-      <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
-        <div class="text-sm">Prefer email?</div>
-        <a href="mailto:hello@example.com" class="text-emerald-600 font-semibold break-all">hello@example.com</a>
-        <div class="mt-3 text:[11px] sm:text-xs text-slate-500">Send me an email...</div>
-      </div>
-    </div>
-    <form class="reveal space-y-4" onsubmit="event.preventDefault(); fakeSubmit();">
-      <div>
-        <label class="block text-sm font-medium">Name</label>
-        <input required type="text" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Email</label>
-        <input required type="email" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium">What do you need help with?</label>
-        <select class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2">
-          <option>SEO/SEM</option>
-          <option>CRO</option>
-          <option>Shopify website management</option>
-          <option>Customer journey optimisation</option>
-          <option>Email marketing</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Message</label>
-        <textarea rows="4" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2"></textarea>
-      </div>
-      <button class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 lift">Send message</button>
-      <p id="formMsg" class="hidden text-sm text-emerald-600">Thanks! I’ll be in touch shortly.</p>
-    </form>
+<section id="contact" class="relative overflow-hidden py-16 sm:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow p-6 sm:p-8">
+      <div class="grid lg:grid-cols-2 gap-10 sm:gap-12">
+        <div class="reveal">
+          <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Let’s talk</h2>
+          <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals...</p>
+          <div class="mt-5 sm:mt-6 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+            <div class="text-sm">Prefer email?</div>
+            <a href="mailto:hello@example.com" class="text-emerald-600 font-semibold break-all">hello@example.com</a>
+            <div class="mt-3 text:[11px] sm:text-xs text-slate-500">Send me an email...</div>
+          </div>
         </div>
+        <form class="reveal space-y-4" onsubmit="event.preventDefault(); fakeSubmit();">
+          <div>
+            <label class="block text-sm font-medium">Name</label>
+            <input required type="text" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Email</label>
+            <input required type="email" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium">What do you need help with?</label>
+            <select class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2">
+              <option>SEO/SEM</option>
+              <option>CRO</option>
+              <option>Shopify website management</option>
+              <option>Customer journey optimisation</option>
+              <option>Email marketing</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Message</label>
+            <textarea rows="4" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2"></textarea>
+          </div>
+          <button class="w-full px-4 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 lift">Send message</button>
+          <p id="formMsg" class="hidden text-sm text-emerald-600">Thanks! I’ll be in touch shortly.</p>
+        </form>
       </div>
     </div>
+  </div>
 </section>
 
 <footer class="py-10 border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
@@ -843,224 +654,7 @@
   </div>
 </footer>
 
-<script>
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileMenuContent = document.getElementById('mobileMenuContent');
-  const iconBars = document.getElementById('iconBars');
-  const iconX = document.getElementById('iconX');
-  const overlay = document.getElementById('menuOverlay');
-
-  function setOverlay(open){
-    if (!overlay) return;
-    overlay.classList.toggle('opacity-0', !open);
-    overlay.classList.toggle('opacity-100', open);
-    overlay.classList.toggle('pointer-events-none', !open);
-  }
-  function setMenu(open){
-    if (!mobileMenu || !mobileMenuContent) return;
-    if (open) {
-      mobileMenu.classList.remove('hidden');
-      mobileMenu.classList.add('open');
-      mobileMenu.style.maxHeight = mobileMenuContent.scrollHeight + 'px';
-      document.body.style.overflow = 'hidden';
-      iconBars?.classList.add('hidden');
-      iconX?.classList.remove('hidden');
-      menuBtn?.setAttribute('aria-expanded', 'true');
-      menuBtn?.setAttribute('aria-label', 'Close menu');
-      setOverlay(true);
-    } else {
-      mobileMenu.style.maxHeight = '0px';
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-      iconBars?.classList.remove('hidden');
-      iconX?.classList.add('hidden');
-      menuBtn?.setAttribute('aria-expanded', 'false');
-      menuBtn?.setAttribute('aria-label', 'Open menu');
-      setOverlay(false);
-    }
-  }
-  mobileMenu?.addEventListener('transitionend', (e) => {
-    if (e.propertyName === 'max-height' && mobileMenu.style.maxHeight === '0px') {
-      mobileMenu.classList.add('hidden');
-    }
-  });
-  menuBtn?.addEventListener('click', () => {
-    const open = menuBtn.getAttribute('aria-expanded') === 'true';
-    setMenu(!open);
-  });
-  overlay?.addEventListener('click', () => setMenu(false));
-  mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => io.observe(el));
-
-  function animateCount(el){
-    const end = parseInt(el.getAttribute('data-counter'), 10);
-    let current = 0; const duration = 1200; const start = performance.now();
-    function tick(t){
-      const p = Math.min(1, (t - start) / duration);
-      current = Math.floor(end * p);
-      el.textContent = current + (end < 100 ? '%' : '');
-      if (p < 1) requestAnimationFrame(tick); else el.textContent = end + (end < 100 ? '%' : '');
-    }
-    requestAnimationFrame(tick);
-  }
-  const counters = document.querySelectorAll('[data-counter]');
-  const io2 = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !e.target._counted){
-        e.target._counted = true;
-        animateCount(e.target);
-      }
-    });
-  }, { threshold: 0.6 });
-  counters.forEach(c => io2.observe(c));
-
-  const toggle = document.getElementById('priceToggle');
-  const dot = document.getElementById('priceDot');
-  const prices = document.querySelectorAll('.price');
-  let monthly = false;
-  function knobPositions(){
-    if (!toggle || !dot) return { start: 0, end: 0 };
-    const trackW = toggle.clientWidth;
-    const knobW = dot.clientWidth;
-    const margin = 4;
-    const start = margin;
-    const end = Math.max(margin, trackW - knobW - margin);
-    return { start, end };
-  }
-  function renderPrices(){
-    prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
-    const { start, end } = knobPositions();
-    if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
-  }
-  if (toggle && dot) {
-    renderPrices();
-    toggle.addEventListener('click', () => {
-      monthly = !monthly;
-      renderPrices();
-      toggle.setAttribute('aria-pressed', String(monthly));
-    });
-    window.addEventListener('resize', renderPrices);
-    document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
-  }
-
-  function fakeSubmit(){
-    const m = document.getElementById('formMsg');
-    if (!m) return;
-    m.classList.remove('hidden');
-    setTimeout(()=>m.classList.add('hidden'), 3500);
-  }
-  window.fakeSubmit = fakeSubmit;
-
-  const cards = Array.from(document.querySelectorAll('.service-card'));
-  function measureHeights(card){
-    const frontContent = card.querySelector('.front .content');
-    const backContent  = card.querySelector('.back .content');
-    const rotator = card.querySelector('.rotator');
-    const wasFlipped = card.classList.contains('is-flipped');
-    rotator.style.transition = 'none';
-    card.classList.remove('is-flipped');
-    const frontH = frontContent.offsetHeight;
-    card.classList.add('is-flipped');
-    const backH = backContent.offsetHeight;
-    card.classList.toggle('is-flipped', wasFlipped);
-    rotator.offsetHeight;
-    rotator.style.transition = '';
-    card._frontH = frontH;
-    card._backH  = backH;
-  }
-  function applyHeight(card){
-    const showingBack = card.classList.contains('is-flipped');
-    const h = showingBack ? card._backH : card._frontH;
-    if (h) card.style.height = h + 'px';
-  }
-  function recalcAll(){ cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
-  cards.forEach(card => {
-    measureHeights(card); applyHeight(card);
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return;
-      card.classList.toggle('is-flipped'); applyHeight(card);
-    });
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('is-flipped'); applyHeight(card); }
-    });
-  });
-  window.addEventListener('load', recalcAll);
-  window.addEventListener('resize', recalcAll);
-  document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
-
-  (function(){
-    const el = document.getElementById('hero-bg');
-    if(!el) return;
-    let y=0, t=0;
-    const onScroll = () => { y = window.scrollY || 0; };
-    const raf = () => {
-      t += (y - t) * 0.06;
-      el.style.transform = `translate3d(0, ${t * -0.08}px, 0)`;
-      requestAnimationFrame(raf);
-    };
-    window.addEventListener('scroll', onScroll, { passive:true });
-    raf();
-  })();
-
-  (function () {
-    const charts = document.querySelectorAll('svg.progress-chart[data-percent]');
-    if (!charts.length) return;
-    function animate(svg) {
-      const pct = Math.max(0, Math.min(100, parseFloat(svg.dataset.percent) || 0));
-      const fg = svg.querySelector('.fg');
-      const label = svg.querySelector('.pct');
-      if (fg) {
-        fg.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1)';
-        requestAnimationFrame(() => { fg.style.strokeDashoffset = (100 - pct) + ''; });
-      }
-      if (label) label.textContent = pct.toFixed(2) + '%';
-    }
-    const ioProgress = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && !e.target.dataset.animated) {
-          e.target.dataset.animated = '1';
-          animate(e.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    charts.forEach(svg => ioProgress.observe(svg));
-
-    // Animate sparkline path when revealed
-    const sparklines = document.querySelectorAll('.spark-draw');
-    const ioSpark = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1)';
-          requestAnimationFrame(() => { e.target.style.strokeDashoffset = '0'; });
-          ioSpark.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    sparklines.forEach(p => ioSpark.observe(p));
-    setTimeout(() => {
-      const svg = document.querySelector('svg.progress-chart');
-      const fg = svg && svg.querySelector('.fg');
-      console.assert(!!svg, '[TEST] Progress SVG exists');
-      console.assert(!!fg, '[TEST] Progress foreground circle exists');
-      if (fg && typeof fg.style.strokeDashoffset !== 'undefined') {
-        const val = parseFloat(fg.style.strokeDashoffset);
-        if (!Number.isNaN(val)) {
-          console.assert(val <= 30.5, `[TEST] strokeDashoffset ~= 29.56 for 70.44%. Got ${val}`);
-        }
-      }
-      const spark = document.querySelector('.spark-draw');
-      console.assert(!!spark, '[TEST] Sparkline path exists');
-    }, 1500);
-  })();
-</script>
+<!-- Your extracted site script (matches your previous inline JS) -->
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
