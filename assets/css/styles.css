@@ -186,4 +186,38 @@ body.tech-canvas .service-card{ background:transparent !important }
 body.tech-canvas #services .service-card .rotator{ position: relative }
 body.tech-canvas #services .service-card .rotator::before{ content:none }
 
+/* Flip hint badge */
+.service-card .front .flip-hint,
+.service-card .back .flip-hint{
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 9999px;
+  color: #065f46;
+  background: rgba(16,185,129,.12);
+  border: 1px solid rgba(16,185,129,.35);
+  box-shadow: 0 2px 8px rgba(16,185,129,.20);
+  backdrop-filter: saturate(110%);
+  opacity: 0.95;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.dark .service-card .front .flip-hint,
+.dark .service-card .back .flip-hint{
+  color: #34d399;
+  background: rgba(16,185,129,.14);
+  border-color: rgba(16,185,129,.45);
+}
+.service-card:hover .front .flip-hint,
+.service-card:focus-within .front .flip-hint,
+.service-card:hover .back .flip-hint,
+.service-card:focus-within .back .flip-hint{
+  transform: translateY(-2px);
+}
+/* Keep hint always visible (no auto-hide) */
+
+
 
