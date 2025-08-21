@@ -1,7 +1,8 @@
-/* assets/js/main.js */
-'use strict';
+/* assets/js/main.js
+   Nova Reach – site interactions
+   -------------------------------------------------- */
 
-/* ============ Mobile menu + overlay ============ */
+// ====== Mobile menu ======
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuContent = document.getElementById('mobileMenuContent');
@@ -45,18 +46,22 @@ mobileMenu && mobileMenu.addEventListener('transitionend', (e) => {
     mobileMenu.classList.add('hidden');
   }
 });
+
 menuBtn && menuBtn.addEventListener('click', () => {
   const open = menuBtn.getAttribute('aria-expanded') === 'true';
   setMenu(!open);
 });
+
 overlay && overlay.addEventListener('click', () => setMenu(false));
 mobileMenu && mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-/* ============ Footer year ============ */
+
+// ====== Footer year ======
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* ============ Reveal-on-scroll ============ */
+
+// ====== Reveal on scroll ======
 const revealEls = document.querySelectorAll('.reveal');
 if (revealEls.length) {
   const io = new IntersectionObserver((entries) => {
@@ -65,7 +70,8 @@ if (revealEls.length) {
   revealEls.forEach(el => io.observe(el));
 }
 
-/* ============ Animated counters ============ */
+
+// ====== Animated counters ======
 function animateCount(el) {
   const end = parseInt(el.getAttribute('data-counter'), 10);
   if (Number.isNaN(end)) return;
@@ -81,6 +87,7 @@ function animateCount(el) {
   }
   requestAnimationFrame(tick);
 }
+
 const counters = document.querySelectorAll('[data-counter]');
 if (counters.length) {
   const io2 = new IntersectionObserver((entries) => {
@@ -94,7 +101,8 @@ if (counters.length) {
   counters.forEach(c => io2.observe(c));
 }
 
-/* ============ Pricing toggle ============ */
+
+// ====== Pricing toggle ======
 const toggle = document.getElementById('priceToggle');
 const dot = document.getElementById('priceDot');
 const prices = document.querySelectorAll('.price');
@@ -109,13 +117,18 @@ function knobPositions() {
   const end = Math.max(margin, trackW - knobW - margin);
   return { start, end };
 }
+
 function renderPrices() {
-  prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
+  prices.forEach(p => {
+    const one = p.dataset.one;
+    const month = p.dataset.month;
+    p.textContent = monthly ? month : one;
+  });
   const { start, end } = knobPositions();
   if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
 }
+
 if (toggle && dot) {
-  // Initialize once DOM + fonts are ready (defer ensures DOM is parsed)
   renderPrices();
   toggle.addEventListener('click', () => {
     monthly = !monthly;
@@ -123,12 +136,11 @@ if (toggle && dot) {
     toggle.setAttribute('aria-pressed', String(monthly));
   });
   window.addEventListener('resize', renderPrices);
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(renderPrices).catch(() => {});
-  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderPrices);
 }
 
-/* ============ Fake form submit ============ */
+
+// ====== Fake form submission (demo only) ======
 function fakeSubmit() {
   const m = document.getElementById('formMsg');
   if (!m) return;
@@ -137,8 +149,10 @@ function fakeSubmit() {
 }
 window.fakeSubmit = fakeSubmit;
 
-/* ============ Service card flip + height autosize ============ */
+
+// ====== Service card flip with height sync ======
 const cards = Array.from(document.querySelectorAll('.service-card'));
+
 function measureHeights(card) {
   const frontContent = card.querySelector('.front .content');
   const backContent  = card.querySelector('.back .content');
@@ -146,8 +160,10 @@ function measureHeights(card) {
   if (!frontContent || !backContent || !rotator) return;
 
   const wasFlipped = card.classList.contains('is-flipped');
+  const prev = rotator.style.transition;
   rotator.style.transition = 'none';
 
+  // Force measure both states
   card.classList.remove('is-flipped');
   const frontH = frontContent.offsetHeight;
 
@@ -155,30 +171,38 @@ function measureHeights(card) {
   const backH = backContent.offsetHeight;
 
   card.classList.toggle('is-flipped', wasFlipped);
-  // force reflow to re-enable transition
+  // reflow + restore transition
   // eslint-disable-next-line no-unused-expressions
   rotator.offsetHeight;
-  rotator.style.transition = '';
+  rotator.style.transition = prev;
 
   card._frontH = frontH;
   card._backH  = backH;
 }
+
 function applyHeight(card) {
   const showingBack = card.classList.contains('is-flipped');
   const h = showingBack ? card._backH : card._frontH;
-  if (h) card.style.height = h + 'px';
+  if (h) {
+    // Add a small buffer to prevent clipping on flip
+    card.style.height = (h + 4) + 'px';
+  }
 }
-function recalcAll() { cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
+
+function recalcAll() {
+  cards.forEach(c => { measureHeights(c); applyHeight(c); });
+}
 
 cards.forEach(card => {
   measureHeights(card);
   applyHeight(card);
 
   card.addEventListener('click', (e) => {
-    if (e.target.closest('a')) return; // don't flip when clicking links
+    if (e.target.closest('a')) return; // allow links inside the card
     card.classList.toggle('is-flipped');
     applyHeight(card);
   });
+
   card.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -187,13 +211,13 @@ cards.forEach(card => {
     }
   });
 });
+
 window.addEventListener('load', recalcAll);
 window.addEventListener('resize', recalcAll);
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(recalcAll).catch(() => {});
-}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(recalcAll);
 
-/* ============ Parallax hero background ============ */
+
+// ====== Hero parallax (lightweight) ======
 (function () {
   const el = document.getElementById('hero-bg');
   if (!el) return;
@@ -208,8 +232,10 @@ if (document.fonts && document.fonts.ready) {
   raf();
 })();
 
-/* ============ Progress ring + sparkline animations ============ */
+
+// ====== Progress ring + sparkline animations ======
 (function () {
+  // Radial progress
   const charts = document.querySelectorAll('svg.progress-chart[data-percent]');
   if (charts.length) {
     function animate(svg) {
@@ -218,7 +244,7 @@ if (document.fonts && document.fonts.ready) {
       const label = svg.querySelector('.pct');
       if (fg) {
         fg.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1)';
-        requestAnimationFrame(() => { fg.style.strokeDashoffset = (100 - pct) + ''; });
+        requestAnimationFrame(() => { fg.style.strokeDashoffset = String(100 - pct); });
       }
       if (label) label.textContent = pct.toFixed(2) + '%';
     }
@@ -233,7 +259,7 @@ if (document.fonts && document.fonts.ready) {
     charts.forEach(svg => ioProgress.observe(svg));
   }
 
-  // Animate sparkline path when revealed
+  // Sparkline path draw
   const sparklines = document.querySelectorAll('.spark-draw');
   if (sparklines.length) {
     const ioSpark = new IntersectionObserver((entries) => {
@@ -247,20 +273,8 @@ if (document.fonts && document.fonts.ready) {
     }, { threshold: 0.4 });
     sparklines.forEach(p => ioSpark.observe(p));
   }
+})();
 
-  // Light sanity checks after animation (safe to remove later)
-  setTimeout(() => {
-    const svg = document.querySelector('svg.progress-chart');
-    const fg = svg && svg.querySelector('.fg');
-    console.assert(!!svg, '[TEST] Progress SVG exists');
-    console.assert(!!fg,  '[TEST] Progress foreground circle exists');
-    if (fg && typeof fg.style.strokeDashoffset !== 'undefined') {
-      const val = parseFloat(fg.style.strokeDashoffset);
-      if (!Number.isNaN(val)) {
-        console.assert(val <= 30.5, `[TEST] strokeDashoffset ~= 29.56 for 70.44%. Got ${val}`);
-      }
-    }
-    const spark = document.querySelector('.spark-draw');
     console.assert(!!spark, '[TEST] Sparkline path exists');
   }, 1500);
 })();
