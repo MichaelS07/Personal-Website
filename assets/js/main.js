@@ -93,7 +93,7 @@ function knobPositions(){
 function renderPrices(){
   prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
   const { start, end } = knobPositions();
-  if (dot) dot.style.transform = `translateX(${monthly ? end : start}px)`;
+  if (dot) dot.style.transform = `translateX(${monthly ? start : end}px)`;
 }
 if (toggle && dot) {
   renderPrices();
