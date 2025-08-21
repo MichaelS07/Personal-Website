@@ -136,9 +136,23 @@ function applyHeight(card){
   const h = showingBack ? card._backH : card._frontH;
   if (h) card.style.height = h + 'px';
 }
+function addFlipHint(card){
+  const isTouch = (typeof window !== 'undefined' && ('ontouchstart' in window)) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+  const text = isTouch ? 'Tap to flip' : 'Click to flip';
+  ['.front', '.back'].forEach(sel => {
+    const face = card.querySelector(sel);
+    if (!face) return;
+    if (!face.querySelector('.flip-hint')){
+      const hint = document.createElement('span');
+      hint.className = 'flip-hint';
+      hint.textContent = text;
+      face.appendChild(hint);
+    }
+  });
+}
 function recalcAll(){ cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
 cards.forEach(card => {
-  measureHeights(card); applyHeight(card);
+  measureHeights(card); applyHeight(card); addFlipHint(card);
   card.addEventListener('click', (e) => {
     if (e.target.closest('a')) return;
     card.classList.toggle('is-flipped'); applyHeight(card);
@@ -215,5 +229,6 @@ document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
     console.assert(!!spark, '[TEST] Sparkline path exists');
   }, 1500);
 })();
+
 
 
