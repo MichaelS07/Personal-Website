@@ -80,7 +80,7 @@ counters.forEach(c => io2.observe(c));
 const toggle = document.getElementById('priceToggle');
 const dot = document.getElementById('priceDot');
 const prices = document.querySelectorAll('.price');
-let monthly = false;
+let monthly = true;
 function knobPositions(){
   if (!toggle || !dot) return { start: 0, end: 0 };
   const trackW = toggle.clientWidth;
