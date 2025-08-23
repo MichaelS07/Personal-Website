@@ -121,12 +121,12 @@
         <div class="flex flex-wrap gap-3">
           <input id="search" type="search" placeholder="Search posts…" class="flex-1 min-w-0 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
           <div class="flex items-center gap-2 text-sm flex-wrap">
-            <button data-tag="All" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 lift">All</button>
-            <button data-tag="E-commerce" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 lift">E-commerce</button>
-            <button data-tag="SEO" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 lift">SEO</button>
-            <button data-tag="SEM" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 lift">SEM</button>
-            <button data-tag="Email" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 lift">Email</button>
-            <button data-tag="Shopify" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 lift">Shopify</button>
+                         <button data-tag="All" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 lift">All</button>
+             <button data-tag="E-commerce" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 lift">E-commerce</button>
+             <button data-tag="SEO" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 lift">SEO</button>
+             <button data-tag="SEM" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 lift">SEM</button>
+             <button data-tag="Email" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 lift">Email</button>
+             <button data-tag="Shopify" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 lift">Shopify</button>
           </div>
         </div>
       </div>
@@ -210,14 +210,28 @@
   if (search) search.addEventListener('input', applyFilters);
   tags.forEach(t=>{
     t.addEventListener('click', ()=>{
-      tags.forEach(x=>x.classList.remove('bg-emerald-600','text-white','border-emerald-600'));
-      t.classList.add('bg-emerald-600','text-white','border-emerald-600');
+      tags.forEach(x=>{
+        x.classList.remove('bg-emerald-600','text-white','border-emerald-600','shadow-sm');
+        x.style.backgroundColor = '';
+        x.style.color = '';
+        x.style.borderColor = '';
+      });
+      t.classList.add('bg-emerald-600','text-white','border-emerald-600','shadow-sm');
+      t.style.backgroundColor = '#059669';
+      t.style.color = '#ffffff';
+      t.style.borderColor = '#059669';
       activeTag = t.dataset.tag;
       applyFilters();
     });
   });
   // default select "All"
-  document.querySelector('.tag[data-tag="All"]')?.classList.add('bg-emerald-600','text-white','border-emerald-600');
+  const allTag = document.querySelector('.tag[data-tag="All"]');
+  if (allTag) {
+    allTag.classList.add('bg-emerald-600','text-white','border-emerald-600','shadow-sm');
+    allTag.style.backgroundColor = '#059669';
+    allTag.style.color = '#ffffff';
+    allTag.style.borderColor = '#059669';
+  }
 
   // footer year
   document.getElementById('year').textContent = new Date().getFullYear();
