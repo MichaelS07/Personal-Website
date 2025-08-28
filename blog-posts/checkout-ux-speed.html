@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E-Com Weekly: Checkout UX wins and Shopify speed tricks — NovaReach</title>
+  <meta name="description" content="Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don't wreck UX." />
+  <meta name="color-scheme" content="light">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/novareach-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/novareach-logo.png">
+  <link rel="shortcut icon" type="image/png" href="../images/novareach-logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/novareach-logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../images/novareach-logo.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../images/novareach-logo.png">
+  <meta name="msapplication-TileColor" content="#10b981">
+  <meta name="theme-color" content="#10b981">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+
+  <link rel="stylesheet" href="../assets/css/styles.css?v=20250821">
+  
+  <style>
+    /* ⭐ Anti-Layout-Shift Patch */
+    html { scrollbar-gutter: stable both-edges; }
+    @supports not (scrollbar-gutter: stable) { body { overflow-y: scroll; } }
+    body { overflow-x: hidden; }
+
+    /* --- Overflow safety + reading comfort --- */
+    .prose, .prose * { overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
+    .prose img, .prose video, .prose iframe { max-width: 100%; height: auto; display: block; border-radius: .5rem; }
+    .prose pre, .prose code, .prose table { white-space: pre-wrap; }
+    .prose pre { overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch; }
+    .prose table { display: block; width: 100%; overflow-x: auto; }
+    .prose table thead th, .prose table tbody td { white-space: nowrap; }
+
+    /* Typography tweaks */
+    :root { --header-offset: 88px; }
+    .prose h2, .prose h3 { scroll-margin-top: var(--header-offset); }
+    .prose h2 { font-size: 2rem; line-height: 1.2; font-weight: 800; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+    .prose h3 { font-size: 1.5rem; line-height: 1.25; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.25rem; }
+    .prose h2 + p, .prose h3 + p, .prose h3 + ul { margin-top: 0.5rem; }
+    .prose .section-divider { height: 2px; background: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0)); border: 0; margin: 1rem 0 1.5rem; }
+    .prose .callout{ border-left:4px solid rgb(5 150 105); background:rgba(16,185,129,.06); padding:1rem; border-radius:.5rem }
+    .prose code{ font-weight:600 }
+    .prose strong{ color:rgb(5 150 105); font-weight:700 }
+    .toc a{ color:rgb(4 120 87) }
+    .kbd{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:.375rem; padding:.125rem .375rem; background:#f8fafc }
+
+    /* Reading progress bar */
+    #progress { position: fixed; left: 0; top: 0; height: 3px; width: 0; background: linear-gradient(90deg, rgb(16 185 129), rgb(34 197 94)); z-index: 60; pointer-events: none; transition: width .1s linear; }
+    @media (prefers-reduced-motion: reduce) { #progress { transition: none; } }
+
+    /* Active link styles for TOC */
+    .toc a.active { font-weight: 700; text-decoration: underline; }
+  </style>
+</head>
+<body class="tech-canvas bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+
+<!-- Layered site background (subtle grey pixel canvas) -->
+<div class="pointer-events-none fixed inset-0 -z-10">
+  <!-- Pixel tile base (light) + static green accents -->
+  <div class="absolute inset-0 block dark:hidden" style="background:
+      conic-gradient(rgba(100,116,139,0.16) 25%, transparent 0 50%, rgba(100,116,139,0.16) 0 75%, transparent 0) 0 0/8px 8px,
+      radial-gradient(100px 100px at 0 0, rgba(16,185,129,0.05), transparent 60%),
+      radial-gradient(120px 120px at 100% 100%, rgba(16,185,129,0.04), transparent 60%),
+      repeating-linear-gradient(120deg, rgba(16,185,129,0.10) 0 1px, transparent 1px 40px);
+      background-size: 8px 8px, auto, auto, 280px 280px;
+  "></div>
+  <!-- Pixel tile base (dark) + static green accents -->
+  <div class="absolute inset-0 hidden dark:block" style="background:
+      conic-gradient(rgba(100,116,139,0.12) 25%, transparent 0 50%, rgba(100,116,139,0.12) 0 75%, transparent 0) 0 0/8px 8px,
+      radial-gradient(100px 100px at 0 0, rgba(16,185,129,0.06), transparent 60%),
+      radial-gradient(120px 120px at 100% 100%, rgba(16,185,129,0.05), transparent 60%),
+      repeating-linear-gradient(120deg, rgba(16,185,129,0.08) 0 1px, transparent 1px 40px);
+      background-size: 8px 8px, auto, auto, 280px 280px;
+  "></div>
+  <!-- Subtle hex grid overlay (static) -->
+  <div class="absolute inset-0 opacity-[0.035] mix-blend-overlay" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSIzNSIgdmlld0JveD0iMCAwIDQwIDM1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM5OWY2ZTQiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjUiPjxwYXRoIGQ9Ik0xMCAyIEwzMCAyIEw0MCAxNy41IEwzMCAzMyBMMTAgMzMgTDAgMTcuNSBaIi8+PC9nPjwvc3ZnPg=='); background-size:40px 35px"></div>
+  <!-- Grey vignette for depth -->
+  <div class="absolute inset-0" style="background:
+    radial-gradient(60% 80% at 50% 20%, rgba(15,23,42,0.06), transparent 60%),
+    radial-gradient(80% 80% at 50% 100%, rgba(15,23,42,0.05), transparent 70%);
+  "></div>
+  <!-- Very faint brand glows -->
+  <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full blur-3xl bg-emerald-500/10"></div>
+  <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full blur-3xl bg-emerald-400/10"></div>
+</div>
+
+<!-- Reading progress bar -->
+<div id="progress" aria-hidden="true"></div>
+
+<div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
+
+<header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
+    <a href="../index.html#home" class="flex items-center gap-3">
+      <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
+      <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <a href="../index.html#services" class="py-1 hover:text-emerald-600 tap">Services</a>
+      <a href="../index.html#work" class="py-1 hover:text-emerald-600 tap">Results</a>
+      <a href="../index.html#about" class="py-1 hover:text-emerald-600 tap">About</a>
+      <a href="../index.html#pricing" class="py-1 hover:text-emerald-600 tap">Pricing</a>
+      <a href="../blog.html" class="py-1 text-emerald-600 font-semibold tap">Blog</a>
+      <a href="../index.html#contact" class="py-1 hover:text-emerald-600 tap">Contact</a>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2 sm:gap-3">
+      <a href="../index.html#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
+      <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
+    <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
+      <a href="../index.html#services" class="hover:text-emerald-600 py-2">Services</a>
+      <a href="../index.html#work" class="hover:text-emerald-600 py-2">Results</a>
+      <a href="../index.html#about" class="hover:text-emerald-600 py-2">About</a>
+      <a href="../index.html#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
+      <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
+      <a href="../index.html#contact" class="hover:text-emerald-600 py-2">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Article -->
+<main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+  <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 mb-8">
+    <a href="../blog.html" class="text-sm text-emerald-700 hover:underline">← Back to Blog</a>
+  </div>
+
+  <article class="reveal" id="article">
+    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-8">
+      <header>
+        <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+          <span>Aug 10, 2025</span>
+          <span aria-hidden="true">•</span>
+          <span>E‑commerce, Shopify</span>
+          <span aria-hidden="true">•</span>
+          <span id="readtime" class="text-slate-600">—</span>
+        </div>
+        <h1 class="mt-2 font-extrabold tracking-tight prose h1">E‑Com Weekly: Checkout UX wins and Shopify speed tricks</h1>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don’t wreck UX.</p>
+      </header>
+
+      <hr class="my-6 border-slate-200 dark:border-slate-800">
+
+      <!-- TOC: collapsible on mobile, sticky on desktop -->
+      <details class="lg:hidden toc bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4 mb-6">
+        <summary class="list-none cursor-pointer font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center justify-between">
+          <span>On this page</span>
+          <span class="text-slate-400">⌄</span>
+        </summary>
+        <ol class="list-decimal list-outside space-y-1 ml-4" id="toc-mobile"></ol>
+      </details>
+
+      <aside class="toc sticky hidden lg:block bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-4 mb-8" id="toc-desktop">
+        <div class="font-semibold uppercase tracking-wider text-slate-500 mb-2">On this page</div>
+        <ol class="list-decimal list-outside space-y-1 ml-4" id="toc"></ol>
+      </aside>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert" id="intro">
+        <p class="callout"><strong>The punchline:</strong> Move friction out of the way at the exact moment it appears (errors, hesitation, mobile input pain), and load only what’s needed when it’s needed. That’s how you ship real conversion lift without a redesign.</p>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="checkout-ux">
+        <h2>What moved the needle (Checkout UX)</h2>
+        <hr class="section-divider" />
+        <h3>Error states that actually help</h3>
+        <ul>
+          <li><strong>Inline &amp; adjacent:</strong> Place the error <em>next to</em> the field, not at the top of the form.</li>
+          <li><strong>First invalid autofocus:</strong> Programmatically focus the first invalid input so the path to fix is obvious.</li>
+          <li><strong>Actionable copy:</strong> “Enter a valid email (name@domain.com)” beats “Invalid input”.</li>
+        </ul>
+        <p><span class="kbd">Tip</span> In Shopify (Theme App Extensions or custom), add <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.</p>
+
+        <h3>Trust signals near the CTA</h3>
+        <ul>
+          <li><strong>Badge proximity:</strong> Put known payment badges (Visa, Mastercard, Amex, PayPal, Afterpay) within ~60–80px of the primary CTA.</li>
+          <li><strong>One-liner reassurance:</strong> A short note like “Secure checkout • SSL encrypted • Privacy protected” reduces last-second doubt.</li>
+          <li><strong>Visible policies:</strong> Link to returns &amp; support within eyesight of the button—don’t bury them.</li>
+        </ul>
+
+        <h3>Mobile spacing &amp; inputs</h3>
+        <ul>
+          <li><strong>Tap area:</strong> Aim for 44px touch targets and <strong>≥16px</strong> label size for readability.</li>
+          <li><strong>Email keyboard:</strong> Use <code>inputmode="email"</code> and <code>autocomplete="email"</code>; <strong>disable auto-cap</strong> for email fields.</li>
+          <li><strong>Field grouping:</strong> Break long forms into logical chunks to reduce cognitive load.</li>
+        </ul>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="shopify-speed">
+        <h2>Quick Shopify speed wins (that don’t break UX)</h2>
+        <hr class="section-divider" />
+        <h3>Serve images in modern formats</h3>
+        <ul>
+          <li><strong>AVIF primary, WebP fallback:</strong> Use a <code><picture></code> element to serve AVIF first, then WebP, then PNG/JPEG.</li>
+          <li><strong>Right-size assets:</strong> Keep most product images under ~200KB; cap hero images with responsive <code>srcset</code>.</li>
+        </ul>
+<pre><code>&lt;picture&gt;
+  &lt;source srcset="/images/hero.avif" type="image/avif"&gt;
+  &lt;source srcset="/images/hero.webp" type="image/webp"&gt;
+  &lt;img src="/images/hero.jpg" alt="New collection" loading="eager" width="1600" height="900"&gt;
+&lt;/picture&gt;
+</code></pre>
+        <h3>Lazy-load below-the-fold &amp; defer non-critical scripts</h3>
+        <ul>
+          <li><strong>Native lazy-loading:</strong> Add <code>loading="lazy"</code> to below-the-fold images.</li>
+          <li><strong>Defer app scripts:</strong> Add <code>defer</code> or load after <code>DOMContentLoaded</code> for non-critical apps.</li>
+          <li><strong>Preload critical CSS:</strong> Inline above-the-fold CSS or use <code>&lt;link rel="preload" as="style"&gt;</code> then swap.</li>
+        </ul>
+
+        <h3>Remove duplicate analytics tags &amp; app leftovers</h3>
+        <ul>
+          <li><strong>One source of truth:</strong> Keep GA4/Tag Manager once—duplicates quietly tank performance.</li>
+          <li><strong>Uninstalled ≠ removed:</strong> Purge theme snippets and <code>script_tag</code> assets that apps leave behind.</li>
+          <li><strong>Measure TBT impact:</strong> Anything adding &gt;200ms Total Blocking Time gets refactored or removed.</li>
+        </ul>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="next-steps">
+        <h2>Next steps for compounding gains</h2>
+        <hr class="section-divider" />
+        <ol>
+          <li><strong>Ship a simple progress bar in checkout:</strong> “Shipping → Payment → Review” clarifies effort remaining and boosts completion.</li>
+          <li><strong>Shorten shipping method labels:</strong> Cut jargon—choose “Standard (2–4 days)” over “Economy International Freight Delivery”.</li>
+          <li><strong>Audit script load time:</strong> Remove or defer anything with &gt;200ms TBT; prefer server-side integrations where possible.</li>
+        </ol>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="checklist">
+        <h2>Implementation checklist</h2>
+        <hr class="section-divider" />
+        <ul>
+          <li>✅ Inline errors with autofocus on first invalid field.</li>
+          <li>✅ Security one-liner + payment badges beside CTA.</li>
+          <li>✅ Email inputs: <code>type="email"</code>, <code>inputmode="email"</code>, <code>autocomplete</code> on, auto-cap off.</li>
+          <li>✅ Touch targets ~44px; labels ≥16px.</li>
+          <li>✅ AVIF/WebP images with responsive <code>srcset</code>; product images ~&lt;200KB.</li>
+          <li>✅ Lazy-load below-the-fold; defer non-critical scripts.</li>
+          <li>✅ Remove duplicate analytics &amp; uninstall leftovers.</li>
+          <li>✅ Progress bar in checkout; simplified shipping labels.</li>
+          <li>✅ TBT audit; kill &gt;200ms offenders.</li>
+        </ul>
+      </section>
+
+      <section class="prose prose-slate max-w-none dark:prose-invert mt-10" id="faq">
+        <h2>FAQ</h2>
+        <hr class="section-divider" />
+        <h3>Will AVIF hurt visual quality?</h3>
+        <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback in the <code>&lt;picture&gt;</code> element just in case.</p>
+        <h3>Do badges actually increase conversions?</h3>
+        <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces hesitancy at the decision point.</p>
+        <h3>What if apps re-inject scripts?</h3>
+        <p>Lock a monthly audit: compare current theme assets/snippets to baseline; remove additions that add blocking time or duplicate tracking.</p>
+      </section>
+
+      <aside class="mt-8 bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/60 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related reading</h3>
+        <ul class="list-disc list-inside">
+          <li><a class="hover:text-emerald-700" href="/blog/shopify-core-web-vitals-guide.html">Shopify Core Web Vitals: A Practical Guide</a></li>
+          <li><a class="hover:text-emerald-700" href="/blog/checkout-form-best-practices.html">Checkout Form Best Practices That Actually Convert</a></li>
+          <li><a class="hover:text-emerald-700" href="/blog/app-bloat-performance.html">Killing App Bloat Without Killing Features</a></li>
+        </ul>
+      </aside>
+    </div>
+  </article>
+</main>
+
+<!-- Footer -->
+<footer class="py-10 border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
+      <span class="text-sm">© <span id="year"></span> Nova Reach. All rights reserved.</span>
+    </div>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="../index.html#home" class="hover:text-emerald-600">Home</a>
+      <a href="../blog.html" class="hover:text-emerald-600">Blog</a>
+      <a href="../index.html#contact" class="hover:text-emerald-600">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js?v=20250821"></script>
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Read time estimate (~220 wpm)
+  (function(){
+    const el = document.getElementById('article');
+    if(!el) return;
+    const words = (el.innerText || '').trim().split(/\s+/).length;
+    const mins = Math.max(1, Math.round(words / 220));
+    const rt = document.getElementById('readtime');
+    if (rt) rt.textContent = mins + ' min read';
+  })();
+
+  // Reading progress bar
+  (function(){
+    const bar = document.getElementById('progress');
+    const article = document.getElementById('article');
+    if(!bar || !article) return;
+    const onScroll = () => {
+      const rect = article.getBoundingClientRect();
+      const winH = window.innerHeight || 1;
+      const total = Math.max(1, article.offsetHeight - winH);
+      const passed = Math.min(total, Math.max(0, -rect.top));
+      const p = Math.max(0, Math.min(1, passed / total));
+      bar.style.width = (p * 100).toFixed(2) + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  })();
+
+  // ----- CLICKABLE TOC BUILDER -----
+  (function(){
+    const desktop = document.getElementById('toc');
+    const mobile = document.getElementById('toc-mobile');
+    const article = document.getElementById('article');
+    if(!desktop && !mobile) return;
+
+    // Select h2 and h3 inside prose sections
+    const headings = Array.from(article.querySelectorAll('.prose h2, .prose h3'));
+    if (!headings.length) return;
+
+    const slugify = (str) => str.toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .slice(0, 80);
+
+    // Ensure each heading has an id
+    headings.forEach((h, i) => {
+      if (!h.id) {
+        const base = slugify(h.textContent) || 'section-' + (i+1);
+        let id = base; let n = 1;
+        while (document.getElementById(id)) id = base + '-' + (++n);
+        h.id = id;
+      }
+    });
+
+    const buildList = (container) => {
+      if (!container) return;
+      container.innerHTML = '';
+      let currentOl = container; // h2 live directly here
+      let subOl = null;          // h3 live under last h2
+
+      headings.forEach(h => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'hover:underline';
+
+        if (h.tagName === 'H2') {
+          // new top-level item
+          subOl = null; // reset
+          li.appendChild(a);
+          container.appendChild(li);
+                      // create a nested list that we'll append h3s into
+            const nested = document.createElement('ol');
+            nested.className = 'ml-8 list-[lower-alpha] list-outside space-y-1';
+            li.appendChild(nested);
+            subOl = nested;
+        } else {
+          // h3 -> append under last h2's nested list, or top if none
+          (subOl || container).appendChild(li);
+          li.appendChild(a);
+        }
+      });
+    };
+
+    buildList(desktop);
+    buildList(mobile);
+
+    // Highlight active section while scrolling
+    const tocLinks = Array.from(document.querySelectorAll('#toc a, #toc-mobile a'));
+    const byId = Object.fromEntries(tocLinks.map(a => [a.getAttribute('href').slice(1), a]));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = byId[id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          // remove current
+          tocLinks.forEach(l => l.classList.remove('active'));
+          // set for both desktop & mobile if both exist
+          const twins = document.querySelectorAll(`a[href="#${CSS.escape(id)}"]`);
+          twins.forEach(t => t.classList.add('active'));
+        }
+      });
+    }, { rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+
+    headings.forEach(h => observer.observe(h));
+  })();
+</script>
+</body>
+</html>
