@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pixel Rain Background Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #0f172a;
+    }
+    
+    .pixel {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #10b981;
+      border-radius: 1px;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+    
+    .pixel-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: -1;
+      opacity: 0.3;
+    }
+    
+    .glow-effect {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+      animation: glow 8s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% {
+        opacity: 0.2;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.3);
+      }
+    }
+    
+    .content {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Pixel Grid Background -->
+  <div class="pixel-grid"></div>
+  <div class="glow-effect"></div>
+  
+  <!-- Content -->
+  <div class="content">
+    <div class="text-center">
+      <h1 class="text-6xl font-bold mb-4 text-emerald-400">Pixel Rain Test</h1>
+      <p class="text-xl text-slate-300 mb-8">Testing the pixel rain background effect</p>
+      <div class="space-y-4">
+        <p class="text-slate-400">This is a JavaScript-powered pixel rain with:</p>
+        <ul class="text-slate-400 space-y-2">
+          <li>• Real falling pixels</li>
+          <li>• Pixel grid overlay</li>
+          <li>• Glowing center effect</li>
+          <li>• Smooth animations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Pixel Rain Animation
+    function createPixel() {
+      const pixel = document.createElement('div');
+      pixel.className = 'pixel';
+      
+      // Random position across the width
+      const x = Math.random() * window.innerWidth;
+      pixel.style.left = x + 'px';
+      
+      // Random animation duration (3-8 seconds)
+      const duration = 3 + Math.random() * 5;
+      pixel.style.animationDuration = duration + 's';
+      
+      // Random delay
+      pixel.style.animationDelay = Math.random() * 2 + 's';
+      
+      // Random size
+      const size = 1 + Math.random() * 2;
+      pixel.style.width = size + 'px';
+      pixel.style.height = size + 'px';
+      
+      // Random opacity
+      const opacity = 0.3 + Math.random() * 0.7;
+      pixel.style.opacity = opacity;
+      
+      document.body.appendChild(pixel);
+      
+      // Remove pixel after animation
+      setTimeout(() => {
+        if (pixel.parentNode) {
+          pixel.parentNode.removeChild(pixel);
+        }
+      }, (duration + 2) * 1000);
+    }
+    
+    // Create pixels continuously
+    function startPixelRain() {
+      // Create initial batch of pixels
+      for (let i = 0; i < 50; i++) {
+        setTimeout(createPixel, Math.random() * 2000);
+      }
+      
+      // Continue creating pixels
+      setInterval(createPixel, 100);
+    }
+    
+    // Start the pixel rain when page loads
+    window.addEventListener('load', startPixelRain);
+    
+    // Adjust for window resize
+    window.addEventListener('resize', () => {
+      // Remove existing pixels and restart
+      const pixels = document.querySelectorAll('.pixel');
+      pixels.forEach(pixel => pixel.remove());
+      startPixelRain();
+    });
+  </script>
+</body>
+</html>
