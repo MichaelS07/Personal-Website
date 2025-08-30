@@ -40,61 +40,144 @@
     .prose li{ margin-bottom:0.5rem }
     .dark .prose h2{ color:rgb(248 250 252) }
     .dark .prose h3{ color:rgb(248 250 252) }
+    
+    /* Dark background and pixel effects */
+    body { 
+      background: #0f172a; 
+      margin: 0; 
+      overflow-x: hidden; 
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Pixel Grid Background */
+    .pixel-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(16, 185, 129, 0.05) 25%, transparent 25%, transparent 75%, rgba(16, 185, 129, 0.05) 75%);
+      background-size: 30px 30px, 30px 30px, 30px 30px;
+      background-position: 0 0, 15px 15px, 0 0;
+      z-index: -2;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    
+    /* Glow Effect */
+    .glow-effect {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+      animation: glow 10s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.6; scale: 1.2; }
+    }
+    
+    /* Random Green Square Pixels */
+    .pixel-square {
+      position: fixed;
+      background-color: #10b981;
+      opacity: 0.6;
+      border-radius: 2px;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    /* OVERRIDE THE EXTERNAL CSS THAT'S MAKING BOXES TRANSPARENT */
+    body.tech-canvas :where(article,div,aside)[class*="bg-white"] {
+      background: white !important;
+      background-color: white !important;
+      background-image: none !important;
+    }
+    
+    /* PRESERVE GREEN TEXT IN WHITE BOXES */
+    body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-emerald-600,
+    body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-emerald-500 {
+      color: #059669 !important;
+    }
+    
+    /* FIX BLOG ARTICLE TEXT READABILITY */
+    .prose {
+      color: #1e293b !important;
+    }
+    
+    .prose p {
+      color: #1e293b !important;
+    }
+    
+    .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+      color: #0f172a !important;
+    }
+    
+    .prose ul li, .prose ol li {
+      color: #1e293b !important;
+    }
+    
+    .prose strong {
+      color: #059669 !important;
+    }
+    
+    /* Fix scrollbar styling - remove any green borders */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 6px;
+      border: 2px solid #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
   </style>
 </head>
-<body class="tech-canvas bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+<body class="tech-canvas bg-slate-950 text-slate-100 touch-manipulation" style="background: #0f172a !important;">
 
-<!-- Layered site background (subtle grey pixel canvas) -->
-<div class="pointer-events-none fixed inset-0 -z-10">
-  <!-- Pixel tile base (light) + static green accents -->
-  <div class="absolute inset-0 block dark:hidden" style="background:
-      conic-gradient(rgba(100,116,139,0.16) 25%, transparent 0 50%, rgba(100,116,139,0.16) 0 75%, transparent 0) 0 0/8px 8px,
-      radial-gradient(100px 100px at 0 0, rgba(16,185,129,0.05), transparent 60%),
-      radial-gradient(120px 120px at 100% 100%, rgba(16,185,129,0.04), transparent 60%),
-      repeating-linear-gradient(120deg, rgba(16,185,129,0.10) 0 1px, transparent 1px 40px);
-      background-size: 8px 8px, auto, auto, 280px 280px;
-  "></div>
-  <!-- Pixel tile base (dark) + static green accents -->
-  <div class="absolute inset-0 hidden dark:block" style="background:
-      conic-gradient(rgba(100,116,139,0.12) 25%, transparent 0 50%, rgba(100,116,139,0.12) 0 75%, transparent 0) 0 0/8px 8px,
-      radial-gradient(100px 100px at 0 0, rgba(16,185,129,0.06), transparent 60%),
-      radial-gradient(120px 120px at 100% 100%, rgba(16,185,129,0.05), transparent 60%),
-      repeating-linear-gradient(120deg, rgba(16,185,129,0.08) 0 1px, transparent 1px 40px);
-      background-size: 8px 8px, auto, auto, 280px 280px;
-  "></div>
-  <!-- Subtle hex grid overlay (static) -->
-  <div class="absolute inset-0 opacity-[0.035] mix-blend-overlay" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSIzNSIgdmlld0JveD0iMCAwIDQwIDM1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM5OWY2ZTQiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjUiPjxwYXRoIGQ9Ik0xMCAyIEwzMCAyIEw0MCAxNy41IEwzMCAzMyBMMTAgMzMgTDAgMTcuNSBaIi8+PC9nPjwvc3ZnPg=='); background-size:40px 35px"></div>
-  <!-- Grey vignette for depth -->
-  <div class="absolute inset-0" style="background:
-    radial-gradient(60% 80% at 50% 20%, rgba(15,23,42,0.06), transparent 60%),
-    radial-gradient(80% 80% at 50% 100%, rgba(15,23,42,0.05), transparent 70%);
-  "></div>
-  <!-- Very faint brand glows -->
-  <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full blur-3xl bg-emerald-500/10"></div>
-  <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full blur-3xl bg-emerald-400/10"></div>
-</div>
+<!-- Pixel Grid and Glow Background -->
+<div class="pixel-grid"></div>
+<div class="glow-effect"></div>
 
 <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
-<header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
+<header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white backdrop-blur supports-[backdrop-filter]:bg-white shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
     <a href="../index.html#home" class="flex items-center gap-3">
       <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
-      <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
+      <span class="font-extrabold tracking-tight text-lg text-slate-900">Nova Reach</span>
     </a>
 
     <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-      <a href="../index.html#services" class="py-1 hover:text-emerald-600 tap">Services</a>
-      <a href="../index.html#work" class="py-1 hover:text-emerald-600 tap">Results</a>
-      <a href="../index.html#about" class="py-1 hover:text-emerald-600 tap">About</a>
-      <a href="../index.html#pricing" class="py-1 hover:text-emerald-600 tap">Pricing</a>
+      <a href="../index.html#services" class="py-1 text-slate-900 hover:text-emerald-600 tap">Services</a>
+      <a href="../index.html#work" class="py-1 text-slate-900 hover:text-emerald-600 tap">Results</a>
+      <a href="../index.html#about" class="py-1 text-slate-900 hover:text-emerald-600 tap">About</a>
+      <a href="../index.html#pricing" class="py-1 text-slate-900 hover:text-emerald-600 tap">Pricing</a>
       <a href="../blog.html" class="py-1 text-emerald-600 font-semibold tap">Blog</a>
-      <a href="../index.html#contact" class="py-1 hover:text-emerald-600 tap">Contact</a>
+      <a href="../index.html#contact" class="py-1 text-slate-900 hover:text-emerald-600 tap">Contact</a>
     </nav>
 
     <div class="ml-auto flex items-center gap-2 sm:gap-3">
       <a href="../index.html#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
-      <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 " aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -108,14 +191,14 @@
     </div>
   </div>
 
-  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
+  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white backdrop-blur">
     <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
-      <a href="../index.html#services" class="hover:text-emerald-600 py-2">Services</a>
-      <a href="../index.html#work" class="hover:text-emerald-600 py-2">Results</a>
-      <a href="../index.html#about" class="hover:text-emerald-600 py-2">About</a>
-      <a href="../index.html#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
+      <a href="../index.html#services" class="text-slate-900 hover:text-emerald-600 py-2">Services</a>
+      <a href="../index.html#work" class="text-slate-900 hover:text-emerald-600 py-2">Results</a>
+      <a href="../index.html#about" class="text-slate-900 hover:text-emerald-600 py-2">About</a>
+      <a href="../index.html#pricing" class="text-slate-900 hover:text-emerald-600 py-2">Pricing</a>
       <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
-      <a href="../index.html#contact" class="hover:text-emerald-600 py-2">Contact</a>
+      <a href="../index.html#contact" class="text-slate-900 hover:text-emerald-600 py-2">Contact</a>
     </nav>
   </div>
 </header>
@@ -123,7 +206,7 @@
 <main class="relative">
   <!-- Back to Blog -->
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-    <div class="bg-white/80 dark:bg-slate-900/60 backdrop-blur rounded-2xl p-6 shadow-sm">
+    <div class="bg-white/80 /60 backdrop-blur rounded-2xl p-6 shadow-sm">
       <a href="../blog.html" class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-500 tap">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="m15 18-6-6 6-6"/>
@@ -135,7 +218,7 @@
 
   <!-- Article -->
   <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="bg-white/80 dark:bg-slate-900/60 backdrop-blur rounded-2xl p-8 shadow-sm">
+    <div class="bg-white/80 /60 backdrop-blur rounded-2xl p-8 shadow-sm">
       <!-- Article Header -->
       <header class="mb-8">
         <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
@@ -244,7 +327,7 @@
   </article>
 </main>
 
-<footer class="relative border-t border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur mt-16">
+<footer class="relative border-t border-slate-200/70 bg-white backdrop-blur mt-16">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <div class="md:col-span-2">
@@ -279,7 +362,7 @@
       </div>
     </div>
     
-    <div class="border-t border-slate-200 dark:border-slate-800 mt-8 pt-8 text-center text-sm text-slate-500 dark:text-slate-400">
+    <div class="border-t border-slate-200  mt-8 pt-8 text-center text-sm text-slate-500 dark:text-slate-400">
       <p>&copy; 2025 Nova Reach. All rights reserved.</p>
     </div>
   </div>
@@ -292,6 +375,58 @@
   const wordCount = article.textContent.trim().split(/\s+/).length;
   const readTime = Math.ceil(wordCount / 200); // Average reading speed
   document.getElementById('readTime').textContent = `${readTime} min read`;
+</script>
+
+<script>
+  // Random Green Square Pixels Background
+  function createRandomPixel() {
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel-square';
+    
+    const size = 2 + Math.random() * 6;
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    const opacity = 0.2 + Math.random() * 0.4;
+    const timeout = 8000 + Math.random() * 4000;
+    
+    pixel.style.width = size + 'px';
+    pixel.style.height = size + 'px';
+    pixel.style.left = x + 'px';
+    pixel.style.top = y + 'px';
+    pixel.style.opacity = opacity;
+    
+    document.body.appendChild(pixel);
+    
+    setTimeout(() => {
+      if (pixel.parentNode) {
+        pixel.parentNode.removeChild(pixel);
+      }
+    }, timeout);
+  }
+  
+  function initRandomPixels() {
+    // Create initial pixels
+    for (let i = 0; i < 100; i++) {
+      setTimeout(() => {
+        createRandomPixel();
+      }, i * 20);
+    }
+    
+    // Continue creating pixels
+    setInterval(createRandomPixel, 2000);
+  }
+  
+  // Initialize on page load
+  window.addEventListener('load', initRandomPixels);
+  
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    // Remove existing pixels and restart
+    document.querySelectorAll('.pixel-square').forEach(pixel => {
+      pixel.remove();
+    });
+    setTimeout(initRandomPixels, 100);
+  });
 </script>
 
 </body>
