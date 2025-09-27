@@ -188,6 +188,8 @@
           <input id="search" type="search" placeholder="Search posts…" class="flex-1 min-w-0 rounded-xl border border-slate-300 dark:border-slate-700 bg-white  px-4 py-3">
           <div class="flex items-center gap-2 text-sm flex-wrap">
                          <button data-tag="All" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 /60 hover:bg-white dark:hover:bg-slate-900 text-slate-700  lift">All</button>
+             <button data-tag="Career" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 /60 hover:bg-white dark:hover:bg-slate-900 text-slate-700  lift">Career</button>
+             <button data-tag="Marketing" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 /60 hover:bg-white dark:hover:bg-slate-900 text-slate-700  lift">Marketing</button>
              <button data-tag="E-commerce" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 /60 hover:bg-white dark:hover:bg-slate-900 text-slate-700  lift">E-commerce</button>
              <button data-tag="SEO" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 /60 hover:bg-white dark:hover:bg-slate-900 text-slate-700  lift">SEO</button>
              <button data-tag="SEM" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 /60 hover:bg-white dark:hover:bg-slate-900 text-slate-700  lift">SEM</button>
@@ -205,47 +207,60 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div id="posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Example cards (duplicate/replace with your posts) -->
+      <article class="post reveal p-6 rounded-2xl border border-slate-200  bg-white/80 /60 backdrop-blur shadow lift" data-tags="Career,Marketing">
+        <a href="blog-posts/the-journey-of-a-marketer.html" class="group block">
+          <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jan 20, 2025 • Career</div>
+          <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
+            The Journey of a Marketer
+          </h2>
+          <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
+            Life as a marketer is definitely interesting, but where do I even begin? A deep dive into the daily operations, data analysis, and strategic thinking that goes into digital marketing.
+          </p>
+          <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: Career, Marketing</div>
+        </a>
+      </article>
+
       <article class="post reveal p-6 rounded-2xl border border-slate-200  bg-white/80 /60 backdrop-blur shadow lift" data-tags="E-commerce,CRO">
         <a href="blog-posts/customer-journey-funnel-analysis.html" class="group block">
-          <div class="text-xs uppercase tracking-widest text-slate-500">Jan 15, 2025 • Analytics</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jan 15, 2025 • Analytics</div>
           <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
             How to Master Your Website's Customer Journey: A Guide to Funnel Analysis
           </h2>
-          <p class="mt-2 text-sm text-slate-600 ">
+          <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
             Learn how to analyze your e-commerce funnel to identify drop-off points and increase conversions. Master the customer journey from visit to purchase.
           </p>
-          <div class="mt-4 text-xs text-slate-500">Tags: E-commerce, CRO</div>
+          <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: E-commerce, CRO</div>
         </a>
       </article>
 
       <article class="post reveal p-6 rounded-2xl border border-slate-200  bg-white/80 /60 backdrop-blur shadow lift" data-tags="E-commerce,Shopify">
         <a href="blog-posts/checkout-ux-speed.html" class="group block">
-          <div class="text-xs uppercase tracking-widest text-slate-500">Aug 10, 2025 • Weekly</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Aug 10, 2025 • Weekly</div>
           <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
             E-Com Weekly: Checkout UX wins and Shopify speed tricks
           </h2>
-          <p class="mt-2 text-sm text-slate-600 ">
+          <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
             Small fixes that move conversion: error states, payment icons, and image compression that doesn't wreck quality.
           </p>
-          <div class="mt-4 text-xs text-slate-500">Tags: E-commerce, Shopify</div>
+          <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: E-commerce, Shopify</div>
         </a>
       </article>
 
       <article class="post reveal p-6 rounded-2xl border border-slate-200  bg-white/80 /60 backdrop-blur shadow lift" data-tags="SEO,SEM">
         <a href="blog-posts/search-watch-aug-2025.html" class="group block">
-          <div class="text-xs uppercase tracking-widest text-slate-500">Aug 6, 2025 • Search</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Aug 6, 2025 • Search</div>
           <h2 class="mt-2 text-xl font-bold text-emerald-600 group-hover:text-emerald-600">Search Watch: what actually changed this month</h2>
-          <p class="mt-2 text-sm text-slate-600 ">How to react to ranking volatility without nuking your content strategy or overspending in paid.</p>
-          <div class="mt-4 text-xs text-slate-500">Tags: SEO, SEM</div>
+          <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">How to react to ranking volatility without nuking your content strategy or overspending in paid.</p>
+          <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEO, SEM</div>
         </a>
       </article>
 
       <article class="post reveal p-6 rounded-2xl border border-slate-200  bg-white/80 /60 backdrop-blur shadow lift" data-tags="Email,CRO">
         <a href="blog-posts/email-flows-that-print-money.html" class="group block">
-          <div class="text-xs uppercase tracking-widest text-slate-500">Jul 30, 2025 • Lifecycle</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jul 30, 2025 • Lifecycle</div>
           <h2 class="mt-2 text-xl font-bold text-emerald-600 group-hover:text-emerald-600">Email flows that print money (without being spammy)</h2>
-          <p class="mt-2 text-sm text-slate-600 ">Welcome → browse/cart abandonment → post-purchase. Benchmarks, guardrails, and copy that converts.</p>
-          <div class="mt-4 text-xs text-slate-500">Tags: Email, CRO</div>
+          <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">Welcome → browse/cart abandonment → post-purchase. Benchmarks, guardrails, and copy that converts.</p>
+          <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: Email, CRO</div>
         </a>
       </article>
     </div>
