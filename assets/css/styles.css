@@ -156,8 +156,8 @@ li,
   min-width: 44px;
 }
 
-.service-card .icon.icon-large {
-  transform: scale(1.8);
+.service-card .icon.seo-icon-fill {
+  transform: scale(3);
 }
 
 
