@@ -31,43 +31,277 @@
   </script>
 
   <link rel="stylesheet" href="assets/css/styles.css?v=20250821">
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-C2XZD4YN3D');
+  </script>
+  
+  <style>
+    body {
+      background: #0f172a;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    
+    /* Force content boxes to be white with dark text */
+    article, .bg-white\/95, .bg-white\/90, .bg-white\/85, .bg-white\/80, .bg-white, 
+    .process-card, .cta-tile, .service-card {
+      background-color: white !important;
+    }
+    
+    /* Force text in content boxes to be dark */
+    article *, .bg-white\/95 *, .bg-white\/90 *, .bg-white\/85 *, .bg-white\/80 *, .bg-white *, 
+    .process-card *, .cta-tile *, .service-card * {
+      color: #1e293b !important;
+    }
+    
+    /* Force headings to be darker */
+    article h1, article h2, article h3, article h4, article h5, article h6,
+    .bg-white\/95 h1, .bg-white\/90 h1, .bg-white\/85 h1, .bg-white\/80 h1, .bg-white h1,
+    .bg-white\/95 h2, .bg-white\/90 h2, .bg-white\/85 h2, .bg-white\/80 h2, .bg-white h2,
+    .bg-white\/95 h3, .bg-white\/90 h3, .bg-white\/85 h3, .bg-white\/80 h3, .bg-white h3,
+    .bg-white\/95 h4, .bg-white\/90 h4, .bg-white\/85 h4, .bg-white\/80 h4, .bg-white h4,
+    .bg-white\/95 h5, .bg-white\/90 h5, .bg-white\/85 h5, .bg-white\/80 h5, .bg-white h5,
+    .bg-white\/95 h6, .bg-white\/90 h6, .bg-white\/85 h6, .bg-white\/80 h6, .bg-white h6,
+    .process-card h1, .process-card h2, .process-card h3, .process-card h4, .process-card h5, .process-card h6,
+    .cta-tile h1, .cta-tile h2, .cta-tile h3, .cta-tile h4, .cta-tile h5, .cta-tile h6,
+    .service-card h1, .service-card h2, .service-card h3, .service-card h4, .service-card h5, .service-card h6 {
+      color: #0f172a !important;
+    }
+    
+    /* Keep emerald accents */
+    .text-emerald-600, .text-emerald-500 {
+      color: #059669 !important;
+    }
+    
+    /* Keep white text on buttons */
+    .bg-emerald-600, .bg-emerald-700 {
+      color: white !important;
+    }
+    
+    /* NUCLEAR OPTION: Force ALL Recent Wins boxes to be white */
+    .bg-white\/95 {
+      background-color: white !important;
+      background: white !important;
+      background-image: none !important;
+    }
+    
+    /* Force ALL text in Recent Wins boxes to be dark */
+    .bg-white\/95, .bg-white\/95 * {
+      color: #1e293b !important;
+    }
+    
+    /* Force headings in Recent Wins to be darker */
+    .bg-white\/95 h1, .bg-white\/95 h2, .bg-white\/95 h3, .bg-white\/95 h4, .bg-white\/95 h5, .bg-white\/95 h6 {
+      color: #0f172a !important;
+    }
+    
+    /* Force borders to be visible */
+    .bg-white\/95 {
+      border-color: #e2e8f0 !important;
+    }
+    
+    /* TARGET RECENT WINS SECTION SPECIFICALLY */
+    .max-w-7xl .bg-white\/95 {
+      background-color: white !important;
+      background: white !important;
+      background-image: none !important;
+      color: #1e293b !important;
+    }
+    
+    .max-w-7xl .bg-white\/95 * {
+      color: #1e293b !important;
+    }
+    
+    .max-w-7xl .bg-white\/95 h1, 
+    .max-w-7xl .bg-white\/95 h2, 
+    .max-w-7xl .bg-white\/95 h3, 
+    .max-w-7xl .bg-white\/95 h4, 
+    .max-w-7xl .bg-white\/95 h5, 
+    .max-w-7xl .bg-white\/95 h6 {
+      color: #0f172a !important;
+    }
+    
+    /* NUCLEAR OPTION: Target Recent Wins by structure */
+    .max-w-7xl .mt-8 .grid .article {
+      background-color: white !important;
+      background: white !important;
+      color: #1e293b !important;
+    }
+    
+    /* Force ALL Recent Wins boxes to be white */
+    article[class*="bg-white"] {
+      background-color: white !important;
+      background: white !important;
+      color: #1e293b !important;
+    }
+    
+
+    
+    /* TARGET THE EXACT RECENT WINS BOXES */
+    article.bg-white {
+      background-color: white !important;
+      background: white !important;
+      color: #1e293b !important;
+      border: 5px solid blue !important;
+    }
+    
+    /* Force all text in Recent Wins boxes to be dark */
+    article.bg-white * {
+      color: #1e293b !important;
+    }
+    
+    /* Force headings to be darker */
+    article.bg-white h1, article.bg-white h2, article.bg-white h3, 
+    article.bg-white h4, article.bg-white h5, article.bg-white h6 {
+      color: #0f172a !important;
+    }
+    
+    /* NUCLEAR OPTION: Force ANY element with bg-white to be white */
+    [class*="bg-white"] {
+      background-color: white !important;
+      background: white !important;
+      background-image: none !important;
+    }
+    
+    /* Force text in any bg-white element to be dark */
+    [class*="bg-white"] * {
+      color: #1e293b !important;
+    }
+    
+    /* ULTRA NUCLEAR: Force Recent Wins boxes to be white with maximum specificity */
+    body .max-w-7xl .mt-8 .grid article[class*="bg-white"] {
+      background-color: white !important;
+      background: white !important;
+      background-image: none !important;
+      color: #1e293b !important;
+      border: 5px solid purple !important;
+    }
+    
+    /* Force all text in Recent Wins to be dark */
+    body .max-w-7xl .mt-8 .grid article[class*="bg-white"] * {
+      color: #1e293b !important;
+    }
+    
+    /* OVERRIDE THE EXTERNAL CSS THAT'S MAKING BOXES TRANSPARENT */
+    body.tech-canvas :where(article,div,aside)[class*="bg-white"] {
+      background: white !important;
+      background-color: white !important;
+      background-image: none !important;
+    }
+    
+    /* PRESERVE GREEN TEXT IN WHITE BOXES */
+    body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-emerald-600,
+    body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-emerald-500 {
+      color: #059669 !important;
+    }
+    
+
+    
+    /* Random Green Square Pixels Background */
+    .pixel-square {
+      position: fixed;
+      background: #10b981;
+      opacity: 0.8;
+      border-radius: 3px;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .pixel-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    .glow-effect {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+      animation: glow 10s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    
+    @keyframes glow {
+      0% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1.3);
+      }
+    }
+    
+    /* Fix scrollbar styling - remove any green borders */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 6px;
+      border: 2px solid #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    /* ENSURE MENU HOVER EFFECTS WORK */
+    header nav a {
+      transition: color 0.2s ease-in-out !important;
+    }
+    
+    header nav a:hover {
+      color: #059669 !important;
+    }
+    
+    #mobileMenuContent a {
+      transition: color 0.2s ease-in-out !important;
+    }
+    
+    #mobileMenuContent a:hover {
+      color: #059669 !important;
+    }
+  </style>
 </head>
 
-<body class="tech-canvas bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 touch-manipulation">
+<body class="tech-canvas bg-slate-950 text-slate-100 touch-manipulation" style="background: #0f172a !important;">
 
-<!-- Layered site background (subtle grey pixel canvas) -->
-<div class="pointer-events-none fixed inset-0 -z-10">
-  <!-- Pixel tile base (light) + static green accents -->
-  <div class="absolute inset-0 block dark:hidden" style="background:
-      conic-gradient(rgba(100,116,139,0.16) 25%, transparent 0 50%, rgba(100,116,139,0.16) 0 75%, transparent 0) 0 0/8px 8px,
-      radial-gradient(100px 100px at 0 0, rgba(16,185,129,0.05), transparent 60%),
-      radial-gradient(120px 120px at 100% 100%, rgba(16,185,129,0.04), transparent 60%),
-      repeating-linear-gradient(120deg, rgba(16,185,129,0.10) 0 1px, transparent 1px 40px);
-      background-size: 8px 8px, auto, auto, 280px 280px;
-  "></div>
-  <!-- Pixel tile base (dark) + static green accents -->
-  <div class="absolute inset-0 hidden dark:block" style="background:
-      conic-gradient(rgba(100,116,139,0.12) 25%, transparent 0 50%, rgba(100,116,139,0.12) 0 75%, transparent 0) 0 0/8px 8px,
-      radial-gradient(100px 100px at 0 0, rgba(16,185,129,0.06), transparent 60%),
-      radial-gradient(120px 120px at 100% 100%, rgba(16,185,129,0.05), transparent 60%),
-      repeating-linear-gradient(120deg, rgba(16,185,129,0.08) 0 1px, transparent 1px 40px);
-      background-size: 8px 8px, auto, auto, 280px 280px;
-  "></div>
-  <!-- Subtle hex grid overlay (static) -->
-  <div class="absolute inset-0 opacity-[0.035] mix-blend-overlay" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSIzNSIgdmlld0JveD0iMCAwIDQwIDM1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM5OWY2ZTQiIHN0cm9rZS13aWR0aD0iMC42IiBvcGFjaXR5PSIwLjUiPjxwYXRoIGQ9Ik0xMCAyIEwzMCAyIEw0MCAxNy41IEwzMCAzMyBMMTAgMzMgTDAgMTcuNSBaIi8+PC9nPjwvc3ZnPg=='); background-size:40px 35px"></div>
-  <!-- Grey vignette for depth -->
-  <div class="absolute inset-0" style="background:
-    radial-gradient(60% 80% at 50% 20%, rgba(15,23,42,0.06), transparent 60%),
-    radial-gradient(80% 80% at 50% 100%, rgba(15,23,42,0.05), transparent 70%);
-  "></div>
-  <!-- Very faint brand glows -->
-  <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full blur-3xl bg-emerald-500/10"></div>
-  <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full blur-3xl bg-emerald-400/10"></div>
-</div>
+<!-- Pixel Grid and Glow Background -->
+<div class="pixel-grid"></div>
+<div class="glow-effect"></div>
+
+
 
 <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
-<header class="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
+<header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/95 backdrop-blur shadow-[0_1px_8px_rgba(0,0,0,0.1)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
     <a href="#home" class="flex items-center gap-3">
       <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
@@ -75,17 +309,17 @@
     </a>
 
     <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-      <a href="#services" class="py-1 hover:text-emerald-600 tap">Services</a>
-      <a href="#work" class="py-1 hover:text-emerald-600 tap">Results</a>
-      <a href="#about" class="py-1 hover:text-emerald-600 tap">About</a>
-      <a href="#pricing" class="py-1 hover:text-emerald-600 tap">Pricing</a>
-      <a href="blog.html" class="py-1 hover:text-emerald-600 tap">Blog</a>
-      <a href="#contact" class="py-1 hover:text-emerald-600 tap">Contact</a>
+      <a href="#services" class="py-1 text-slate-900 hover:text-emerald-600 tap">Services</a>
+      <a href="#work" class="py-1 text-slate-900 hover:text-emerald-600 tap">Results</a>
+      <a href="#about" class="py-1 text-slate-900 hover:text-emerald-600 tap">About</a>
+      <a href="#pricing" class="py-1 text-slate-900 hover:text-emerald-600 tap">Pricing</a>
+      <a href="blog.html" class="py-1 text-slate-900 hover:text-emerald-600 tap">Blog</a>
+      <a href="#contact" class="py-1 text-slate-900 hover:text-emerald-600 tap">Contact</a>
     </nav>
 
     <div class="ml-auto flex items-center gap-2 sm:gap-3">
       <a href="#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
-      <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 dark:border-slate-800" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 " aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -99,14 +333,14 @@
     </div>
   </div>
 
-  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
+  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white/95 backdrop-blur">
     <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
-      <a href="#services" class="hover:text-emerald-600 py-2">Services</a>
-      <a href="#work" class="hover:text-emerald-600 py-2">Results</a>
-      <a href="#about" class="hover:text-emerald-600 py-2">About</a>
-      <a href="#pricing" class="hover:text-emerald-600 py-2">Pricing</a>
-      <a href="blog.html" class="hover:text-emerald-600 py-2">Blog</a>
-      <a href="#contact" class="hover:text-emerald-600 py-2">Contact</a>
+      <a href="#services" class="text-slate-900 hover:text-emerald-600 py-2">Services</a>
+      <a href="#work" class="text-slate-900 hover:text-emerald-600 py-2">Results</a>
+      <a href="#about" class="text-slate-900 hover:text-emerald-600 py-2">About</a>
+      <a href="#pricing" class="text-slate-900 hover:text-emerald-600 py-2">Pricing</a>
+      <a href="blog.html" class="text-slate-900 hover:text-emerald-600 py-2">Blog</a>
+      <a href="#contact" class="text-slate-900 hover:text-emerald-600 py-2">Contact</a>
     </nav>
   </div>
 </header>
@@ -115,50 +349,50 @@
   <div id="hero-bg" class="absolute inset-0 z-0">
     <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('images/hero-banner.png');"></div>
     <div class="absolute inset-0" style="background:
-      radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.18), transparent 70%),
-      radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.16), transparent 70%),
-      radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.14), transparent 70%);
+      radial-gradient(60% 120% at 80% 0%, rgba(16,185,129,0.25), transparent 70%),
+      radial-gradient(70% 100% at 10% 100%, rgba(59,130,246,0.22), transparent 70%),
+      radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.20), transparent 70%);
     "></div>
     <div class="absolute inset-0 hero-grid pointer-events-none"></div>
   </div>
 
   <div class="absolute inset-0 pointer-events-none z-10" aria-hidden="true">
-    <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/30"></div>
-    <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/30"></div>
+    <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl bg-emerald-400/45"></div>
+    <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full blur-3xl bg-emerald-300/45"></div>
   </div>
 
   <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28 grid gap-10 sm:gap-12 items-center">
     <div class="reveal">
-      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 border border-slate-200 text-slate-900">
         Digital Marketing Specialists
       </span>
-      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-slate-900">
         Performance-first marketing for brands that want results.
       </h1>
-      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300">
+      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-700">
         I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer journey optimisation strategies.
       </p>
       <div class="mt-6 sm:mt-8 flex flex-col xs:flex-row flex-wrap gap-3">
         <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift w-full xs:w-auto">
           Book a free consult
         </a>
-        <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl bg-white/80 dark:bg-slate-900/60 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 hover:bg-white/90 dark:hover:bg-slate-900/70 w-full xs:w-auto lift">
+        <a href="#services" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl bg-white/90 text-slate-900 border border-slate-300 hover:bg-white w-full xs:w-auto lift">
           Explore services
         </a>
       </div>
 
       <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-6">
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="28">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">Average lift in CTR</div>
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-counter="28">0</div>
+          <div class="text-xs sm:text-sm text-slate-600">Average lift in CTR</div>
         </div>
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="35">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">Reduction in CPA</div>
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-counter="35">0</div>
+          <div class="text-xs sm:text-sm text-slate-600">Reduction in CPA</div>
         </div>
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-2xl sm:text-3xl font-extrabold" data-counter="52">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">Email revenue share</div>
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-counter="52">0</div>
+          <div class="text-xs sm:text-sm text-slate-600">Email revenue share</div>
         </div>
       </div>
     </div>
@@ -169,9 +403,9 @@
 
 <hr class="grad-rule mx-auto w-[90%] opacity-60" />
 
-  <section class="py-10 sm:py-12 border-y border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50">
+  <section class="py-10 sm:py-12 border-y border-slate-200/60 bg-white/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
+      <div class="rounded-3xl border border-slate-200 bg-white/95 backdrop-blur shadow p-6 sm:p-8">
         <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
       <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
       <img alt="Google Ads" class="h-5 sm:h-6 opacity-60" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy"/>
@@ -184,11 +418,11 @@
     </div>
 </section>
 
-<section id="services" class="relative overflow-hidden py-16 bg-transparent border-y border-slate-200/60 dark:border-slate-800/60 scroll-mt-24">
+<section id="services" class="relative overflow-hidden py-16 bg-transparent border-y border-slate-200/60 scroll-mt-24">
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-3 mb-12">
-      <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Our Services</h2>
+    <div class="inline-block rounded-2xl border border-slate-200 bg-white/95 shadow px-5 py-3 mb-12">
+      <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900">Our Services</h2>
     </div>
 
     <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -197,13 +431,13 @@
           <div class="face front">
             <div class="content content-front">
               <img src="images/seo-icon-colour.png" alt="SEO icon" class="icon object-contain">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
+              <h3 class="text-lg font-semibold text-slate-900 ">SEO</h3>
             </div>
           </div>
           <div class="face back">
             <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SEO</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-semibold text-slate-900 ">SEO</h3>
+              <p class="text-sm text-slate-700 ">
                 Full-Funnel Search: Our approach covers everything from getting you to the top of search results to turning clicks into customers. We handle the technical SEO and content to bring people in, then optimize your paid ad campaigns—including account setup and creative testing—to deliver a strong and consistent return on your ad spend.
               </p>
             </div>
@@ -216,13 +450,13 @@
           <div class="face front">
             <div class="content content-front">
               <img src="images/cro-icon-colour.png" alt="CRO icon" class="icon object-contain">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
+              <h3 class="text-lg font-semibold text-slate-900 ">Conversion Rate Optimisation</h3>
             </div>
           </div>
           <div class="face back">
             <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conversion Rate Optimisation</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-semibold text-slate-900 ">Conversion Rate Optimisation</h3>
+              <p class="text-sm text-slate-700 ">
                 Ready to get more from your existing traffic? We dive into your data to find out why people aren't converting. Through rapid A/B testing and UX improvements, we fix bottlenecks that are costing you sales. Our focus is on optimizing critical areas like product pages and the checkout process to give your conversion rates a significant boost.
               </p>
             </div>
@@ -235,13 +469,13 @@
           <div class="face front">
             <div class="content content-front">
               <img src="images/shopify-icon-colour.png" alt="Shopify icon" class="icon object-contain">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Shopify Design &amp; Management</h3>
+              <h3 class="text-lg font-semibold text-slate-900 ">Shopify Design &amp; Management</h3>
             </div>
           </div>
           <div class="face back">
             <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Shopify</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-semibold text-slate-900 ">Shopify</h3>
+              <p class="text-sm text-slate-700 ">
                 Your Shopify store is your most important asset. We'll fine-tune it for success, from speeding up your site and optimizing navigation to improving product feeds and tagging. Our work ensures your store is designed well, runs smooth, and is set up to drive sales and scale with your business.
               </p>
             </div>
@@ -254,13 +488,13 @@
           <div class="face front">
             <div class="content content-front">
               <img src="images/customer-journey-icon.png" alt="Customer journey icon" class="icon object-contain">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey Optimisations</h3>
+              <h3 class="text-lg font-semibold text-slate-900 ">Customer Journey Optimisations</h3>
             </div>
           </div>
           <div class="face back">
             <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Customer Journey</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-semibold text-slate-900 ">Customer Journey</h3>
+              <p class="text-sm text-slate-700 ">
                 We look at the entire journey a customer takes with your brand—from their very first click to their repeat purchases. By reducing friction points and making smart decisions based on clear data, we help you increase customer lifetime value (LTV) and build a loyal customer base.
               </p>
             </div>
@@ -273,13 +507,13 @@
           <div class="face front">
             <div class="content content-front">
               <img src="images/email-marketing-icon-colour.png" alt="Email marketing icon" class="icon object-contain">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
+              <h3 class="text-lg font-semibold text-slate-900 ">Email Marketing</h3>
             </div>
           </div>
           <div class="face back">
             <div class="content">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email Marketing</h3>
-              <p class="text-sm text-slate-700 dark:text-slate-300">
+              <h3 class="text-lg font-semibold text-slate-900 ">Email Marketing</h3>
+              <p class="text-sm text-slate-700 ">
                 We turn your email list into a powerful revenue engine. Our strategy goes beyond basic newsletters, focusing on automated lifecycle flows and targeted campaigns that consistently drive sales. From growing your list and segmenting your audience to writing compelling copy, we ensure your email marketing pays for itself and keeps customers coming back.
               </p>
             </div>
@@ -287,12 +521,12 @@
         </div>
       </article>
 
-      <div class="cta-tile reveal h-full border border-emerald-500/50 bg-gradient-to-br from-emerald-600 to-green-500 text-white">
+      <div class="cta-tile reveal h-full border border-emerald-500/50 bg-white/95 text-slate-900 shadow">
         <div class="text-lg sm:text-xl font-bold">Not sure where to start?</div>
         <p class="mt-2 text-sm sm:text-base opacity-90">
           Book a free 20-minute call. We’ll spot quick wins and outline a plan you can execute immediately.
         </p>
-        <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 lift">
+        <a href="#contact" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-600 lift">
           Get a plan
         </a>
       </div>
@@ -302,15 +536,15 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
   <div class="max-w-3xl mx-auto">
-    <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-4 text-center">
-      <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Recent Wins</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">A snapshot of outcomes. Happy to walk through the how on a call.</p>
+    <div class="inline-block rounded-2xl border border-slate-200 bg-white shadow px-5 py-4 text-center">
+      <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Recent Wins</h2>
+      <p class="mt-3 text-sm sm:text-base text-slate-600">A snapshot of outcomes. Happy to walk through the how on a call.</p>
     </div>
   </div>
 
   <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 items-stretch">
-    <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
-      <div class="h-44 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-2 flex items-center justify-center">
+    <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
+      <div class="h-44 w-full rounded-xl bg-slate-50 p-2 flex items-center justify-center">
         <svg viewBox="0 0 140 140" class="progress-chart h-full w-full text-emerald-500" role="img" aria-label="70.44% increase in EDM revenue" data-percent="70.44">
           <defs>
             <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
@@ -329,15 +563,15 @@
           <text x="70" y="86" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#64748b">EDM revenue</text>
         </svg>
       </div>
-      <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Email</div>
-      <div class="mt-1 text-xl sm:text-2xl font-bold">70.44% Increase in EDM Revenue</div>
-      <div class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-        <p class="mt-2 text-[13px] sm:text-sm leading-snug">Increased EDM revenue by <span class="text-emerald-600 dark:text-emerald-500 font-bold">70.44%</span> through a three-part strategy focused on <span class="text-emerald-600 dark:text-emerald-500 font-bold">optimizing email campaigns</span> with A/B testing, <span class="text-emerald-600 dark:text-emerald-500 font-bold">growing the subscriber base</span>, and <span class="text-emerald-600 dark:text-emerald-500 font-bold">enhancing engagement</span> to boost traffic and conversions. My current focus is on <span class="text-emerald-600 dark:text-emerald-500 font-bold">database segmentation</span> to deliver more relevant content and reduce churn.</p>
+      <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-600">Email</div>
+      <div class="mt-1 text-xl sm:text-2xl font-bold text-slate-900">70.44% Increase in EDM Revenue</div>
+      <div class="mt-2 text-sm text-slate-700">
+        <p class="mt-2 text-[13px] sm:text-sm leading-snug">Increased EDM revenue by <span class="text-emerald-600  font-bold">70.44%</span> through a three-part strategy focused on <span class="text-emerald-600  font-bold">optimizing email campaigns</span> with A/B testing, <span class="text-emerald-600  font-bold">growing the subscriber base</span>, and <span class="text-emerald-600  font-bold">enhancing engagement</span> to boost traffic and conversions. My current focus is on <span class="text-emerald-600  font-bold">database segmentation</span> to deliver more relevant content and reduce churn.</p>
       </div>
     </article>
 
-    <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
-      <div class="h-44 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+    <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
+      <div class="h-44 w-full rounded-xl bg-slate-50 p-3 flex items-center justify-center">
         <svg viewBox="0 0 320 110" class="w-full h-full" role="img" aria-label="Before vs After total online revenue">
           <defs>
             <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
@@ -363,15 +597,15 @@
           </g>
         </svg>
       </div>
-      <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Revenue</div>
-      <div class="mt-1 text-xl sm:text-2xl font-bold">13.91% Increase in Total Online Revenue</div>
-      <div class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-        <p class="mt-2 text-[13px] sm:text-sm leading-snug">I boosted total online revenue by <span class="text-emerald-600 dark:text-emerald-500 font-bold">13.91%</span> with a holistic, multi-channel strategy. My focus was on <span class="text-emerald-600 dark:text-emerald-500 font-bold">enhancing email marketing</span>, implementing <span class="text-emerald-600 dark:text-emerald-500 font-bold">conversion rate optimization (CRO)</span>, and improving <span class="text-emerald-600 dark:text-emerald-500 font-bold">website traffic & SEO</span> to build a more resilient and high-performing online presence.</p>
+      <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-600">Revenue</div>
+      <div class="mt-1 text-xl sm:text-2xl font-bold text-slate-900">13.91% Increase in Total Online Revenue</div>
+      <div class="mt-2 text-sm text-slate-700">
+        <p class="mt-2 text-[13px] sm:text-sm leading-snug">I boosted total online revenue by <span class="text-emerald-600  font-bold">13.91%</span> with a holistic, multi-channel strategy. My focus was on <span class="text-emerald-600  font-bold">enhancing email marketing</span>, implementing <span class="text-emerald-600  font-bold">conversion rate optimization (CRO)</span>, and improving <span class="text-emerald-600  font-bold">website traffic & SEO</span> to build a more resilient and high-performing online presence.</p>
       </div>
     </article>
 
-    <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
-      <div class="h-44 w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 p-3 flex items-center justify-center">
+    <article class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
+      <div class="h-44 w-full rounded-xl bg-slate-50 p-3 flex items-center justify-center">
         <svg viewBox="0 0 320 110" class="w-full h-full" role="img" aria-label="Conversion rate trend">
           <defs>
             <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
@@ -394,10 +628,10 @@
           <text x="296" y="20" text-anchor="end" font-size="11" fill="#6d28d9">+18.93%</text>
         </svg>
       </div>
-      <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-500">Conversion Rate</div>
-      <div class="mt-1 text-xl sm:text-2xl font-bold">18.93% Increase in Conversion Rate</div>
-      <div class="mt-2 text-sm text-slate-600 dark:text-slate-300">
-        <p class="mt-2 text-[13px] sm:text-sm leading-snug">My focus on user experience and conversion rate optimization delivered a total conversion rate increase of <span class="text-emerald-600 dark:text-emerald-500 font-bold">18.93%</span> over two years. This significant growth came from <span class="text-emerald-600 dark:text-emerald-500 font-bold">streamlining the checkout process</span>, running continuous <span class="text-emerald-600 dark:text-emerald-500 font-bold">A/B testing</span>, and applying a <span class="text-emerald-600 dark:text-emerald-500 font-bold">user-centric design</span> to remove obstacles and convert more visitors into customers.</p>
+      <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-600">Conversion Rate</div>
+      <div class="mt-1 text-xl sm:text-2xl font-bold text-slate-900">18.93% Increase in Conversion Rate</div>
+      <div class="mt-2 text-sm text-slate-700">
+        <p class="mt-2 text-[13px] sm:text-sm leading-snug">My focus on user experience and conversion rate optimization delivered a total conversion rate increase of <span class="text-emerald-600  font-bold">18.93%</span> over two years. This significant growth came from <span class="text-emerald-600  font-bold">streamlining the checkout process</span>, running continuous <span class="text-emerald-600  font-bold">A/B testing</span>, and applying a <span class="text-emerald-600  font-bold">user-centric design</span> to remove obstacles and convert more visitors into customers.</p>
       </div>
     </article>
   </div>
@@ -405,98 +639,98 @@
 
 <section class="relative overflow-hidden py-16 sm:py-20">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay" style="background-image:
+    <div class="absolute inset-0 opacity-[0.12] mix-blend-overlay" style="background-image:
       radial-gradient(rgba(148,163,184,.6) 1px, transparent 1px);
       background-size: 24px 24px;
       background-position: -1px -1px;
     "></div>
-    <div class="absolute left-1/2 -translate-x-1/2 top-12 h-48 w-48 rounded-full blur-3xl bg-emerald-500/15"></div>
+    <div class="absolute left-1/2 -translate-x-1/2 top-12 h-48 w-48 rounded-full blur-3xl bg-emerald-500/25"></div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow px-5 py-4">
+      <div class="inline-block rounded-2xl border border-slate-200  bg-white/90  shadow px-5 py-4">
         <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">How we’ll work</h2>
-        <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Lean, clear, fast. You’ll always know what’s happening and why.</p>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 ">Lean, clear, fast. You’ll always know what’s happening and why.</p>
       </div>
     </div>
 
     <div class="mt-10 md:hidden space-y-8">
-      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow">
+      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 overflow-hidden bg-white/95 shadow">
         <div class="bg-white p-4 flex items-center justify-center h-44">
           <img src="images/diagnose.png" alt="Diagnose" class="max-h-full max-w-full object-contain">
         </div>
         <div class="p-5 sm:p-6 text-center">
           <h3 class="text-base sm:text-lg font-bold">1. Diagnose</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">We start by analysing your business. We'll <span class="text-emerald-600 dark:text-emerald-500 font-bold">audit</span> your current <span class="text-emerald-600 dark:text-emerald-500 font-bold">data</span>, <span class="text-emerald-600 dark:text-emerald-500 font-bold">analyse</span> your <span class="text-emerald-600 dark:text-emerald-500 font-bold">website</span> and <span class="text-emerald-600 dark:text-emerald-500 font-bold">marketing funnels</span>, and pinpoint anything <span class="text-emerald-600 dark:text-emerald-500 font-bold">holding you back</span>. Our goal is to identify what's truly <span class="text-emerald-600 dark:text-emerald-500 font-bold">stopping</span> <span class="text-emerald-600 dark:text-emerald-500 font-bold">growth</span>, so we can focus on <span class="text-emerald-600 dark:text-emerald-500 font-bold">solutions</span> that move the needle.</p>
+          <p class="mt-2 text-sm text-slate-600 ">We start by analysing your business. We'll <span class="text-emerald-600  font-bold">audit</span> your current <span class="text-emerald-600  font-bold">data</span>, <span class="text-emerald-600  font-bold">analyse</span> your <span class="text-emerald-600  font-bold">website</span> and <span class="text-emerald-600  font-bold">marketing funnels</span>, and pinpoint anything <span class="text-emerald-600  font-bold">holding you back</span>. Our goal is to identify what's truly <span class="text-emerald-600  font-bold">stopping</span> <span class="text-emerald-600  font-bold">growth</span>, so we can focus on <span class="text-emerald-600  font-bold">solutions</span> that move the needle.</p>
         </div>
       </article>
 
-      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow">
+      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 overflow-hidden bg-white/95 shadow">
         <div class="bg-white p-4 flex items-center justify-center h-44">
           <img src="images/design.png" alt="Design" class="max-h-full max-w-full object-contain">
         </div>
         <div class="p-5 sm:p-6 text-center">
           <h3 class="text-base sm:text-lg font-bold">2. Design</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now that we know what needs to be fixed, it's time to <span class="text-emerald-600 dark:text-emerald-500 font-bold">create a clear plan</span>. We'll design a <span class="text-emerald-600 dark:text-emerald-500 font-bold">strategic roadmap</span> of experiments and initiatives, <span class="text-emerald-600 dark:text-emerald-500 font-bold">prioritizing by impact vs. effort</span>. This ensures we're working on the <span class="text-emerald-600 dark:text-emerald-500 font-bold">most valuable tasks first</span>, setting you up for <span class="text-emerald-600 dark:text-emerald-500 font-bold">scalable, long‑term growth</span>.</p>
+          <p class="mt-2 text-sm text-slate-600 ">Now that we know what needs to be fixed, it's time to <span class="text-emerald-600  font-bold">create a clear plan</span>. We'll design a <span class="text-emerald-600  font-bold">strategic roadmap</span> of experiments and initiatives, <span class="text-emerald-600  font-bold">prioritizing by impact vs. effort</span>. This ensures we're working on the <span class="text-emerald-600  font-bold">most valuable tasks first</span>, setting you up for <span class="text-emerald-600  font-bold">scalable, long‑term growth</span>.</p>
         </div>
       </article>
 
-      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow">
+      <article class="process-card reveal p-0 rounded-2xl border border-slate-200 overflow-hidden bg-white/95 shadow">
         <div class="bg-white p-4 flex items-center justify-center h-44">
           <img src="images/deliver.png" alt="Deliver" class="max-h-full max-w-full object-contain">
         </div>
         <div class="p-5 sm:p-6 text-center">
           <h3 class="text-base sm:text-lg font-bold">3. Deliver</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now it's time to put our plan into action. We’ll <span class="text-emerald-600 dark:text-emerald-500 font-bold">rapidly deploy and test</span> our solutions, continuously <span class="text-emerald-600 dark:text-emerald-500 font-bold">measure performance</span> and make <span class="text-emerald-600 dark:text-emerald-500 font-bold">real‑time adjustments</span>. Everything is <span class="text-emerald-600 dark:text-emerald-500 font-bold">thoroughly documented</span>, building a <span class="text-emerald-600 dark:text-emerald-500 font-bold">compounding library of learnings</span> and a <span class="text-emerald-600 dark:text-emerald-500 font-bold">clear playbook</span> you can use long after our work is done.</p>
+          <p class="mt-2 text-sm text-slate-600 ">Now it's time to put our plan into action. We’ll <span class="text-emerald-600  font-bold">rapidly deploy and test</span> our solutions, continuously <span class="text-emerald-600  font-bold">measure performance</span> and make <span class="text-emerald-600  font-bold">real‑time adjustments</span>. Everything is <span class="text-emerald-600  font-bold">thoroughly documented</span>, building a <span class="text-emerald-600  font-bold">compounding library of learnings</span> and a <span class="text-emerald-600  font-bold">clear playbook</span> you can use long after our work is done.</p>
         </div>
       </article>
     </div>
 
     <div class="relative mt-10 hidden md:block">
-      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-slate-400/70 dark:bg-slate-600/70 z-0"></div>
+      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-slate-400/70 /70 z-0"></div>
 
       <ol class="space-y-16">
         <li class="relative flex justify-start">
-          <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
+          <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white  border border-slate-200  shadow"></span>
           <div class="w-1/2 pr-10">
-            <article class="process-card reveal from-left p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
+            <article class="process-card reveal from-left p-0 rounded-2xl border border-slate-200  overflow-hidden bg-white/85  shadow h-full">
               <div class="bg-white p-4 flex items-center justify-center h-44">
                 <img src="images/diagnose.png" alt="Diagnose" class="max-h-full max-w-full object-contain">
               </div>
               <div class="p-6 text-center">
                 <h3 class="text-lg font-bold">1. Diagnose</h3>
-                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">                We start by analysing your business. We'll <span class="text-emerald-600 dark:text-emerald-500 font-bold">audit</span> your current <span class="text-emerald-600 dark:text-emerald-500 font-bold">data</span>, <span class="text-emerald-600 dark:text-emerald-500 font-bold">analyse</span> your <span class="text-emerald-600 dark:text-emerald-500 font-bold">website</span> and <span class="text-emerald-600 dark:text-emerald-500 font-bold">marketing funnels</span>, and pinpoint anything <span class="text-emerald-600 dark:text-emerald-500 font-bold">holding you back</span>. Our goal is to identify what's truly <span class="text-emerald-600 dark:text-emerald-500 font-bold">stopping</span> <span class="text-emerald-600 dark:text-emerald-500 font-bold">growth</span>, so we can focus on <span class="text-emerald-600 dark:text-emerald-500 font-bold">solutions</span> that move the needle.</p>
+                <p class="mt-2 text-sm text-slate-600 ">                We start by analysing your business. We'll <span class="text-emerald-600  font-bold">audit</span> your current <span class="text-emerald-600  font-bold">data</span>, <span class="text-emerald-600  font-bold">analyse</span> your <span class="text-emerald-600  font-bold">website</span> and <span class="text-emerald-600  font-bold">marketing funnels</span>, and pinpoint anything <span class="text-emerald-600  font-bold">holding you back</span>. Our goal is to identify what's truly <span class="text-emerald-600  font-bold">stopping</span> <span class="text-emerald-600  font-bold">growth</span>, so we can focus on <span class="text-emerald-600  font-bold">solutions</span> that move the needle.</p>
               </div>
             </article>
           </div>
         </li>
 
         <li class="relative flex justify-end">
-          <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
+          <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white  border border-slate-200  shadow"></span>
           <div class="w-1/2 pl-10">
-            <article class="process-card reveal from-right p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
+            <article class="process-card reveal from-right p-0 rounded-2xl border border-slate-200  overflow-hidden bg-white/85  shadow h-full">
               <div class="bg-white p-4 flex items-center justify-center h-44">
                 <img src="images/design.png" alt="Design" class="max-h-full max-w-full object-contain">
               </div>
               <div class="p-6 text-center">
                 <h3 class="text-lg font-bold">2. Design</h3>
-                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now that we know what needs to be fixed, it's time to <span class="text-emerald-600 dark:text-emerald-500 font-bold">create a clear plan</span>. We'll design a <span class="text-emerald-600 dark:text-emerald-500 font-bold">strategic roadmap</span> of experiments and initiatives, <span class="text-emerald-600 dark:text-emerald-500 font-bold">prioritizing by impact vs. effort</span>. This ensures we're working on the <span class="text-emerald-600 dark:text-emerald-500 font-bold">most valuable tasks first</span>, setting you up for <span class="text-emerald-600 dark:text-emerald-500 font-bold">scalable, long‑term growth</span>.</p>
+                <p class="mt-2 text-sm text-slate-600 ">Now that we know what needs to be fixed, it's time to <span class="text-emerald-600  font-bold">create a clear plan</span>. We'll design a <span class="text-emerald-600  font-bold">strategic roadmap</span> of experiments and initiatives, <span class="text-emerald-600  font-bold">prioritizing by impact vs. effort</span>. This ensures we're working on the <span class="text-emerald-600  font-bold">most valuable tasks first</span>, setting you up for <span class="text-emerald-600  font-bold">scalable, long‑term growth</span>.</p>
               </div>
             </article>
           </div>
         </li>
 
         <li class="relative flex justify-start">
-          <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow"></span>
+          <span class="absolute left-1/2 -translate-x-1/2 top-10 h-6 w-6 rounded-full bg-white  border border-slate-200  shadow"></span>
           <div class="w-1/2 pr-10">
-            <article class="process-card reveal from-left p-0 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white/85 dark:bg-slate-900/60 shadow h-full">
+            <article class="process-card reveal from-left p-0 rounded-2xl border border-slate-200  overflow-hidden bg-white/85  shadow h-full">
               <div class="bg-white p-4 flex items-center justify-center h-44">
                 <img src="images/deliver.png" alt="Deliver" class="max-h-full max-w-full object-contain">
               </div>
               <div class="p-6 text-center">
                 <h3 class="text-lg font-bold">3. Deliver</h3>
-                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Now it's time to put our plan into action. We’ll <span class="text-emerald-600 dark:text-emerald-500 font-bold">rapidly deploy and test</span> our solutions, continuously <span class="text-emerald-600 dark:text-emerald-500 font-bold">measure performance</span> and make <span class="text-emerald-600 dark:text-emerald-500 font-bold">real‑time adjustments</span>. Everything is <span class="text-emerald-600 dark:text-emerald-500 font-bold">thoroughly documented</span>, building a <span class="text-emerald-600 dark:text-emerald-500 font-bold">compounding library of learnings</span> and a <span class="text-emerald-600 dark:text-emerald-500 font-bold">clear playbook</span> you can use long after our work is done.</p>
+                <p class="mt-2 text-sm text-slate-600 ">Now it's time to put our plan into action. We’ll <span class="text-emerald-600  font-bold">rapidly deploy and test</span> our solutions, continuously <span class="text-emerald-600  font-bold">measure performance</span> and make <span class="text-emerald-600  font-bold">real‑time adjustments</span>. Everything is <span class="text-emerald-600  font-bold">thoroughly documented</span>, building a <span class="text-emerald-600  font-bold">compounding library of learnings</span> and a <span class="text-emerald-600  font-bold">clear playbook</span> you can use long after our work is done.</p>
               </div>
             </article>
           </div>
@@ -508,7 +742,7 @@
 
 <section id="pricing" class="relative overflow-hidden py-16 sm:py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
+    <div class="rounded-3xl border border-slate-200 bg-white/95 backdrop-blur shadow p-6 sm:p-8">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 hidden">
     <div class="absolute inset-0 opacity-[0.05] mix-blend-overlay" style="background-image:
       repeating-linear-gradient(to right, rgba(100,116,139,.5) 0 1px, transparent 1px 28px),
@@ -523,7 +757,7 @@
   <div class="text-center">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Pricing</h2>
-      <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300">Simple options. Shift between project or monthly retainer below.</p>
+      <p class="mt-3 text-sm sm:text-base text-slate-600 ">Simple options. Shift between project or monthly retainer below.</p>
     </div>
 
     <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 mb-6 sm:mb-8">
@@ -531,28 +765,28 @@
   <button id="priceToggle" class="relative inline-flex h-8 w-16 items-center rounded-full bg-emerald-600 dark:bg-emerald-500 transition" aria-pressed="false">
     <span id="priceDot" class="inline-block h-6 w-6 rounded-full bg-white dark:bg-white border border-transparent transition-transform duration-200 ease-out"></span>
   </button>
-  <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">One-off</span>
+  <span class="text-xs sm:text-sm text-slate-900 ">One-off</span>
 </div>
-      <span class="text-xs sm:text-sm text-slate-900 dark:text-slate-100">One-off</span>
+      <span class="text-xs sm:text-sm text-slate-900 ">One-off</span>
     </div>
 
     <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-stretch">
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200  md:rounded-2xl flex flex-col text-left h-full bg-white/85  backdrop-blur shadow">
         <div class="flex-1 flex flex-col">
           <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500" data-month="NZ$1,000">NZ$1,500</span></div>
           <p class="mt-2 text-[13px] sm:text-sm leading-snug">The perfect way to get started and see immediate results. We’ll audit a key area of your business and deliver a list of quick, impactful wins.</p>
           <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600  list-disc list-inside space-y-1">
             <li>A comprehensive audit of your Search or Email performance</li>
             <li>A 10-point Conversion Rate Optimisation (CRO) checklist</li>
             <li>Our team's support to implement fixes for two weeks</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/80 dark:bg-slate-900/60 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 hover:bg-white/90 dark:hover:bg-slate-900/70 self-start lift">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/80  text-slate-900  border border-slate-300  hover:bg-white/90 /70 self-start lift">Enquire</a>
       </div>
 
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
         <div class="flex-1 flex flex-col">
           <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,000" data-month="NZ$1,500">NZ$2,000</span></div>
@@ -567,19 +801,19 @@
         <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 self-start lift">Enquire</a>
       </div>
 
-      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 md:rounded-2xl flex flex-col text-left h-full bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+      <div class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200  md:rounded-2xl flex flex-col text-left h-full bg-white/85  backdrop-blur shadow">
         <div class="flex-1 flex flex-col">
           <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
           <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,500" data-month="NZ$2,000">NZ$2,500</span></div>
           <p class="mt-2 text-[13px] sm:text-sm leading-snug">For established businesses ready to accelerate. We take full ownership of search & email with advanced tracking and custom reporting.</p>
           <p class="mt-4 text-[13px] sm:text-sm font-semibold">What you get:</p>
-          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+          <ul class="mt-2 text-[13px] sm:text-sm text-slate-600  list-disc list-inside space-y-1">
             <li>Complete ownership of your search and email strategies</li>
             <li>Weekly growth standups to align on priorities and results</li>
             <li>Custom performance dashboards for complete clarity</li>
           </ul>
         </div>
-        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/80 dark:bg-slate-900/60 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 hover:bg-white/90 dark:hover:bg-slate-900/70 self-start lift">Enquire</a>
+        <a href="#contact" class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/80  text-slate-900  border border-slate-300  hover:bg-white/90 /70 self-start lift">Enquire</a>
       </div>
     </div>
 
@@ -589,37 +823,37 @@
   </div>
 </section>
 
-<section id="about" class="relative overflow-hidden py-16 sm:py-20 bg-white/60 dark:bg-slate-900/50 backdrop-blur border-y border-slate-200/60 dark:border-slate-800/60">
+<section id="about" class="relative overflow-hidden py-16 sm:py-20 bg-white/80 backdrop-blur border-y border-slate-200/60">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute inset-0 opacity-[0.05] mix-blend-overlay" style="background-image:
+    <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay" style="background-image:
       repeating-linear-gradient(to right, rgba(59,130,246,.45) 0 1px, transparent 1px 36px),
       repeating-linear-gradient(to bottom, rgba(59,130,246,.45) 0 1px, transparent 1px 36px);
     "></div>
-    <div class="absolute right-[-10%] top-[-10%] h-72 w-72 rounded-full blur-3xl bg-sky-400/15"></div>
+    <div class="absolute right-[-10%] top-[-10%] h-72 w-72 rounded-full blur-3xl bg-sky-400/25"></div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow p-6 sm:p-8">
+    <div class="rounded-3xl border border-slate-200 bg-white/95 backdrop-blur shadow p-6 sm:p-8">
       <div class="grid lg:grid-cols-2 gap-10 sm:gap-12 items-start">
     <div class="reveal">
       <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">About Michael</h2>
-      <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">I’m a digital marketing executive with 2.5 years at <span class="text-emerald-600 dark:text-emerald-500 font-bold">Bargain Chemist</span>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
-      <p class="mt-3 text-slate-600 dark:text-slate-300">I hold a <span class="text-emerald-600 dark:text-emerald-500 font-bold">Bachelor of Commerce</span> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
+      <p class="mt-3 sm:mt-4 text-slate-600 ">I’m a digital marketing executive with 2.5 years at <span class="text-emerald-600  font-bold">Bargain Chemist</span>, where I’ve managed a large Shopify site, built and executed SEO/SEM strategy, run high-performing EDMs (Klaviyo), and led CRO initiatives that directly improved sales and customer experience.</p>
+      <p class="mt-3 text-slate-600 ">I hold a <span class="text-emerald-600  font-bold">Bachelor of Commerce</span> (Marketing + Information Systems). I blend marketing craft with systems thinking so the work isn’t just creative—it’s operationally sound and measurable.</p>
       <div class="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-xl sm:text-2xl font-extrabold" data-counter="450">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">+ Campaigns shipped</div>
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
+          <div class="text-xl sm:text-2xl font-extrabold text-slate-900" data-counter="450">0</div>
+          <div class="text-xs sm:text-sm text-slate-600">+ Campaigns shipped</div>
         </div>
-        <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 backdrop-blur shadow-sm">
-          <div class="text-xl sm:text-2xl font-extrabold" data-counter="128">0</div>
-          <div class="text-xs sm:text-sm text-slate-500">Shopify improvements</div>
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
+          <div class="text-xl sm:text-2xl font-extrabold text-slate-900" data-counter="128">0</div>
+          <div class="text-xs sm:text-sm text-slate-600">Shopify improvements</div>
         </div>
       </div>
     </div>
     <div class="reveal flex flex-col justify-center h-full">
-    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 bg-white/85 dark:bg-slate-900/60 backdrop-blur shadow">
+    <div class="rounded-3xl border border-slate-200 p-6 bg-white/95 backdrop-blur shadow">
         <h3 class="font-bold text-lg">Mission Statement</h3>
-        <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
+        <p class="mt-3 text-sm text-slate-700 ">
             We exist to transform your digital presence into your most powerful growth engine. Our mission is to build robust, full-funnel strategies that not only attract visitors and convert them into loyal customers, but also build a powerful and consistent brand presence across all online channels. We ensure every decision is driven by data and designed for sustainable, long-term success.
         </p>
     </div>
@@ -631,13 +865,13 @@
 
   <section id="contact" class="relative overflow-hidden py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="relative rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow p-6 sm:p-8">
+      <div class="relative rounded-3xl border border-slate-200 bg-white shadow p-6 sm:p-8">
         <div class="text-center">
           <div class="reveal">
             <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight">Let's talk</h2>
-            <p class="mt-3 sm:mt-4 text-slate-600 dark:text-slate-300">Tell me about your goals and let's explore how we can work together to achieve them. The first step is a conversation to understand what you need. From there, we can build a clear plan of action.</p>
+            <p class="mt-3 sm:mt-4 text-slate-600 ">Tell me about your goals and let's explore how we can work together to achieve them. The first step is a conversation to understand what you need. From there, we can build a clear plan of action.</p>
             
-            <div class="mt-6 text-slate-600 dark:text-slate-300">
+            <div class="mt-6 text-slate-600 ">
               <h3 class="font-bold text-lg">Our process is simple:</h3>
               <ul class="list-disc list-inside mt-2 space-y-1">
                 <li>Discovery: We'll have a quick chat to understand your challenges and aspirations.</li>
@@ -648,9 +882,9 @@
           </div>
           
           <div class="reveal space-y-4 flex flex-col items-center mt-8">
-            <div class="bg-white/80 dark:bg-slate-900/60 backdrop-blur rounded-2xl p-6 shadow-sm text-center w-full">
+            <div class="bg-white/95 backdrop-blur rounded-2xl p-6 shadow-sm text-center w-full">
               <h4 class="font-semibold text-lg mb-4">Ready to start your growth journey?</h4>
-              <p class="text-slate-600 dark:text-slate-400 mb-6">Send me an email with your project details and I'll get back to you within 24 hours.</p>
+              <p class="text-slate-600  mb-6">Send me an email with your project details and I'll get back to you within 24 hours.</p>
               
               <a href="mailto:michaelsowden17@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -663,9 +897,9 @@
               <p class="mt-4 text-sm text-slate-500">Click to open your email client</p>
             </div>
             
-            <div class="mt-6 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 w-full text-center">
+            <div class="mt-6 p-4 rounded-xl border border-slate-200  bg-slate-50 /50 w-full text-center">
               <h4 class="font-semibold text-sm mb-2">What to include in your email:</h4>
-              <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+              <ul class="text-xs text-slate-600  space-y-1">
                 <li>• Your business name and website</li>
                 <li>• What you need help with (SEO, CRO, Email Marketing, etc.)</li>
                 <li>• Your current challenges and goals</li>
@@ -678,7 +912,7 @@
     </div>
   </section>
 
-<footer class="py-10 border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
+<footer class="py-10 border-t border-slate-200 bg-white/80 backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
@@ -693,5 +927,58 @@
 </footer>
 
 <script src="assets/js/main.js?v=20250821"></script>
+
+<script>
+  // Random Green Square Pixels Background
+  function createRandomPixel() {
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel-square';
+    
+    // Random position
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    
+    // Random size (3-12px)
+    const size = 3 + Math.random() * 9;
+    
+    // Random opacity
+    const opacity = 0.4 + Math.random() * 0.5;
+    
+    pixel.style.left = x + 'px';
+    pixel.style.top = y + 'px';
+    pixel.style.width = size + 'px';
+    pixel.style.height = size + 'px';
+    pixel.style.opacity = opacity;
+    
+    document.body.appendChild(pixel);
+    
+    // Remove pixel after some time and create a new one
+    setTimeout(() => {
+      if (pixel.parentNode) {
+        pixel.parentNode.removeChild(pixel);
+        createRandomPixel();
+      }
+    }, 8000 + Math.random() * 4000);
+  }
+  
+  // Initialize random pixels
+  function initRandomPixels() {
+    // Create initial batch of pixels
+    for (let i = 0; i < 150; i++) {
+      setTimeout(createRandomPixel, Math.random() * 2000);
+    }
+  }
+  
+  // Start the random pixel effect when page loads
+  window.addEventListener('load', initRandomPixels);
+  
+  // Adjust for window resize
+  window.addEventListener('resize', () => {
+    // Remove existing pixels and restart
+    const pixels = document.querySelectorAll('.pixel-square');
+    pixels.forEach(pixel => pixel.remove());
+    initRandomPixels();
+  });
+</script>
 </body>
 </html>

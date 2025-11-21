@@ -14,13 +14,13 @@ body { overflow-x: hidden; }
   transition: box-shadow .25s ease, transform .2s ease, border-color .2s ease, background-color .2s ease;
 }
 .service-card:hover, .process-card:hover, .cta-tile:hover, .lift:hover {
-  box-shadow: 0 10px 30px rgba(16,185,129,.20), 0 1px 1px rgba(16,185,129,.15);
-  border-color: rgba(16,185,129,.55) !important;
-  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(16,185,129,.35), 0 1px 1px rgba(16,185,129,.25);
+  border-color: rgba(16,185,129,.75) !important;
+  transform: translateY(-3px);
 }
 header nav a:hover, header nav a:focus-visible {
   color: rgb(5 150 105);
-  text-shadow: 0 0 12px rgba(16,185,129,.35);
+  text-shadow: 0 0 16px rgba(16,185,129,.55);
 }
 a:focus-visible, button:focus-visible {
   outline: 2px solid rgba(16,185,129,.6);
@@ -36,8 +36,32 @@ body.tech-canvas #services .service-card:focus-visible{
 
 /* Strong green hue on all other boxes (rounded + border + shadow), excluding service cards */
 body.tech-canvas :where(article,div,aside,section)[class*="rounded-"][class*="border"][class*="shadow"]:not(#services .service-card):not(#services .service-card *):not(.no-green){
-  box-shadow: 0 12px 36px rgba(16,185,129,.28), 0 1px 1px rgba(0,0,0,.05);
-  border-color: rgba(16,185,129,.5) !important;
+  box-shadow: 0 16px 48px rgba(16,185,129,.4), 0 1px 1px rgba(0,0,0,.05);
+  border-color: rgba(16,185,129,.7) !important;
+}
+
+/* Remove green borders from Recent Wins section */
+body.tech-canvas .max-w-7xl .mt-8 .grid article[class*="rounded-"][class*="border"][class*="shadow"],
+body.tech-canvas .max-w-7xl .mt-8 .grid article.reveal,
+body.tech-canvas .max-w-7xl .mt-8 .grid article {
+  box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.12) !important;
+  border-color: rgba(226,232,240,1) !important;
+  border: 1px solid rgba(226,232,240,1) !important;
+}
+
+/* Nuclear option: Force Recent Wins to have no green styling */
+body.tech-canvas .max-w-7xl .mt-8 .grid article {
+  box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.12) !important;
+  border-color: rgba(226,232,240,1) !important;
+  border: 1px solid rgba(226,232,240,1) !important;
+}
+
+/* Override any green hover effects on Recent Wins */
+body.tech-canvas .max-w-7xl .mt-8 .grid article:hover {
+  box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.12) !important;
+  border-color: rgba(226,232,240,1) !important;
+  border: 1px solid rgba(226,232,240,1) !important;
+  transform: none !important;
 }
 
 /* Mobile: make cards solid for stronger contrast */
@@ -142,7 +166,7 @@ body.tech-canvas #services .service-card::before{ content:none }
 #services .cta-tile{
   min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
   text-align: center; padding: 1.5rem; border-radius: .75rem;
-  box-shadow: 0 10px 30px rgba(16,185,129,.35);
+  box-shadow: 0 15px 45px rgba(16,185,129,.5);
 }
 
 .reveal.in .spark-draw { animation: drawline 900ms cubic-bezier(.22,1,.36,1) forwards; }
@@ -218,4 +242,31 @@ body.tech-canvas #services .service-card .rotator::before{ content:none }
   transform: translateY(-2px);
 }
 /* Keep hint always visible (no auto-hide) */
+
+/* Fix light grey text visibility in white content boxes */
+body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-slate-500,
+body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-slate-600,
+body.tech-canvas :where(article,div,aside)[class*="bg-white"] a .text-slate-500,
+body.tech-canvas :where(article,div,aside)[class*="bg-white"] a .text-slate-600 {
+  color: #475569 !important;
+}
+
+/* Make small text more readable in white boxes */
+body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-xs,
+body.tech-canvas :where(article,div,aside)[class*="bg-white"] a .text-xs {
+  color: #64748b !important;
+}
+
+/* Force all text in white boxes to be darker */
+body.tech-canvas .bg-white\/80 .text-slate-500,
+body.tech-canvas .bg-white\/80 .text-slate-600,
+body.tech-canvas .bg-white\/80 a .text-slate-500,
+body.tech-canvas .bg-white\/80 a .text-slate-600 {
+  color: #475569 !important;
+}
+
+body.tech-canvas .bg-white\/80 .text-xs,
+body.tech-canvas .bg-white\/80 a .text-xs {
+  color: #64748b !important;
+}
 
