@@ -275,7 +275,7 @@ li,
 .service-card .icon {
   width: var(--svc-icon-size);
   height: var(--svc-icon-size);
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
   background: transparent !important;
