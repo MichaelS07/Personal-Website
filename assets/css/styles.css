@@ -273,9 +273,11 @@ li,
 }
 
 .service-card .icon {
-  width: var(--svc-icon-size);
-  height: var(--svc-icon-size);
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  max-width: var(--svc-icon-size);
+  max-height: var(--svc-icon-size);
+  object-fit: cover;
   object-position: center;
   display: block;
   background: transparent !important;
