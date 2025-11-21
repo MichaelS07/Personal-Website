@@ -71,10 +71,9 @@
 
   <header
     class="sticky top-0 z-50 border-b border-slate-200/70 bg-white backdrop-blur supports-[backdrop-filter]:bg-white shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center relative">
       <a href="../index.html#home" class="flex items-center gap-3">
-        <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-9 w-9" loading="lazy">
-        <span class="font-extrabold tracking-tight text-lg text-slate-900">Nova Reach</span>
+        <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-24 w-auto" loading="lazy">
       </a>
 
       <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -167,7 +166,8 @@
             <li><strong>Actionable copy:</strong> "Enter a valid email (name@domain.com)" beats "Invalid input".</li>
           </ul>
           <p><span class="kbd">Tip</span> In Shopify (Theme App Extensions or custom), add
-            <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.</p>
+            <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.
+          </p>
 
           <h3>Trust signals near the CTA</h3>
           <ul>
@@ -184,7 +184,8 @@
             <li><strong>Tap area:</strong> Aim for 44px touch targets and <strong>≥16px</strong> label size for
               readability.</li>
             <li><strong>Email keyboard:</strong> Use <code>inputmode="email"</code> and
-              <code>autocomplete="email"</code>; <strong>disable auto-cap</strong> for email fields.</li>
+              <code>autocomplete="email"</code>; <strong>disable auto-cap</strong> for email fields.
+            </li>
             <li><strong>Field grouping:</strong> Break long forms into logical chunks to reduce cognitive load.</li>
           </ul>
         </section>
@@ -211,7 +212,8 @@
             <li><strong>Defer app scripts:</strong> Add <code>defer</code> or load after <code>DOMContentLoaded</code>
               for non-critical apps.</li>
             <li><strong>Preload critical CSS:</strong> Inline above-the-fold CSS or use
-              <code>&lt;link rel="preload" as="style"&gt;</code> then swap.</li>
+              <code>&lt;link rel="preload" as="style"&gt;</code> then swap.
+            </li>
           </ul>
 
           <h3>Remove duplicate analytics tags & app leftovers</h3>
@@ -256,7 +258,8 @@
           <h2>FAQ</h2>
           <h3>Will AVIF hurt visual quality?</h3>
           <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback in the
-            <code><picture></code> element just in case.</p>
+            <code><picture></code> element just in case.
+          </p>
 
           <h3>Do badges actually increase conversions?</h3>
           <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces
