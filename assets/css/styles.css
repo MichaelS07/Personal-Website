@@ -2,8 +2,18 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
 body { overflow-x: hidden; }
 
-.glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
-.dark .glass { background: rgba(17,24,39,0.5); }
+/* Base Theme Colors - White/Clean */
+:root {
+  --bg-body: #0f172a;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #475569;
+  --text-light: #64748b;
+  --text-heading: #0f172a;
+  --accent-primary: #10b981;
+  --accent-hover: #059669;
+  --border-light: #e2e8f0;
+}
 
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: translateY(0); }
@@ -11,63 +21,59 @@ body { overflow-x: hidden; }
 
 /* Interactive emerald highlights */
 .lift, .service-card, .process-card, .cta-tile, header nav a, button, a {
-  transition: box-shadow .25s ease, transform .2s ease, border-color .2s ease, background-color .2s ease;
+  transition: box-shadow .25s ease, transform .2s ease, border-color .2s ease, background-color .2s ease, color .2s ease;
 }
+
 .service-card:hover, .process-card:hover, .cta-tile:hover, .lift:hover {
-  box-shadow: 0 15px 40px rgba(16,185,129,.35), 0 1px 1px rgba(16,185,129,.25);
-  border-color: rgba(16,185,129,.75) !important;
+  box-shadow: 0 15px 40px rgba(16,185,129,.15), 0 1px 1px rgba(16,185,129,.10);
+  border-color: rgba(16,185,129,.5) !important;
   transform: translateY(-3px);
 }
+
 header nav a:hover, header nav a:focus-visible {
-  color: rgb(5 150 105);
-  text-shadow: 0 0 16px rgba(16,185,129,.55);
+  color: var(--accent-hover);
 }
+
 a:focus-visible, button:focus-visible {
   outline: 2px solid rgba(16,185,129,.6);
   outline-offset: 3px;
 }
+
 .service-card:active, .process-card:active, .cta-tile:active, .lift:active { transform: translateY(0); }
 
-/* Remove hover hues/lift inside services */
-body.tech-canvas #services .service-card:hover,
-body.tech-canvas #services .service-card:focus-visible{
-  box-shadow: none !important; border-color: rgba(226,232,240,.55) !important; transform:none !important;
+/* Card Styling - White Theme */
+.bg-white, .bg-white\/95, .bg-white\/90, .bg-white\/85, .bg-white\/80,
+article, .process-card, .cta-tile, .service-card .face {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main);
+  border: 1px solid var(--border-light);
 }
 
-/* Strong green hue on all other boxes (rounded + border + shadow), excluding service cards */
-body.tech-canvas :where(article,div,aside,section)[class*="rounded-"][class*="border"][class*="shadow"]:not(#services .service-card):not(#services .service-card *):not(.no-green){
-  box-shadow: 0 16px 48px rgba(16,185,129,.4), 0 1px 1px rgba(0,0,0,.05);
-  border-color: rgba(16,185,129,.7) !important;
+/* Text Colors */
+h1, h2, h3, h4, h5, h6, .section-head {
+  color: var(--text-heading) !important;
 }
 
-/* Remove green borders from Recent Wins section */
-body.tech-canvas .max-w-7xl .mt-8 .grid article[class*="rounded-"][class*="border"][class*="shadow"],
-body.tech-canvas .max-w-7xl .mt-8 .grid article.reveal,
-body.tech-canvas .max-w-7xl .mt-8 .grid article {
-  box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.12) !important;
-  border-color: rgba(226,232,240,1) !important;
-  border: 1px solid rgba(226,232,240,1) !important;
+p, li, .text-slate-700, .text-slate-900 {
+  color: var(--text-main);
 }
 
-/* Nuclear option: Force Recent Wins to have no green styling */
-body.tech-canvas .max-w-7xl .mt-8 .grid article {
-  box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.12) !important;
-  border-color: rgba(226,232,240,1) !important;
-  border: 1px solid rgba(226,232,240,1) !important;
+.text-slate-600, .text-slate-500 {
+  color: var(--text-muted) !important;
 }
 
-/* Override any green hover effects on Recent Wins */
-body.tech-canvas .max-w-7xl .mt-8 .grid article:hover {
-  box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.12) !important;
-  border-color: rgba(226,232,240,1) !important;
-  border: 1px solid rgba(226,232,240,1) !important;
-  transform: none !important;
+.text-xs, .text-sm {
+  color: var(--text-light);
 }
 
-/* Mobile: make cards solid for stronger contrast */
-@media (max-width: 640px){
-  body.tech-canvas :where(article,div,aside)[class*="bg-white/"]{ background:#ffffff !important }
-  .dark body.tech-canvas :where(article,div,aside)[class*="bg-slate-900/"]{ background:#020617 !important }
+/* Keep Emerald Accents */
+.text-emerald-600, .text-emerald-500 {
+  color: var(--accent-hover) !important;
+}
+
+.bg-emerald-600, .bg-emerald-700 {
+  background-color: var(--accent-hover) !important;
+  color: white !important;
 }
 
 /* Directional reveals for timeline cards */
@@ -84,7 +90,6 @@ body.tech-canvas .max-w-7xl .mt-8 .grid article:hover {
 :root{
   --svc-card-minh: 19rem;
   --svc-icon-size: 10rem;
-  --section-accent: linear-gradient(90deg, rgba(16,185,129,.5), rgba(16,185,129,0));
 }
 @media (min-width: 640px){
   :root{ --svc-card-minh: 20rem; }
@@ -96,15 +101,16 @@ body.tech-canvas .max-w-7xl .mt-8 .grid article:hover {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   min-height: var(--svc-card-minh);
-  color: #0f172a;
+  color: var(--text-main);
   border-radius: .75rem;
   overflow: hidden;
-  background: transparent;
+  background: transparent !important; /* Container is transparent */
+  border: none !important; /* Container has no border */
   isolation: isolate;
   transform: translateZ(0);
   will-change: transform;
+  box-shadow: none !important; /* Container has no shadow */
 }
-.dark .service-card{ background: transparent; }
 
 .service-card .rotator{
   position: relative;
@@ -125,17 +131,11 @@ body.tech-canvas .max-w-7xl .mt-8 .grid article:hover {
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
   border-radius: inherit;
-  border: 0;
-  background: #ffffff;
-  box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.12);
-  outline: 1px solid transparent;
+  background: var(--bg-card);
+  box-shadow: 0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.08);
+  border: 1px solid var(--border-light);
   z-index: 1;
 }
-.dark .service-card .face{ border: 0; background: rgb(2 6 23 / 1); box-shadow: 0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35); }
-
-/* Remove container underlay so the grey tech background shows mid-flip */
-body.tech-canvas #services .service-card{ position: relative; background: transparent !important }
-body.tech-canvas #services .service-card::before{ content:none }
 
 .service-card .front{ transform: rotateY(0); }
 .service-card .back { transform: rotateY(180deg); }
@@ -156,17 +156,13 @@ body.tech-canvas #services .service-card::before{ content:none }
   filter: drop-shadow(0 6px 12px rgba(16,24,40,.15));
 }
 
-@media (prefers-color-scheme: dark) {
-  .service-card, .service-card h3, .service-card p { color: #0f172a !important; }
-}
-
 .service-card::after{ content:none }
 
 #services .cards-grid > *{ min-height: var(--svc-card-minh); }
 #services .cta-tile{
   min-height: var(--svc-card-minh); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;
   text-align: center; padding: 1.5rem; border-radius: .75rem;
-  box-shadow: 0 15px 45px rgba(16,185,129,.5);
+  box-shadow: 0 15px 45px rgba(16,185,129,.15);
 }
 
 .reveal.in .spark-draw { animation: drawline 900ms cubic-bezier(.22,1,.36,1) forwards; }
@@ -174,41 +170,6 @@ body.tech-canvas #services .service-card::before{ content:none }
 @media (prefers-reduced-motion: reduce){
   .reveal.in .spark-draw { animation: none; stroke-dashoffset: 0; }
 }
-
-/* GLOBAL tech canvas – unifies sections and floats surfaces */
-body.tech-canvas section{ background:transparent !important; border-color:transparent !important; backdrop-filter:none !important }
-body.tech-canvas section > [aria-hidden="true"][class*="absolute"][class*="-z-10"]{ display:none !important }
-body.tech-canvas .grad-rule{ opacity:.08 !important }
-
-/* Make white/light surfaces glassy (avoid buttons/anchors) */
-body.tech-canvas :where(article,div,aside)[class*="bg-white"],
-body.tech-canvas :where(article,div,aside)[class*="bg-slate-50"],
-body.tech-canvas :where(article,div,aside)[class*="bg-slate-100"]{
-  background:rgba(255,255,255,.06) !important;
-  backdrop-filter:blur(12px) saturate(110%);
-  border-color:rgba(148,163,184,.28) !important;
-  box-shadow:0 1px 1px rgba(0,0,0,.04), 0 8px 20px rgba(0,0,0,.12);
-}
-.dark body.tech-canvas :where(article,div,aside)[class*="bg-white"],
-.dark body.tech-canvas :where(article,div,aside)[class*="bg-slate-50"],
-.dark body.tech-canvas :where(article,div,aside)[class*="bg-slate-100"]{
-  background:rgba(2,6,23,.5) !important;
-  border-color:rgba(30,41,59,.6) !important;
-  box-shadow:0 1px 1px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
-}
-
-/* Reset service card container to be transparent by default */
-body.tech-canvas .service-card{ background:transparent !important }
-
-/* Hero/banner: use original colours (no dimming) */
-/* (intentionally no overrides here) */
-
-
-/* (removed forced opaque faces/underlay in services to avoid flash during flip) */
-
-/* Remove any forced underlay in services to avoid white flash */
-body.tech-canvas #services .service-card .rotator{ position: relative }
-body.tech-canvas #services .service-card .rotator::before{ content:none }
 
 /* Flip hint badge */
 .service-card .front .flip-hint,
@@ -229,44 +190,79 @@ body.tech-canvas #services .service-card .rotator::before{ content:none }
   opacity: 0.95;
   transition: opacity .25s ease, transform .25s ease;
 }
-.dark .service-card .front .flip-hint,
-.dark .service-card .back .flip-hint{
-  color: #34d399;
-  background: rgba(16,185,129,.14);
-  border-color: rgba(16,185,129,.45);
-}
+
 .service-card:hover .front .flip-hint,
 .service-card:focus-within .front .flip-hint,
 .service-card:hover .back .flip-hint,
 .service-card:focus-within .back .flip-hint{
   transform: translateY(-2px);
 }
-/* Keep hint always visible (no auto-hide) */
 
-/* Fix light grey text visibility in white content boxes */
-body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-slate-500,
-body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-slate-600,
-body.tech-canvas :where(article,div,aside)[class*="bg-white"] a .text-slate-500,
-body.tech-canvas :where(article,div,aside)[class*="bg-white"] a .text-slate-600 {
-  color: #475569 !important;
+/* Random Green Square Pixels Background */
+.pixel-square {
+  position: fixed;
+  background: #10b981;
+  opacity: 0.8;
+  border-radius: 3px;
+  z-index: -1;
+  pointer-events: none;
 }
 
-/* Make small text more readable in white boxes */
-body.tech-canvas :where(article,div,aside)[class*="bg-white"] .text-xs,
-body.tech-canvas :where(article,div,aside)[class*="bg-white"] a .text-xs {
-  color: #64748b !important;
+.pixel-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -2;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-/* Force all text in white boxes to be darker */
-body.tech-canvas .bg-white\/80 .text-slate-500,
-body.tech-canvas .bg-white\/80 .text-slate-600,
-body.tech-canvas .bg-white\/80 a .text-slate-500,
-body.tech-canvas .bg-white\/80 a .text-slate-600 {
-  color: #475569 !important;
+.glow-effect {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: glow 10s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-body.tech-canvas .bg-white\/80 .text-xs,
-body.tech-canvas .bg-white\/80 a .text-xs {
-  color: #64748b !important;
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+  border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

@@ -5,13 +5,13 @@ const iconBars = document.getElementById('iconBars');
 const iconX = document.getElementById('iconX');
 const overlay = document.getElementById('menuOverlay');
 
-function setOverlay(open){
+function setOverlay(open) {
   if (!overlay) return;
   overlay.classList.toggle('opacity-0', !open);
   overlay.classList.toggle('opacity-100', open);
   overlay.classList.toggle('pointer-events-none', !open);
 }
-function setMenu(open){
+function setMenu(open) {
   if (!mobileMenu || !mobileMenuContent) return;
   if (open) {
     mobileMenu.classList.remove('hidden');
@@ -55,10 +55,10 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => io.observe(el));
 
-function animateCount(el){
+function animateCount(el) {
   const end = parseInt(el.getAttribute('data-counter'), 10);
   let current = 0; const duration = 1200; const start = performance.now();
-  function tick(t){
+  function tick(t) {
     const p = Math.min(1, (t - start) / duration);
     current = Math.floor(end * p);
     el.textContent = current + (end < 100 ? '%' : '');
@@ -69,7 +69,7 @@ function animateCount(el){
 const counters = document.querySelectorAll('[data-counter]');
 const io2 = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting && !e.target._counted){
+    if (e.isIntersecting && !e.target._counted) {
       e.target._counted = true;
       animateCount(e.target);
     }
@@ -81,7 +81,7 @@ const toggle = document.getElementById('priceToggle');
 const dot = document.getElementById('priceDot');
 const prices = document.querySelectorAll('.price');
 let monthly = true;
-function knobPositions(){
+function knobPositions() {
   if (!toggle || !dot) return { start: 0, end: 0 };
   const trackW = toggle.clientWidth;
   const knobW = dot.clientWidth;
@@ -90,7 +90,7 @@ function knobPositions(){
   const end = Math.max(margin, trackW - knobW - margin);
   return { start, end };
 }
-function renderPrices(){
+function renderPrices() {
   prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
   const { start, end } = knobPositions();
   if (dot) dot.style.transform = `translateX(${monthly ? start : end}px)`;
@@ -106,18 +106,18 @@ if (toggle && dot) {
   document.fonts && document.fonts.ready && document.fonts.ready.then(renderPrices);
 }
 
-function fakeSubmit(){
+function fakeSubmit() {
   const m = document.getElementById('formMsg');
   if (!m) return;
   m.classList.remove('hidden');
-  setTimeout(()=>m.classList.add('hidden'), 3500);
+  setTimeout(() => m.classList.add('hidden'), 3500);
 }
 window.fakeSubmit = fakeSubmit;
 
 const cards = Array.from(document.querySelectorAll('.service-card'));
-function measureHeights(card){
+function measureHeights(card) {
   const frontContent = card.querySelector('.front .content');
-  const backContent  = card.querySelector('.back .content');
+  const backContent = card.querySelector('.back .content');
   const rotator = card.querySelector('.rotator');
   const wasFlipped = card.classList.contains('is-flipped');
   rotator.style.transition = 'none';
@@ -129,20 +129,20 @@ function measureHeights(card){
   rotator.offsetHeight;
   rotator.style.transition = '';
   card._frontH = frontH;
-  card._backH  = backH;
+  card._backH = backH;
 }
-function applyHeight(card){
+function applyHeight(card) {
   const showingBack = card.classList.contains('is-flipped');
   const h = showingBack ? card._backH : card._frontH;
   if (h) card.style.height = h + 'px';
 }
-function addFlipHint(card){
+function addFlipHint(card) {
   const isTouch = (typeof window !== 'undefined' && ('ontouchstart' in window)) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
   const text = isTouch ? 'Tap to flip' : 'Click to flip';
   ['.front', '.back'].forEach(sel => {
     const face = card.querySelector(sel);
     if (!face) return;
-    if (!face.querySelector('.flip-hint')){
+    if (!face.querySelector('.flip-hint')) {
       const hint = document.createElement('span');
       hint.className = 'flip-hint';
       hint.textContent = text;
@@ -150,7 +150,7 @@ function addFlipHint(card){
     }
   });
 }
-function recalcAll(){ cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
+function recalcAll() { cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
 cards.forEach(card => {
   measureHeights(card); applyHeight(card); addFlipHint(card);
   card.addEventListener('click', (e) => {
@@ -165,17 +165,17 @@ window.addEventListener('load', recalcAll);
 window.addEventListener('resize', recalcAll);
 document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
 
-(function(){
+(function () {
   const el = document.getElementById('hero-bg');
-  if(!el) return;
-  let y=0, t=0;
+  if (!el) return;
+  let y = 0, t = 0;
   const onScroll = () => { y = window.scrollY || 0; };
   const raf = () => {
     t += (y - t) * 0.06;
     el.style.transform = `translate3d(0, ${t * -0.08}px, 0)`;
     requestAnimationFrame(raf);
   };
-  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('scroll', onScroll, { passive: true });
   raf();
 })();
 
@@ -230,3 +230,53 @@ document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
   }, 1500);
 })();
 
+
+// Random Green Square Pixels Background
+function createRandomPixel() {
+  const pixel = document.createElement('div');
+  pixel.className = 'pixel-square';
+
+  const size = 2 + Math.random() * 6;
+  const x = Math.random() * window.innerWidth;
+  const y = Math.random() * window.innerHeight;
+  const opacity = 0.2 + Math.random() * 0.4;
+  const timeout = 8000 + Math.random() * 4000;
+
+  pixel.style.width = size + 'px';
+  pixel.style.height = size + 'px';
+  pixel.style.left = x + 'px';
+  pixel.style.top = y + 'px';
+  pixel.style.opacity = opacity;
+
+  document.body.appendChild(pixel);
+
+  setTimeout(() => {
+    if (pixel.parentNode) {
+      pixel.parentNode.removeChild(pixel);
+    }
+  }, timeout);
+}
+
+function initRandomPixels() {
+  // Create initial pixels
+  for (let i = 0; i < 100; i++) {
+    setTimeout(() => {
+      createRandomPixel();
+    }, i * 20);
+  }
+
+  // Continue creating pixels
+  setInterval(createRandomPixel, 2000);
+}
+
+// Initialize on page load
+window.addEventListener('load', initRandomPixels);
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  // Remove existing pixels and restart
+  document.querySelectorAll('.pixel-square').forEach(pixel => {
+    pixel.remove();
+  });
+  setTimeout(initRandomPixels, 100);
+});
