@@ -156,6 +156,11 @@ li,
   min-width: 44px;
 }
 
+.service-card .icon.icon-large {
+  transform: scale(1.5);
+}
+
+
 #mobileMenu {
   max-height: 0;
   overflow: hidden;
