@@ -340,11 +340,13 @@ li,
 
 #services .cards-grid>* {
   min-height: var(--svc-card-minh);
+  width: 100%;
 }
 
 @media (max-width: 767px) {
   #services .cards-grid>* {
     height: auto;
+    width: 100%;
   }
 }
 
