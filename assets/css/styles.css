@@ -379,6 +379,47 @@ li,
   }
 }
 
+/* Recent Wins Mobile Carousel */
+.wins-carousel {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+}
+
+.wins-carousel::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+.wins-carousel>article {
+  flex: 0 0 85%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+@media (min-width: 768px) {
+  .wins-carousel {
+    display: grid;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+
+  .wins-carousel>article {
+    flex: none;
+    scroll-snap-align: none;
+  }
+}
+
 /* Flip hint badge */
 .service-card .front .flip-hint,
 .service-card .back .flip-hint {
