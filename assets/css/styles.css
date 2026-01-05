@@ -189,7 +189,8 @@ li,
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   min-height: var(--svc-card-minh);
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 5;
+
   color: var(--text-main);
   border-radius: .75rem;
   overflow: hidden;
@@ -202,6 +203,12 @@ li,
   will-change: transform;
   box-shadow: none !important;
   /* Container has no shadow */
+}
+
+@media (min-width: 768px) {
+  .service-card {
+    aspect-ratio: 3 / 2;
+  }
 }
 
 .service-card .rotator {
@@ -260,8 +267,14 @@ li,
 .service-card .front h3 {
   color: white !important;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .service-card .front h3 {
+    font-size: 1.5rem;
+  }
 }
 
 .service-card .front .flip-hint {
@@ -331,7 +344,7 @@ li,
 
 #services .cta-tile {
   min-height: var(--svc-card-minh);
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 5;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -341,6 +354,12 @@ li,
   padding: 1.5rem;
   border-radius: .75rem;
   box-shadow: 0 15px 45px rgba(16, 185, 129, .15);
+}
+
+@media (min-width: 768px) {
+  #services .cta-tile {
+    aspect-ratio: 3 / 2;
+  }
 }
 
 .reveal.in .spark-draw {
