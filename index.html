@@ -301,124 +301,134 @@
 
     <div class="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 items-stretch">
       <article
-        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
-        <div class="h-44 w-full rounded-xl bg-slate-50 p-2 flex items-center justify-center">
-          <svg viewBox="0 0 140 140" class="progress-chart h-full w-full text-emerald-500" role="img"
-            aria-label="70.44% increase in EDM revenue" data-percent="70.44">
-            <defs>
-              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#10b981" />
-                <stop offset="100%" stop-color="#34d399" />
-              </linearGradient>
-            </defs>
-            <!-- Ticks -->
-            <circle cx="70" cy="70" r="56" fill="none" stroke="#059669" stroke-opacity="0.15" stroke-width="10"
-              stroke-dasharray="2 10" transform="rotate(-90 70 70)" />
-            <!-- Background track -->
-            <circle cx="70" cy="70" r="56" fill="none" stroke="#10b981" stroke-opacity="0.12" stroke-width="14" />
-            <!-- Foreground arc -->
-            <circle class="fg" cx="70" cy="70" r="56" fill="none" stroke="url(#ringGrad)" stroke-width="14"
-              stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"
-              transform="rotate(-90 70 70)" />
-            <!-- Labels -->
-            <text class="pct" x="70" y="64" text-anchor="middle" dominant-baseline="central" font-size="20"
-              font-weight="800" fill="#047857">0%</text>
-            <text x="70" y="86" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#64748b">EDM
-              revenue</text>
-          </svg>
+        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <span
+            class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">E-commerce</span>
         </div>
-        <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-600">Email</div>
-        <div class="mt-1 text-xl sm:text-2xl font-bold text-slate-900">70.44% Increase in EDM Revenue</div>
-        <div class="mt-2 text-sm text-slate-700">
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">Increased EDM revenue by <span
-              class="text-emerald-600  font-bold">70.44%</span> through a three-part strategy focused on <span
-              class="text-emerald-600  font-bold">optimizing email campaigns</span> with A/B testing, <span
-              class="text-emerald-600  font-bold">growing the subscriber base</span>, and <span
-              class="text-emerald-600  font-bold">enhancing engagement</span> to boost traffic and conversions. My
-            current focus is on <span class="text-emerald-600  font-bold">database segmentation</span> to deliver more
-            relevant content and reduce churn.</p>
+
+        <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-emerald-500 pl-4">
+          "Michael's email strategy completely transformed our customer retention and revenue."
+        </blockquote>
+
+        <div class="mb-4">
+          <div class="text-5xl sm:text-6xl font-extrabold text-emerald-600 leading-none">70.44%</div>
+          <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in EDM Revenue</div>
+        </div>
+
+        <div class="mb-4 text-sm text-slate-700 leading-relaxed">
+          <p><strong class="text-slate-900">Challenge:</strong> Email revenue had plateaued with declining engagement
+            rates.</p>
+          <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Implemented a comprehensive email
+            optimization strategy focusing on segmentation, A/B testing, and lifecycle automation.</p>
+          <p class="mt-2"><strong class="text-slate-900">Result:</strong> Achieved 70.44% revenue growth while improving
+            subscriber engagement and reducing churn.</p>
+        </div>
+
+        <div class="mt-auto">
+          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
+          <ul class="space-y-1 text-sm text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 mt-0.5">✓</span>
+              <span>Advanced database segmentation for personalized content</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 mt-0.5">✓</span>
+              <span>Continuous A/B testing of subject lines and content</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 mt-0.5">✓</span>
+              <span>Automated lifecycle flows for customer retention</span>
+            </li>
+          </ul>
         </div>
       </article>
 
       <article
-        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
-        <div class="h-44 w-full rounded-xl bg-slate-50 p-3 flex items-center justify-center">
-          <svg viewBox="0 0 320 110" class="w-full h-full" role="img" aria-label="Before vs After total online revenue">
-            <defs>
-              <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#10b981" />
-                <stop offset="100%" stop-color="#22c55e" />
-              </linearGradient>
-            </defs>
-            <!-- Grid -->
-            <g stroke="#94a3b8" stroke-opacity="0.15">
-              <line x1="20" y1="90" x2="300" y2="90" />
-              <line x1="20" y1="50" x2="300" y2="50" />
-            </g>
-            <!-- Bars -->
-            <rect x="60" y="58" width="60" height="32" rx="6" fill="#94a3b8" fill-opacity="0.45" />
-            <rect x="200" y="28" width="60" height="62" rx="6" fill="url(#barGrad)" />
-            <!-- Labels -->
-            <text x="90" y="102" text-anchor="middle" font-size="11" fill="#64748b">Before</text>
-            <text x="230" y="102" text-anchor="middle" font-size="11" fill="#065f46">After</text>
-            <!-- Delta badge -->
-            <g transform="translate(230,12)">
-              <rect x="-34" y="-10" width="68" height="20" rx="10" fill="#10b981" fill-opacity="0.12" stroke="#10b981"
-                stroke-opacity="0.35" />
-              <text x="0" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">+13.91%</text>
-            </g>
-          </svg>
+        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <span
+            class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-50 text-purple-700 border border-purple-200">Multi-Channel</span>
         </div>
-        <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-600">Revenue</div>
-        <div class="mt-1 text-xl sm:text-2xl font-bold text-slate-900">13.91% Increase in Total Online Revenue</div>
-        <div class="mt-2 text-sm text-slate-700">
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">I boosted total online revenue by <span
-              class="text-emerald-600  font-bold">13.91%</span> with a holistic, multi-channel strategy. My focus was on
-            <span class="text-emerald-600  font-bold">enhancing email marketing</span>, implementing <span
-              class="text-emerald-600  font-bold">conversion rate optimization (CRO)</span>, and improving <span
-              class="text-emerald-600  font-bold">website traffic & SEO</span> to build a more resilient and
-            high-performing online presence.
+
+        <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-purple-500 pl-4">
+          "The holistic approach delivered results across every channel we tracked."
+        </blockquote>
+
+        <div class="mb-4">
+          <div class="text-5xl sm:text-6xl font-extrabold text-purple-600 leading-none">13.91%</div>
+          <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Total Revenue</div>
+        </div>
+
+        <div class="mb-4 text-sm text-slate-700 leading-relaxed">
+          <p><strong class="text-slate-900">Challenge:</strong> Revenue growth was stagnant despite increasing traffic.
           </p>
+          <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Deployed an integrated strategy combining
+            email marketing, CRO, and SEO improvements to maximize every touchpoint.</p>
+          <p class="mt-2"><strong class="text-slate-900">Result:</strong> Boosted total online revenue by 13.91% with
+            sustained, compound growth.</p>
+        </div>
+
+        <div class="mt-auto">
+          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
+          <ul class="space-y-1 text-sm text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-600 mt-0.5">✓</span>
+              <span>Enhanced email marketing with targeted campaigns</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-600 mt-0.5">✓</span>
+              <span>Conversion rate optimization across key pages</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-600 mt-0.5">✓</span>
+              <span>Technical SEO improvements for organic growth</span>
+            </li>
+          </ul>
         </div>
       </article>
 
       <article
-        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col min-h-0">
-        <div class="h-44 w-full rounded-xl bg-slate-50 p-3 flex items-center justify-center">
-          <svg viewBox="0 0 320 110" class="w-full h-full" role="img" aria-label="Conversion rate trend">
-            <defs>
-              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.35" />
-                <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.05" />
-              </linearGradient>
-            </defs>
-            <!-- Grid -->
-            <g stroke="#94a3b8" stroke-opacity="0.15">
-              <line x1="20" y1="90" x2="300" y2="90" />
-              <line x1="20" y1="50" x2="300" y2="50" />
-            </g>
-            <!-- Area fill -->
-            <path d="M24,86 L60,78 L100,74 L140,66 L190,52 L240,40 L296,28 L296,90 L24,90 Z" fill="url(#areaGrad)" />
-            <!-- Stroke line (animated) -->
-            <path class="spark-draw" pathLength="100" d="M24,86 L60,78 L100,74 L140,66 L190,52 L240,40 L296,28"
-              fill="none" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round" stroke-dasharray="100"
-              stroke-dashoffset="100" />
-            <!-- Start/End markers -->
-            <circle cx="24" cy="86" r="4" fill="#8b5cf6" fill-opacity="0.9" />
-            <circle cx="296" cy="28" r="5" fill="#8b5cf6" />
-            <text x="296" y="20" text-anchor="end" font-size="11" fill="#6d28d9">+18.93%</text>
-          </svg>
+        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">UX
+            & CRO</span>
         </div>
-        <div class="mt-3 text-[11px] sm:text-sm uppercase tracking-widest text-slate-600">Conversion Rate</div>
-        <div class="mt-1 text-xl sm:text-2xl font-bold text-slate-900">18.93% Increase in Conversion Rate</div>
-        <div class="mt-2 text-sm text-slate-700">
-          <p class="mt-2 text-[13px] sm:text-sm leading-snug">My focus on user experience and conversion rate
-            optimization delivered a total conversion rate increase of <span
-              class="text-emerald-600  font-bold">18.93%</span> over two years. This significant growth came from <span
-              class="text-emerald-600  font-bold">streamlining the checkout process</span>, running continuous <span
-              class="text-emerald-600  font-bold">A/B testing</span>, and applying a <span
-              class="text-emerald-600  font-bold">user-centric design</span> to remove obstacles and convert more
-            visitors into customers.</p>
+
+        <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-blue-500 pl-4">
+          "The conversion improvements were immediate and sustained over time."
+        </blockquote>
+
+        <div class="mb-4">
+          <div class="text-5xl sm:text-6xl font-extrabold text-blue-600 leading-none">18.93%</div>
+          <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Conversion Rate</div>
+        </div>
+
+        <div class="mb-4 text-sm text-slate-700 leading-relaxed">
+          <p><strong class="text-slate-900">Challenge:</strong> High traffic but low conversion rates indicated UX
+            friction.</p>
+          <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Conducted comprehensive UX analysis and
+            implemented data-driven CRO experiments to remove conversion barriers.</p>
+          <p class="mt-2"><strong class="text-slate-900">Result:</strong> Achieved 18.93% conversion rate increase over
+            two years through continuous optimization.</p>
+        </div>
+
+        <div class="mt-auto">
+          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
+          <ul class="space-y-1 text-sm text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="text-blue-600 mt-0.5">✓</span>
+              <span>Streamlined checkout process to reduce friction</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-600 mt-0.5">✓</span>
+              <span>Continuous A/B testing of key conversion points</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-600 mt-0.5">✓</span>
+              <span>User-centric design improvements based on data</span>
+            </li>
+          </ul>
         </div>
       </article>
     </div>
