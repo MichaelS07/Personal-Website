@@ -404,6 +404,8 @@ li,
   flex: 0 0 85%;
   scroll-snap-align: center;
   scroll-snap-stop: always;
+  min-height: 520px;
+  max-height: 520px;
 }
 
 @media (min-width: 768px) {
@@ -417,6 +419,8 @@ li,
   .wins-carousel>article {
     flex: none;
     scroll-snap-align: none;
+    min-height: auto;
+    max-height: none;
   }
 }
 
