@@ -57,11 +57,8 @@
   </script>
 </head>
 
-<body class="bg-slate-950 text-slate-100 touch-manipulation">
+<body class="bg-white text-slate-900 touch-manipulation">
 
-  <!-- Pixel Grid and Glow Background -->
-  <div class="pixel-grid"></div>
-  <div class="glow-effect"></div>
 
   <div id="menuOverlay"
     class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
@@ -329,57 +326,6 @@
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
-  <script>
-    // Random Green Square Pixels Background
-    function createRandomPixel() {
-      const pixel = document.createElement('div');
-      pixel.className = 'pixel-square';
-
-      const size = 2 + Math.random() * 6;
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      const opacity = 0.2 + Math.random() * 0.4;
-      const timeout = 8000 + Math.random() * 4000;
-
-      pixel.style.width = size + 'px';
-      pixel.style.height = size + 'px';
-      pixel.style.left = x + 'px';
-      pixel.style.top = y + 'px';
-      pixel.style.opacity = opacity;
-
-      document.body.appendChild(pixel);
-
-      setTimeout(() => {
-        if (pixel.parentNode) {
-          pixel.parentNode.removeChild(pixel);
-        }
-      }, timeout);
-    }
-
-    function initRandomPixels() {
-      // Create initial pixels
-      for (let i = 0; i < 100; i++) {
-        setTimeout(() => {
-          createRandomPixel();
-        }, i * 20);
-      }
-
-      // Continue creating pixels
-      setInterval(createRandomPixel, 2000);
-    }
-
-    // Initialize on page load
-    window.addEventListener('load', initRandomPixels);
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      // Remove existing pixels and restart
-      document.querySelectorAll('.pixel-square').forEach(pixel => {
-        pixel.remove();
-      });
-      setTimeout(initRandomPixels, 100);
-    });
-  </script>
 </body>
 
 </html>
