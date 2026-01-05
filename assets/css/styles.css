@@ -342,10 +342,15 @@ li,
   min-height: var(--svc-card-minh);
 }
 
+@media (max-width: 767px) {
+  #services .cards-grid>* {
+    height: auto;
+  }
+}
+
 #services .cta-tile {
   min-height: var(--svc-card-minh);
   aspect-ratio: 4 / 5;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -404,8 +409,7 @@ li,
   flex: 0 0 85%;
   scroll-snap-align: center;
   scroll-snap-stop: always;
-  min-height: 520px;
-  max-height: 520px;
+  height: 580px;
 }
 
 @media (min-width: 768px) {
@@ -419,8 +423,7 @@ li,
   .wins-carousel>article {
     flex: none;
     scroll-snap-align: none;
-    min-height: auto;
-    max-height: none;
+    height: auto;
   }
 }
 
