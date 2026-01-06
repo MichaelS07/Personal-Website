@@ -239,7 +239,7 @@ li,
   box-shadow:
     0 1px 1px rgba(0, 0, 0, .04),
     0 8px 20px rgba(0, 0, 0, .08),
-    0 15px 45px rgba(16, 185, 129, .15);
+    0 20px 60px rgba(16, 185, 129, .3);
   border: 1px solid var(--border-light);
   z-index: 1;
 }
@@ -280,20 +280,6 @@ li,
   }
 }
 
-.service-card .front .flip-hint {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  color: white;
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  z-index: 3;
-}
-
-.service-card .back .flip-hint {
-  position: static;
-}
 
 .service-card .back {
   transform: rotateY(180deg);
