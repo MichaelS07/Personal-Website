@@ -137,6 +137,7 @@
       radial-gradient(80% 80% at 100% 100%, rgba(139,92,246,0.20), transparent 70%);
     "></div>
       <div class="absolute inset-0 hero-grid pointer-events-none"></div>
+      <canvas id="heroCanvas"></canvas>
     </div>
 
     <div class="absolute inset-0 pointer-events-none z-10" aria-hidden="true">
@@ -152,7 +153,7 @@
           Digital Marketing Specialists
         </span>
         <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-slate-900">
-          Performance-first marketing for brands that want results.
+          Performance-first marketing for brands that want <span class="gradient-text">results.</span>
         </h1>
         <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-700">
           I help Shopify brands and E-Commerce teams scale with SEO, conversion rate optimisation, email, and customer
@@ -187,9 +188,9 @@
     </div>
   </section>
 
-  <hr class="grad-rule mx-auto w-[90%] opacity-60" />
+  <hr class="gradient-divider mx-auto w-[90%]" />
 
-  <section class="py-10 sm:py-12 border-y border-slate-200/60 bg-white/80">
+  <section class="section-light py-10 sm:py-12 border-y border-slate-200/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="rounded-3xl border border-slate-200 bg-white/95 backdrop-blur shadow p-6 sm:p-8">
         <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
@@ -217,8 +218,9 @@
         <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900">Our Services</h2>
       </div>
 
-      <div class="cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <article class="service-card lift" tabindex="0" aria-label="Search & Social Growth. Press or tap to flip">
+      <div class="cards-grid reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="service-card lift" tabindex="0" aria-label="Search & Social Growth. Press or tap to flip"
+          data-stagger="1">
           <div class="rotator">
             <div class="face front" style="background-image: url('images/search_&_social_growth.png');">
               <div class="content content-front">
@@ -242,7 +244,8 @@
           </div>
         </article>
 
-        <article class="service-card lift" tabindex="0" aria-label="Digital Storefront & CRO. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Digital Storefront & CRO. Press or tap to flip"
+          data-stagger="2">
           <div class="rotator">
             <div class="face front" style="background-image: url('images/digital_storefront_&_cro.png');">
               <div class="content content-front">
@@ -265,7 +268,8 @@
           </div>
         </article>
 
-        <article class="service-card lift" tabindex="0" aria-label="Email & Lifecycle Marketing. Press or tap to flip">
+        <article class="service-card lift" tabindex="0" aria-label="Email & Lifecycle Marketing. Press or tap to flip"
+          data-stagger="3">
           <div class="rotator">
             <div class="face front" style="background-image: url('images/email_&_lifecycle_marketing.png');">
               <div class="content content-front">
@@ -292,147 +296,153 @@
     </div>
   </section>
 
-  <div id="work" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center scroll-mt-24">
-    <div class="max-w-3xl mx-auto">
-      <div class="inline-block rounded-2xl border border-slate-200 bg-white shadow px-5 py-4 text-center">
-        <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Recent Wins</h2>
-        <p class="mt-3 text-sm sm:text-base text-slate-600">A snapshot of outcomes. Happy to walk through the how on a
-          call.</p>
+  <div id="work" class="section-dark relative overflow-hidden py-16 sm:py-20 scroll-mt-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-3xl mx-auto">
+        <div class="inline-block rounded-2xl border border-slate-200 bg-white shadow px-5 py-4 text-center">
+          <h2 class="section-head text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Recent Wins</h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-600">A snapshot of outcomes. Happy to walk through the how on a
+            call.</p>
+        </div>
       </div>
-    </div>
 
-    <div class="mt-8 sm:mt-10 wins-carousel md:grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 items-stretch">
-      <article
-        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
-        <div class="inline-flex items-center gap-2 mb-4">
-          <span
-            class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">E-commerce</span>
-        </div>
+      <div class="mt-8 sm:mt-10 wins-carousel reveal md:grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 items-stretch">
+        <article data-stagger="1"
+          class="p-5 sm:p-6 rounded-2xl border border-slate-200 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
+          <div class="inline-flex items-center gap-2 mb-4">
+            <span
+              class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">E-commerce</span>
+          </div>
 
-        <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-emerald-500 pl-4">
-          "Michael's email strategy completely transformed our customer retention and revenue."
-        </blockquote>
+          <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-emerald-500 pl-4">
+            "Michael's email strategy completely transformed our customer retention and revenue."
+          </blockquote>
 
-        <div class="mb-4">
-          <div class="text-5xl sm:text-6xl font-extrabold text-emerald-600 leading-none">70.44%</div>
-          <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in EDM Revenue</div>
-        </div>
+          <div class="mb-4">
+            <div class="text-5xl sm:text-6xl font-extrabold text-emerald-600 leading-none">70.44%</div>
+            <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in EDM Revenue</div>
+          </div>
 
-        <div class="mb-4 text-sm text-slate-700 leading-relaxed">
-          <p><strong class="text-slate-900">Challenge:</strong> Email revenue had plateaued with declining engagement
-            rates.</p>
-          <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Implemented a comprehensive email
-            optimization strategy focusing on segmentation, A/B testing, and lifecycle automation.</p>
-          <p class="mt-2"><strong class="text-slate-900">Result:</strong> Achieved 70.44% revenue growth while improving
-            subscriber engagement and reducing churn.</p>
-        </div>
+          <div class="mb-4 text-sm text-slate-700 leading-relaxed">
+            <p><strong class="text-slate-900">Challenge:</strong> Email revenue had plateaued with declining engagement
+              rates.</p>
+            <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Implemented a comprehensive email
+              optimization strategy focusing on segmentation, A/B testing, and lifecycle automation.</p>
+            <p class="mt-2"><strong class="text-slate-900">Result:</strong> Achieved 70.44% revenue growth while
+              improving
+              subscriber engagement and reducing churn.</p>
+          </div>
 
-        <div class="mt-auto">
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
-          <ul class="space-y-1 text-sm text-slate-700">
-            <li class="flex items-start gap-2">
-              <span class="text-emerald-600 mt-0.5">✓</span>
-              <span>Advanced database segmentation for personalized content</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-emerald-600 mt-0.5">✓</span>
-              <span>Continuous A/B testing of subject lines and content</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-emerald-600 mt-0.5">✓</span>
-              <span>Automated lifecycle flows for customer retention</span>
-            </li>
-          </ul>
-        </div>
-      </article>
+          <div class="mt-auto">
+            <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
+            <ul class="space-y-1 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 mt-0.5">✓</span>
+                <span>Advanced database segmentation for personalized content</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 mt-0.5">✓</span>
+                <span>Continuous A/B testing of subject lines and content</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 mt-0.5">✓</span>
+                <span>Automated lifecycle flows for customer retention</span>
+              </li>
+            </ul>
+          </div>
+        </article>
 
-      <article
-        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
-        <div class="inline-flex items-center gap-2 mb-4">
-          <span
-            class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-50 text-purple-700 border border-purple-200">Multi-Channel</span>
-        </div>
+        <article data-stagger="2"
+          class="p-5 sm:p-6 rounded-2xl border border-slate-200 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
+          <div class="inline-flex items-center gap-2 mb-4">
+            <span
+              class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-50 text-purple-700 border border-purple-200">Multi-Channel</span>
+          </div>
 
-        <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-purple-500 pl-4">
-          "The holistic approach delivered results across every channel we tracked."
-        </blockquote>
+          <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-purple-500 pl-4">
+            "The holistic approach delivered results across every channel we tracked."
+          </blockquote>
 
-        <div class="mb-4">
-          <div class="text-5xl sm:text-6xl font-extrabold text-purple-600 leading-none">13.91%</div>
-          <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Total Revenue</div>
-        </div>
+          <div class="mb-4">
+            <div class="text-5xl sm:text-6xl font-extrabold text-purple-600 leading-none">13.91%</div>
+            <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Total Revenue</div>
+          </div>
 
-        <div class="mb-4 text-sm text-slate-700 leading-relaxed">
-          <p><strong class="text-slate-900">Challenge:</strong> Revenue growth was stagnant despite increasing traffic.
-          </p>
-          <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Deployed an integrated strategy combining
-            email marketing, CRO, and SEO improvements to maximize every touchpoint.</p>
-          <p class="mt-2"><strong class="text-slate-900">Result:</strong> Boosted total online revenue by 13.91% with
-            sustained, compound growth.</p>
-        </div>
+          <div class="mb-4 text-sm text-slate-700 leading-relaxed">
+            <p><strong class="text-slate-900">Challenge:</strong> Revenue growth was stagnant despite increasing
+              traffic.
+            </p>
+            <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Deployed an integrated strategy combining
+              email marketing, CRO, and SEO improvements to maximize every touchpoint.</p>
+            <p class="mt-2"><strong class="text-slate-900">Result:</strong> Boosted total online revenue by 13.91% with
+              sustained, compound growth.</p>
+          </div>
 
-        <div class="mt-auto">
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
-          <ul class="space-y-1 text-sm text-slate-700">
-            <li class="flex items-start gap-2">
-              <span class="text-purple-600 mt-0.5">✓</span>
-              <span>Enhanced email marketing with targeted campaigns</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-purple-600 mt-0.5">✓</span>
-              <span>Conversion rate optimization across key pages</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-purple-600 mt-0.5">✓</span>
-              <span>Technical SEO improvements for organic growth</span>
-            </li>
-          </ul>
-        </div>
-      </article>
+          <div class="mt-auto">
+            <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
+            <ul class="space-y-1 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-purple-600 mt-0.5">✓</span>
+                <span>Enhanced email marketing with targeted campaigns</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-purple-600 mt-0.5">✓</span>
+                <span>Conversion rate optimization across key pages</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-purple-600 mt-0.5">✓</span>
+                <span>Technical SEO improvements for organic growth</span>
+              </li>
+            </ul>
+          </div>
+        </article>
 
-      <article
-        class="reveal p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white text-slate-900 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
-        <div class="inline-flex items-center gap-2 mb-4">
-          <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">UX
-            & CRO</span>
-        </div>
+        <article data-stagger="3"
+          class="p-5 sm:p-6 rounded-2xl border border-slate-200 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
+          <div class="inline-flex items-center gap-2 mb-4">
+            <span
+              class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">UX
+              & CRO</span>
+          </div>
 
-        <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-blue-500 pl-4">
-          "The conversion improvements were immediate and sustained over time."
-        </blockquote>
+          <blockquote class="mb-4 text-sm sm:text-base italic text-slate-600 border-l-4 border-blue-500 pl-4">
+            "The conversion improvements were immediate and sustained over time."
+          </blockquote>
 
-        <div class="mb-4">
-          <div class="text-5xl sm:text-6xl font-extrabold text-blue-600 leading-none">18.93%</div>
-          <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Conversion Rate</div>
-        </div>
+          <div class="mb-4">
+            <div class="text-5xl sm:text-6xl font-extrabold text-blue-600 leading-none">18.93%</div>
+            <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Conversion Rate</div>
+          </div>
 
-        <div class="mb-4 text-sm text-slate-700 leading-relaxed">
-          <p><strong class="text-slate-900">Challenge:</strong> High traffic but low conversion rates indicated UX
-            friction.</p>
-          <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Conducted comprehensive UX analysis and
-            implemented data-driven CRO experiments to remove conversion barriers.</p>
-          <p class="mt-2"><strong class="text-slate-900">Result:</strong> Achieved 18.93% conversion rate increase over
-            two years through continuous optimization.</p>
-        </div>
+          <div class="mb-4 text-sm text-slate-700 leading-relaxed">
+            <p><strong class="text-slate-900">Challenge:</strong> High traffic but low conversion rates indicated UX
+              friction.</p>
+            <p class="mt-2"><strong class="text-slate-900">Solution:</strong> Conducted comprehensive UX analysis and
+              implemented data-driven CRO experiments to remove conversion barriers.</p>
+            <p class="mt-2"><strong class="text-slate-900">Result:</strong> Achieved 18.93% conversion rate increase
+              over
+              two years through continuous optimization.</p>
+          </div>
 
-        <div class="mt-auto">
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
-          <ul class="space-y-1 text-sm text-slate-700">
-            <li class="flex items-start gap-2">
-              <span class="text-blue-600 mt-0.5">✓</span>
-              <span>Streamlined checkout process to reduce friction</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-blue-600 mt-0.5">✓</span>
-              <span>Continuous A/B testing of key conversion points</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-blue-600 mt-0.5">✓</span>
-              <span>User-centric design improvements based on data</span>
-            </li>
-          </ul>
-        </div>
-      </article>
+          <div class="mt-auto">
+            <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Key Tactics</div>
+            <ul class="space-y-1 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 mt-0.5">✓</span>
+                <span>Streamlined checkout process to reduce friction</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 mt-0.5">✓</span>
+                <span>Continuous A/B testing of key conversion points</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 mt-0.5">✓</span>
+                <span>User-centric design improvements based on data</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 
@@ -590,7 +600,7 @@
     </div>
   </section>
 
-  <section id="pricing" class="relative overflow-hidden py-16 sm:py-20">
+  <section id="pricing" class="section-light relative overflow-hidden py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="rounded-3xl border border-slate-200 bg-white/95 backdrop-blur shadow p-6 sm:p-8">
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 hidden">
@@ -624,9 +634,9 @@
           <span class="text-xs sm:text-sm text-slate-900 ">One-off</span>
         </div>
 
-        <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-stretch">
-          <div
-            class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200  md:rounded-2xl flex flex-col text-left h-full bg-white/85  backdrop-blur shadow">
+        <div class="grid gap-4 sm:gap-6 md:grid-cols-3 items-stretch reveal">
+          <div data-stagger="1"
+            class="w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200  md:rounded-2xl flex flex-col text-left h-full bg-white/85  backdrop-blur shadow">
             <div class="flex-1 flex flex-col">
               <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Starter</div>
               <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$1,500"
@@ -644,8 +654,8 @@
               class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/80  text-slate-900  border border-slate-300  hover:bg-white/90 /70 self-start lift">Enquire</a>
           </div>
 
-          <div
-            class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
+          <div data-stagger="2"
+            class="w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200 bg-gradient-to-br from-emerald-600 to-green-500 text-white md:rounded-2xl flex flex-col text-left h-full shadow">
             <div class="flex-1 flex flex-col">
               <div class="text-[10px] sm:text-xs uppercase tracking-widest opacity-90">Growth</div>
               <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$2,000"
@@ -663,8 +673,8 @@
               class="mt-5 sm:mt-6 inline-flex px-4 py-2 rounded-xl bg-white/90 text-emerald-900 font-semibold hover:bg-white shadow-sm self-start lift">Enquire</a>
           </div>
 
-          <div
-            class="reveal w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200  md:rounded-2xl flex flex-col text-left h-full bg-white/85  backdrop-blur shadow">
+          <div data-stagger="3"
+            class="w-full max-w-sm md:max-w-none mx-auto p-4 sm:p-5 rounded-xl border border-slate-200  md:rounded-2xl flex flex-col text-left h-full bg-white/85  backdrop-blur shadow">
             <div class="flex-1 flex flex-col">
               <div class="text-[10px] sm:text-xs uppercase tracking-widest text-slate-500">Scale</div>
               <div class="mt-2 text-2xl sm:text-3xl font-extrabold"><span class="price" data-one="NZ$3,500"
@@ -714,7 +724,7 @@
     </div>
   </section>
 
-  <section id="contact" class="relative overflow-hidden py-16 sm:py-24">
+  <section id="contact" class="section-dark relative overflow-hidden py-16 sm:py-24">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="reveal">
         <h2 class="section-head text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Ready to grow?</h2>
