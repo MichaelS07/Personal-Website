@@ -114,56 +114,7 @@ function fakeSubmit() {
 }
 window.fakeSubmit = fakeSubmit;
 
-const cards = Array.from(document.querySelectorAll('.service-card'));
-function measureHeights(card) {
-  const frontContent = card.querySelector('.front .content');
-  const backContent = card.querySelector('.back .content');
-  const rotator = card.querySelector('.rotator');
-  const wasFlipped = card.classList.contains('is-flipped');
-  rotator.style.transition = 'none';
-  card.classList.remove('is-flipped');
-  const frontH = frontContent.offsetHeight;
-  card.classList.add('is-flipped');
-  const backH = backContent.offsetHeight;
-  card.classList.toggle('is-flipped', wasFlipped);
-  rotator.offsetHeight;
-  rotator.style.transition = '';
-  card._frontH = frontH;
-  card._backH = backH;
-}
-function applyHeight(card) {
-  const showingBack = card.classList.contains('is-flipped');
-  const h = showingBack ? card._backH : card._frontH;
-  if (h) card.style.height = h + 'px';
-}
-function addFlipHint(card) {
-  const isTouch = (typeof window !== 'undefined' && ('ontouchstart' in window)) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-  const text = isTouch ? 'Tap to flip' : 'Click to flip';
-  ['.front', '.back'].forEach(sel => {
-    const face = card.querySelector(sel);
-    if (!face) return;
-    if (!face.querySelector('.flip-hint')) {
-      const hint = document.createElement('span');
-      hint.className = 'flip-hint';
-      hint.textContent = text;
-      face.appendChild(hint);
-    }
-  });
-}
-function recalcAll() { cards.forEach(c => { measureHeights(c); applyHeight(c); }); }
-cards.forEach(card => {
-  measureHeights(card); applyHeight(card); addFlipHint(card);
-  card.addEventListener('click', (e) => {
-    if (e.target.closest('a')) return;
-    card.classList.toggle('is-flipped'); applyHeight(card);
-  });
-  card.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('is-flipped'); applyHeight(card); }
-  });
-});
-window.addEventListener('load', recalcAll);
-window.addEventListener('resize', recalcAll);
-document.fonts && document.fonts.ready && document.fonts.ready.then(recalcAll);
+
 
 (function () {
   const el = document.getElementById('hero-bg');
