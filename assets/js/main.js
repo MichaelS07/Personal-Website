@@ -94,6 +94,18 @@ function renderPrices() {
   prices.forEach(p => { p.textContent = p.dataset[monthly ? 'month' : 'one']; });
   const { start, end } = knobPositions();
   if (dot) dot.style.transform = `translateX(${monthly ? start : end}px)`;
+  const labelM = document.getElementById('labelMonthly');
+  const labelO = document.getElementById('labelOneoff');
+  if (labelM) {
+    labelM.classList.toggle('font-semibold', monthly);
+    labelM.classList.toggle('text-slate-900', monthly);
+    labelM.classList.toggle('text-slate-500', !monthly);
+  }
+  if (labelO) {
+    labelO.classList.toggle('font-semibold', !monthly);
+    labelO.classList.toggle('text-slate-900', !monthly);
+    labelO.classList.toggle('text-slate-500', monthly);
+  }
 }
 if (toggle && dot) {
   renderPrices();
