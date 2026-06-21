@@ -194,6 +194,23 @@ window.fakeSubmit = fakeSubmit;
 })();
 
 /* ============================================
+   HERO DASHBOARD BAR FILLS
+   ============================================ */
+(function () {
+  const fills = document.querySelectorAll('.hero-dash-fill');
+  if (!fills.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('animated'), 200);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => io.observe(f));
+})();
+
+/* ============================================
    HERO PARTICLE CANVAS — KZN-inspired
    ============================================ */
 (function () {
@@ -208,8 +225,8 @@ window.fakeSubmit = fakeSubmit;
 
   const ctx = canvas.getContext('2d');
   let W, H;
-  const PARTICLE_COUNT = 45;
-  const CONNECTION_DIST = 140;
+  const PARTICLE_COUNT = 70;
+  const CONNECTION_DIST = 160;
   const particles = [];
 
   function resize() {
@@ -236,7 +253,7 @@ window.fakeSubmit = fakeSubmit;
   Particle.prototype.draw = function () {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(16, 185, 129, 0.5)';
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.7)';
     ctx.fill();
   };
 
@@ -255,7 +272,7 @@ window.fakeSubmit = fakeSubmit;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECTION_DIST) {
-          const opacity = (1 - dist / CONNECTION_DIST) * 0.25;
+          const opacity = (1 - dist / CONNECTION_DIST) * 0.4;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);

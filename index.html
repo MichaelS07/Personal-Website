@@ -170,21 +170,41 @@
         </div>
       </div>
 
-      <div class="reveal grid gap-4">
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
-          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-600" data-counter="28">0</div>
-          <div class="mt-1 text-sm font-semibold text-slate-900">Avg CTR lift</div>
-          <div class="text-xs text-slate-500 mt-0.5">across Google Search accounts</div>
+      <div class="reveal hero-dashboard">
+        <div class="hero-dash-header">
+          <div class="hero-dash-dots"><span></span><span></span><span></span></div>
+          <span class="hero-dash-title">performance_overview.js</span>
+          <span class="hero-dash-status-pill"><span class="hero-dash-ping"></span>Live</span>
         </div>
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
-          <div class="text-3xl sm:text-4xl font-extrabold text-purple-600" data-counter="35">0</div>
-          <div class="mt-1 text-sm font-semibold text-slate-900">CPA reduction</div>
-          <div class="text-xs text-slate-500 mt-0.5">average across paid campaigns</div>
-        </div>
-        <div class="p-5 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm">
-          <div class="text-3xl sm:text-4xl font-extrabold text-blue-600" data-counter="52">0</div>
-          <div class="mt-1 text-sm font-semibold text-slate-900">Email revenue share</div>
-          <div class="text-xs text-slate-500 mt-0.5">for top-performing clients</div>
+        <div class="hero-dash-body">
+          <div class="hero-dash-metric">
+            <div class="hero-dash-meta">
+              <span class="hero-dash-label">Avg CTR lift</span>
+              <span class="hero-dash-value" style="color:#10b981" data-counter="28">0%</span>
+            </div>
+            <div class="hero-dash-bar"><div class="hero-dash-fill" style="--fill:72%;--clr:#10b981"></div></div>
+            <div class="hero-dash-sub">across Google Search accounts</div>
+          </div>
+          <div class="hero-dash-metric">
+            <div class="hero-dash-meta">
+              <span class="hero-dash-label">CPA reduction</span>
+              <span class="hero-dash-value" style="color:#9333ea" data-counter="35">0%</span>
+            </div>
+            <div class="hero-dash-bar"><div class="hero-dash-fill" style="--fill:65%;--clr:#9333ea"></div></div>
+            <div class="hero-dash-sub">average across paid campaigns</div>
+          </div>
+          <div class="hero-dash-metric">
+            <div class="hero-dash-meta">
+              <span class="hero-dash-label">Email rev share</span>
+              <span class="hero-dash-value" style="color:#3b82f6" data-counter="52">0%</span>
+            </div>
+            <div class="hero-dash-bar"><div class="hero-dash-fill" style="--fill:52%;--clr:#3b82f6"></div></div>
+            <div class="hero-dash-sub">for top-performing clients</div>
+          </div>
+          <div class="hero-dash-footer">
+            <span class="hero-avail-dot"></span>
+            Available for new clients
+          </div>
         </div>
       </div>
     </div>
@@ -192,23 +212,24 @@
 
   <hr class="gradient-divider mx-auto w-[90%]" />
 
-  <section class="section-light py-10 sm:py-12 border-y border-slate-200/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-3xl border border-slate-200 bg-white/95 backdrop-blur shadow p-6 sm:p-8">
-        <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-4 sm:gap-y-6 text-slate-500">
-          <span class="text-[10px] sm:text-xs uppercase tracking-widest">Tools I work with</span>
-          <img alt="Google Ads" class="h-5 sm:h-6 opacity-60"
-            src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" loading="lazy" />
-          <img alt="Google Analytics 4" class="h-5 sm:h-6 opacity-60"
-            src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" loading="lazy" />
-          <img alt="Klaviyo" class="h-5 sm:h-6 opacity-60"
-            src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg"
-            loading="lazy" />
-          <img alt="Shopify" class="h-5 sm:h-6 opacity-60"
-            src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" loading="lazy" />
-          <img alt="Meta Ads" class="h-5 sm:h-6 opacity-60"
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" loading="lazy" />
-        </div>
+  <section class="section-light py-8 border-y border-slate-200/60 overflow-hidden">
+    <div class="marquee-label">Tools I work with</div>
+    <div class="marquee-wrap">
+      <div class="marquee-inner">
+        <img alt="Google Ads" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" />
+        <img alt="Google Analytics 4" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" />
+        <img alt="Klaviyo" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" />
+        <img alt="Shopify" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" />
+        <img alt="Meta" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" />
+        <img alt="Google Search Console" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" />
+      </div>
+      <div class="marquee-inner" aria-hidden="true">
+        <img alt="Google Ads" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" />
+        <img alt="Google Analytics 4" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Logo_Google_Analytics.svg" />
+        <img alt="Klaviyo" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" />
+        <img alt="Shopify" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" />
+        <img alt="Meta" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" />
+        <img alt="Google Search Console" class="marquee-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" />
       </div>
     </div>
   </section>
@@ -510,54 +531,69 @@
     </div>
   </section>
 
-  <section id="about" class="relative overflow-hidden py-16 sm:py-20 bg-white/50">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="reveal">
-        <span class="text-xs uppercase tracking-widest text-emerald-600 font-semibold">About</span>
-        <h2 class="section-head mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Nova Reach</h2>
-        <p class="mt-5 text-lg leading-relaxed text-slate-700">
-          I'm a digital marketing specialist based in Christchurch, NZ. I work across paid search, SEO, email, and CRO — not as separate services, but as one connected system.
-        </p>
-        <p class="mt-4 text-base leading-relaxed text-slate-600">
-          Most ecommerce brands are strong in one channel and leaky everywhere else. I look at the full picture, find where revenue is slipping through, and fix it. The method: test, measure, adjust, repeat.
-        </p>
+  <section id="about" class="relative overflow-hidden py-16 sm:py-24 bg-white/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="reveal about-grid">
 
-        <!-- Value pills -->
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 text-sm font-medium border border-emerald-200">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-            Numbers over gut feel
-          </span>
-          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 text-cyan-700 text-sm font-medium border border-cyan-200">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Full-funnel, not just top
-          </span>
-          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 text-purple-700 text-sm font-medium border border-purple-200">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            Test, measure, repeat
-          </span>
-          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium border border-slate-200">
-            🇳🇿 Christchurch, NZ
-          </span>
-        </div>
-
-        <!-- Stats row -->
-        <div class="mt-10 grid grid-cols-2 gap-6 max-w-xs mx-auto">
-          <div>
-            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600">5+</div>
-            <div class="mt-1 text-xs sm:text-sm text-slate-500">Years on the tools</div>
+        <!-- Left: Profile card -->
+        <div class="about-profile-card">
+          <div class="about-avatar">
+            <span>MS</span>
+            <span class="about-avatar-ring"></span>
           </div>
-          <div>
-            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600">20+</div>
-            <div class="mt-1 text-xs sm:text-sm text-slate-500">Brands worked with</div>
+          <div class="about-profile-name">Michael Sowden</div>
+          <div class="about-profile-role">Digital Marketing Specialist</div>
+          <div class="about-profile-location">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Christchurch, NZ
+          </div>
+          <div class="about-profile-stats">
+            <div class="about-stat">
+              <span class="about-stat-num">5+</span>
+              <span class="about-stat-label">Years exp.</span>
+            </div>
+            <div class="about-stat-divider"></div>
+            <div class="about-stat">
+              <span class="about-stat-num">20+</span>
+              <span class="about-stat-label">Brands</span>
+            </div>
+          </div>
+          <div class="about-skill-tags">
+            <span>Google Ads</span><span>SEO</span><span>Meta Ads</span>
+            <span>Klaviyo</span><span>CRO</span><span>Shopify</span>
           </div>
         </div>
+
+        <!-- Right: Content -->
+        <div class="about-content">
+          <span class="text-xs uppercase tracking-widest text-emerald-600 font-semibold">About</span>
+          <h2 class="section-head mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Nova Reach</h2>
+          <p class="mt-5 text-lg leading-relaxed text-slate-700">
+            I'm a digital marketing specialist based in Christchurch, NZ. I work across paid search, SEO, email, and CRO — not as separate services, but as one connected system.
+          </p>
+          <p class="mt-4 text-base leading-relaxed text-slate-600">
+            Most ecommerce brands are strong in one channel and leaky everywhere else. I look at the full picture, find where revenue is slipping through, and fix it. The method: test, measure, adjust, repeat.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="about-pill about-pill-green">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+              Numbers over gut feel
+            </span>
+            <span class="about-pill about-pill-cyan">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Full-funnel, not just top
+            </span>
+            <span class="about-pill about-pill-purple">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Test, measure, repeat
+            </span>
+          </div>
+          <a href="#contact" class="mt-8 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow lift font-medium">
+            Work with me
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
