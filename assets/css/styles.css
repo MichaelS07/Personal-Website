@@ -418,6 +418,46 @@ li,
 }
 
 /* ============================================
+   SERVICES INTERACTIVE TECH BACKGROUND
+   ============================================ */
+
+.services-tech {
+  background-color: #fbfcfe;
+  background-image:
+    linear-gradient(rgba(16, 185, 129, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, .045) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.services-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.services-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .4s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(16, 185, 129, .12), transparent 65%);
+}
+
+.services-tech:hover .services-spotlight {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-canvas { display: none; }
+}
+
+/* ============================================
    BENTO SERVICES GRID
    ============================================ */
 

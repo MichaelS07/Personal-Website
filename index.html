@@ -58,7 +58,7 @@
     tailwind.config = { darkMode: 'class' };
   </script>
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260303">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260621">
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
@@ -235,8 +235,10 @@
   </section>
 
   <section id="services"
-    class="relative overflow-hidden py-16 sm:py-20 bg-transparent border-y border-slate-200/60 scroll-mt-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    class="relative overflow-hidden py-16 sm:py-20 border-y border-slate-200/60 scroll-mt-24 services-tech">
+    <canvas id="servicesCanvas" class="services-canvas" aria-hidden="true"></canvas>
+    <div class="services-spotlight" aria-hidden="true"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center mb-12">
         <h2 class="section-head text-3xl font-bold tracking-tight text-slate-900">Services</h2>
         <p class="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">Three things that actually move revenue: getting found, converting visitors, and earning repeat sales.</p>
@@ -629,7 +631,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20260303"></script>
+  <script src="assets/js/main.js?v=20260621"></script>
   <script>
     // Footer Year
     document.getElementById('year').textContent = new Date().getFullYear();

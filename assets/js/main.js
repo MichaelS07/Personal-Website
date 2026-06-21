@@ -211,6 +211,141 @@ window.fakeSubmit = fakeSubmit;
 })();
 
 /* ============================================
+   SERVICES INTERACTIVE NODE NETWORK
+   ============================================ */
+(function () {
+  const section = document.getElementById('services');
+  const canvas = document.getElementById('servicesCanvas');
+  if (!section || !canvas) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    canvas.style.display = 'none';
+    return;
+  }
+
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let nodes = [];
+  let running = false, raf = null;
+  const mouse = { x: -9999, y: -9999, active: false };
+  const MOUSE_DIST = 170;
+
+  function count() {
+    const target = Math.round((W * H) / 22000);
+    return Math.max(24, Math.min(70, target));
+  }
+
+  function resize() {
+    const r = section.getBoundingClientRect();
+    W = r.width; H = r.height;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    build();
+  }
+
+  function build() {
+    const n = count();
+    nodes = [];
+    for (let i = 0; i < n; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.6 + 1
+      });
+    }
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, W, H);
+
+    for (const p of nodes) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+
+      // gentle drift toward the cursor when close
+      if (mouse.active) {
+        const dx = mouse.x - p.x, dy = mouse.y - p.y;
+        const d = Math.hypot(dx, dy);
+        if (d < MOUSE_DIST && d > 0.1) {
+          const f = (1 - d / MOUSE_DIST) * 0.04;
+          p.x += dx * f; p.y += dy * f;
+        }
+      }
+    }
+
+    // node-to-node links
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 130) {
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(16,185,129,${(1 - dist / 130) * 0.18})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // links + glow toward the cursor
+    for (const p of nodes) {
+      let near = false;
+      if (mouse.active) {
+        const dx = mouse.x - p.x, dy = mouse.y - p.y;
+        const d = Math.hypot(dx, dy);
+        if (d < MOUSE_DIST) {
+          near = true;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(16,185,129,${(1 - d / MOUSE_DIST) * 0.5})`;
+          ctx.lineWidth = 0.9;
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, near ? p.r + 0.8 : p.r, 0, Math.PI * 2);
+      ctx.fillStyle = near ? 'rgba(5,150,105,0.85)' : 'rgba(16,185,129,0.5)';
+      ctx.fill();
+    }
+
+    raf = requestAnimationFrame(step);
+  }
+
+  function start() { if (!running) { running = true; step(); } }
+  function stop() { running = false; if (raf) cancelAnimationFrame(raf); }
+
+  section.addEventListener('pointermove', (e) => {
+    const r = section.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+    mouse.active = true;
+    section.style.setProperty('--mx', mouse.x + 'px');
+    section.style.setProperty('--my', mouse.y + 'px');
+  });
+  section.addEventListener('pointerleave', () => { mouse.active = false; mouse.x = mouse.y = -9999; });
+
+  // Only animate while the section is on screen
+  const vis = new IntersectionObserver((entries) => {
+    entries.forEach(e => e.isIntersecting ? start() : stop());
+  }, { threshold: 0.05 });
+  vis.observe(section);
+
+  resize();
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 200); });
+})();
+
+/* ============================================
    HERO PARTICLE CANVAS — KZN-inspired
    ============================================ */
 (function () {
