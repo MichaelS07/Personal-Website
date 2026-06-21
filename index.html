@@ -58,7 +58,7 @@
     tailwind.config = { darkMode: 'class' };
   </script>
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260621b">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260621c">
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
@@ -312,58 +312,66 @@
       </div>
 
       <div class="mt-8 sm:mt-10 wins-carousel reveal md:grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 items-stretch">
-        <article data-stagger="1"
-          class="p-5 sm:p-6 rounded-2xl border border-slate-200 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
-          <div class="inline-flex items-center gap-2 mb-4">
-            <span
-              class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">E-commerce</span>
+        <article data-stagger="1" class="win-card win-card--emerald">
+          <div class="win-top">
+            <span class="win-chip">E-commerce</span>
+            <svg class="win-spark" viewBox="0 0 72 32" fill="none" aria-hidden="true">
+              <path class="spark-draw" d="M0 28 L12 24 L24 25 L36 15 L48 17 L60 7 L72 3" style="stroke-dasharray:200;stroke-dashoffset:200" />
+            </svg>
           </div>
-
-          <div class="mb-4">
-            <div class="text-5xl sm:text-6xl font-extrabold text-emerald-600 leading-none">70.44%</div>
-            <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in EDM Revenue</div>
+          <div class="win-metric">
+            <span class="win-num" data-count-to="70.44" data-decimals="2" data-suffix="%">0%</span>
+            <svg class="win-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l5-5 4 3 5-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M19 7h-4m4 0v4"/></svg>
           </div>
-
-          <blockquote class="mt-auto border-l-4 border-emerald-500 pl-4">
-            <p class="text-sm sm:text-base italic text-slate-400">"We'd been sending the same batch campaigns for two years. Michael rebuilt our flows from scratch — email revenue nearly doubled within 90 days."</p>
-            <footer class="mt-3 text-xs text-slate-500">Sarah M. — Founder, NZ Homeware Brand</footer>
+          <div class="win-label">Increase in EDM Revenue</div>
+          <blockquote class="win-quote">
+            <p>"We'd been sending the same batch campaigns for two years. Michael rebuilt our flows from scratch — email revenue nearly doubled within 90 days."</p>
+            <footer>
+              <span class="win-avatar">SM</span>
+              <span class="win-person"><strong>Sarah M.</strong><span>Founder, NZ Homeware Brand</span></span>
+            </footer>
           </blockquote>
         </article>
 
-        <article data-stagger="2"
-          class="p-5 sm:p-6 rounded-2xl border border-slate-200 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
-          <div class="inline-flex items-center gap-2 mb-4">
-            <span
-              class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-50 text-purple-700 border border-purple-200">Multi-Channel</span>
+        <article data-stagger="2" class="win-card win-card--purple">
+          <div class="win-top">
+            <span class="win-chip">Multi-Channel</span>
+            <svg class="win-spark" viewBox="0 0 72 32" fill="none" aria-hidden="true">
+              <path class="spark-draw" d="M0 26 L12 27 L24 22 L36 23 L48 16 L60 14 L72 9" style="stroke-dasharray:200;stroke-dashoffset:200" />
+            </svg>
           </div>
-
-          <div class="mb-4">
-            <div class="text-5xl sm:text-6xl font-extrabold text-purple-600 leading-none">13.91%</div>
-            <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Total Revenue</div>
+          <div class="win-metric">
+            <span class="win-num" data-count-to="13.91" data-decimals="2" data-suffix="%">0%</span>
+            <svg class="win-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l5-5 4 3 5-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M19 7h-4m4 0v4"/></svg>
           </div>
-
-          <blockquote class="mt-auto border-l-4 border-purple-500 pl-4">
-            <p class="text-sm sm:text-base italic text-slate-400">"We handed over the Google Ads account expecting the usual slow start. CPA was down 30% within six weeks. He found things our previous agency had missed for months."</p>
-            <footer class="mt-3 text-xs text-slate-500">Tom R. — Marketing Manager, AU Retailer</footer>
+          <div class="win-label">Increase in Total Revenue</div>
+          <blockquote class="win-quote">
+            <p>"We handed over the Google Ads account expecting the usual slow start. CPA was down 30% within six weeks. He found things our previous agency had missed for months."</p>
+            <footer>
+              <span class="win-avatar">TR</span>
+              <span class="win-person"><strong>Tom R.</strong><span>Marketing Manager, AU Retailer</span></span>
+            </footer>
           </blockquote>
         </article>
 
-        <article data-stagger="3"
-          class="p-5 sm:p-6 rounded-2xl border border-slate-200 backdrop-blur text-left shadow ring-1 ring-black/5 h-full flex flex-col">
-          <div class="inline-flex items-center gap-2 mb-4">
-            <span
-              class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">UX
-              & CRO</span>
+        <article data-stagger="3" class="win-card win-card--blue">
+          <div class="win-top">
+            <span class="win-chip">UX &amp; CRO</span>
+            <svg class="win-spark" viewBox="0 0 72 32" fill="none" aria-hidden="true">
+              <path class="spark-draw" d="M0 27 L12 23 L24 24 L36 18 L48 19 L60 11 L72 6" style="stroke-dasharray:200;stroke-dashoffset:200" />
+            </svg>
           </div>
-
-          <div class="mb-4">
-            <div class="text-5xl sm:text-6xl font-extrabold text-blue-600 leading-none">18.93%</div>
-            <div class="mt-2 text-lg sm:text-xl font-bold text-slate-900">Increase in Conversion Rate</div>
+          <div class="win-metric">
+            <span class="win-num" data-count-to="18.93" data-decimals="2" data-suffix="%">0%</span>
+            <svg class="win-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l5-5 4 3 5-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M19 7h-4m4 0v4"/></svg>
           </div>
-
-          <blockquote class="mt-auto border-l-4 border-blue-500 pl-4">
-            <p class="text-sm sm:text-base italic text-slate-400">"Our checkout had a friction problem we'd been ignoring for a year. The CRO audit made it obvious. Fix took a week — the conversion lift showed up that same month."</p>
-            <footer class="mt-3 text-xs text-slate-500">Jess T. — E-commerce Director</footer>
+          <div class="win-label">Increase in Conversion Rate</div>
+          <blockquote class="win-quote">
+            <p>"Our checkout had a friction problem we'd been ignoring for a year. The CRO audit made it obvious. Fix took a week — the conversion lift showed up that same month."</p>
+            <footer>
+              <span class="win-avatar">JT</span>
+              <span class="win-person"><strong>Jess T.</strong><span>E-commerce Director</span></span>
+            </footer>
           </blockquote>
         </article>
       </div>
@@ -633,7 +641,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20260621b"></script>
+  <script src="assets/js/main.js?v=20260621c"></script>
   <script>
     // Footer Year
     document.getElementById('year').textContent = new Date().getFullYear();

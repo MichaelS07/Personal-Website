@@ -211,6 +211,38 @@ window.fakeSubmit = fakeSubmit;
 })();
 
 /* ============================================
+   DECIMAL COUNT-UP (Recent Wins)
+   ============================================ */
+(function () {
+  const els = document.querySelectorAll('[data-count-to]');
+  if (!els.length) return;
+  function run(el) {
+    const end = parseFloat(el.getAttribute('data-count-to')) || 0;
+    const dec = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(t) {
+      const p = Math.min(1, (t - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = (end * eased).toFixed(dec) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = end.toFixed(dec) + suffix;
+    }
+    requestAnimationFrame(tick);
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target._ran) {
+        e.target._ran = true;
+        run(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ============================================
    INTERACTIVE NODE NETWORK (reusable)
    ============================================ */
 function initNodeNetwork(sectionId, canvasId, opts) {
