@@ -211,11 +211,11 @@ window.fakeSubmit = fakeSubmit;
 })();
 
 /* ============================================
-   SERVICES INTERACTIVE NODE NETWORK
+   INTERACTIVE NODE NETWORK (reusable)
    ============================================ */
-(function () {
-  const section = document.getElementById('services');
-  const canvas = document.getElementById('servicesCanvas');
+function initNodeNetwork(sectionId, canvasId, opts) {
+  const section = document.getElementById(sectionId);
+  const canvas = document.getElementById(canvasId);
   if (!section || !canvas) return;
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -223,8 +223,17 @@ window.fakeSubmit = fakeSubmit;
     return;
   }
 
+  const o = Object.assign({
+    node: '16,185,129',   // base RGB
+    near: '5,150,105',    // brightened RGB near cursor
+    nodeAlpha: 0.5,
+    linkAlpha: 0.18,
+    cursorAlpha: 0.5
+  }, opts || {});
+
   const ctx = canvas.getContext('2d');
-  let W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let nodes = [];
   let running = false, raf = null;
   const mouse = { x: -9999, y: -9999, active: false };
@@ -267,8 +276,6 @@ window.fakeSubmit = fakeSubmit;
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
       if (p.y < 0 || p.y > H) p.vy *= -1;
-
-      // gentle drift toward the cursor when close
       if (mouse.active) {
         const dx = mouse.x - p.x, dy = mouse.y - p.y;
         const d = Math.hypot(dx, dy);
@@ -279,7 +286,6 @@ window.fakeSubmit = fakeSubmit;
       }
     }
 
-    // node-to-node links
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
@@ -289,14 +295,13 @@ window.fakeSubmit = fakeSubmit;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = `rgba(16,185,129,${(1 - dist / 130) * 0.18})`;
+          ctx.strokeStyle = `rgba(${o.node},${(1 - dist / 130) * o.linkAlpha})`;
           ctx.lineWidth = 0.7;
           ctx.stroke();
         }
       }
     }
 
-    // links + glow toward the cursor
     for (const p of nodes) {
       let near = false;
       if (mouse.active) {
@@ -307,14 +312,14 @@ window.fakeSubmit = fakeSubmit;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(16,185,129,${(1 - d / MOUSE_DIST) * 0.5})`;
+          ctx.strokeStyle = `rgba(${o.node},${(1 - d / MOUSE_DIST) * o.cursorAlpha})`;
           ctx.lineWidth = 0.9;
           ctx.stroke();
         }
       }
       ctx.beginPath();
       ctx.arc(p.x, p.y, near ? p.r + 0.8 : p.r, 0, Math.PI * 2);
-      ctx.fillStyle = near ? 'rgba(5,150,105,0.85)' : 'rgba(16,185,129,0.5)';
+      ctx.fillStyle = near ? `rgba(${o.near},0.9)` : `rgba(${o.node},${o.nodeAlpha})`;
       ctx.fill();
     }
 
@@ -334,7 +339,6 @@ window.fakeSubmit = fakeSubmit;
   });
   section.addEventListener('pointerleave', () => { mouse.active = false; mouse.x = mouse.y = -9999; });
 
-  // Only animate while the section is on screen
   const vis = new IntersectionObserver((entries) => {
     entries.forEach(e => e.isIntersecting ? start() : stop());
   }, { threshold: 0.05 });
@@ -343,7 +347,16 @@ window.fakeSubmit = fakeSubmit;
   resize();
   let rt;
   window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 200); });
-})();
+}
+
+initNodeNetwork('services', 'servicesCanvas');
+initNodeNetwork('contact', 'contactCanvas', {
+  node: '52,211,153',   // emerald-400 on dark
+  near: '110,231,183',  // emerald-300
+  nodeAlpha: 0.55,
+  linkAlpha: 0.22,
+  cursorAlpha: 0.55
+});
 
 /* ============================================
    HERO PARTICLE CANVAS — KZN-inspired
