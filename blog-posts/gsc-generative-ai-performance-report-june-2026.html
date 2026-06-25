@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-N2D3HCLJ');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Visibility Lands in Search Console: What the Generative AI Report Shows — and Hides — NovaReach</title>
+  <meta name="description" content="Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. Here's what it shows, what it leaves out, and how to use it before clicks and queries arrive." />
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="https://novareachmarketing.com/blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://novareachmarketing.com/blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+  <meta property="og:title" content="AI Visibility Lands in Search Console: What the Generative AI Report Shows — and Hides — NovaReach">
+  <meta property="og:description" content="Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. Here's what it shows, what it leaves out, and how to use it before clicks and queries arrive.">
+  <meta property="og:image" content="https://novareachmarketing.com/images/novareach-logo.png">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://novareachmarketing.com/blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+  <meta property="twitter:title" content="AI Visibility Lands in Search Console: What the Generative AI Report Shows — and Hides — NovaReach">
+  <meta property="twitter:description" content="Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. Here's what it shows, what it leaves out, and how to use it before clicks and queries arrive.">
+  <meta property="twitter:image" content="https://novareachmarketing.com/images/novareach-logo.png">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/novareach-logo.png">
+  <link rel="shortcut icon" type="image/png" href="../images/novareach-logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/novareach-logo.png">
+  <meta name="msapplication-TileColor" content="#10b981">
+  <meta name="theme-color" content="#10b981">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' };</script>
+  <link rel="stylesheet" href="../assets/css/styles.css?v=20250822">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-C2XZD4YN3D');
+  </script>
+</head>
+<body class="bg-white text-slate-900 touch-manipulation">
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2D3HCLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white backdrop-blur supports-[backdrop-filter]:bg-white shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center relative">
+      <a href="../index.html#home" class="flex items-center gap-3"><img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-24 w-auto" loading="lazy"></a>
+      <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <a href="../index.html#services" class="py-1 text-slate-900 hover:text-emerald-600 tap">Services</a>
+        <a href="../index.html#work" class="py-1 text-slate-900 hover:text-emerald-600 tap">Results</a>
+        <a href="../index.html#about" class="py-1 text-slate-900 hover:text-emerald-600 tap">About</a>
+        <a href="../index.html#pricing" class="py-1 text-slate-900 hover:text-emerald-600 tap">Pricing</a>
+        <a href="../blog.html" class="py-1 text-emerald-600 font-semibold tap">Blog</a>
+        <a href="../index.html#contact" class="py-1 text-slate-900 hover:text-emerald-600 tap">Contact</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-2 sm:gap-3">
+        <a href="../index.html#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
+        <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white backdrop-blur">
+      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
+        <a href="../index.html#services" class="text-slate-900 hover:text-emerald-600 py-2">Services</a>
+        <a href="../index.html#work" class="text-slate-900 hover:text-emerald-600 py-2">Results</a>
+        <a href="../index.html#about" class="text-slate-900 hover:text-emerald-600 py-2">About</a>
+        <a href="../index.html#pricing" class="text-slate-900 hover:text-emerald-600 py-2">Pricing</a>
+        <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
+        <a href="../index.html#contact" class="text-slate-900 hover:text-emerald-600 py-2">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="relative overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+      <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay" style="background-image: radial-gradient(rgba(148,163,184,.6) 1px, transparent 1px); background-size: 24px 24px; background-position: -1px -1px;"></div>
+      <div class="absolute left-1/2 -translate-x-1/2 top-12 h-48 w-48 rounded-full blur-3xl bg-emerald-500/15"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <a href="../blog.html" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-emerald-600 mb-8 group">
+        <svg class="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Back to Blog</a>
+      <div class="inline-block rounded-2xl border border-slate-200 bg-white/90 shadow px-6 py-8 w-full">
+        <div class="flex flex-wrap gap-2 mb-4"><span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium bg-slate-100 border border-slate-200 text-slate-700">SEO</span></div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">AI Visibility Lands in Search Console: What the Generative AI Report Shows — and Hides</h1>
+        <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+          <span>June 22, 2026 • SEO</span><span>•</span><span>7 min read</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow p-8 sm:p-12">
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">On June 3, Google announced the single most-requested feature in the history of Search Console: a Generative AI performance report that finally surfaces how your pages perform inside AI Overviews and AI Mode. For nearly two years, AI features have been quietly eating into organic clicks while SEOs flew blind, with no native way to separate AI-driven visibility from the rest of Search. That blind spot is starting to close.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">The first live properties are already showing the report, and the early read is mixed. Yes, this is a real step forward and the data many of us have been demanding. But the initial version answers a narrower question than the headlines suggest, and if you read it the wrong way you will draw conclusions the data simply cannot support. Here is what the report actually contains, what it deliberately leaves out, and how to put it to work across client accounts right now.</p>
+
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">What Google Actually Shipped</h2>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">The new report appears as a dedicated "Generative AI" section sitting underneath the standard Search results report in the Performance area, with separate views for Search and Discover. Click into your usual Search results report and you will see a prompt below the graph linking through to it. There is also a quick way in for the impatient: append <code class="px-1 py-0.5 rounded bg-slate-100 text-slate-800 text-sm">/ai</code> to your existing Performance report URL and the report loads directly, for both Search and Discover.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Data runs back to May 18, 2026, which is the earliest date you can assess. As with the Discover report, your property needs to clear a minimum impressions threshold for the AI tab to appear at all, so smaller sites and low-AI-volume Discover properties may not see it yet. The rollout is also geographically staggered: despite the official announcement not mentioning it, the first wave landed for UK properties only. If your sites sit outside the UK, expect a wait before the report populates.</p>
+
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">Impressions Only — and Why That Matters</h2>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Here is the catch that gets lost in the excitement. In this first release the report shows impressions, and only impressions, broken down by page, country, device and date. The two metrics that actually tell you whether AI visibility is doing anything for the business — queries and clicks — are not there. You can see that you appeared inside an AI Overview or AI Mode answer. You cannot see what someone searched to trigger it, and you cannot see whether they clicked through.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">That gap is bigger than it looks, because impressions have become an increasingly noisy signal in their own right. Without clicks, an impression inside an AI answer tells you that Google referenced or surfaced your page, not that it sent you a visitor or that the citation was even prominent. Treat the current numbers as a presence indicator, not a performance one. They confirm you are in the room; they say nothing about whether anyone heard you.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">To put scale on it: one large UK site with access to the live report logged roughly 1.79 million AI impressions in the 18 days from May 18, around 120,000 a day. Over a single recent week, AI Overviews and AI Mode accounted for about 813,000 of 8.4 million total Search impressions — close to 10%. That site skews heavily branded, where AI Overviews appear less often, so for most commercial and informational sites the AI share will run higher. The direction of travel is clear even if the metric is blunt.</p>
+      <div class="my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-5"><p class="text-sm font-semibold text-emerald-800 mb-1">💡 Pro Tip</p><p class="text-sm text-emerald-700">Don't report AI impressions to clients as a standalone success metric. Pair the AI impression trend against your total organic clicks over the same window. If AI impressions are climbing while clicks flatten or fall, that is the zero-click squeeze showing up in your own data — a far more useful story than a big impression number on its own.</p></div>
+
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">The Other Half of the Release: AI Controls</h2>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Shipping alongside the report is a new set of AI controls, found under Settings &gt; AI controls &gt; Search generative AI. These let a property owner choose to include or exclude their content from appearing in AI Overviews and AI Mode, including whether the content can be used to ground AI responses at all. The default is include, which is what almost every commercial site should keep. Excluding means no clicks and no impressions from those features whatsoever — you remove yourself from the surface entirely rather than optimise within it.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">The setting only took effect from June 17, and the practical advice is short: for the vast majority of advertisers and publishers, leave it alone. The exclude toggle is a blunt instrument aimed at a small set of publishers with specific licensing or content-protection concerns. For anyone whose goal is visibility, opting out of the fastest-growing surface in Search to protest the lack of click data would be cutting off your nose to spite your face. Know the control exists, be able to explain it to a nervous client, and then move on.</p>
+
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Use It This Quarter</h2>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Even in its limited form, the report is worth wiring into your routine now. First, establish a baseline for every property that has the tab. Note the AI impression volume and, more importantly, AI impressions as a share of total Search impressions. That ratio is the number to watch over the coming months as AI Mode keeps expanding. Second, use the page-level breakdown to identify which of your URLs Google is actually pulling into AI answers. Those pages are your proven AI-citable assets — study what they have in common, because that pattern is your template for the rest of the site.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Third, set expectations with clients before they hear a half-version elsewhere. A short note explaining that Search Console now shows AI presence, that clicks and queries are coming but not here yet, and that you are tracking the trend, is the kind of proactive communication that builds trust. It is far better than fielding a panicked question after a client reads a LinkedIn post claiming the data means something it does not.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">The natural progression is obvious, and Google has all but signalled it: once clicks and queries arrive, the AI data will likely fold into the main Search results report as a search appearance filter, exactly like every other rich result. When that happens, AI performance becomes a genuinely actionable layer of your reporting. Building the baseline now means you will have months of trend data ready the moment the metrics that matter show up.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">For now, the report rewards a measured read: it is presence, not performance. Use it to understand where you stand in AI Search, not to declare victory.</p>
+      <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">If you want help interpreting your AI impression data and turning it into a content plan that earns more citations — <a href="https://novareachmarketing.com/index.html#contact" class="text-emerald-600 hover:underline">reach out to NovaReach here</a>. We audit organic visibility across traditional and AI-driven Search and can pinpoint which pages are already working in AI answers and which gaps to close next.</p>
+      <div class="mt-12 pt-8 border-t border-slate-200">
+        <div class="rounded-xl bg-emerald-600 p-6 text-white text-center">
+          <p class="text-lg font-semibold mb-2">AI Search visibility is now measurable. Make sure you're measuring it right.</p>
+          <p class="text-sm text-emerald-100 mb-4">NovaReach helps brands track AI Overviews and AI Mode performance and build content that earns citations. Let's baseline your AI visibility this quarter.</p>
+          <a href="https://novareachmarketing.com/index.html#contact" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-emerald-700 font-semibold hover:bg-emerald-50 transition-colors">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8"><a href="../blog.html" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-emerald-600 group"><svg class="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Back to all posts</a></div>
+  </main>
+  <footer class="py-10 border-t border-slate-200 bg-white backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3"><img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy"><span class="text-sm text-slate-900">© <span id="year"></span> Nova Reach. All rights reserved.</span></div>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="../index.html#home" class="text-slate-900 hover:text-emerald-600">Home</a>
+        <a href="../blog.html" class="text-slate-900 hover:text-emerald-600">Blog</a>
+        <a href="../index.html#contact" class="text-slate-900 hover:text-emerald-600">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js?v=20250822"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
