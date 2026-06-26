@@ -51,7 +51,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -59,6 +59,7 @@
   </script>
 
   <link rel="stylesheet" href="../assets/css/styles.css?v=20250822">
+  <link rel="stylesheet" href="../assets/css/post.css?v=20260626">
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
@@ -70,7 +71,7 @@
   </script>
 </head>
 
-<body class="bg-white text-slate-900 touch-manipulation">
+<body class="bg-white text-slate-900 touch-manipulation post-page">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2D3HCLJ" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -79,52 +80,28 @@
   <div id="menuOverlay"
     class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
 
-  <header
-    class="sticky top-0 z-50 border-b border-slate-200/70 bg-white backdrop-blur supports-[backdrop-filter]:bg-white shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center relative">
-      <a href="../index.html#home" class="flex items-center gap-3">
-        <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-24 w-auto" loading="lazy">
-      </a>
-
-      <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <a href="../index.html#services" class="py-1 text-slate-900 hover:text-emerald-600 tap">Services</a>
-        <a href="../index.html#work" class="py-1 text-slate-900 hover:text-emerald-600 tap">Results</a>
-        <a href="../index.html#about" class="py-1 text-slate-900 hover:text-emerald-600 tap">About</a>
-        <a href="../index.html#pricing" class="py-1 text-slate-900 hover:text-emerald-600 tap">Pricing</a>
-        <a href="../blog.html" class="py-1 text-emerald-600 font-semibold tap">Blog</a>
-        <a href="../index.html#contact" class="py-1 text-slate-900 hover:text-emerald-600 tap">Contact</a>
+  <header class="site-header">
+    <div class="sh-wrap">
+      <a href="../index.html#home" class="sh-logo">nova<span>reach</span></a>
+      <nav class="sh-nav">
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#approach">Approach</a>
+        <a href="../blog.html" class="active">Writing</a>
+        <a href="../index.html#pricing">Pricing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact" class="sh-btn">Free audit</a>
       </nav>
-
-      <div class="ml-auto flex items-center gap-2 sm:gap-3">
-        <a href="../index.html#contact"
-          class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's
-          Talk</a>
-        <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 " aria-label="Open menu"
-          aria-expanded="false" aria-controls="mobileMenu">
-          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-      </div>
+      <button class="sh-menu" aria-label="Open menu" onclick="document.getElementById('nrMobile').classList.toggle('open')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
-
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white backdrop-blur">
-      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
-        <a href="../index.html#services" class="text-slate-900 hover:text-emerald-600 py-2">Services</a>
-        <a href="../index.html#work" class="text-slate-900 hover:text-emerald-600 py-2">Results</a>
-        <a href="../index.html#about" class="text-slate-900 hover:text-emerald-600 py-2">About</a>
-        <a href="../index.html#pricing" class="text-slate-900 hover:text-emerald-600 py-2">Pricing</a>
-        <a href="../blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
-        <a href="../index.html#contact" class="text-slate-900 hover:text-emerald-600 py-2">Contact</a>
-      </nav>
+    <div class="sh-mobile" id="nrMobile">
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#approach">Approach</a>
+      <a href="../blog.html">Writing</a>
+      <a href="../index.html#pricing">Pricing</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Free audit</a>
     </div>
   </header>
 
@@ -293,48 +270,15 @@
     </article>
   </main>
 
-  <footer class="relative border-t border-slate-200/70 bg-white backdrop-blur mt-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="md:col-span-2">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="../images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
-            <span class="font-extrabold tracking-tight text-lg">Nova Reach</span>
-          </div>
-          <p class="text-slate-600 mb-6 max-w-md">We help e-commerce businesses grow with data-driven digital marketing.
-            SEO, PPC, Email Marketing & CRO.</p>
-          <div class="flex items-center gap-4">
-            <a href="../index.html#contact"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's
-              Talk</a>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="font-semibold text-slate-900 mb-4">Services</h3>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li><a href="../index.html#services" class="hover:text-emerald-600 tap">SEO & SEM</a></li>
-            <li><a href="../index.html#services" class="hover:text-emerald-600 tap">Conversion Rate Optimization</a>
-            </li>
-            <li><a href="../index.html#services" class="hover:text-emerald-600 tap">Email Marketing</a></li>
-            <li><a href="../index.html#services" class="hover:text-emerald-600 tap">Shopify Management</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="font-semibold text-slate-900 mb-4">Company</h3>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li><a href="../index.html#about" class="hover:text-emerald-600 tap">About</a></li>
-            <li><a href="../index.html#work" class="hover:text-emerald-600 tap">Results</a></li>
-            <li><a href="../blog.html" class="hover:text-emerald-600 tap">Blog</a></li>
-            <li><a href="../index.html#contact" class="hover:text-emerald-600 tap">Contact</a></li>
-          </ul>
-        </div>
+  <footer class="site-footer">
+    <div class="sf-wrap">
+      <a href="../index.html#home" class="sh-logo">nova<span>reach</span></a>
+      <div class="sf-links">
+        <a href="../index.html#home">Home</a>
+        <a href="../blog.html">Writing</a>
+        <a href="../index.html#contact">Contact</a>
       </div>
-
-      <div class="border-t border-slate-200  mt-8 pt-8 text-center text-sm text-slate-500">
-        <p>&copy; <span id="year"></span> Nova Reach. All rights reserved.</p>
-      </div>
+      <span class="sf-copy">&copy; <span id="year"></span> NovaReach. All rights reserved.</span>
     </div>
   </footer>
 

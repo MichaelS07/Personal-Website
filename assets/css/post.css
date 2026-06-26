@@ -1,0 +1,69 @@
+/* NovaReach blog post styling — modern & sharp, matches index.html / blog.html */
+:root {
+  --ink: #0b0f0d;
+  --ink-2: #525956;
+  --muted: #6b716e;
+  --line: #e8e8e5;
+  --line-2: #f2f2f0;
+  --brand: #10b981;
+  --brand-d: #0e9f6e;
+  --disp: 'Space Grotesk', sans-serif;
+  --body-font: 'Inter', system-ui, sans-serif;
+}
+
+body.post-page { font-family: var(--body-font); color: var(--ink); background: #fff; }
+
+/* ---- Shared header ---- */
+.site-header {
+  position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(10px); border-bottom: 0.5px solid var(--line-2);
+}
+.sh-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+.sh-logo { font-family: var(--disp); font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.sh-logo span { color: var(--brand); }
+.sh-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--ink-2); }
+.sh-nav a { color: var(--ink-2); text-decoration: none; }
+.sh-nav a:hover { color: var(--ink); }
+.sh-nav a.active { color: var(--ink); font-weight: 500; }
+.sh-btn { background: var(--ink); color: #fff !important; padding: 9px 16px; border-radius: 9px; font-weight: 500; }
+.sh-btn:hover { background: #1b211e; }
+.sh-menu { display: none; background: none; border: 0.5px solid var(--line); border-radius: 8px; padding: 8px; cursor: pointer; color: var(--ink); }
+.sh-mobile { display: none; border-top: 0.5px solid var(--line-2); background: #fff; }
+.sh-mobile.open { display: block; }
+.sh-mobile a { display: block; padding: 12px 24px; color: var(--ink-2); border-bottom: 0.5px solid var(--line-2); text-decoration: none; }
+
+/* ---- Hero (flatten the old card chrome) ---- */
+body.post-page > section:first-of-type { padding: 56px 0 8px !important; }
+body.post-page > section:first-of-type > div[aria-hidden] { display: none !important; }
+body.post-page > section:first-of-type .inline-block.rounded-2xl,
+body.post-page > section:first-of-type .rounded-2xl {
+  border: 0 !important; box-shadow: none !important; background: transparent !important; padding: 0 !important; display: block !important;
+}
+body.post-page h1 { font-family: var(--disp) !important; color: var(--ink) !important; letter-spacing: -0.03em; font-size: clamp(30px, 4.4vw, 44px) !important; line-height: 1.08 !important; }
+body.post-page .inline-flex.rounded-full { background: rgba(16,185,129,0.1) !important; border-color: rgba(16,185,129,0.25) !important; color: var(--brand-d) !important; }
+
+/* ---- Article body ---- */
+body.post-page main > .rounded-2xl {
+  border: 0.5px solid var(--line) !important; box-shadow: none !important; background: #fff !important;
+  border-radius: 14px !important; padding: 36px !important;
+}
+body.post-page main { max-width: 760px !important; }
+body.post-page h2 { font-family: var(--disp) !important; color: var(--ink) !important; letter-spacing: -0.02em; font-size: 24px !important; }
+body.post-page h3 { font-family: var(--disp) !important; color: var(--ink) !important; }
+body.post-page main p { color: #3f4542 !important; font-size: 17px !important; line-height: 1.75 !important; }
+body.post-page main a:not(.btn) { color: var(--brand-d) !important; }
+body.post-page a.text-emerald-600 { color: var(--brand-d) !important; }
+
+/* ---- Footer ---- */
+.site-footer { padding: 36px 0; border-top: 0.5px solid var(--line); background: #fff; box-shadow: none; }
+.sf-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.sf-links { display: flex; gap: 22px; font-size: 14px; }
+.sf-links a { color: var(--ink-2); text-decoration: none; }
+.sf-links a:hover { color: var(--ink); }
+.sf-copy { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 860px) {
+  .sh-nav { display: none; }
+  .sh-menu { display: block; }
+  body.post-page main > .rounded-2xl { padding: 24px !important; }
+}
