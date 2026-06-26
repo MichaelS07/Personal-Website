@@ -19,8 +19,10 @@ body.post-page { font-family: var(--body-font); color: var(--ink); background: #
   backdrop-filter: saturate(180%) blur(10px); border-bottom: 0.5px solid var(--line-2);
 }
 .sh-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
-.sh-logo { font-family: var(--disp); font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
-.sh-logo span { color: var(--brand); }
+.sh-logo { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.sh-logo .sh-mark { height: 32px; width: 32px; display: block; }
+.sh-logo .sh-wm { font-family: var(--disp); font-size: 18px; font-weight: 700; letter-spacing: 0.02em; }
+.sh-logo .brand { color: var(--brand); }
 .sh-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--ink-2); }
 .sh-nav a { color: var(--ink-2); text-decoration: none; }
 .sh-nav a:hover { color: var(--ink); }

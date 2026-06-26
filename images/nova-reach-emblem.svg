@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Nova Reach emblem">
+  <defs>
+    <linearGradient id="novaCore" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34D399"></stop>
+      <stop offset="1" stop-color="#059669"></stop>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="40" fill="none" stroke="#059669" stroke-width="1.6" opacity="0.22"></circle>
+  <circle cx="50" cy="50" r="26" fill="none" stroke="#10B981" stroke-width="1.6" opacity="0.45"></circle>
+  <circle cx="50" cy="10" r="4.5" fill="#34D399"></circle>
+  <path d="M50 32 L53.54 46.46 L68 50 L53.54 53.54 L50 68 L46.46 53.54 L32 50 L46.46 46.46 Z" fill="url(#novaCore)"></path>
+</svg>
