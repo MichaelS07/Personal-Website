@@ -1,46 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Google Tag Manager -->
   <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-N2D3HCLJ');</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog — NovaReach</title>
-  <meta name="description" content="Weekly e-commerce and digital marketing insights from NovaReach." />
+  <title>Writing — NovaReach</title>
+  <meta name="description" content="Breakdowns of what's changing in search and ecommerce marketing — SEO, paid search, CRO and lifecycle, most weeks." />
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
-  <link rel="canonical" href="https://novareach.com.au/blog.html">
+  <link rel="canonical" href="https://novareachmarketing.com/blog.html">
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://novareach.com.au/blog.html">
-  <meta property="og:title" content="Blog — NovaReach">
-  <meta property="og:description" content="Weekly e-commerce and digital marketing insights from NovaReach.">
-  <meta property="og:image" content="https://novareach.com.au/images/novareach-logo.png">
+  <meta property="og:url" content="https://novareachmarketing.com/blog.html">
+  <meta property="og:title" content="Writing — NovaReach">
+  <meta property="og:description" content="Breakdowns of what's changing in search and ecommerce marketing.">
+  <meta property="og:image" content="https://novareachmarketing.com/images/novareach-logo.png">
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://novareach.com.au/blog.html">
-  <meta property="twitter:title" content="Blog — NovaReach">
-  <meta property="twitter:description" content="Weekly e-commerce and digital marketing insights from NovaReach.">
-  <meta property="twitter:image" content="https://novareach.com.au/images/novareach-logo.png">
+  <meta property="twitter:url" content="https://novareachmarketing.com/blog.html">
+  <meta property="twitter:title" content="Writing — NovaReach">
+  <meta property="twitter:description" content="Breakdowns of what's changing in search and ecommerce marketing.">
+  <meta property="twitter:image" content="https://novareachmarketing.com/images/novareach-logo.png">
   <meta name="color-scheme" content="light">
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="images/novareach-logo.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/novareach-logo.png">
   <link rel="shortcut icon" type="image/png" href="images/novareach-logo.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/novareach-logo.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="images/novareach-logo.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="images/novareach-logo.png">
-  <meta name="msapplication-TileColor" content="#10b981">
   <meta name="theme-color" content="#10b981">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' };
-  </script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20250822">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0b0f0d;
+      --ink-2: #525956;
+      --muted: #6b716e;
+      --line: #e8e8e5;
+      --line-2: #f2f2f0;
+      --bg: #ffffff;
+      --bg-2: #fbfbfa;
+      --brand: #10b981;
+      --brand-d: #0e9f6e;
+      --radius: 10px;
+      --radius-lg: 14px;
+      --maxw: 1120px;
+      --disp: 'Space Grotesk', sans-serif;
+      --body: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--body); color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3 { font-family: var(--disp); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .brand { color: var(--brand); }
+    .eyebrow { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 14.5px; border-radius: 9px; padding: 12px 20px; transition: transform .15s, background .15s, border-color .15s; cursor: pointer; border: 0.5px solid transparent; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-dark { background: var(--ink); color: #fff; }
+    .btn-dark:hover { background: #1b211e; }
+    .btn-ghost { border-color: #d8d8d4; color: var(--ink); background: #fff; }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.88); backdrop-filter: saturate(180%) blur(10px); border-bottom: 0.5px solid var(--line-2); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .logo { font-family: var(--disp); font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--ink-2); }
+    .nav-links a:not(.btn):hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .menu-btn { display: none; background: none; border: 0.5px solid var(--line); border-radius: 8px; padding: 8px; cursor: pointer; }
+    .mobile-menu { display: none; border-top: 0.5px solid var(--line-2); background: #fff; }
+    .mobile-menu a { display: block; padding: 12px 24px; color: var(--ink-2); border-bottom: 0.5px solid var(--line-2); }
+
+    .blog-hero { padding: 64px 0 32px; text-align: center; background: radial-gradient(60% 60% at 50% 0%, rgba(16,185,129,0.05), transparent 70%); }
+    .blog-hero h1 { font-size: clamp(32px, 4.5vw, 46px); margin: 12px 0 14px; }
+    .blog-hero p { color: var(--ink-2); font-size: 16px; max-width: 560px; margin: 0 auto; }
+
+    .controls { max-width: 860px; margin: 32px auto 0; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    #search { flex: 1; min-width: 200px; height: 44px; border: 0.5px solid var(--line); border-radius: 10px; padding: 0 16px; font-family: var(--body); font-size: 14.5px; color: var(--ink); background: #fff; }
+    #search:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(16,185,129,0.12); }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .tag { font-size: 13px; color: var(--ink-2); border: 0.5px solid var(--line); background: #fff; border-radius: 20px; padding: 8px 14px; cursor: pointer; transition: all .15s; font-family: var(--body); }
+    .tag:hover { border-color: #cfcfca; }
+    .tag.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .posts-sec { padding: 40px 0 90px; }
+    .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pcard { border: 0.5px solid var(--line); border-radius: var(--radius-lg); background: #fff; transition: border-color .2s, transform .2s; }
+    .pcard:hover { border-color: #cfcfca; transform: translateY(-3px); }
+    .pcard > a { display: flex; flex-direction: column; height: 100%; padding: 24px; }
+    .pc-meta { font-size: 11.5px; color: var(--brand); font-weight: 500; letter-spacing: 0.02em; margin-bottom: 10px; }
+    .pc-title { font-size: 17px; line-height: 1.28; letter-spacing: -0.015em; margin-bottom: 12px; }
+    .pc-ex { font-size: 13.5px; color: var(--muted); line-height: 1.55; flex: 1; }
+    .pc-foot { margin-top: 16px; padding-top: 14px; border-top: 0.5px solid var(--line-2); display: flex; justify-content: space-between; align-items: center; }
+    .pc-tags { font-size: 11.5px; color: var(--ink-2); }
+    .pc-more { font-size: 13px; color: var(--ink); font-weight: 500; }
+    .no-results { text-align: center; color: var(--muted); padding: 40px 0; display: none; }
+
+    footer { padding: 36px 0; border-top: 0.5px solid var(--line); }
+    .foot-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .foot-row .logo { font-size: 17px; }
+    .foot-links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+    .foot-links a:hover { color: var(--ink); }
+    .copy { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .menu-btn { display: block; }
+      .posts { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
   <script>
@@ -50,308 +131,248 @@
     gtag('config', 'G-C2XZD4YN3D');
   </script>
 </head>
-<body class="bg-white text-slate-900 touch-manipulation">
+
+<body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2D3HCLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
-  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white backdrop-blur supports-[backdrop-filter]:bg-white shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-28 flex items-center relative">
-      <a href="index.html#home" class="flex items-center gap-3">
-        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-24 w-auto" loading="lazy">
-      </a>
-      <nav class="hidden md:flex items-center gap-6 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <a href="index.html#services" class="py-1 text-slate-900 hover:text-emerald-600 tap">Services</a>
-        <a href="index.html#work" class="py-1 text-slate-900 hover:text-emerald-600 tap">Results</a>
-        <a href="index.html#about" class="py-1 text-slate-900 hover:text-emerald-600 tap">About</a>
-        <a href="index.html#pricing" class="py-1 text-slate-900 hover:text-emerald-600 tap">Pricing</a>
-        <a href="blog.html" class="py-1 text-emerald-600 font-semibold tap">Blog</a>
-        <a href="index.html#contact" class="py-1 text-slate-900 hover:text-emerald-600 tap">Contact</a>
+
+  <header>
+    <div class="wrap nav">
+      <a href="index.html#home" class="logo">nova<span class="brand">reach</span></a>
+      <nav class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#approach">Approach</a>
+        <a href="blog.html" class="active">Writing</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact" class="btn btn-dark" style="padding:9px 16px;">Free audit</a>
       </nav>
-      <div class="ml-auto flex items-center gap-2 sm:gap-3">
-        <a href="index.html#contact" class="hidden xs:inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm lift">Let's Talk</a>
-        <button id="menuBtn" class="md:hidden tap p-2 rounded-xl border border-slate-200 " aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <svg id="iconBars" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-          <svg id="iconX" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
     </div>
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white backdrop-blur">
-      <nav id="mobileMenuContent" class="px-4 py-3 flex flex-col gap-2 items-center text-center">
-        <a href="index.html#services" class="text-slate-900 hover:text-emerald-600 py-2">Services</a>
-        <a href="index.html#work" class="text-slate-900 hover:text-emerald-600 py-2">Results</a>
-        <a href="index.html#about" class="text-slate-900 hover:text-emerald-600 py-2">About</a>
-        <a href="index.html#pricing" class="text-slate-900 hover:text-emerald-600 py-2">Pricing</a>
-        <a href="blog.html" class="text-emerald-600 font-semibold py-2">Blog</a>
-        <a href="index.html#contact" class="text-slate-900 hover:text-emerald-600 py-2">Contact</a>
-      </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Free audit</a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-      <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay" style="background-image: radial-gradient(rgba(148,163,184,.6) 1px, transparent 1px); background-size: 24px 24px; background-position: -1px -1px; "></div>
-      <div class="absolute left-1/2 -translate-x-1/2 top-12 h-48 w-48 rounded-full blur-3xl bg-emerald-500/15"></div>
-    </div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="max-w-3xl mx-auto text-center">
-        <div class="inline-block rounded-2xl border border-slate-200 bg-white/90 /80 shadow px-5 py-4">
-          <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-slate-100 border border-slate-200 text-slate-900">Insights & E-Commerce News</span>
-          <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold tracking-tight text-emerald-600">NovaReach Blog</h1>
-          <p class="mt-3 text-sm sm:text-base text-slate-600 ">Weekly breakdowns of what matters in e-commerce: SEO/SEM updates, CRO plays, Shopify tips, and lifecycle wins.</p>
-        </div>
-      </div>
-      <div class="mt-8 max-w-4xl mx-auto">
-        <div class="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur shadow p-6">
-          <div class="flex flex-wrap gap-3">
-            <input id="search" type="search" placeholder="Search posts…" class="flex-1 min-w-0 rounded-xl border border-slate-300 dark:border-slate-700 bg-white px-4 py-3">
-            <div class="flex items-center gap-2 text-sm flex-wrap">
-              <button data-tag="All" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">All</button>
-              <button data-tag="Career" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">Career</button>
-              <button data-tag="Marketing" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">Marketing</button>
-              <button data-tag="E-commerce" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">E-commerce</button>
-              <button data-tag="SEO" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">SEO</button>
-              <button data-tag="SEM" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">SEM</button>
-              <button data-tag="Email" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">Email</button>
-              <button data-tag="Shopify" class="tag px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 hover:bg-white dark:hover:bg-slate-900 text-slate-700 lift">Shopify</button>
-            </div>
-          </div>
+  <section class="blog-hero">
+    <div class="wrap">
+      <span class="eyebrow">Writing</span>
+      <h1>What's actually changing in search</h1>
+      <p>Breakdowns of the shifts that matter for ecommerce — SEO, paid search, CRO and lifecycle. Published most weeks.</p>
+      <div class="controls">
+        <input id="search" type="search" placeholder="Search posts…" aria-label="Search posts" />
+        <div class="tags">
+          <button data-tag="All" class="tag active">All</button>
+          <button data-tag="SEO" class="tag">SEO</button>
+          <button data-tag="SEM" class="tag">SEM</button>
+          <button data-tag="Meta" class="tag">Meta</button>
+          <button data-tag="Email" class="tag">Email</button>
+          <button data-tag="E-commerce" class="tag">E-commerce</button>
+          <button data-tag="Shopify" class="tag">Shopify</button>
+          <button data-tag="Career" class="tag">Career</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Posts grid -->
-  <section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+  <section class="posts-sec">
+    <div class="wrap">
+      <div id="posts" class="posts">
 
-        <!-- NEW: GSC Generative AI Performance Report - June 22, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEO">
-          <a href="./blog-posts/gsc-generative-ai-performance-report-june-2026.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">June 22, 2026 • SEO</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">AI Visibility Lands in Search Console: What the Generative AI Report Shows — and Hides</h2>
-            <p class="mt-2 text-sm text-slate-600" style="color: #475569 !important;">Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. Here's what it shows, what it leaves out, and how to use it before clicks and queries arrive.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEO</div>
+        <article class="post pcard" data-tags="SEO">
+          <a href="./blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+            <div class="pc-meta">22 Jun 2026 · SEO</div>
+            <h2 class="pc-title">AI visibility lands in Search Console: what the Generative AI report shows — and hides</h2>
+            <p class="pc-ex">Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. What it shows, what it leaves out, and how to use it.</p>
+            <div class="pc-foot"><span class="pc-tags">SEO</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- NEW: Google August Bidding Shift - June 21, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEM">
-          <a href="./blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">June 21, 2026 • Paid Media</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Google's August Bidding Shift: Why Your Target CPA Is About to Cost More</h2>
-            <p class="mt-2 text-sm text-slate-600" style="color: #475569 !important;">Google's June 2026 Smart Bidding overhaul changes how budget-limited campaigns hit their targets from August 17. Here's what Promotion Mode, Smart Bidding Exploration, and the target optimisation change mean for your accounts.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEM</div>
+        <article class="post pcard" data-tags="SEM">
+          <a href="./blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html">
+            <div class="pc-meta">21 Jun 2026 · Paid Media</div>
+            <h2 class="pc-title">Google's August bidding shift: why your target CPA is about to cost more</h2>
+            <p class="pc-ex">Google's June 2026 Smart Bidding overhaul changes how budget-limited campaigns hit their targets from August 17. What Promotion Mode and Smart Bidding Exploration mean for your accounts.</p>
+            <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- NEW: Meta Andromeda Creative Targeting - June 9, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="Meta">
-          <a href="./blog-posts/meta-andromeda-creative-targeting-june-2026.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">June 9, 2026 • Paid Media</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Meta's Andromeda Algorithm: Your Creative Is Now Your Audience</h2>
-            <p class="mt-2 text-sm text-slate-600" style="color: #475569 !important;">Meta's delivery system now reads your ad creative as the primary audience signal, deprioritising manual interest targeting. Here's what practitioners need to change to stay efficient in 2026.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: Meta</div>
+        <article class="post pcard" data-tags="Meta">
+          <a href="./blog-posts/meta-andromeda-creative-targeting-june-2026.html">
+            <div class="pc-meta">9 Jun 2026 · Paid Media</div>
+            <h2 class="pc-title">Meta's Andromeda algorithm: your creative is now your audience</h2>
+            <p class="pc-ex">Meta's delivery system now reads your ad creative as the primary audience signal, deprioritising manual interest targeting. What practitioners need to change in 2026.</p>
+            <div class="pc-foot"><span class="pc-tags">Meta</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- NEW: Google May 2026 Core Update - May 22, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEO">
-          <a href="./blog-posts/google-may-2026-core-update-seo-impact.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">May 22, 2026 • SEO</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Google May 2026 Core Update: What's Changing and What to Do This Week</h2>
-            <p class="mt-2 text-sm text-slate-600" style="color: #475569 !important;">Google's May 2026 core update is live and targeting AI-mass-produced content. Here's what it actually targets, how to diagnose impact, and the actions that move the needle.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEO</div>
+        <article class="post pcard" data-tags="SEO">
+          <a href="./blog-posts/google-may-2026-core-update-seo-impact.html">
+            <div class="pc-meta">22 May 2026 · SEO</div>
+            <h2 class="pc-title">Google May 2026 core update: what's changing and what to do this week</h2>
+            <p class="pc-ex">Google's May 2026 core update is live and targeting AI-mass-produced content. What it actually targets, how to diagnose impact, and the actions that move the needle.</p>
+            <div class="pc-foot"><span class="pc-tags">SEO</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- NEW: Google AI Mode Zero-Click - May 4, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEM">
-          <a href="./blog-posts/google-ai-mode-zero-click-paid-search-may-2026.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">May 4, 2026 • SEM</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Google AI Mode's Zero-Click Problem: What It Means for Your Paid Search Strategy</h2>
-            <p class="mt-2 text-sm text-slate-600" style="color: #475569 !important;">Google AI Mode has 75M daily users and ads in 25% of results — but 93% of sessions end without a click. Here's what paid search practitioners need to restructure right now.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEM</div>
+        <article class="post pcard" data-tags="SEM">
+          <a href="./blog-posts/google-ai-mode-zero-click-paid-search-may-2026.html">
+            <div class="pc-meta">4 May 2026 · SEM</div>
+            <h2 class="pc-title">Google AI Mode's zero-click problem: what it means for your paid search strategy</h2>
+            <p class="pc-ex">Google AI Mode has 75M daily users and ads in 25% of results — but 93% of sessions end without a click. What paid search practitioners need to restructure now.</p>
+            <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- NEW: Google AI Max replacing DSA - Apr 20, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEM">
-          <a href="./blog-posts/google-ai-max-replacing-dynamic-search-ads-2026.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Apr 20, 2026 • Paid Media</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Google Is Replacing Dynamic Search Ads With AI Max: What Every Advertiser Needs to Know Before September</h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">Google is sunsetting Dynamic Search Ads in September 2026 and replacing them with AI Max for Search. Here's what changes, what you need to do now, and how to prepare your campaigns.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEM</div>
+        <article class="post pcard" data-tags="SEM">
+          <a href="./blog-posts/google-ai-max-replacing-dynamic-search-ads-2026.html">
+            <div class="pc-meta">20 Apr 2026 · Paid Media</div>
+            <h2 class="pc-title">Google is replacing Dynamic Search Ads with AI Max: what to know before September</h2>
+            <p class="pc-ex">Google is sunsetting Dynamic Search Ads in September 2026 and replacing them with AI Max for Search. What changes, what to do now, and how to prepare your campaigns.</p>
+            <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- NEW: March 2026 Core Update - Mar 30, 2026 -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEO">
-          <a href="./blog-posts/google-march-2026-core-update-what-to-do.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Mar 30, 2026 • Search</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Google's March 2026 Core Update: What It Means for Your SEO Strategy Right Now</h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">Google's first core update of 2026 is live and targeting AI-scaled content. Here's what changed, who's at risk, and exactly how to respond.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEO</div>
+        <article class="post pcard" data-tags="SEM">
+          <a href="./blog-posts/performance-max-controls-reporting-april-2026.html">
+            <div class="pc-meta">6 Apr 2026 · Paid Media</div>
+            <h2 class="pc-title">Google's new Performance Max controls: what every advertiser needs to act on now</h2>
+            <p class="pc-ex">Google has added audience exclusions, network segmentation and budget reports to Performance Max. What changed in April 2026 and what to do now.</p>
+            <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEM">
-          <a href="./blog-posts/performance-max-controls-reporting-april-2026.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Apr 6, 2026 • Paid Media</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">Google's New Performance Max Controls: What Every Advertiser Needs to Act On Now</h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">Google has added audience exclusions, network segmentation and budget reports to Performance Max. Here's what changed in April 2026 and what to do now.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEM</div>
+        <article class="post pcard" data-tags="SEO">
+          <a href="./blog-posts/google-march-2026-core-update-what-to-do.html">
+            <div class="pc-meta">30 Mar 2026 · Search</div>
+            <h2 class="pc-title">Google's March 2026 core update: what it means for your SEO strategy right now</h2>
+            <p class="pc-ex">Google's first core update of 2026 is live and targeting AI-scaled content. What changed, who's at risk, and exactly how to respond.</p>
+            <div class="pc-foot"><span class="pc-tags">SEO</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <!-- Example cards (duplicate/replace with your posts) -->
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="Email,Marketing">
-          <a href="./blog-posts/email-marketing-guide.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jan 22, 2025 • Email</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
-              Email Marketing: The Complete Guide
-            </h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
-              What is email marketing? How does it work? Does it convert? Learn everything you need to know about email marketing and how to make it successful.
-            </p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: Email, Marketing</div>
+        <article class="post pcard" data-tags="Email,Marketing">
+          <a href="./blog-posts/email-marketing-guide.html">
+            <div class="pc-meta">22 Jan 2025 · Email</div>
+            <h2 class="pc-title">Email marketing: the complete guide</h2>
+            <p class="pc-ex">What is email marketing? How does it work? Does it convert? Everything you need to know about email marketing and how to make it successful.</p>
+            <div class="pc-foot"><span class="pc-tags">Email · Marketing</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="Career,Marketing">
-          <a href="./blog-posts/the-journey-of-a-marketer.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jan 20, 2025 • Career</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
-              The Journey of a Marketer
-            </h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
-              Life as a marketer is definitely interesting, but where do I even begin? A deep dive into the daily operations, data analysis, and strategic thinking that goes into digital marketing.
-            </p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: Career, Marketing</div>
+        <article class="post pcard" data-tags="Career,Marketing">
+          <a href="./blog-posts/the-journey-of-a-marketer.html">
+            <div class="pc-meta">20 Jan 2025 · Career</div>
+            <h2 class="pc-title">The journey of a marketer</h2>
+            <p class="pc-ex">Life as a marketer is interesting, but where do you begin? A deep dive into the daily operations, data analysis, and strategic thinking behind digital marketing.</p>
+            <div class="pc-foot"><span class="pc-tags">Career · Marketing</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="E-commerce,CRO">
-          <a href="blog-posts/customer-journey-funnel-analysis.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jan 15, 2025 • Analytics</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
-              How to Master Your Website's Customer Journey: A Guide to Funnel Analysis
-            </h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
-              Learn how to analyze your e-commerce funnel to identify drop-off points and increase conversions. Master the customer journey from visit to purchase.
-            </p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: E-commerce, CRO</div>
+        <article class="post pcard" data-tags="E-commerce,CRO">
+          <a href="blog-posts/customer-journey-funnel-analysis.html">
+            <div class="pc-meta">15 Jan 2025 · Analytics</div>
+            <h2 class="pc-title">How to master your website's customer journey: a guide to funnel analysis</h2>
+            <p class="pc-ex">Analyse your ecommerce funnel to identify drop-off points and increase conversions. Master the customer journey from visit to purchase.</p>
+            <div class="pc-foot"><span class="pc-tags">E-commerce · CRO</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="E-commerce,Shopify">
-          <a href="blog-posts/checkout-ux-speed.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Aug 10, 2025 • Weekly</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 transition-colors group-hover:text-emerald-600">
-              E-Com Weekly: Checkout UX wins and Shopify speed tricks
-            </h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">
-              Small fixes that move conversion: error states, payment icons, and image compression that doesn't wreck quality.
-            </p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: E-commerce, Shopify</div>
+        <article class="post pcard" data-tags="E-commerce,Shopify">
+          <a href="blog-posts/checkout-ux-speed.html">
+            <div class="pc-meta">10 Aug 2025 · Weekly</div>
+            <h2 class="pc-title">E-com weekly: checkout UX wins and Shopify speed tricks</h2>
+            <p class="pc-ex">Small fixes that move conversion: error states, payment icons, and image compression that doesn't wreck quality.</p>
+            <div class="pc-foot"><span class="pc-tags">E-commerce · Shopify</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="SEO,SEM">
-          <a href="blog-posts/search-watch-aug-2025.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Aug 6, 2025 • Search</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 group-hover:text-emerald-600">Search Watch: what actually changed this month</h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">How to react to ranking volatility without nuking your content strategy or overspending in paid.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: SEO, SEM</div>
+        <article class="post pcard" data-tags="SEO,SEM">
+          <a href="blog-posts/search-watch-aug-2025.html">
+            <div class="pc-meta">6 Aug 2025 · Search</div>
+            <h2 class="pc-title">Search watch: what actually changed this month</h2>
+            <p class="pc-ex">How to react to ranking volatility without nuking your content strategy or overspending in paid.</p>
+            <div class="pc-foot"><span class="pc-tags">SEO · SEM</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
-        <article class="post reveal p-6 rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow lift" data-tags="Email,CRO">
-          <a href="blog-posts/email-flows-that-print-money.html" class="group block">
-            <div class="text-xs uppercase tracking-widest text-slate-500" style="color: #64748b !important;">Jul 30, 2025 • Lifecycle</div>
-            <h2 class="mt-2 text-xl font-bold text-emerald-600 group-hover:text-emerald-600">Email flows that print money (without being spammy)</h2>
-            <p class="mt-2 text-sm text-slate-600 " style="color: #475569 !important;">Welcome → browse/cart abandonment → post-purchase. Benchmarks, guardrails, and copy that converts.</p>
-            <div class="mt-4 text-xs text-slate-500" style="color: #64748b !important;">Tags: Email, CRO</div>
+        <article class="post pcard" data-tags="Email,CRO">
+          <a href="blog-posts/email-flows-that-print-money.html">
+            <div class="pc-meta">30 Jul 2025 · Lifecycle</div>
+            <h2 class="pc-title">Email flows that print money (without being spammy)</h2>
+            <p class="pc-ex">Welcome → browse/cart abandonment → post-purchase. Benchmarks, guardrails, and copy that converts.</p>
+            <div class="pc-foot"><span class="pc-tags">Email · CRO</span><span class="pc-more">Read →</span></div>
           </a>
         </article>
 
       </div>
+      <div class="no-results" id="noResults">No posts match your search.</div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-10 border-t border-slate-200 bg-white backdrop-blur shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <img src="images/novareach-logo.png" alt="NovaReach Logo" class="h-8 w-8" loading="lazy">
-        <span class="text-sm text-slate-900">© <span id="year"></span> Nova Reach. All rights reserved.</span>
+  <footer>
+    <div class="wrap foot-row">
+      <a href="index.html#home" class="logo">nova<span class="brand">reach</span></a>
+      <div class="foot-links">
+        <a href="index.html#home">Home</a>
+        <a href="blog.html">Writing</a>
+        <a href="index.html#contact">Contact</a>
       </div>
-      <div class="flex items-center gap-6 text-sm">
-        <a href="index.html#home" class="text-slate-900 hover:text-emerald-600">Home</a>
-        <a href="blog.html" class="text-slate-900 hover:text-emerald-600">Blog</a>
-        <a href="index.html#contact" class="text-slate-900 hover:text-emerald-600">Contact</a>
-      </div>
+      <span class="copy">© <span id="year"></span> NovaReach. All rights reserved.</span>
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20250822"></script>
   <script>
-    // search + tag filter
-    const search = document.getElementById('search');
-    const tags = document.querySelectorAll('.tag');
-    const posts = document.querySelectorAll('.post');
-    let activeTag = 'All';
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    var menuBtn = document.getElementById('menuBtn');
+    var mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', function () {
+      var open = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = open ? 'none' : 'block';
+      menuBtn.setAttribute('aria-expanded', String(!open));
+    });
+
+    var search = document.getElementById('search');
+    var tagBtns = document.querySelectorAll('.tag');
+    var posts = document.querySelectorAll('.post');
+    var noResults = document.getElementById('noResults');
+    var activeTag = 'All';
 
     function applyFilters() {
-      const q = (search.value || '').toLowerCase();
-      posts.forEach(p => {
-        const text = p.innerText.toLowerCase();
-        const ptags = (p.dataset.tags || '').split(',');
-        const matchText = !q || text.includes(q);
-        const matchTag = activeTag === 'All' || ptags.includes(activeTag);
-        p.style.display = (matchText && matchTag) ? '' : 'none';
+      var q = (search.value || '').toLowerCase();
+      var shown = 0;
+      posts.forEach(function (p) {
+        var text = p.innerText.toLowerCase();
+        var ptags = (p.dataset.tags || '').split(',');
+        var matchText = !q || text.includes(q);
+        var matchTag = activeTag === 'All' || ptags.includes(activeTag);
+        var show = matchText && matchTag;
+        p.style.display = show ? '' : 'none';
+        if (show) shown++;
       });
+      noResults.style.display = shown === 0 ? 'block' : 'none';
     }
 
-    if (search) search.addEventListener('input', applyFilters);
-
-    tags.forEach(t => {
-      t.addEventListener('click', () => {
-        tags.forEach(x => {
-          x.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-sm');
-          x.style.backgroundColor = '';
-          x.style.color = '';
-          x.style.borderColor = '';
-        });
-        t.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-sm');
-        t.style.backgroundColor = '#059669';
-        t.style.color = '#ffffff';
-        t.style.borderColor = '#059669';
+    search.addEventListener('input', applyFilters);
+    tagBtns.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tagBtns.forEach(function (x) { x.classList.remove('active'); });
+        t.classList.add('active');
         activeTag = t.dataset.tag;
         applyFilters();
       });
     });
-
-    // default select "All"
-    const allTag = document.querySelector('.tag[data-tag="All"]');
-    if (allTag) {
-      allTag.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-sm');
-      allTag.style.backgroundColor = '#059669';
-      allTag.style.color = '#ffffff';
-      allTag.style.borderColor = '#059669';
-    }
-
-    // footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
+
 </html>
