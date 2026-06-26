@@ -243,6 +243,66 @@
     .foot-links a:hover { color: var(--ink); }
     .copy { font-size: 13px; color: var(--muted); }
 
+    /* Services — split rows (not cards) */
+    .svc-rows { border-top: 0.5px solid var(--line); }
+    .svc-row { display: grid; grid-template-columns: 56px 1fr 190px; gap: 28px; align-items: center; padding: 30px 6px; border-bottom: 0.5px solid var(--line); transition: background .2s; }
+    .svc-row:hover { background: var(--bg-2); }
+    .svc-row-num { font-family: var(--disp); font-size: 30px; font-weight: 700; color: #cdcdc8; transition: color .2s; }
+    .svc-row:hover .svc-row-num { color: var(--brand); }
+    .svc-row h3 { font-size: 20px; margin-bottom: 6px; }
+    .svc-row p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+    .svc-row p strong { color: var(--ink); font-weight: 600; }
+    .svc-row .chips { text-align: right; }
+
+    /* Approach — connected timeline */
+    .timeline { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 24px; }
+    .tl-line { position: absolute; top: 23px; left: 12%; right: 12%; height: 2px; background: var(--line); }
+    .tl-step { text-align: center; position: relative; }
+    .tl-node { width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 2px solid var(--brand); color: var(--brand-d); font-family: var(--disp); font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1; }
+    .tl-step h3 { font-size: 18px; margin-bottom: 8px; }
+    .tl-step p { font-size: 14px; color: var(--ink-2); line-height: 1.6; max-width: 300px; margin: 0 auto; }
+    .tl-step p strong { color: var(--brand-d); font-weight: 600; }
+
+    /* Writing — featured + list */
+    .writing-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: stretch; }
+    .feat-post { border: 0.5px solid var(--line); border-radius: var(--radius-lg); padding: 32px; background: #fff; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
+    .feat-post:hover { border-color: #cfcfca; transform: translateY(-3px); }
+    .feat-post .meta { font-size: 12px; color: var(--brand); font-weight: 500; margin-bottom: 14px; }
+    .feat-post h3 { font-size: 26px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .feat-post p { font-size: 15px; color: var(--ink-2); line-height: 1.6; flex: 1; margin-bottom: 18px; }
+    .feat-post .more { font-weight: 500; color: var(--ink); }
+    .post-list { display: flex; flex-direction: column; gap: 12px; }
+    .post-row { border: 0.5px solid var(--line); border-radius: var(--radius-lg); padding: 18px 22px; background: #fff; flex: 1; display: flex; flex-direction: column; justify-content: center; transition: border-color .2s, transform .2s; }
+    .post-row:hover { border-color: #cfcfca; transform: translateX(3px); }
+    .post-row .meta { font-size: 11.5px; color: var(--brand); font-weight: 500; margin-bottom: 6px; }
+    .post-row h4 { font-family: var(--disp); font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+    .post-row-all { flex-direction: row; align-items: center; justify-content: center; gap: 8px; font-weight: 500; color: var(--ink); background: var(--bg-2); border-style: dashed; }
+
+    /* About — experience timeline */
+    .exp { margin: 26px 0 28px; }
+    .exp-item { display: grid; grid-template-columns: 24px 1fr; }
+    .exp-mark { position: relative; }
+    .exp-mark::before { content: ""; position: absolute; left: 4px; top: 6px; bottom: -22px; width: 1.5px; background: var(--line); }
+    .exp-item:last-child .exp-mark::before { display: none; }
+    .exp-dot { position: absolute; left: 0; top: 5px; width: 11px; height: 11px; border-radius: 50%; background: var(--brand); border: 2px solid #fff; }
+    .exp-body { padding-bottom: 22px; }
+    .exp-role { font-family: var(--disp); font-weight: 600; font-size: 15px; color: var(--ink); }
+    .exp-role span { color: var(--brand-d); font-weight: 500; }
+    .exp-body p { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; margin-top: 4px; }
+    .profile-exp { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+    .profile-exp strong { color: var(--ink-2); font-weight: 500; }
+
+    @media (max-width: 860px) {
+      .svc-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+      .svc-row .chips { text-align: left; }
+      .timeline { grid-template-columns: 1fr; gap: 22px; }
+      .tl-line { display: none; }
+      .tl-step { text-align: left; display: grid; grid-template-columns: 48px 1fr; column-gap: 16px; align-items: start; }
+      .tl-node { grid-row: 1 / span 2; margin: 0; }
+      .tl-step p { margin: 0; max-width: none; }
+      .writing-layout { grid-template-columns: 1fr; }
+    }
+
     /* FX: animated ambient blobs + interactive canvas + cursor spotlight */
     .fx-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
     .fx-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -350,7 +410,7 @@
           <a href="#writing" class="btn btn-ghost">Read my writing</a>
         </div>
         <div class="hero-stats">
-          <div><span class="n">5+ yrs</span><br>across paid &amp; organic</div>
+          <div><span class="n">3 yrs</span><br>across paid &amp; organic</div>
           <div class="vr"></div>
           <div><span class="n">Weekly</span><br>writing on search</div>
           <div class="vr"></div>
@@ -396,44 +456,32 @@
         <p>Getting found, converting the visitors you've got, and earning repeat sales — handled as one system, not three
           disconnected line items.</p>
       </div>
-      <div class="cards-3">
-        <article class="svc reveal">
-          <span class="svc-num">01</span>
-          <div class="svc-ic">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
-            </svg>
+      <div class="svc-rows reveal">
+        <article class="svc-row">
+          <span class="svc-row-num">01</span>
+          <div>
+            <h3>Search &amp; social growth</h3>
+            <p>High-intent <strong>Google Ads</strong> and technical <strong>SEO</strong> to capture demand that already
+              exists, then <strong>Meta Ads</strong> to reach the people who haven't found you yet.</p>
           </div>
-          <h3>Search &amp; social growth</h3>
-          <p>High-intent <strong>Google Ads</strong> and technical <strong>SEO</strong> to capture demand that already
-            exists, then <strong>Meta Ads</strong> to reach the people who haven't found you yet.</p>
           <div class="chips"><span>Google Ads</span><span>SEO</span><span>Meta Ads</span></div>
         </article>
-        <article class="svc reveal">
-          <span class="svc-num">02</span>
-          <div class="svc-ic">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 3h18v4H3z" /><path d="M5 7v12h14V7" /><path d="M9 12h6" />
-            </svg>
+        <article class="svc-row">
+          <span class="svc-row-num">02</span>
+          <div>
+            <h3>Storefront &amp; CRO</h3>
+            <p>Fast, easy-to-buy <strong>Shopify stores</strong>. I map the journey, find the drop-offs, and run
+              <strong>CRO experiments</strong> that recover lost sales.</p>
           </div>
-          <h3>Storefront &amp; CRO</h3>
-          <p>Fast, easy-to-buy <strong>Shopify stores</strong>. I map the journey, find the drop-offs, and run
-            <strong>CRO experiments</strong> that recover lost sales.</p>
           <div class="chips"><span>Shopify</span><span>CRO</span><span>UX</span></div>
         </article>
-        <article class="svc reveal">
-          <span class="svc-num">03</span>
-          <div class="svc-ic">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" />
-            </svg>
+        <article class="svc-row">
+          <span class="svc-row-num">03</span>
+          <div>
+            <h3>Email &amp; lifecycle</h3>
+            <p>Automated <strong>lifecycle flows</strong> that turn one-time buyers into repeat customers — so
+              <strong>post-purchase</strong> builds lifetime value instead of being an afterthought.</p>
           </div>
-          <h3>Email &amp; lifecycle</h3>
-          <p>Automated <strong>lifecycle flows</strong> that turn one-time buyers into repeat customers — so
-            <strong>post-purchase</strong> builds lifetime value instead of being an afterthought.</p>
           <div class="chips"><span>Klaviyo</span><span>Flows</span><span>Retention</span></div>
         </article>
       </div>
@@ -448,25 +496,26 @@
         <h2>Lean, clear, no fluff</h2>
         <p>You'll always know what's happening and why. The method is simple: test, measure, adjust, repeat.</p>
       </div>
-      <div class="steps">
-        <article class="step reveal">
-          <div class="sn">1</div>
+      <div class="timeline reveal">
+        <div class="tl-line" aria-hidden="true"></div>
+        <div class="tl-step">
+          <div class="tl-node">1</div>
           <h3>Diagnose</h3>
           <p>I audit your <strong>data</strong>, analyse your <strong>website</strong> and <strong>marketing
               funnels</strong>, and pinpoint exactly what's holding back growth.</p>
-        </article>
-        <article class="step reveal">
-          <div class="sn">2</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-node">2</div>
           <h3>Design</h3>
           <p>I build a <strong>roadmap</strong> of experiments, <strong>ranked by likely impact</strong>, so the work
             always starts with what's worth the most.</p>
-        </article>
-        <article class="step reveal">
-          <div class="sn">3</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-node">3</div>
           <h3>Deliver</h3>
           <p>I <strong>deploy and test</strong> rapidly, measure everything, and leave you a <strong>clear
               playbook</strong> you can keep using long after.</p>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -477,34 +526,28 @@
       <div class="sec-head reveal">
         <span class="eyebrow">Writing</span>
         <h2>I write about what's actually changing in search</h2>
-        <p>No real client to point at yet won't tell you much — but how I think will. I publish breakdowns of the shifts
-          that matter for ecommerce, most weeks.</p>
+        <p>How I think matters more than a logo wall. I publish breakdowns of the shifts that actually move ecommerce —
+          search, paid media and lifecycle — most weeks.</p>
       </div>
-      <div class="posts">
-        <a class="post-card reveal" href="blog-posts/gsc-generative-ai-performance-report-june-2026.html">
-          <div class="meta">SEO · 22 Jun 2026</div>
+      <div class="writing-layout reveal">
+        <a class="feat-post" href="blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+          <div class="meta">SEO · 22 Jun 2026 · Featured</div>
           <h3>AI visibility lands in Search Console: what the Generative AI report shows — and hides</h3>
           <p>Google's new report finally puts AI Overviews and AI Mode data in Search Console. What it shows, what it
-            leaves out, and how to use it.</p>
+            quietly leaves out, and how to actually use it before clicks and queries arrive.</p>
           <span class="more">Read post →</span>
         </a>
-        <a class="post-card reveal" href="blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html">
-          <div class="meta">SEM · 21 Jun 2026</div>
-          <h3>Google's August bidding shift: why your target CPA is about to cost more</h3>
-          <p>The June 2026 Smart Bidding overhaul changes how budget-limited campaigns hit their targets from August 17.
-            Here's what it means.</p>
-          <span class="more">Read post →</span>
-        </a>
-        <a class="post-card reveal" href="blog-posts/meta-andromeda-creative-targeting-june-2026.html">
-          <div class="meta">Meta · 9 Jun 2026</div>
-          <h3>Meta's Andromeda algorithm: your creative is now your audience</h3>
-          <p>Meta's delivery system now reads your ad creative as the primary audience signal, deprioritising manual
-            interest targeting.</p>
-          <span class="more">Read post →</span>
-        </a>
-      </div>
-      <div style="margin-top:32px;">
-        <a href="blog.html" class="btn btn-ghost">See all writing →</a>
+        <div class="post-list">
+          <a class="post-row" href="blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html">
+            <div class="meta">SEM · 21 Jun 2026</div>
+            <h4>Google's August bidding shift: why your target CPA is about to cost more</h4>
+          </a>
+          <a class="post-row" href="blog-posts/meta-andromeda-creative-targeting-june-2026.html">
+            <div class="meta">Meta · 9 Jun 2026</div>
+            <h4>Meta's Andromeda algorithm: your creative is now your audience</h4>
+          </a>
+          <a class="post-row post-row-all" href="blog.html">See all writing →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -580,12 +623,13 @@
           Christchurch, NZ
         </div>
         <div class="profile-stats">
-          <div><div class="n">5+</div><div class="l">Years exp.</div></div>
+          <div><div class="n">3</div><div class="l">Years exp.</div></div>
           <div><div class="n">Full</div><div class="l">funnel</div></div>
         </div>
         <div class="skill-tags">
           <span>Google Ads</span><span>SEO</span><span>Meta Ads</span><span>Klaviyo</span><span>CRO</span><span>Shopify</span>
         </div>
+        <div class="profile-exp">Experience at <strong>KZN Digital</strong> &amp; <strong>Bargain Chemist</strong></div>
       </div>
       <div class="about-content reveal">
         <span class="eyebrow">About</span>
@@ -595,10 +639,24 @@
         <p>Most ecommerce brands are strong in one channel and leaky everywhere else. I look at the full picture, find
           where revenue is slipping through, and fix it. When you hire me, you get me — not a pitch from a senior and
           then work from a junior.</p>
-        <div class="about-pills">
-          <span>Numbers over gut feel</span>
-          <span>Full funnel, not just top</span>
-          <span>Work directly with me</span>
+        <div class="exp">
+          <div class="exp-item">
+            <div class="exp-mark"><span class="exp-dot"></span></div>
+            <div class="exp-body">
+              <div class="exp-role">Digital Marketing <span>· KZN Digital</span></div>
+              <p>End-to-end management of multi-channel campaigns — setup, targeting and budget pacing, A/B testing and
+                audience analysis to lift ROI, and Google Tag Manager tracking for clean attribution and client
+                reporting.</p>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-mark"><span class="exp-dot"></span></div>
+            <div class="exp-body">
+              <div class="exp-role">Digital Marketing Executive <span>· Bargain Chemist</span></div>
+              <p>Led the ecommerce ecosystem for a Shopify retailer — CRO and UX, product and site optimisation,
+                full-cycle email marketing with A/B testing, and SEO/SEM strategy with partners.</p>
+            </div>
+          </div>
         </div>
         <a href="#contact" class="btn btn-primary">Work with me →</a>
       </div>
