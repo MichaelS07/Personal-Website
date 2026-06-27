@@ -42,6 +42,7 @@ body.post-page > section:first-of-type .rounded-2xl {
   border: 0 !important; box-shadow: none !important; background: transparent !important; padding: 0 !important; display: block !important;
 }
 body.post-page h1 { font-family: var(--disp) !important; color: var(--ink) !important; letter-spacing: -0.03em; font-size: clamp(30px, 4.4vw, 44px) !important; line-height: 1.08 !important; }
+body.post-page .post-banner { display: block; width: 100%; aspect-ratio: 24 / 7; object-fit: cover; border-radius: 14px; margin: 8px 0 26px; border: 0.5px solid var(--line); }
 body.post-page .inline-flex.rounded-full { background: rgba(16,185,129,0.1) !important; border-color: rgba(16,185,129,0.25) !important; color: var(--brand-d) !important; }
 
 /* ---- Article body ---- */

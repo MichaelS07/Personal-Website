@@ -117,9 +117,11 @@
 
     .posts-sec { padding: 40px 0 90px; }
     .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .pcard { border: 0.5px solid var(--line); border-radius: var(--radius-lg); background: #fff; transition: border-color .2s, transform .2s; }
+    .pcard { border: 0.5px solid var(--line); border-radius: var(--radius-lg); background: #fff; overflow: hidden; transition: border-color .2s, transform .2s; }
     .pcard:hover { border-color: #cfcfca; transform: translateY(-3px); }
-    .pcard > a { display: flex; flex-direction: column; height: 100%; padding: 24px; }
+    .pcard > a { display: flex; flex-direction: column; height: 100%; }
+    .pc-thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-bottom: 0.5px solid var(--line-2); }
+    .pc-content { display: flex; flex-direction: column; flex: 1; padding: 22px 24px; }
     .pc-meta { font-size: 11.5px; color: var(--brand); font-weight: 500; letter-spacing: 0.02em; margin-bottom: 10px; }
     .pc-title { font-size: 17px; line-height: 1.28; letter-spacing: -0.015em; margin-bottom: 12px; }
     .pc-ex { font-size: 13.5px; color: var(--muted); line-height: 1.55; flex: 1; }
@@ -216,127 +218,169 @@
 
         <article class="post pcard" data-tags="SEO">
           <a href="./blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+            <img class="pc-thumb" src="images/blog/seo.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">22 Jun 2026 · SEO</div>
             <h2 class="pc-title">AI visibility lands in Search Console: what the Generative AI report shows — and hides</h2>
             <p class="pc-ex">Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. What it shows, what it leaves out, and how to use it.</p>
             <div class="pc-foot"><span class="pc-tags">SEO</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEM">
           <a href="./blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html">
+            <img class="pc-thumb" src="images/blog/sem.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">21 Jun 2026 · Paid Media</div>
             <h2 class="pc-title">Google's August bidding shift: why your target CPA is about to cost more</h2>
             <p class="pc-ex">Google's June 2026 Smart Bidding overhaul changes how budget-limited campaigns hit their targets from August 17. What Promotion Mode and Smart Bidding Exploration mean for your accounts.</p>
             <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="Meta">
           <a href="./blog-posts/meta-andromeda-creative-targeting-june-2026.html">
+            <img class="pc-thumb" src="images/blog/meta.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">9 Jun 2026 · Paid Media</div>
             <h2 class="pc-title">Meta's Andromeda algorithm: your creative is now your audience</h2>
             <p class="pc-ex">Meta's delivery system now reads your ad creative as the primary audience signal, deprioritising manual interest targeting. What practitioners need to change in 2026.</p>
             <div class="pc-foot"><span class="pc-tags">Meta</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEO">
           <a href="./blog-posts/google-may-2026-core-update-seo-impact.html">
+            <img class="pc-thumb" src="images/blog/seo.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">22 May 2026 · SEO</div>
             <h2 class="pc-title">Google May 2026 core update: what's changing and what to do this week</h2>
             <p class="pc-ex">Google's May 2026 core update is live and targeting AI-mass-produced content. What it actually targets, how to diagnose impact, and the actions that move the needle.</p>
             <div class="pc-foot"><span class="pc-tags">SEO</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEM">
           <a href="./blog-posts/google-ai-mode-zero-click-paid-search-may-2026.html">
+            <img class="pc-thumb" src="images/blog/sem.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">4 May 2026 · SEM</div>
             <h2 class="pc-title">Google AI Mode's zero-click problem: what it means for your paid search strategy</h2>
             <p class="pc-ex">Google AI Mode has 75M daily users and ads in 25% of results — but 93% of sessions end without a click. What paid search practitioners need to restructure now.</p>
             <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEM">
           <a href="./blog-posts/google-ai-max-replacing-dynamic-search-ads-2026.html">
+            <img class="pc-thumb" src="images/blog/sem.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">20 Apr 2026 · Paid Media</div>
             <h2 class="pc-title">Google is replacing Dynamic Search Ads with AI Max: what to know before September</h2>
             <p class="pc-ex">Google is sunsetting Dynamic Search Ads in September 2026 and replacing them with AI Max for Search. What changes, what to do now, and how to prepare your campaigns.</p>
             <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEM">
           <a href="./blog-posts/performance-max-controls-reporting-april-2026.html">
+            <img class="pc-thumb" src="images/blog/sem.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">6 Apr 2026 · Paid Media</div>
             <h2 class="pc-title">Google's new Performance Max controls: what every advertiser needs to act on now</h2>
             <p class="pc-ex">Google has added audience exclusions, network segmentation and budget reports to Performance Max. What changed in April 2026 and what to do now.</p>
             <div class="pc-foot"><span class="pc-tags">SEM</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEO">
           <a href="./blog-posts/google-march-2026-core-update-what-to-do.html">
+            <img class="pc-thumb" src="images/blog/seo.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">30 Mar 2026 · Search</div>
             <h2 class="pc-title">Google's March 2026 core update: what it means for your SEO strategy right now</h2>
             <p class="pc-ex">Google's first core update of 2026 is live and targeting AI-scaled content. What changed, who's at risk, and exactly how to respond.</p>
             <div class="pc-foot"><span class="pc-tags">SEO</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="Email,Marketing">
           <a href="./blog-posts/email-marketing-guide.html">
+            <img class="pc-thumb" src="images/blog/email.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">22 Jan 2025 · Email</div>
             <h2 class="pc-title">Email marketing: the complete guide</h2>
             <p class="pc-ex">What is email marketing? How does it work? Does it convert? Everything you need to know about email marketing and how to make it successful.</p>
             <div class="pc-foot"><span class="pc-tags">Email · Marketing</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="Career,Marketing">
           <a href="./blog-posts/the-journey-of-a-marketer.html">
+            <img class="pc-thumb" src="images/blog/general.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">20 Jan 2025 · Career</div>
             <h2 class="pc-title">The journey of a marketer</h2>
             <p class="pc-ex">Life as a marketer is interesting, but where do you begin? A deep dive into the daily operations, data analysis, and strategic thinking behind digital marketing.</p>
             <div class="pc-foot"><span class="pc-tags">Career · Marketing</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="E-commerce,CRO">
           <a href="blog-posts/customer-journey-funnel-analysis.html">
+            <img class="pc-thumb" src="images/blog/analytics.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">15 Jan 2025 · Analytics</div>
             <h2 class="pc-title">How to master your website's customer journey: a guide to funnel analysis</h2>
             <p class="pc-ex">Analyse your ecommerce funnel to identify drop-off points and increase conversions. Master the customer journey from visit to purchase.</p>
             <div class="pc-foot"><span class="pc-tags">E-commerce · CRO</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="E-commerce,Shopify">
           <a href="blog-posts/checkout-ux-speed.html">
+            <img class="pc-thumb" src="images/blog/analytics.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">10 Aug 2025 · Weekly</div>
             <h2 class="pc-title">E-com weekly: checkout UX wins and Shopify speed tricks</h2>
             <p class="pc-ex">Small fixes that move conversion: error states, payment icons, and image compression that doesn't wreck quality.</p>
             <div class="pc-foot"><span class="pc-tags">E-commerce · Shopify</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="SEO,SEM">
           <a href="blog-posts/search-watch-aug-2025.html">
+            <img class="pc-thumb" src="images/blog/seo.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">6 Aug 2025 · Search</div>
             <h2 class="pc-title">Search watch: what actually changed this month</h2>
             <p class="pc-ex">How to react to ranking volatility without nuking your content strategy or overspending in paid.</p>
             <div class="pc-foot"><span class="pc-tags">SEO · SEM</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 
         <article class="post pcard" data-tags="Email,CRO">
           <a href="blog-posts/email-flows-that-print-money.html">
+            <img class="pc-thumb" src="images/blog/email.svg" alt="" loading="lazy" />
+            <div class="pc-content">
             <div class="pc-meta">30 Jul 2025 · Lifecycle</div>
             <h2 class="pc-title">Email flows that print money (without being spammy)</h2>
             <p class="pc-ex">Welcome → browse/cart abandonment → post-purchase. Benchmarks, guardrails, and copy that converts.</p>
             <div class="pc-foot"><span class="pc-tags">Email · CRO</span><span class="pc-more">Read →</span></div>
+          </div>
           </a>
         </article>
 

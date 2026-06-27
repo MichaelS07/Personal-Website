@@ -246,10 +246,15 @@
 
     /* Services — split rows (not cards) */
     .svc-rows { border-top: 0.5px solid var(--line); }
-    .svc-row { display: grid; grid-template-columns: 56px 1fr 190px; gap: 28px; align-items: center; padding: 30px 6px; border-bottom: 0.5px solid var(--line); transition: background .2s; }
+    .svc-row { display: grid; grid-template-columns: 64px 1fr 190px; gap: 28px; align-items: center; padding: 30px 6px; border-bottom: 0.5px solid var(--line); transition: background .2s; }
     .svc-row:hover { background: var(--bg-2); }
-    .svc-row-num { font-family: var(--disp); font-size: 30px; font-weight: 700; color: #cdcdc8; transition: color .2s; }
-    .svc-row:hover .svc-row-num { color: var(--brand); }
+    .svc-tile { width: 64px; height: 64px; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; transition: transform .2s; }
+    .svc-row:hover .svc-tile { transform: scale(1.06) rotate(-3deg); }
+    .svc-tile svg { width: 28px; height: 28px; }
+    .svc-tile-1 { background: linear-gradient(135deg, #34D399, #059669); }
+    .svc-tile-2 { background: linear-gradient(135deg, #2DD4BF, #0F766E); }
+    .svc-tile-3 { background: linear-gradient(135deg, #38BDF8, #1D4ED8); }
+    .svc-kicker { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-d); font-weight: 600; margin-bottom: 6px; }
     .svc-row h3 { font-size: 20px; margin-bottom: 6px; }
     .svc-row p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
     .svc-row p strong { color: var(--ink); font-weight: 600; }
@@ -266,15 +271,17 @@
 
     /* Writing — featured + list */
     .writing-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: stretch; }
-    .feat-post { border: 0.5px solid var(--line); border-radius: var(--radius-lg); padding: 32px; background: #fff; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
+    .feat-post { border: 0.5px solid var(--line); border-radius: var(--radius-lg); padding: 32px; background: #fff; display: flex; flex-direction: column; overflow: hidden; transition: border-color .2s, transform .2s; }
     .feat-post:hover { border-color: #cfcfca; transform: translateY(-3px); }
+    .feat-thumb { width: calc(100% + 64px); margin: -32px -32px 22px; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-bottom: 0.5px solid var(--line-2); }
     .feat-post .meta { font-size: 12px; color: var(--brand); font-weight: 500; margin-bottom: 14px; }
     .feat-post h3 { font-size: 26px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; }
     .feat-post p { font-size: 15px; color: var(--ink-2); line-height: 1.6; flex: 1; margin-bottom: 18px; }
     .feat-post .more { font-weight: 500; color: var(--ink); }
     .post-list { display: flex; flex-direction: column; gap: 12px; }
-    .post-row { border: 0.5px solid var(--line); border-radius: var(--radius-lg); padding: 18px 22px; background: #fff; flex: 1; display: flex; flex-direction: column; justify-content: center; transition: border-color .2s, transform .2s; }
+    .post-row { border: 0.5px solid var(--line); border-radius: var(--radius-lg); padding: 14px 16px; background: #fff; flex: 1; display: flex; flex-direction: row; align-items: center; gap: 14px; transition: border-color .2s, transform .2s; }
     .post-row:hover { border-color: #cfcfca; transform: translateX(3px); }
+    .pr-thumb { width: 76px; height: 76px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
     .post-row .meta { font-size: 11.5px; color: var(--brand); font-weight: 500; margin-bottom: 6px; }
     .post-row h4 { font-family: var(--disp); font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
     .post-row-all { flex-direction: row; align-items: center; justify-content: center; gap: 8px; font-weight: 500; color: var(--ink); background: var(--bg-2); border-style: dashed; }
@@ -468,8 +475,14 @@
       </div>
       <div class="svc-rows reveal">
         <article class="svc-row">
-          <span class="svc-row-num">01</span>
+          <div class="svc-tile svc-tile-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
+            </svg>
+          </div>
           <div>
+            <div class="svc-kicker">01 — Acquisition</div>
             <h3>Search &amp; social growth</h3>
             <p>High-intent <strong>Google Ads</strong> and technical <strong>SEO</strong> to capture demand that already
               exists, then <strong>Meta Ads</strong> to reach the people who haven't found you yet.</p>
@@ -477,8 +490,15 @@
           <div class="chips"><span>Google Ads</span><span>SEO</span><span>Meta Ads</span></div>
         </article>
         <article class="svc-row">
-          <span class="svc-row-num">02</span>
+          <div class="svc-tile svc-tile-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="9" cy="20" r="1.4" /><circle cx="18" cy="20" r="1.4" />
+              <path d="M3 4h2l2.4 12.2a1 1 0 0 0 1 .8h8.2a1 1 0 0 0 1-.8L20 8H6" />
+            </svg>
+          </div>
           <div>
+            <div class="svc-kicker">02 — Conversion</div>
             <h3>Storefront &amp; CRO</h3>
             <p>Fast, easy-to-buy <strong>Shopify stores</strong>. I map the journey, find the drop-offs, and run
               <strong>CRO experiments</strong> that recover lost sales.</p>
@@ -486,8 +506,14 @@
           <div class="chips"><span>Shopify</span><span>CRO</span><span>UX</span></div>
         </article>
         <article class="svc-row">
-          <span class="svc-row-num">03</span>
+          <div class="svc-tile svc-tile-3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" />
+            </svg>
+          </div>
           <div>
+            <div class="svc-kicker">03 — Retention</div>
             <h3>Email &amp; lifecycle</h3>
             <p>Automated <strong>lifecycle flows</strong> that turn one-time buyers into repeat customers — so
               <strong>post-purchase</strong> builds lifetime value instead of being an afterthought.</p>
@@ -541,6 +567,7 @@
       </div>
       <div class="writing-layout reveal">
         <a class="feat-post" href="blog-posts/gsc-generative-ai-performance-report-june-2026.html">
+          <img class="feat-thumb" src="images/blog/seo.svg" alt="" loading="lazy" />
           <div class="meta">SEO · 22 Jun 2026 · Featured</div>
           <h3>AI visibility lands in Search Console: what the Generative AI report shows — and hides</h3>
           <p>Google's new report finally puts AI Overviews and AI Mode data in Search Console. What it shows, what it
@@ -549,12 +576,18 @@
         </a>
         <div class="post-list">
           <a class="post-row" href="blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html">
-            <div class="meta">SEM · 21 Jun 2026</div>
-            <h4>Google's August bidding shift: why your target CPA is about to cost more</h4>
+            <img class="pr-thumb" src="images/blog/sem.svg" alt="" loading="lazy" />
+            <div>
+              <div class="meta">SEM · 21 Jun 2026</div>
+              <h4>Google's August bidding shift: why your target CPA is about to cost more</h4>
+            </div>
           </a>
           <a class="post-row" href="blog-posts/meta-andromeda-creative-targeting-june-2026.html">
-            <div class="meta">Meta · 9 Jun 2026</div>
-            <h4>Meta's Andromeda algorithm: your creative is now your audience</h4>
+            <img class="pr-thumb" src="images/blog/meta.svg" alt="" loading="lazy" />
+            <div>
+              <div class="meta">Meta · 9 Jun 2026</div>
+              <h4>Meta's Andromeda algorithm: your creative is now your audience</h4>
+            </div>
           </a>
           <a class="post-row post-row-all" href="blog.html">See all writing →</a>
         </div>
