@@ -210,7 +210,7 @@
     .tier .pdesc { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; margin-bottom: 18px; }
     .tier ul { list-style: none; margin-bottom: 24px; flex: 1; }
     .tier li { font-size: 13.5px; color: var(--ink-2); padding: 7px 0 7px 24px; position: relative; }
-    .tier li::before { content: "✓"; position: absolute; left: 0; color: var(--brand-d); font-weight: 600; }
+    .tier li::before { content: "\2713"; position: absolute; left: 0; color: var(--brand-d); font-weight: 600; }
 
     /* About */
     .about-grid { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: center; }
@@ -234,6 +234,86 @@
     .contact p { color: #b7bfbb; font-size: 17px; max-width: 540px; margin: 16px auto 32px; }
     .contact .hero-cta { justify-content: center; }
     .contact .avail { justify-content: center; max-width: 360px; margin: 26px auto 0; border-color: rgba(255,255,255,0.15); color: #b7bfbb; }
+
+    /* Audit form — sits inside the existing dark #contact section */
+    .contact .audit-lead {
+      color: #b7bfbb;
+      font-size: 17px;
+      max-width: 540px;
+      margin: 16px auto 28px;
+    }
+    .audit-form {
+      text-align: left;
+      max-width: 480px;
+      margin: 0 auto 22px;
+    }
+    .audit-form .field { margin-bottom: 14px; }
+    .audit-form label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #9aa39e;
+      margin-bottom: 6px;
+    }
+    .audit-form input,
+    .audit-form select {
+      width: 100%;
+      font-family: var(--body);
+      font-size: 15px;
+      color: var(--ink);
+      background: #fff;
+      border: 0.5px solid var(--line);
+      border-radius: 9px;
+      padding: 12px 14px;
+      outline: none;
+    }
+    .audit-form input::placeholder { color: #9a9f9c; }
+    .audit-form input:focus,
+    .audit-form select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+    }
+    .audit-form .btn-primary {
+      width: 100%;
+      justify-content: center;
+      margin-top: 6px;
+    }
+    .audit-form .hint {
+      font-size: 12.5px;
+      color: #8f9894;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .contact .hero-cta { justify-content: center; margin-top: 8px; }
+    .audit-success {
+      display: none;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: left;
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      padding: 24px 26px;
+    }
+    .audit-success h3 {
+      font-family: var(--disp);
+      color: #fff;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .audit-success p { color: #b7bfbb; font-size: 15px; margin: 0 0 12px; max-width: none; }
+    .audit-success ol {
+      color: #d5dbd8;
+      font-size: 14.5px;
+      padding-left: 18px;
+      margin: 0 0 8px;
+    }
+    .audit-success li { margin: 6px 0; }
+    .contact.submitted .audit-form,
+    .contact.submitted .audit-alt { display: none; }
+    .contact.submitted .audit-success { display: block; }
 
     /* Footer */
     footer { padding: 36px 0; border-top: 0.5px solid var(--line); }
@@ -707,27 +787,72 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact" data-spotlight>
-    <div class="fx-layer" aria-hidden="true">
-      <span class="blob blob-a"></span>
-      <span class="blob blob-b"></span>
-      <canvas class="fx-canvas" data-constellation data-color="52,211,153" data-dist="150"></canvas>
-    </div>
-    <div class="fx-spot" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="reveal">
-        <h2>Let's talk</h2>
-        <p>Tell me where the business is and where you want it to go. I'll tell you what I'd actually do — no sales pitch,
-          just a straight conversation.</p>
-        <div class="hero-cta">
-          <a href="mailto:michaelsowden17@gmail.com" class="btn btn-primary">Send me an email</a>
-          <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"
-            style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.25);">Book a call</a>
+<section id="contact" class="contact" data-spotlight>
+  <div class="fx-layer" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <canvas class="fx-canvas" data-constellation data-color="52,211,153" data-dist="150"></canvas>
+  </div>
+  <div class="fx-spot" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Free store audit</h2>
+      <p class="audit-lead">Send the store. I’ll reply within one business day with the three things I’d check first — then we book 25 minutes if it’s a fit.</p>
+
+      <form class="audit-form" id="auditForm" action="https://formsubmit.co/michaelsowden17@gmail.com" method="POST">
+        <div class="field">
+          <label for="audit-name">Name</label>
+          <input id="audit-name" name="name" type="text" autocomplete="name" required placeholder="Your name">
         </div>
-        <div class="avail"><span class="dot"></span> Available for new clients — 2 spots this quarter</div>
+        <div class="field">
+          <label for="audit-email">Email</label>
+          <input id="audit-email" name="email" type="email" autocomplete="email" required placeholder="you@store.com">
+        </div>
+        <div class="field">
+          <label for="audit-url">Store URL</label>
+          <input id="audit-url" name="store_url" type="url" inputmode="url" required placeholder="https://yourstore.com">
+        </div>
+        <div class="field">
+          <label for="audit-spend">Monthly ad spend</label>
+          <select id="audit-spend" name="monthly_ad_spend" required>
+            <option value="" disabled selected>Select a band</option>
+            <option value="under-2k">Under NZ$2k</option>
+            <option value="2k-8k">NZ$2k–$8k</option>
+            <option value="8k-20k">NZ$8k–$20k</option>
+            <option value="20k-plus">NZ$20k+</option>
+            <option value="not-running">Not running ads yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="audit-leak">Main leak</label>
+          <input id="audit-leak" name="main_leak" type="text" maxlength="140" required placeholder="e.g. CPA up, email quiet, checkout drop-off">
+        </div>
+        <button type="submit" class="btn btn-primary">Request the free audit</button>
+        <p class="hint">No spam, no junior. I read these myself.</p>
+      </form>
+
+      <div class="audit-success" id="auditSuccess" role="status">
+        <h3>Got it. I’m looking at the store.</h3>
+        <p>I’ll reply within one business day (Christchurch time) with the three things I’d check first:</p>
+        <ol>
+          <li>Where paid and organic traffic actually land — and whether those pages can convert.</li>
+          <li>Checkout and product-page friction a customer would swear at.</li>
+          <li>Whether email is doing any work after the first order.</li>
+        </ol>
+        <p>If a retainer makes sense I’ll say which box. If it doesn’t, I’ll say that too.</p>
       </div>
+
+      <div class="hero-cta audit-alt">
+        <a href="mailto:michaelsowden17@gmail.com" class="btn btn-ghost"
+          style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.25);">Send me an email</a>
+        <!-- Live site link unchanged until a real event URL is pasted. -->
+        <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"
+          style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.25);">Book a call</a>
+      </div>
+      <div class="avail"><span class="dot"></span> Available for new clients — 2 spots this quarter</div>
     </div>
-  </section>
+  </div>
+</section>
 
   <footer>
     <div class="wrap foot-row">
@@ -777,6 +902,19 @@
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    /* Optional: show success copy without leaving the page if AJAX is wired later.
+       Default is a normal POST to formsubmit.co. This handler no-ops unless you enable it. */
+    (function () {
+      var form = document.getElementById('auditForm');
+      var section = document.getElementById('contact');
+      if (!form || !section) return;
+      form.addEventListener('submit', function () {
+        /* Native POST. After formsubmit redirect, or if you switch to fetch, add:
+           section.classList.add('submitted');
+        */
+      });
+    })();
   </script>
   <script src="assets/js/nova-fx.js?v=20260626"></script>
 </body>
