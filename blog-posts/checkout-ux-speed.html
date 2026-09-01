@@ -21,25 +21,21 @@
   <meta name="googlebot" content="index, follow">
   <link rel="canonical" href="https://novareach.com.au/blog-posts/checkout-ux-speed.html">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://novareach.com.au/blog-posts/checkout-ux-speed.html">
   <meta property="og:title" content="E‑Com Weekly: Checkout UX wins and Shopify speed tricks — NovaReach">
   <meta property="og:description"
     content="Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don't wreck UX.">
-  <meta property="og:image" content="https://novareach.com.au/images/novareach-logo.png">
+  <meta property="og:image" content="https://novareachmarketing.com/images/blog/checkout-ux-speed.svg">
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://novareach.com.au/blog-posts/checkout-ux-speed.html">
   <meta property="twitter:title" content="E‑Com Weekly: Checkout UX wins and Shopify speed tricks — NovaReach">
   <meta property="twitter:description"
     content="Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don't wreck UX.">
-  <meta property="twitter:image" content="https://novareach.com.au/images/novareach-logo.png">
+  <meta property="twitter:image" content="https://novareachmarketing.com/images/blog/checkout-ux-speed.svg">
 
   <meta name="color-scheme" content="light">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="../images/novareach-logo.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../images/novareach-logo.png">
   <link rel="shortcut icon" type="image/png" href="../images/novareach-logo.png">
@@ -48,38 +44,19 @@
   <link rel="icon" type="image/png" sizes="512x512" href="../images/novareach-logo.png">
   <meta name="msapplication-TileColor" content="#10b981">
   <meta name="theme-color" content="#10b981">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' };
-  </script>
-
+  <script>tailwind.config = { darkMode: 'class' };</script>
   <link rel="stylesheet" href="../assets/css/styles.css?v=20250822">
   <link rel="stylesheet" href="../assets/css/post.css?v=20260627">
-
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-C2XZD4YN3D');
-  </script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-C2XZD4YN3D');</script>
 </head>
-
 <body class="bg-white text-slate-900 touch-manipulation post-page">
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2D3HCLJ" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <div id="menuOverlay"
-    class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
-
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2D3HCLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="menuOverlay" class="fixed inset-0 bg-slate-900/40 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
   <header class="site-header">
     <div class="sh-wrap">
       <a href="../index.html#home" class="sh-logo"><img src="../images/nova-reach-emblem.svg" alt="NovaReach" class="sh-mark"><span class="sh-wm">NOVA<span class="brand"> REACH</span></span></a>
@@ -104,173 +81,103 @@
       <a href="../index.html#contact">Free audit</a>
     </div>
   </header>
-
   <main class="relative">
-    <img class="post-banner" src="../images/blog/analytics.svg" alt="" />
-    <!-- Back to Blog -->
+    <img class="post-banner" src="../images/blog/checkout-ux-speed.svg" alt="" />
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
       <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-sm">
         <a href="../blog.html" class="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-emerald-600 tap">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></svg>
           Back to Blog
         </a>
       </div>
     </div>
-
-    <!-- Article -->
     <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-sm">
-        <!-- Article Header -->
         <header class="mb-8">
-          <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            E‑Com Weekly: Checkout UX wins and Shopify speed tricks
-          </h1>
-          <div class="flex items-center gap-4 text-sm text-slate-600">
-            <span>Published: August 2025</span>
-            <span>•</span>
-            <span id="readTime">6 min read</span>
-          </div>
+          <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">E‑Com Weekly: Checkout UX wins and Shopify speed tricks</h1>
+          <div class="flex items-center gap-4 text-sm text-slate-600"><span>Published: August 2025</span><span>•</span><span id="readTime">6 min read</span></div>
         </header>
-
-        <!-- Article Content -->
         <section class="prose prose-slate max-w-none">
-          <p class="callout"><strong>The punchline:</strong> Move friction out of the way at the exact moment it appears
-            (errors, hesitation, mobile input pain), and load only what's needed when it's needed. That's how you ship
-            real conversion lift without a redesign.</p>
+          <p class="callout"><strong>The punchline:</strong> Move friction out of the way at the exact moment it appears (errors, hesitation, mobile input pain), and load only what's needed when it's needed. That's how you ship real conversion lift without a redesign.</p>
         </section>
-
         <section class="prose prose-slate max-w-none mt-10" id="checkout-ux">
           <h2>What moved the needle (Checkout UX)</h2>
           <hr class="section-divider" />
           <h3>Error states that actually help</h3>
           <ul>
-            <li><strong>Inline & adjacent:</strong> Place the error <em>next to</em> the field, not at the top of the
-              form.</li>
-            <li><strong>First invalid autofocus:</strong> Programmatically focus the first invalid input so the path to
-              fix is obvious.</li>
+            <li><strong>Inline & adjacent:</strong> Place the error <em>next to</em> the field, not at the top of the form.</li>
+            <li><strong>First invalid autofocus:</strong> Programmatically focus the first invalid input so the path to fix is obvious.</li>
             <li><strong>Actionable copy:</strong> "Enter a valid email (name@domain.com)" beats "Invalid input".</li>
           </ul>
-          <p><span class="kbd">Tip</span> In Shopify (Theme App Extensions or custom), add
-            <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.
-          </p>
-
+          <p><span class="kbd">Tip</span> In Shopify (Theme App Extensions or custom), add <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.</p>
           <h3>Trust signals near the CTA</h3>
           <ul>
-            <li><strong>Badge proximity:</strong> Put known payment badges (Visa, Mastercard, Amex, PayPal, Afterpay)
-              within ~60–80px of the primary CTA.</li>
-            <li><strong>One-liner reassurance:</strong> A short note like "Secure checkout • SSL encrypted • Privacy
-              protected" reduces last-second doubt.</li>
-            <li><strong>Visible policies:</strong> Link to returns & support within eyesight of the button—don't bury
-              them.</li>
+            <li><strong>Badge proximity:</strong> Put known payment badges (Visa, Mastercard, Amex, PayPal, Afterpay) within ~60–80px of the primary CTA.</li>
+            <li><strong>One-liner reassurance:</strong> A short note like "Secure checkout • SSL encrypted • Privacy protected" reduces last-second doubt.</li>
+            <li><strong>Visible policies:</strong> Link to returns & support within eyesight of the button—don't bury them.</li>
           </ul>
-
           <h3>Mobile spacing & inputs</h3>
           <ul>
-            <li><strong>Tap area:</strong> Aim for 44px touch targets and <strong>≥16px</strong> label size for
-              readability.</li>
-            <li><strong>Email keyboard:</strong> Use <code>inputmode="email"</code> and
-              <code>autocomplete="email"</code>; <strong>disable auto-cap</strong> for email fields.
-            </li>
+            <li><strong>Tap area:</strong> Aim for 44px touch targets and <strong>≥16px</strong> label size for readability.</li>
+            <li><strong>Email keyboard:</strong> Use <code>inputmode="email"</code> and <code>autocomplete="email"</code>; <strong>disable auto-cap</strong> for email fields.</li>
             <li><strong>Field grouping:</strong> Break long forms into logical chunks to reduce cognitive load.</li>
           </ul>
         </section>
-
         <section class="prose prose-slate max-w-none mt-10" id="shopify-speed">
           <h2>Quick Shopify speed wins (that don't break UX)</h2>
           <hr class="section-divider" />
           <h3>Serve images in modern formats</h3>
           <ul>
-            <li><strong>AVIF primary, WebP fallback:</strong> Use a <code><picture></code> element to serve AVIF first,
-              then WebP, then PNG/JPEG.</li>
-            <li><strong>Right-size assets:</strong> Keep most product images under ~200KB; cap hero images with
-              responsive <code>srcset</code>.</li>
+            <li><strong>AVIF primary, WebP fallback:</strong> Use a picture element to serve AVIF first, then WebP, then PNG/JPEG.</li>
+            <li><strong>Right-size assets:</strong> Keep most product images under ~200KB; cap hero images with responsive <code>srcset</code>.</li>
           </ul>
-          <pre><code>&lt;picture&gt;
-  &lt;source srcset="/images/hero.avif" type="image/avif"&gt;
-  &lt;source srcset="/images/hero.webp" type="image/webp"&gt;
-  &lt;img src="/images/hero.jpg" alt="New collection" loading="eager" width="1600" height="900"&gt;
-&lt;/picture&gt;
-</code></pre>
           <h3>Lazy-load below-the-fold & defer non-critical scripts</h3>
           <ul>
             <li><strong>Native lazy-loading:</strong> Add <code>loading="lazy"</code> to below-the-fold images.</li>
-            <li><strong>Defer app scripts:</strong> Add <code>defer</code> or load after <code>DOMContentLoaded</code>
-              for non-critical apps.</li>
-            <li><strong>Preload critical CSS:</strong> Inline above-the-fold CSS or use
-              <code>&lt;link rel="preload" as="style"&gt;</code> then swap.
-            </li>
+            <li><strong>Defer app scripts:</strong> Add <code>defer</code> or load after <code>DOMContentLoaded</code> for non-critical apps.</li>
+            <li><strong>Preload critical CSS:</strong> Inline above-the-fold CSS or use preload then swap.</li>
           </ul>
-
           <h3>Remove duplicate analytics tags & app leftovers</h3>
           <ul>
-            <li><strong>One source of truth:</strong> Keep GA4/Tag Manager once—duplicates quietly tank performance.
-            </li>
-            <li><strong>Uninstalled ≠ removed:</strong> Purge theme snippets and <code>script_tag</code> assets that
-              apps leave behind.</li>
-            <li><strong>Measure TBT impact:</strong> Anything adding >200ms Total Blocking Time gets refactored or
-              removed.</li>
+            <li><strong>One source of truth:</strong> Keep GA4/Tag Manager once—duplicates quietly tank performance.</li>
+            <li><strong>Uninstalled ≠ removed:</strong> Purge theme snippets and script_tag assets that apps leave behind.</li>
+            <li><strong>Measure TBT impact:</strong> Anything adding >200ms Total Blocking Time gets refactored or removed.</li>
           </ul>
         </section>
-
         <section class="prose prose-slate max-w-none mt-10">
           <h2>Next steps for compounding gains</h2>
           <ul>
-            <li><strong>Ship a simple progress bar in checkout:</strong> "Shipping → Payment → Review" clarifies effort
-              remaining and boosts completion.</li>
-            <li><strong>Shorten shipping method labels:</strong> Cut jargon—choose "Standard (2–4 days)" over "Economy
-              International Freight Delivery".</li>
-            <li><strong>Audit script load time:</strong> Remove or defer anything with >200ms TBT; prefer server-side
-              integrations where possible.</li>
+            <li><strong>Ship a simple progress bar in checkout:</strong> "Shipping → Payment → Review" clarifies effort remaining and boosts completion.</li>
+            <li><strong>Shorten shipping method labels:</strong> Cut jargon—choose "Standard (2–4 days)" over "Economy International Freight Delivery".</li>
+            <li><strong>Audit script load time:</strong> Remove or defer anything with >200ms TBT; prefer server-side integrations where possible.</li>
           </ul>
         </section>
-
         <section class="prose prose-slate max-w-none mt-10">
           <h2>Implementation checklist</h2>
           <ul>
-            <li>✅ Inline errors with autofocus on first invalid field.</li>
-            <li>✅ Security one-liner + payment badges beside CTA.</li>
-            <li>✅ Email inputs: type="email", inputmode="email", autocomplete on, auto-cap off.</li>
-            <li>✅ Touch targets ~44px; labels ≥16px.</li>
-            <li>✅ AVIF/WebP images with responsive srcset; product images ~<200KB.< /li>
-            <li>✅ Lazy-load below-the-fold; defer non-critical scripts.</li>
-            <li>✅ Remove duplicate analytics & uninstall leftovers.</li>
-            <li>✅ Progress bar in checkout; simplified shipping labels.</li>
-            <li>✅ TBT audit; kill >200ms offenders.</li>
+            <li>Inline errors with autofocus on first invalid field.</li>
+            <li>Security one-liner + payment badges beside CTA.</li>
+            <li>Email inputs: type=email, inputmode=email, autocomplete on, auto-cap off.</li>
+            <li>Touch targets ~44px; labels ≥16px.</li>
+            <li>AVIF/WebP images with responsive srcset; product images under 200KB.</li>
+            <li>Lazy-load below-the-fold; defer non-critical scripts.</li>
+            <li>Remove duplicate analytics & uninstall leftovers.</li>
+            <li>Progress bar in checkout; simplified shipping labels.</li>
+            <li>TBT audit; kill >200ms offenders.</li>
           </ul>
         </section>
-
         <section class="prose prose-slate max-w-none mt-10">
           <h2>FAQ</h2>
           <h3>Will AVIF hurt visual quality?</h3>
-          <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback in the
-            <code><picture></code> element just in case.
-          </p>
-
+          <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback just in case.</p>
           <h3>Do badges actually increase conversions?</h3>
-          <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces
-            hesitancy at the decision point.</p>
-
+          <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces hesitancy at the decision point.</p>
           <h3>What if apps re-inject scripts?</h3>
-          <p>Lock a monthly audit: compare current theme assets/snippets to baseline; remove additions that add blocking
-            time or duplicate tracking.</p>
-        </section>
-
-        <section class="prose prose-slate max-w-none mt-10">
-          <h2>Related reading</h2>
-          <ul>
-            <li><a href="#" class="text-emerald-600 hover:underline">Shopify Core Web Vitals: A Practical Guide</a></li>
-            <li><a href="#" class="text-emerald-600 hover:underline">Checkout Form Best Practices That Actually
-                Convert</a></li>
-            <li><a href="#" class="text-emerald-600 hover:underline">Killing App Bloat Without Killing Features</a></li>
-          </ul>
+          <p>Lock a monthly audit: compare current theme assets/snippets to baseline; remove additions that add blocking time or duplicate tracking.</p>
         </section>
       </div>
     </article>
   </main>
-
   <footer class="site-footer">
     <div class="sf-wrap">
       <a href="../index.html#home" class="sh-logo"><img src="../images/nova-reach-emblem.svg" alt="NovaReach" class="sh-mark"><span class="sh-wm">NOVA<span class="brand"> REACH</span></span></a>
@@ -282,19 +189,15 @@
       <span class="sf-copy">&copy; <span id="year"></span> NovaReach. All rights reserved.</span>
     </div>
   </footer>
-
   <script src="../assets/js/main.js?v=20250822"></script>
   <script>
-    // Calculate read time
     const article = document.querySelector('.prose');
     if (article) {
       const wordCount = article.textContent.trim().split(/\s+/).length;
-      const readTime = Math.ceil(wordCount / 200); // Average reading speed
+      const readTime = Math.ceil(wordCount / 200);
       const readTimeEl = document.getElementById('readTime');
       if (readTimeEl) readTimeEl.textContent = `${readTime} min read`;
     }
   </script>
-
 </body>
-
 </html>
