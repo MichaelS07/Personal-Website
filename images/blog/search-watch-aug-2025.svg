@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#0f172a"/>
+  <rect x="180" y="200" width="840" height="280" rx="24" fill="#27272a"/>
+  <circle cx="300" cy="340" r="18" fill="#fde047"/>
+  <circle cx="360" cy="340" r="18" fill="#a1a1aa"/>
+  <circle cx="420" cy="340" r="18" fill="#a1a1aa"/>
+  <text x="600" y="360" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="32" font-weight="700" fill="#fde047">Search watch</text>
+  <text x="600" y="540" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#fef08a">what actually changed this month</text>
+</svg>
