@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g-funnel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#7c2d12"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g-funnel)"/>
+  <circle cx="1040" cy="80" r="180" fill="#fb923c" opacity="0.16"/>
+  <circle cx="90" cy="620" r="160" fill="#fb923c" opacity="0.12"/>
+  <polygon points="720,180 1060,180 980,340 800,340" fill="#fb923c"/>
+  <polygon points="800,360 980,360 920,500 860,500" fill="#fdba74"/>
+  <rect x="80" y="180" width="520" height="320" rx="28" fill="#ffffff" opacity="0.94"/>
+  <text x="340" y="320" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="34" font-weight="700" fill="#111827">Funnel analysis</text>
+  <text x="340" y="370" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#7c2d12">visit → purchase</text>
+</svg>
