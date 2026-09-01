@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#0f172a"/>
+  <rect x="90" y="180" width="420" height="320" rx="24" fill="#1e1b4b"/>
+  <text x="300" y="340" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="28" font-weight="700" fill="#c4b5fd">DSA</text>
+  <path d="M540 340 L660 340" stroke="#c4b5fd" stroke-width="10" stroke-linecap="round"/>
+  <path d="M640 315 L680 340 L640 365" fill="none" stroke="#c4b5fd" stroke-width="10" stroke-linecap="round"/>
+  <rect x="700" y="160" width="420" height="360" rx="24" fill="#c4b5fd"/>
+  <text x="910" y="330" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="32" font-weight="700" fill="#1e1b4b">AI Max</text>
+  <text x="910" y="380" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#4c1d95">replacing DSA · Sep 2026</text>
+</svg>
