@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#0f172a"/>
+  <rect x="200" y="160" width="800" height="360" rx="28" fill="#1e3a8a"/>
+  <circle cx="420" cy="340" r="70" fill="#818cf8"/>
+  <circle cx="600" cy="340" r="70" fill="#a5b4fc"/>
+  <circle cx="780" cy="340" r="70" fill="#c7d2fe"/>
+  <text x="600" y="120" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="32" font-weight="700" fill="#c7d2fe">Meta Andromeda</text>
+  <text x="600" y="580" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#a5b4fc">creative is now the audience</text>
+</svg>

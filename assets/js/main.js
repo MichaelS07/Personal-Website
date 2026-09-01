@@ -126,8 +126,6 @@ function fakeSubmit() {
 }
 window.fakeSubmit = fakeSubmit;
 
-
-
 (function () {
   const el = document.getElementById('hero-bg');
   if (!el) return;
@@ -164,8 +162,6 @@ window.fakeSubmit = fakeSubmit;
     });
   }, { threshold: 0.4 });
   charts.forEach(svg => ioProgress.observe(svg));
-
-  // Animate sparkline path when revealed
   const sparklines = document.querySelectorAll('.spark-draw');
   const ioSpark = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -177,25 +173,8 @@ window.fakeSubmit = fakeSubmit;
     });
   }, { threshold: 0.4 });
   sparklines.forEach(p => ioSpark.observe(p));
-  setTimeout(() => {
-    const svg = document.querySelector('svg.progress-chart');
-    const fg = svg && svg.querySelector('.fg');
-    console.assert(!!svg, '[TEST] Progress SVG exists');
-    console.assert(!!fg, '[TEST] Progress foreground circle exists');
-    if (fg && typeof fg.style.strokeDashoffset !== 'undefined') {
-      const val = parseFloat(fg.style.strokeDashoffset);
-      if (!Number.isNaN(val)) {
-        console.assert(val <= 30.5, `[TEST] strokeDashoffset ~= 29.56 for 70.44%. Got ${val}`);
-      }
-    }
-    const spark = document.querySelector('.spark-draw');
-    console.assert(!!spark, '[TEST] Sparkline path exists');
-  }, 1500);
 })();
 
-/* ============================================
-   HERO DASHBOARD BAR FILLS
-   ============================================ */
 (function () {
   const fills = document.querySelectorAll('.hero-dash-fill');
   if (!fills.length) return;
@@ -210,9 +189,6 @@ window.fakeSubmit = fakeSubmit;
   fills.forEach(f => io.observe(f));
 })();
 
-/* ============================================
-   DECIMAL COUNT-UP (Recent Wins)
-   ============================================ */
 (function () {
   const els = document.querySelectorAll('[data-count-to]');
   if (!els.length) return;
@@ -242,27 +218,21 @@ window.fakeSubmit = fakeSubmit;
   els.forEach(el => io.observe(el));
 })();
 
-/* ============================================
-   INTERACTIVE NODE NETWORK (reusable)
-   ============================================ */
 function initNodeNetwork(sectionId, canvasId, opts) {
   const section = document.getElementById(sectionId);
   const canvas = document.getElementById(canvasId);
   if (!section || !canvas) return;
-
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     canvas.style.display = 'none';
     return;
   }
-
   const o = Object.assign({
-    node: '16,185,129',   // base RGB
-    near: '5,150,105',    // brightened RGB near cursor
+    node: '16,185,129',
+    near: '5,150,105',
     nodeAlpha: 0.5,
     linkAlpha: 0.18,
     cursorAlpha: 0.5
   }, opts || {});
-
   const ctx = canvas.getContext('2d');
   let W = 0, H = 0;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -270,12 +240,10 @@ function initNodeNetwork(sectionId, canvasId, opts) {
   let running = false, raf = null;
   const mouse = { x: -9999, y: -9999, active: false };
   const MOUSE_DIST = 170;
-
   function count() {
     const target = Math.round((W * H) / 22000);
     return Math.max(24, Math.min(70, target));
   }
-
   function resize() {
     const r = section.getBoundingClientRect();
     W = r.width; H = r.height;
@@ -286,7 +254,6 @@ function initNodeNetwork(sectionId, canvasId, opts) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     build();
   }
-
   function build() {
     const n = count();
     nodes = [];
@@ -300,10 +267,8 @@ function initNodeNetwork(sectionId, canvasId, opts) {
       });
     }
   }
-
   function step() {
     ctx.clearRect(0, 0, W, H);
-
     for (const p of nodes) {
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
@@ -317,7 +282,6 @@ function initNodeNetwork(sectionId, canvasId, opts) {
         }
       }
     }
-
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
@@ -333,7 +297,6 @@ function initNodeNetwork(sectionId, canvasId, opts) {
         }
       }
     }
-
     for (const p of nodes) {
       let near = false;
       if (mouse.active) {
@@ -354,13 +317,10 @@ function initNodeNetwork(sectionId, canvasId, opts) {
       ctx.fillStyle = near ? `rgba(${o.near},0.9)` : `rgba(${o.node},${o.nodeAlpha})`;
       ctx.fill();
     }
-
     raf = requestAnimationFrame(step);
   }
-
   function start() { if (!running) { running = true; step(); } }
   function stop() { running = false; if (raf) cancelAnimationFrame(raf); }
-
   section.addEventListener('pointermove', (e) => {
     const r = section.getBoundingClientRect();
     mouse.x = e.clientX - r.left;
@@ -370,12 +330,10 @@ function initNodeNetwork(sectionId, canvasId, opts) {
     section.style.setProperty('--my', mouse.y + 'px');
   });
   section.addEventListener('pointerleave', () => { mouse.active = false; mouse.x = mouse.y = -9999; });
-
   const vis = new IntersectionObserver((entries) => {
     entries.forEach(e => e.isIntersecting ? start() : stop());
   }, { threshold: 0.05 });
   vis.observe(section);
-
   resize();
   let rt;
   window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 200); });
@@ -383,38 +341,30 @@ function initNodeNetwork(sectionId, canvasId, opts) {
 
 initNodeNetwork('services', 'servicesCanvas');
 initNodeNetwork('contact', 'contactCanvas', {
-  node: '52,211,153',   // emerald-400 on dark
-  near: '110,231,183',  // emerald-300
+  node: '52,211,153',
+  near: '110,231,183',
   nodeAlpha: 0.55,
   linkAlpha: 0.22,
   cursorAlpha: 0.55
 });
 
-/* ============================================
-   HERO PARTICLE CANVAS — KZN-inspired
-   ============================================ */
 (function () {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas) return;
-
-  // Respect reduced-motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     canvas.style.display = 'none';
     return;
   }
-
   const ctx = canvas.getContext('2d');
   let W, H;
   const PARTICLE_COUNT = 70;
   const CONNECTION_DIST = 160;
   const particles = [];
-
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
     W = canvas.width = rect.width;
     H = canvas.height = rect.height;
   }
-
   function Particle() {
     this.x = Math.random() * W;
     this.y = Math.random() * H;
@@ -422,21 +372,18 @@ initNodeNetwork('contact', 'contactCanvas', {
     this.vy = (Math.random() - 0.5) * 0.4;
     this.r = Math.random() * 2 + 1;
   }
-
   Particle.prototype.update = function () {
     this.x += this.vx;
     this.y += this.vy;
     if (this.x < 0 || this.x > W) this.vx *= -1;
     if (this.y < 0 || this.y > H) this.vy *= -1;
   };
-
   Particle.prototype.draw = function () {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(16, 185, 129, 0.7)';
     ctx.fill();
   };
-
   function init() {
     resize();
     particles.length = 0;
@@ -444,7 +391,6 @@ initNodeNetwork('contact', 'contactCanvas', {
       particles.push(new Particle());
     }
   }
-
   function drawConnections() {
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
@@ -463,15 +409,23 @@ initNodeNetwork('contact', 'contactCanvas', {
       }
     }
   }
-
   function animate() {
     ctx.clearRect(0, 0, W, H);
     particles.forEach(p => { p.update(); p.draw(); });
     drawConnections();
     requestAnimationFrame(animate);
   }
-
   init();
   animate();
   window.addEventListener('resize', () => { resize(); });
+})();
+
+/* Unique per-post hero: never leave category seo.svg/sem.svg/etc as banners */
+(function () {
+  var img = document.querySelector('img.post-banner');
+  if (!img) return;
+  var m = location.pathname.match(/\/blog-posts\/([^/]+)\.html$/);
+  if (!m) return;
+  var unique = '../images/blog/' + m[1] + '.svg';
+  if (img.getAttribute('src') !== unique) img.src = unique;
 })();

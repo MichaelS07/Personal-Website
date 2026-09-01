@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#111827"/>
+  <circle cx="600" cy="300" r="140" fill="none" stroke="#f472b6" stroke-width="16"/>
+  <line x1="600" y1="160" x2="600" y2="90" stroke="#f472b6" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="600" cy="80" r="14" fill="#f472b6"/>
+  <text x="600" y="500" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="34" font-weight="700" fill="#fbcfe8">Zero-click AI Mode</text>
+  <text x="600" y="550" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#f9a8d4">paid search when sessions don't click</text>
+</svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#111827"/>
+  <rect x="140" y="180" width="280" height="320" rx="20" fill="#365314"/>
+  <rect x="460" y="180" width="280" height="320" rx="20" fill="#4d7c0f"/>
+  <rect x="780" y="180" width="280" height="320" rx="20" fill="#a3e635"/>
+  <text x="280" y="360" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#ecfccb">Exclusions</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#ecfccb">Networks</text>
+  <text x="920" y="360" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="20" font-weight="700" fill="#14532d">Budget</text>
+  <text x="600" y="120" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="30" font-weight="700" fill="#d9f99d">Performance Max controls</text>
+</svg>

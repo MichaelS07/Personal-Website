@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g-bidding" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#1e3a5f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g-bidding)"/>
+  <polyline points="140,500 320,420 500,450 680,280 860,320 1060,160" fill="none" stroke="#fbbf24" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="90" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="32" font-weight="700" fill="#fef3c7">Bidding + budget overhaul</text>
+  <text x="600" y="130" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#fde68a">August 2026 Smart Bidding shift</text>
+</svg>
