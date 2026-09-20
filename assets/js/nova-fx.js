@@ -103,7 +103,7 @@
   else init();
 })();
 
-/* Homepage latest-writing override — 14 Sep 2026 abandon-cart freight post */
+/* Homepage latest-writing override — 21 Sep 2026 Meta Advantage+ creative test post */
 (function () {
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -112,7 +112,7 @@
   ready(function () {
     var side = document.querySelector('.side-card');
     if (side && side.querySelector('.lbl') && /LATEST WRITING/i.test(side.querySelector('.lbl').textContent || '')) {
-      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Email · 14 Sep 2026</div><h3>Stop discounting abandon carts before Q4 — fix freight and GST first</h3><p>Shipping truth on the PDP, abandon email 1 without a code, and a September checklist before Black Friday.</p><div class="foot"><span>Lifecycle · 14 Sep · Abandon cart</span><a href="blog.html">All posts →</a></div>';
+      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Meta · 21 Sep 2026</div><h3>Don\'t hand Meta a blank Advantage+ budget for Black Friday — run one creative test first</h3><p>One September creative test beats a November budget raise. Kill losers before you scale Advantage+ for BFCM.</p><div class="foot"><span>Paid Media · 21 Sep · Meta</span><a href="blog.html">All posts →</a></div>';
     }
     var feat = document.querySelector('a.feat-post');
     var list = document.querySelector('.post-list');
@@ -121,16 +121,16 @@
       var oldThumb = (feat.querySelector('.feat-thumb') || {}).src || '';
       var oldMeta = (feat.querySelector('.meta') || {}).textContent || '';
       var oldTitle = (feat.querySelector('h3') || {}).textContent || '';
-      feat.setAttribute('href', 'blog-posts/abandon-cart-nz-au-freight-before-q4.html');
+      feat.setAttribute('href', 'blog-posts/meta-advantage-creative-test-before-bfcm.html');
       var thumb = feat.querySelector('.feat-thumb');
-      if (thumb) { thumb.src = 'images/blog/abandon-cart-nz-au-freight-before-q4.svg'; thumb.alt = ''; }
+      if (thumb) { thumb.src = 'images/blog/meta-advantage-creative-test-before-bfcm.svg'; thumb.alt = ''; }
       var meta = feat.querySelector('.meta');
-      if (meta) meta.textContent = 'Email · 14 Sep 2026 · Featured';
+      if (meta) meta.textContent = 'Meta · 21 Sep 2026 · Featured';
       var h3 = feat.querySelector('h3');
-      if (h3) h3.textContent = 'Stop discounting abandon carts before Q4 — fix freight and GST first';
+      if (h3) h3.textContent = 'Don\'t hand Meta a blank Advantage+ budget for Black Friday — run one creative test first';
       var p = feat.querySelector('p');
-      if (p) p.textContent = 'NZ and AU Shopify stores lose abandon-cart recoveries on freight and GST surprises, then throw 10% codes at the problem. What to fix on the PDP and in Klaviyo before Black Friday spend hits.';
-      if (oldHref && oldHref.indexOf('abandon-cart') === -1) {
+      if (p) p.textContent = 'NZ/AU stores dump Q4 budget into Advantage+ with last year\'s creatives and wonder why CPA climbs. One September creative test beats a November budget raise.';
+      if (oldHref && oldHref.indexOf('meta-advantage-creative-test') === -1) {
         var row = document.createElement('a');
         row.className = 'post-row';
         row.href = oldHref;
@@ -138,13 +138,19 @@
         img.className = 'pr-thumb';
         img.loading = 'lazy';
         img.alt = '';
-        img.src = oldThumb.indexOf('ai-max') !== -1 ? 'images/blog/ai-max-search-auto-conversion-sept-2026.svg' : (oldThumb || 'images/blog/ai-max-search-auto-conversion-sept-2026.svg');
+        if (oldThumb.indexOf('abandon-cart') !== -1 || oldHref.indexOf('abandon-cart') !== -1) {
+          img.src = 'images/blog/abandon-cart-nz-au-freight-before-q4.svg';
+        } else if (oldThumb.indexOf('ai-max') !== -1 || oldHref.indexOf('ai-max') !== -1) {
+          img.src = 'images/blog/ai-max-search-auto-conversion-sept-2026.svg';
+        } else {
+          img.src = oldThumb || 'images/blog/abandon-cart-nz-au-freight-before-q4.svg';
+        }
         var wrap = document.createElement('div');
         var rm = document.createElement('div');
         rm.className = 'meta';
-        rm.textContent = (oldMeta || 'SEM · 1 Sep 2026').replace(/\s*·\s*Featured/, '');
+        rm.textContent = (oldMeta || 'Email · 14 Sep 2026').replace(/\s*·\s*Featured/, '');
         var h4 = document.createElement('h4');
-        h4.textContent = oldTitle || 'Google is auto-converting Search campaigns to AI Max this month — what to do before it hits your account';
+        h4.textContent = oldTitle || 'Stop discounting abandon carts before Q4 — fix freight and GST first';
         wrap.appendChild(rm); wrap.appendChild(h4);
         row.appendChild(img); row.appendChild(wrap);
         var firstRow = list.querySelector('.post-row');
