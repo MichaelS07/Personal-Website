@@ -103,7 +103,7 @@
   else init();
 })();
 
-/* Homepage latest-writing override — 21 Sep 2026 Meta Advantage+ creative test post */
+/* Homepage latest-writing override — 28 Sep 2026 Q4 paid pacing October post */
 (function () {
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -112,7 +112,7 @@
   ready(function () {
     var side = document.querySelector('.side-card');
     if (side && side.querySelector('.lbl') && /LATEST WRITING/i.test(side.querySelector('.lbl').textContent || '')) {
-      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Meta · 21 Sep 2026</div><h3>Don\'t hand Meta a blank Advantage+ budget for Black Friday — run one creative test first</h3><p>One September creative test beats a November budget raise. Kill losers before you scale Advantage+ for BFCM.</p><div class="foot"><span>Paid Media · 21 Sep · Meta</span><a href="blog.html">All posts →</a></div>';
+      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Meta/SEM · 28 Sep 2026</div><h3>Don\'t starve October to feast in November — fix your Q4 paid pacing first</h3><p>October builds retargeting and email pools at calmer CPCs. Starve it and you overpay cold in November.</p><div class="foot"><span>Paid Media · 28 Sep · SEM · Meta</span><a href="blog.html">All posts →</a></div>';
     }
     var feat = document.querySelector('a.feat-post');
     var list = document.querySelector('.post-list');
@@ -121,16 +121,16 @@
       var oldThumb = (feat.querySelector('.feat-thumb') || {}).src || '';
       var oldMeta = (feat.querySelector('.meta') || {}).textContent || '';
       var oldTitle = (feat.querySelector('h3') || {}).textContent || '';
-      feat.setAttribute('href', 'blog-posts/meta-advantage-creative-test-before-bfcm.html');
+      feat.setAttribute('href', 'blog-posts/q4-paid-pacing-october-before-bfcm.html');
       var thumb = feat.querySelector('.feat-thumb');
-      if (thumb) { thumb.src = 'images/blog/meta-advantage-creative-test-before-bfcm.svg'; thumb.alt = ''; }
+      if (thumb) { thumb.src = 'images/blog/q4-paid-pacing-october-before-bfcm.svg'; thumb.alt = ''; }
       var meta = feat.querySelector('.meta');
-      if (meta) meta.textContent = 'Meta · 21 Sep 2026 · Featured';
+      if (meta) meta.textContent = 'SEM · Meta · 28 Sep 2026 · Featured';
       var h3 = feat.querySelector('h3');
-      if (h3) h3.textContent = 'Don\'t hand Meta a blank Advantage+ budget for Black Friday — run one creative test first';
+      if (h3) h3.textContent = 'Don\'t starve October to feast in November — fix your Q4 paid pacing first';
       var p = feat.querySelector('p');
-      if (p) p.textContent = 'NZ/AU stores dump Q4 budget into Advantage+ with last year\'s creatives and wonder why CPA climbs. One September creative test beats a November budget raise.';
-      if (oldHref && oldHref.indexOf('meta-advantage-creative-test') === -1) {
+      if (p) p.textContent = 'NZ/AU stores hoard paid budget for Black Friday week, then buy the most expensive clicks of the year. October is when you build retargeting pools and learning — cheaply.';
+      if (oldHref && oldHref.indexOf('q4-paid-pacing-october') === -1) {
         var row = document.createElement('a');
         row.className = 'post-row';
         row.href = oldHref;
@@ -138,19 +138,21 @@
         img.className = 'pr-thumb';
         img.loading = 'lazy';
         img.alt = '';
-        if (oldThumb.indexOf('abandon-cart') !== -1 || oldHref.indexOf('abandon-cart') !== -1) {
+        if (oldThumb.indexOf('meta-advantage') !== -1 || oldHref.indexOf('meta-advantage') !== -1) {
+          img.src = 'images/blog/meta-advantage-creative-test-before-bfcm.svg';
+        } else if (oldThumb.indexOf('abandon-cart') !== -1 || oldHref.indexOf('abandon-cart') !== -1) {
           img.src = 'images/blog/abandon-cart-nz-au-freight-before-q4.svg';
         } else if (oldThumb.indexOf('ai-max') !== -1 || oldHref.indexOf('ai-max') !== -1) {
           img.src = 'images/blog/ai-max-search-auto-conversion-sept-2026.svg';
         } else {
-          img.src = oldThumb || 'images/blog/abandon-cart-nz-au-freight-before-q4.svg';
+          img.src = oldThumb || 'images/blog/meta-advantage-creative-test-before-bfcm.svg';
         }
         var wrap = document.createElement('div');
         var rm = document.createElement('div');
         rm.className = 'meta';
-        rm.textContent = (oldMeta || 'Email · 14 Sep 2026').replace(/\s*·\s*Featured/, '');
+        rm.textContent = (oldMeta || 'Meta · 21 Sep 2026').replace(/\s*·\s*Featured/, '');
         var h4 = document.createElement('h4');
-        h4.textContent = oldTitle || 'Stop discounting abandon carts before Q4 — fix freight and GST first';
+        h4.textContent = oldTitle || 'Don\'t hand Meta a blank Advantage+ budget for Black Friday — run one creative test first';
         wrap.appendChild(rm); wrap.appendChild(h4);
         row.appendChild(img); row.appendChild(wrap);
         var firstRow = list.querySelector('.post-row');
