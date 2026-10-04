@@ -103,7 +103,7 @@
   else init();
 })();
 
-/* Homepage latest-writing override — 28 Sep 2026 Q4 paid pacing October post */
+/* Homepage latest-writing override — 5 Oct 2026 Klaviyo BFCM flows October post */
 (function () {
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -112,7 +112,7 @@
   ready(function () {
     var side = document.querySelector('.side-card');
     if (side && side.querySelector('.lbl') && /LATEST WRITING/i.test(side.querySelector('.lbl').textContent || '')) {
-      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Meta/SEM · 28 Sep 2026</div><h3>Don\'t starve October to feast in November — fix your Q4 paid pacing first</h3><p>October builds retargeting and email pools at calmer CPCs. Starve it and you overpay cold in November.</p><div class="foot"><span>Paid Media · 28 Sep · SEM · Meta</span><a href="blog.html">All posts →</a></div>';
+      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Email · 5 Oct 2026</div><h3>Don\'t wait until Black Friday week to build your Klaviyo flows — ship welcome, browse, and winback in October</h3><p>October is when welcome, browse, and winback should already be live and fed by paid — not BFCM week.</p><div class="foot"><span>Lifecycle · 5 Oct · Email · E-commerce</span><a href="blog.html">All posts →</a></div>';
     }
     var feat = document.querySelector('a.feat-post');
     var list = document.querySelector('.post-list');
@@ -121,16 +121,16 @@
       var oldThumb = (feat.querySelector('.feat-thumb') || {}).src || '';
       var oldMeta = (feat.querySelector('.meta') || {}).textContent || '';
       var oldTitle = (feat.querySelector('h3') || {}).textContent || '';
-      feat.setAttribute('href', 'blog-posts/q4-paid-pacing-october-before-bfcm.html');
+      feat.setAttribute('href', 'blog-posts/klaviyo-bfcm-flows-october-before-peak.html');
       var thumb = feat.querySelector('.feat-thumb');
-      if (thumb) { thumb.src = 'images/blog/q4-paid-pacing-october-before-bfcm.svg'; thumb.alt = ''; }
+      if (thumb) { thumb.src = 'images/blog/klaviyo-bfcm-flows-october-before-peak.svg'; thumb.alt = ''; }
       var meta = feat.querySelector('.meta');
-      if (meta) meta.textContent = 'SEM · Meta · 28 Sep 2026 · Featured';
+      if (meta) meta.textContent = 'Email · E-commerce · 5 Oct 2026 · Featured';
       var h3 = feat.querySelector('h3');
-      if (h3) h3.textContent = 'Don\'t starve October to feast in November — fix your Q4 paid pacing first';
+      if (h3) h3.textContent = 'Don\'t wait until Black Friday week to build your Klaviyo flows — ship welcome, browse, and winback in October';
       var p = feat.querySelector('p');
-      if (p) p.textContent = 'NZ/AU stores hoard paid budget for Black Friday week, then buy the most expensive clicks of the year. October is when you build retargeting pools and learning — cheaply.';
-      if (oldHref && oldHref.indexOf('q4-paid-pacing-october') === -1) {
+      if (p) p.textContent = 'NZ/AU stores scramble to build BFCM email the week of the sale. October is when welcome, browse, and winback flows should already be live and fed by paid.';
+      if (oldHref && oldHref.indexOf('klaviyo-bfcm-flows-october') === -1) {
         var row = document.createElement('a');
         row.className = 'post-row';
         row.href = oldHref;
@@ -138,21 +138,23 @@
         img.className = 'pr-thumb';
         img.loading = 'lazy';
         img.alt = '';
-        if (oldThumb.indexOf('meta-advantage') !== -1 || oldHref.indexOf('meta-advantage') !== -1) {
+        if (oldThumb.indexOf('q4-paid-pacing') !== -1 || oldHref.indexOf('q4-paid-pacing') !== -1) {
+          img.src = 'images/blog/q4-paid-pacing-october-before-bfcm.svg';
+        } else if (oldThumb.indexOf('meta-advantage') !== -1 || oldHref.indexOf('meta-advantage') !== -1) {
           img.src = 'images/blog/meta-advantage-creative-test-before-bfcm.svg';
         } else if (oldThumb.indexOf('abandon-cart') !== -1 || oldHref.indexOf('abandon-cart') !== -1) {
           img.src = 'images/blog/abandon-cart-nz-au-freight-before-q4.svg';
         } else if (oldThumb.indexOf('ai-max') !== -1 || oldHref.indexOf('ai-max') !== -1) {
           img.src = 'images/blog/ai-max-search-auto-conversion-sept-2026.svg';
         } else {
-          img.src = oldThumb || 'images/blog/meta-advantage-creative-test-before-bfcm.svg';
+          img.src = oldThumb || 'images/blog/q4-paid-pacing-october-before-bfcm.svg';
         }
         var wrap = document.createElement('div');
         var rm = document.createElement('div');
         rm.className = 'meta';
-        rm.textContent = (oldMeta || 'Meta · 21 Sep 2026').replace(/\s*·\s*Featured/, '');
+        rm.textContent = (oldMeta || 'SEM · Meta · 28 Sep 2026').replace(/\s*·\s*Featured/, '');
         var h4 = document.createElement('h4');
-        h4.textContent = oldTitle || 'Don\'t hand Meta a blank Advantage+ budget for Black Friday — run one creative test first';
+        h4.textContent = oldTitle || 'Don\'t starve October to feast in November — fix your Q4 paid pacing first';
         wrap.appendChild(rm); wrap.appendChild(h4);
         row.appendChild(img); row.appendChild(wrap);
         var firstRow = list.querySelector('.post-row');
