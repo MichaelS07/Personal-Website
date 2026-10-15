@@ -17,3 +17,7 @@ Follow `docs/voice-guide.md` and run `python3 scripts/check_copy.py <file>` (or 
 ## Homepage
 
 `index.html` keeps its styles inline in `<style>`. The services picker uses `.leaks .leak` and the hero funnel uses `.f-row.leak`, so keep selectors scoped to avoid clashes.
+
+## Caching
+
+Browsers cache the scripts and stylesheets. When you change a file in `assets/` or `css/`, bump the `?v=` query string wherever it's linked (e.g. `nova-fx.js?v=20261015`), or visitors keep running the old file.
