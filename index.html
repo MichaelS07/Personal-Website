@@ -341,19 +341,50 @@
     .rep-cta .chips span { color: rgba(255,255,255,.75); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04); margin-bottom: 0; }
     .chips span { display: inline-block; font-size: 12px; color: var(--ink-2); border: 1px solid var(--line); background: var(--bg-2); border-radius: 20px; padding: 4px 11px; margin: 0 6px 6px 0; }
 
-    /* Approach */
+    /* Approach — "Your first 90 days": sticky intro left, scroll-lit timeline right (--p set by JS) */
     .approach { background: var(--panel); }
-    .timeline { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .tl-line { position: absolute; top: 54px; left: 16%; right: 16%; height: 2px; background: linear-gradient(90deg, transparent, var(--brand), transparent); opacity: .5; }
-    .tl-step { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 30px 28px; box-shadow: var(--sh-2); text-align: left; }
-    .tl-node {
-      width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #34D399, #059669); color: #fff; font-family: var(--disp); font-weight: 700; font-size: 18px;
-      display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 1;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(16,185,129,.7);
+    .ap-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
+    .ap-intro { position: sticky; top: 110px; }
+    .ap-intro h2 { font-size: clamp(30px, 3.8vw, 46px); margin: 14px 0 16px; }
+    .ap-intro > p { color: var(--ink-2); font-size: 17px; margin-bottom: 28px; }
+    .never { border-radius: 18px; padding: 22px 24px; background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-2); }
+    .never-k { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: #e11d48; margin-bottom: 12px; }
+    .never ul { list-style: none; display: grid; gap: 10px; }
+    .never li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+    .never li::before { content: "✕"; width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #e11d48; background: #ffe4e6; }
+    .never li strong { color: var(--ink); font-weight: 600; }
+
+    .tl90 { position: relative; display: grid; gap: 22px; padding-left: 64px; --p: 0; }
+    .tl90::before, .tl90::after { content: ""; position: absolute; left: 23px; top: 24px; bottom: 24px; width: 3px; border-radius: 3px; }
+    .tl90::before { background: rgba(11,15,13,.08); }
+    .tl90::after { bottom: auto; height: calc((100% - 48px) * var(--p)); background: linear-gradient(180deg, #34d399, #10b981); box-shadow: 0 0 16px rgba(16,185,129,.6); }
+    .t-step {
+      position: relative; border-radius: 20px; padding: 24px 26px; background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-2);
+      display: grid; grid-template-columns: 1fr 200px; gap: 22px; align-items: center; transition: box-shadow .4s, border-color .4s, transform .4s;
     }
-    .tl-step h3 { font-size: 20px; margin-bottom: 8px; }
-    .tl-step p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
-    .tl-step p strong { color: var(--ink); font-weight: 600; }
+    .t-step.lit { border-color: rgba(16,185,129,.35); box-shadow: 0 0 0 4px rgba(16,185,129,.08), var(--sh-3); }
+    .t-node {
+      position: absolute; left: -64px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 15px; z-index: 1;
+      display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 17px;
+      color: var(--muted); background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-1); transition: all .4s;
+    }
+    .t-step.lit .t-node { color: #fff; border-color: transparent; background: linear-gradient(135deg, #34D399, #059669); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 6px rgba(16,185,129,.15), 0 12px 24px -8px rgba(16,185,129,.8); }
+    .t-when { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-d); background: rgba(16,185,129,.1); padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; }
+    .t-step h3 { font-size: 21px; margin-bottom: 6px; }
+    .t-step p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+    /* Deliverable: a small "document" card that tilts up when the step is lit */
+    .deliv-wrap { perspective: 800px; }
+    .deliv {
+      position: relative; border-radius: 14px; padding: 14px; color: #fff; transform: rotateY(-14deg) rotateX(6deg) translateY(6px); opacity: .7;
+      background: radial-gradient(80% 80% at 100% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2);
+      box-shadow: 0 24px 40px -18px rgba(5,11,8,.7); transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s;
+    }
+    .t-step.lit .deliv { transform: rotateY(-6deg) rotateX(2deg); opacity: 1; }
+    .deliv-k { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 8px; }
+    .deliv b { display: block; font-family: var(--disp); font-size: 15px; font-weight: 600; line-height: 1.2; }
+    .deliv small { display: block; font-size: 11.5px; color: var(--brand-l); margin-top: 3px; }
+    .deliv .dl { height: 5px; border-radius: 3px; background: rgba(255,255,255,.12); margin-top: 8px; }
+    .deliv .dl.s { width: 60%; margin-top: 5px; }
 
     /* Writing — keep .feat-post / .post-list / .post-row / .pr-thumb / .meta: the weekly update script edits them */
     .writing-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: stretch; }
@@ -424,12 +455,6 @@
 
     /* Pricing */
     .pricing { background: var(--panel); }
-    .toggle-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 48px; }
-    .toggle { position: relative; width: 56px; height: 30px; border-radius: 30px; background: var(--brand); border: none; cursor: pointer; box-shadow: inset 0 1px 3px rgba(0,0,0,.2); }
-    .toggle .knob { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform .2s ease; box-shadow: 0 2px 4px rgba(0,0,0,.2); }
-    .toggle.on .knob { transform: translateX(26px); }
-    .tg-lbl { font-size: 14px; color: var(--muted); font-weight: 500; }
-    .tg-lbl.active { color: var(--ink); }
     .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: center; }
     .tier { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 32px 28px; display: flex; flex-direction: column; box-shadow: var(--sh-2); }
     .tier.feat {
@@ -437,17 +462,23 @@
       background: radial-gradient(90% 60% at 50% 0%, rgba(16,185,129,.35), transparent 70%), var(--night-2);
       box-shadow: var(--sh-glow), var(--sh-3);
     }
-    .tier.feat .pname, .tier.feat .pdesc, .tier.feat li { color: rgba(255,255,255,.75); }
+    .tier.feat .pname, .tier.feat .pdesc, .tier.feat li, .tier.feat .per { color: rgba(255,255,255,.75); }
     .tier.feat .price { color: #fff; }
     .tier.feat li::before { color: var(--brand-l); }
     .tier .badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(180deg, #34d399, #059669); color: #fff; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; box-shadow: 0 6px 16px -4px rgba(16,185,129,.7); letter-spacing: .03em; }
     .tier .pname { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-    .tier .price { font-family: var(--disp); font-size: 38px; font-weight: 700; margin: 10px 0 6px; letter-spacing: -.02em; }
+    .tier .price { font-family: var(--disp); font-size: 40px; font-weight: 700; margin: 10px 0 0; letter-spacing: -.02em; line-height: 1.1; }
+    .tier .per { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
     .tier .pdesc { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin-bottom: 20px; }
     .tier ul { list-style: none; margin-bottom: 26px; flex: 1; }
     .tier li { font-size: 14px; color: var(--ink-2); padding: 7px 0 7px 26px; position: relative; }
     .tier li::before { content: "\2713"; position: absolute; left: 0; color: var(--brand-d); font-weight: 700; }
     .tier .btn { justify-content: center; }
+    .assure { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin-top: 40px; font-size: 13.5px; color: var(--ink-2); }
+    .assure span { display: inline-flex; align-items: center; gap: 8px; }
+    .assure span::before { content: "✓"; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; background: var(--brand); }
+    .free-note { text-align: center; margin-top: 18px; font-size: 13.5px; color: var(--muted); }
+    .free-note a { color: var(--brand-d); font-weight: 600; }
 
     /* About */
     .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 56px; align-items: center; }
@@ -553,11 +584,12 @@
       .menu-btn { display: block; }
       section { padding: 72px 0; }
       .hero { padding: 120px 0 72px; }
-      .bento, .timeline, .tiers, .writing-layout, .about-grid { grid-template-columns: 1fr; }
+      .ap-grid, .tiers, .writing-layout, .about-grid { grid-template-columns: 1fr; }
+      .ap-grid { gap: 36px; }
+      .ap-intro { position: static; }
       .leak-ui { grid-template-columns: 1fr; gap: 28px; }
       .leak[aria-selected="true"] { transform: none; }
       .report { transform: none; }
-      .tl-line { display: none; }
       .tier.feat { order: -1; }
     }
     @media (max-width: 560px) {
@@ -573,6 +605,11 @@
       .issue { left: 0; right: 0; }
       .leak { padding: 16px; gap: 12px; grid-template-columns: 40px 1fr 16px; }
       .leak .ln { width: 40px; height: 40px; }
+      .tl90 { padding-left: 0; }
+      .tl90::before, .tl90::after { display: none; }
+      .t-step { grid-template-columns: 1fr; padding: 22px; padding-top: 70px; }
+      .t-node { left: 22px; top: 18px; margin-top: 0; width: 40px; height: 40px; }
+      .deliv { transform: none; }
       .leak b { font-size: 16px; }
       .report { padding: 22px; }
       .rep-body, .rep-foot { grid-template-columns: 1fr; }
@@ -584,7 +621,7 @@
       .checks li { animation: none; opacity: 1; transform: none; }
       .track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 24px; row-gap: 12px; }
       .marquee { -webkit-mask-image: none; mask-image: none; }
-      .stack, .issue-stack, .issue, .report, .leak { transition: none; }
+      .stack, .issue-stack, .issue, .report, .leak, .deliv, .t-step { transition: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -870,32 +907,66 @@
 
   <!-- Approach -->
   <section id="approach" class="approach">
-    <div class="wrap">
-      <div class="sec-head center reveal">
+    <div class="wrap ap-grid">
+      <div class="ap-intro reveal">
         <span class="eyebrow">The approach</span>
-        <h2>Lean, clear, no fluff</h2>
-        <p>You'll always know what's happening and why. The method is simple: test, measure, adjust, repeat.</p>
+        <h2>Your first 90 days</h2>
+        <p>No vague "strategy phase". Here's exactly what happens, when — and what lands in your inbox at each step.</p>
+        <div class="never">
+          <div class="never-k">What you'll never get</div>
+          <ul>
+            <li><span><strong>Lock-in contracts</strong> — 3 months, then month-to-month</span></li>
+            <li><span><strong>Hand-offs to a junior</strong> after the sales call</span></li>
+            <li><span><strong>Reports padded with vanity metrics</strong> instead of revenue</span></li>
+            <li><span><strong>Accounts held hostage</strong> — you own every account and all the data</span></li>
+          </ul>
+        </div>
       </div>
-      <div class="timeline">
-        <div class="tl-line" aria-hidden="true"></div>
-        <div class="tl-step reveal" data-tilt>
-          <div class="tl-node">1</div>
-          <h3>Diagnose</h3>
-          <p>I audit your <strong>data</strong>, analyse your <strong>website</strong> and <strong>marketing
-              funnels</strong>, and pinpoint exactly what's holding back growth.</p>
-        </div>
-        <div class="tl-step reveal d1" data-tilt>
-          <div class="tl-node">2</div>
-          <h3>Design</h3>
-          <p>I build a <strong>roadmap</strong> of experiments, <strong>ranked by likely impact</strong>, so the work
-            always starts with what's worth the most.</p>
-        </div>
-        <div class="tl-step reveal d2" data-tilt>
-          <div class="tl-node">3</div>
-          <h3>Deliver</h3>
-          <p>I <strong>deploy and test</strong> rapidly, measure everything, and leave you a <strong>clear
-              playbook</strong> you can keep using long after.</p>
-        </div>
+      <div class="tl90" id="tl90">
+          <div class="t-step reveal">
+            <span class="t-node">1</span>
+            <div>
+              <span class="t-when">Week 1</span>
+              <h3>Audit</h3>
+              <p>I get access, check tracking end to end, and go through your ad accounts, funnel and email flows to find every leak.</p>
+            </div>
+            <div class="deliv-wrap" aria-hidden="true">
+              <div class="deliv"><div class="deliv-k">Deliverable</div><b>Audit report</b><small>Every leak, ranked</small><div class="dl"></div><div class="dl s"></div></div>
+            </div>
+          </div>
+          <div class="t-step reveal">
+            <span class="t-node">2</span>
+            <div>
+              <span class="t-when">Week 2</span>
+              <h3>Roadmap</h3>
+              <p>Fixes ranked by likely impact against effort — so the work always starts with what's worth the most.</p>
+            </div>
+            <div class="deliv-wrap" aria-hidden="true">
+              <div class="deliv"><div class="deliv-k">Deliverable</div><b>90-day roadmap</b><small>Shared, live doc</small><div class="dl"></div><div class="dl s"></div></div>
+            </div>
+          </div>
+          <div class="t-step reveal">
+            <span class="t-node">3</span>
+            <div>
+              <span class="t-when">Weeks 3–6</span>
+              <h3>First fixes live</h3>
+              <p>Quick wins shipped, tracking cleaned up, and the first A/B test running on your store.</p>
+            </div>
+            <div class="deliv-wrap" aria-hidden="true">
+              <div class="deliv"><div class="deliv-k">Deliverable</div><b>Change log</b><small>Every change, dated</small><div class="dl"></div><div class="dl s"></div></div>
+            </div>
+          </div>
+          <div class="t-step reveal">
+            <span class="t-node">4</span>
+            <div>
+              <span class="t-when">Every month</span>
+              <h3>Report &amp; next tests</h3>
+              <p>One page: what moved, what didn't, and what's next — plus a short video walkthrough you can watch in five minutes.</p>
+            </div>
+            <div class="deliv-wrap" aria-hidden="true">
+              <div class="deliv"><div class="deliv-k">Deliverable</div><b>Report + Loom walkthrough</b><small>No vanity metrics</small><div class="dl"></div><div class="dl s"></div></div>
+            </div>
+          </div>
       </div>
     </div>
   </section>
@@ -989,54 +1060,58 @@
     <div class="wrap">
       <div class="sec-head center reveal">
         <span class="eyebrow">Pricing</span>
-        <h2>Straightforward options</h2>
-        <p>Toggle between a monthly retainer and one-off project pricing.</p>
-      </div>
-      <div class="toggle-row">
-        <span class="tg-lbl active" id="lblMonthly">Monthly</span>
-        <button class="toggle" id="priceToggle" aria-pressed="false" aria-label="Toggle pricing"><span
-            class="knob"></span></button>
-        <span class="tg-lbl" id="lblOneoff">One-off</span>
+        <h2>Specialist work, without agency overheads</h2>
+        <p>Senior, hands-on work for less than you'd pay an agency for the same channels — and you deal with me the whole
+          way.</p>
       </div>
       <div class="tiers">
         <div class="tier reveal">
-          <div class="pname">Starter</div>
-          <div class="price" data-month="NZ$1,000" data-one="NZ$1,500">NZ$1,000</div>
-          <p class="pdesc">A fast way to see results. I audit one key area and hand back a list of quick wins you can act
-            on.</p>
+          <div class="pname">Audit</div>
+          <div class="price">NZ$1,950</div>
+          <div class="per">one-off + GST</div>
+          <p class="pdesc">A full, paid deep-dive on one area of your store — and a ranked list of what to fix first.</p>
           <ul>
-            <li>Full audit of your Search or Email performance</li>
-            <li>10-point CRO checklist</li>
-            <li>Two weeks of support to implement fixes</li>
+            <li>Full audit: tracking, funnel and one channel in depth</li>
+            <li>Ranked fix list with expected impact</li>
+            <li>60-minute walkthrough call (recorded)</li>
+            <li>Two weeks of email support while you implement</li>
           </ul>
-          <a href="#contact" class="btn btn-ghost">Enquire</a>
+          <a href="#contact" class="btn btn-ghost">Book an audit</a>
         </div>
         <div class="tier feat reveal d1">
           <span class="badge">MOST POPULAR</span>
           <div class="pname">Growth</div>
-          <div class="price" data-month="NZ$1,500" data-one="NZ$2,000">NZ$1,500</div>
-          <p class="pdesc">For sustained growth. I manage search &amp; email and run ongoing CRO sprints toward your
-            targets.</p>
+          <div class="price">NZ$2,450</div>
+          <div class="per">per month + GST</div>
+          <p class="pdesc">Two channels run properly, plus a conversion test shipped every month.</p>
           <ul>
-            <li>Ongoing SEO/SEM management</li>
-            <li>Full build-out of your lifecycle email flows</li>
-            <li>Continuous CRO experiments</li>
+            <li>Two channels managed (e.g. Google Ads + Klaviyo flows)</li>
+            <li>One CRO / A/B test shipped every month</li>
+            <li>Monthly one-page report + video walkthrough</li>
+            <li>Fortnightly check-in call</li>
           </ul>
           <a href="#contact" class="btn btn-primary">Enquire</a>
         </div>
         <div class="tier reveal d2">
           <div class="pname">Scale</div>
-          <div class="price" data-month="NZ$3,000" data-one="NZ$3,500">NZ$3,000</div>
-          <p class="pdesc">For brands ready to push hard. I act as your growth lead across every channel — strategy and
-            execution.</p>
+          <div class="price">NZ$3,950</div>
+          <div class="per">per month + GST</div>
+          <p class="pdesc">Your growth lead across the whole funnel — strategy and execution as one plan.</p>
           <ul>
-            <li>Everything in Growth, plus:</li>
-            <li>Advanced customer journey mapping</li>
-            <li>Priority support &amp; weekly strategy calls</li>
+            <li>Everything in Growth, across all channels</li>
+            <li>Search, Meta, SEO, email and CRO in one roadmap</li>
+            <li>Customer journey mapping</li>
+            <li>Weekly strategy call + priority support</li>
           </ul>
           <a href="#contact" class="btn btn-ghost">Enquire</a>
         </div>
       </div>
+      <div class="assure reveal">
+        <span>Ad spend paid directly to Google &amp; Meta</span>
+        <span>3-month minimum, then month-to-month</span>
+        <span>You own every account and all data</span>
+      </div>
+      <p class="free-note">Not sure yet? Start with the <a href="#contact">free store audit</a> — three quick findings, no obligation.</p>
     </div>
   </section>
 
@@ -1202,19 +1277,25 @@
       a.addEventListener('click', function () { mobileMenu.style.display = 'none'; });
     });
 
-    // Pricing toggle
-    var toggle = document.getElementById('priceToggle');
-    var lblM = document.getElementById('lblMonthly');
-    var lblO = document.getElementById('lblOneoff');
-    toggle.addEventListener('click', function () {
-      var oneOff = toggle.classList.toggle('on');
-      toggle.setAttribute('aria-pressed', String(oneOff));
-      lblM.classList.toggle('active', !oneOff);
-      lblO.classList.toggle('active', oneOff);
-      document.querySelectorAll('.price').forEach(function (el) {
-        el.textContent = oneOff ? el.getAttribute('data-one') : el.getAttribute('data-month');
-      });
-    });
+    // Approach: fill the timeline line and light each step as it scrolls past the middle of the screen
+    (function () {
+      var tl = document.getElementById('tl90');
+      var steps = tl.querySelectorAll('.t-step');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function update() {
+        var mid = window.innerHeight * 0.6;
+        var r = tl.getBoundingClientRect();
+        var p = reduce ? 1 : Math.max(0, Math.min(1, (mid - r.top) / r.height));
+        tl.style.setProperty('--p', p.toFixed(3));
+        steps.forEach(function (st) {
+          var sr = st.getBoundingClientRect();
+          st.classList.toggle('lit', reduce || sr.top + sr.height / 2 < mid);
+        });
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
 
     // Reveal on scroll
     var io = new IntersectionObserver(function (entries) {
