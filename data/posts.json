@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "slug": "google-ads-automated-promotions-october-2026",
+      "title": "Google Ads Is Pulling Promotions From Your Website: Check Them Before Black Friday",
+      "date": "2026-10-15",
+      "category": "Paid Media",
+      "tags": [
+        "SEM",
+        "E-commerce"
+      ],
+      "excerpt": "Since 12 October, Google Ads can turn the deals on your site into ad promotions. How to see what it added, and why I'd switch it off before BFCM.",
+      "image": "images/blog/google-ads-automated-promotions-october-2026.svg",
+      "image_alt": "A website deal banner flowing into a Google search ad tagged Google AI, next to an Automated promotions switch set to off",
+      "cta_headline": "Check what Google is pulling from your site before Black Friday.",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with what I'd switch off and the promotion assets I'd set up instead."
+    },
+    {
       "slug": "klaviyo-bfcm-flows-october-before-peak",
       "title": "Build Your Klaviyo Flows in October, Not Black Friday Week",
       "date": "2026-10-05",

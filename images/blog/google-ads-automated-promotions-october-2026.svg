@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="A website deal banner reading 15% off your first order flows into a Google search ad tagged Google AI, next to an Automated promotions switch turned off">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="1080" cy="100" r="150" fill="#10b981" opacity="0.12"/>
+  <circle cx="110" cy="700" r="130" fill="#34d399" opacity="0.14"/>
+
+  <!-- Board -->
+  <rect x="70" y="80" width="1060" height="620" rx="28" fill="#fff" stroke="#e2e8f0" filter="url(#s)"/>
+  <rect x="70" y="80" width="1060" height="64" rx="28" fill="#0f172a"/>
+  <rect x="70" y="116" width="1060" height="28" fill="#0f172a"/>
+  <text x="110" y="122" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#fff">Google Ads · Automated promotions</text>
+  <rect x="880" y="96" width="210" height="34" rx="17" fill="url(#g)"/>
+  <text x="985" y="119" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#fff">Live from 12 Oct</text>
+
+  <!-- Website card -->
+  <rect x="120" y="190" width="380" height="300" rx="18" fill="#f8fafc" stroke="#e2e8f0"/>
+  <circle cx="146" cy="214" r="6" fill="#cbd5e1"/><circle cx="166" cy="214" r="6" fill="#cbd5e1"/><circle cx="186" cy="214" r="6" fill="#cbd5e1"/>
+  <text x="140" y="262" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#475569">YOUR WEBSITE</text>
+  <rect x="140" y="282" width="340" height="70" rx="12" fill="#065f46"/>
+  <text x="310" y="326" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#fff">15% off first order</text>
+  <rect x="140" y="374" width="220" height="14" rx="7" fill="#e2e8f0"/>
+  <rect x="140" y="400" width="300" height="14" rx="7" fill="#e2e8f0"/>
+  <rect x="140" y="426" width="180" height="14" rx="7" fill="#e2e8f0"/>
+
+  <!-- Arrow -->
+  <path d="M510 340 C 570 340 590 340 640 340" stroke="#10b981" stroke-width="6" fill="none" stroke-dasharray="4 10" stroke-linecap="round" marker-end="url(#ah)"/>
+
+  <!-- Ad card -->
+  <rect x="660" y="190" width="420" height="300" rx="18" fill="#fff" stroke="#e2e8f0" filter="url(#s)"/>
+  <text x="684" y="240" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0f172a">Sponsored</text>
+  <text x="780" y="240" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748b">yourstore.co.nz</text>
+  <rect x="684" y="258" width="340" height="18" rx="9" fill="#93c5fd"/>
+  <rect x="684" y="288" width="280" height="12" rx="6" fill="#e2e8f0"/>
+  <rect x="684" y="310" width="310" height="12" rx="6" fill="#e2e8f0"/>
+  <rect x="684" y="346" width="372" height="56" rx="12" fill="#fff1f2" stroke="#fda4af"/>
+  <text x="704" y="381" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#be123c">15% off first order</text>
+  <rect x="932" y="360" width="108" height="28" rx="14" fill="#0f172a"/>
+  <text x="986" y="379" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#34d399">Google AI</text>
+  <text x="684" y="448" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748b">Shown to every searcher, returning customers included</text>
+
+  <!-- Toggle -->
+  <rect x="120" y="540" width="960" height="110" rx="18" fill="#0f172a"/>
+  <text x="160" y="590" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#fff">Automated promotions</text>
+  <text x="160" y="622" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#94a3b8">Assets › Account-level automated assets › Advanced settings</text>
+  <rect x="920" y="572" width="120" height="48" rx="24" fill="#334155"/>
+  <circle cx="946" cy="596" r="18" fill="#fff"/>
+  <text x="1010" y="602" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#cbd5e1">Off</text>
+</svg>
