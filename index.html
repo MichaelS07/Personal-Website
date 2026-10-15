@@ -263,41 +263,129 @@
     .sec-head h2 { font-size: clamp(30px, 3.8vw, 46px); margin: 14px 0 16px; }
     .sec-head p { color: var(--ink-2); font-size: 17px; }
 
-    /* Services — bento with depth */
-    .bento { display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: auto auto; gap: 20px; }
+    /* Services — bento: wide acquisition card on top, conversion + retention below. Each has a designed UI visual. */
+    .bento { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .svc-card {
-      position: relative; border-radius: var(--radius-lg); padding: 30px; background: #fff; border: 1px solid var(--line);
+      position: relative; border-radius: 20px; padding: 30px; background: #fff; border: 1px solid var(--line);
       box-shadow: var(--sh-2); transform-style: preserve-3d; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
-      overflow: hidden;
+      overflow: hidden; display: flex; flex-direction: column;
     }
     .svc-card:hover { box-shadow: var(--sh-3); }
-    .svc-card.big { grid-row: 1 / 3; background: radial-gradient(80% 60% at 100% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2); color: #fff; border-color: transparent; display: flex; flex-direction: column; }
-    .svc-card.big h3 { color: #fff; font-size: 30px; }
+    .svc-card.big {
+      grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: center; padding: 44px;
+      background: radial-gradient(60% 90% at 100% 0%, rgba(16,185,129,.32), transparent 60%), radial-gradient(40% 60% at 0% 100%, rgba(56,189,248,.1), transparent 70%), var(--night-2);
+      color: #fff; border-color: transparent;
+    }
+    .svc-card.big h3 { color: #fff; font-size: 32px; }
     .svc-card.big p { color: rgba(255,255,255,.7); font-size: 16px; }
     .svc-card.big p strong { color: #fff; }
     .svc-card.big .chips span { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.15); background: rgba(255,255,255,.04); }
-    .svc-tile {
-      width: 56px; height: 56px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #fff; margin-bottom: 22px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(16,185,129,.7);
-    }
-    .svc-tile svg { width: 26px; height: 26px; }
-    .svc-tile-1 { background: linear-gradient(135deg, #34D399, #059669); }
-    .svc-tile-2 { background: linear-gradient(135deg, #2DD4BF, #0F766E); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(15,118,110,.7); }
-    .svc-tile-3 { background: linear-gradient(135deg, #38BDF8, #1D4ED8); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(29,78,216,.6); }
-    .svc-kicker { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-d); font-weight: 700; margin-bottom: 8px; }
+    .svc-kicker { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-d); font-weight: 700; margin-bottom: 10px; }
+    .svc-kicker i { width: 26px; height: 26px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-style: normal; box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+    .svc-kicker i svg { width: 14px; height: 14px; }
+    .k1 { background: linear-gradient(135deg, #34D399, #059669); }
+    .k2 { background: linear-gradient(135deg, #2DD4BF, #0F766E); }
+    .k3 { background: linear-gradient(135deg, #38BDF8, #1D4ED8); }
     .svc-card.big .svc-kicker { color: var(--brand-l); }
-    .svc-card h3 { font-size: 22px; margin-bottom: 10px; }
-    .svc-card p { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin-bottom: 20px; }
+    .svc-card h3 { font-size: 23px; margin-bottom: 10px; }
+    .svc-card p { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin-bottom: 18px; }
     .svc-card p strong { color: var(--ink); font-weight: 600; }
     .chips span { display: inline-block; font-size: 12px; color: var(--ink-2); border: 1px solid var(--line); background: var(--bg-2); border-radius: 20px; padding: 4px 11px; margin: 0 6px 6px 0; }
-    /* Mini search-results visual inside the big card */
-    .serp { margin-top: auto; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); padding: 14px; display: grid; gap: 10px; }
-    .serp-row { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: center; }
-    .serp-rank { font-family: var(--disp); font-weight: 700; font-size: 13px; color: rgba(255,255,255,.4); text-align: center; }
-    .serp-row.you .serp-rank { color: var(--brand-l); }
-    .serp-line { height: 9px; border-radius: 5px; background: rgba(255,255,255,.12); }
-    .serp-row.you .serp-line { background: linear-gradient(90deg, #34d399, #5eead4); box-shadow: 0 0 18px rgba(52,211,153,.5); }
-    .serp-line.s { width: 60%; margin-top: 6px; height: 6px; opacity: .6; }
+
+    /* Shared visual frame for the two light cards */
+    .svc-vis {
+      position: relative; height: 250px; margin: -10px -10px 26px; border-radius: 14px; overflow: hidden;
+      background: radial-gradient(70% 80% at 80% 0%, rgba(16,185,129,.10), transparent 70%), linear-gradient(180deg, #f6f9f7, #eef3f0);
+      border: 1px solid var(--line-2);
+      background-image: radial-gradient(70% 80% at 80% 0%, rgba(16,185,129,.10), transparent 70%), radial-gradient(rgba(11,15,13,.07) 1px, transparent 1px), linear-gradient(180deg, #f6f9f7, #eef3f0);
+      background-size: auto, 16px 16px, auto;
+    }
+    .svc-card.c3 .svc-vis { background-image: radial-gradient(70% 80% at 80% 0%, rgba(56,189,248,.12), transparent 70%), radial-gradient(rgba(11,15,13,.07) 1px, transparent 1px), linear-gradient(180deg, #f5f8fb, #edf2f7); }
+
+    /* Product tub used in the ad + PDP mocks */
+    .tub { position: relative; width: 46%; aspect-ratio: 3 / 3.6; margin: auto; border-radius: 10px 10px 14px 14px; background: linear-gradient(90deg, #0b1611, #1f2b25 45%, #0b1611); box-shadow: 0 16px 24px -10px rgba(0,0,0,.45); }
+    .tub::before { content: ""; position: absolute; left: -6%; right: -6%; top: -9%; height: 16%; border-radius: 6px; background: linear-gradient(90deg, #059669, #34d399 50%, #059669); }
+    .tub::after { content: "WHEY"; position: absolute; left: 12%; right: 12%; top: 34%; padding: 5px 0; border-radius: 4px; background: #fff; color: #0b1611; font: 700 9px/1 var(--disp); letter-spacing: .14em; text-align: center; }
+
+    /* A — search results + floating Meta ad (dark) */
+    .v-acq { position: relative; height: 330px; perspective: 1200px; }
+    .serp-win {
+      position: absolute; inset: 0 120px 20px 0; border-radius: 16px; padding: 16px; transform: rotateY(-8deg) rotateX(4deg); transform-origin: left center;
+      background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 40px 70px -25px rgba(0,0,0,.7);
+    }
+    .serp-bar { display: flex; align-items: center; gap: 9px; padding: 9px 14px; border-radius: 30px; background: #fff; color: var(--ink); font-size: 13px; margin-bottom: 14px; }
+    .serp-bar svg { width: 15px; height: 15px; color: #6b716e; flex-shrink: 0; }
+    .caret { width: 1.5px; height: 15px; background: var(--brand-d); animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .res { position: relative; padding: 10px 12px; border-radius: 10px; margin-bottom: 8px; }
+    .res-url { font-size: 11px; color: rgba(255,255,255,.55); margin-bottom: 3px; }
+    .res-url b { color: #fff; font-weight: 700; margin-right: 6px; }
+    .res-t { font-size: 14px; font-weight: 600; color: #93c5fd; line-height: 1.3; }
+    .res-d { font-size: 11.5px; color: rgba(255,255,255,.5); margin-top: 3px; }
+    .res.mine { background: rgba(16,185,129,.1); border: 1px solid rgba(52,211,153,.35); box-shadow: 0 0 30px -8px rgba(52,211,153,.45); }
+    .res .you { display: inline-block; margin-bottom: 5px; font-size: 9.5px; font-weight: 700; letter-spacing: .04em; color: #062e22; background: var(--brand-l); padding: 3px 8px; border-radius: 20px; }
+    .res.dim .ln { height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); margin: 4px 0 7px; width: 80%; }
+    .res.dim .ln.s { width: 55%; height: 6px; }
+    .meta-ad {
+      position: absolute; right: -6px; bottom: -14px; width: 160px; border-radius: 14px; background: #fff; color: var(--ink); overflow: hidden;
+      transform: rotateY(-14deg) rotateZ(3deg) translateZ(60px); box-shadow: 0 40px 60px -20px rgba(0,0,0,.8);
+      transition: transform .5s cubic-bezier(.2,.7,.2,1);
+    }
+    .svc-card.big:hover .meta-ad { transform: rotateY(-6deg) rotateZ(0deg) translateZ(80px) translateY(-8px); }
+    .ma-top { display: flex; align-items: center; gap: 8px; padding: 9px 10px; }
+    .ma-top i { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #34d399, #065f46); }
+    .ma-top b { display: block; font-size: 11.5px; line-height: 1.1; }
+    .ma-top span { font-size: 9.5px; color: var(--muted); }
+    .ma-img { height: 120px; display: flex; align-items: center; background: radial-gradient(60% 60% at 50% 40%, #d1fae5, #a7f3d0 60%, #6ee7b7); }
+    .ma-img .tub { width: 38%; }
+    .ma-cta { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 9px 10px; background: #f3f4f3; }
+    .ma-cta span { font-size: 9.5px; color: var(--ink-2); line-height: 1.2; }
+    .ma-cta b { font-size: 10px; background: #e4e6e5; padding: 5px 8px; border-radius: 6px; white-space: nowrap; }
+
+    /* B — product page under an A/B test */
+    .pdp {
+      position: absolute; left: 22px; right: 22px; top: 22px; display: grid; grid-template-columns: 0.9fr 1fr; gap: 14px; padding: 14px;
+      border-radius: 12px; background: #fff; box-shadow: var(--sh-2);
+    }
+    .pdp-img { border-radius: 9px; background: radial-gradient(60% 60% at 50% 40%, #ecfdf5, #d1fae5); display: flex; align-items: center; height: 130px; }
+    .pdp-t { font-family: var(--disp); font-weight: 700; font-size: 14px; line-height: 1.2; }
+    .pdp-stars { color: #f59e0b; font-size: 11px; letter-spacing: 1px; margin: 4px 0; }
+    .pdp-price { font-family: var(--disp); font-weight: 700; font-size: 17px; }
+    .pdp-ship { display: inline-block; font-size: 10px; font-weight: 600; color: var(--brand-d); background: rgba(16,185,129,.12); border-radius: 6px; padding: 4px 7px; margin: 7px 0 9px; }
+    .pdp-btn { position: relative; display: block; text-align: center; font-size: 12px; font-weight: 600; color: #fff; padding: 9px; border-radius: 8px; background: linear-gradient(180deg, #22c58f, var(--brand-d)); box-shadow: 0 6px 14px -6px rgba(16,185,129,.8); }
+    .cursor { position: absolute; width: 20px; height: 20px; right: 16%; bottom: -12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,.3)); animation: tap 2.6s ease-in-out infinite; }
+    @keyframes tap { 0%, 100% { transform: translate(14px, 14px); } 45%, 60% { transform: translate(0, 0); } 52% { transform: translate(0, 0) scale(.85); } }
+    .ab {
+      position: absolute; left: 12px; bottom: 12px; width: 180px; padding: 11px 13px; border-radius: 12px; background: var(--night-2); color: #fff;
+      box-shadow: 0 24px 40px -14px rgba(11,15,13,.6); transform: rotate(-2deg); transition: transform .4s cubic-bezier(.2,.7,.2,1);
+    }
+    .svc-card:hover .ab { transform: rotate(0) translateY(-6px); }
+    .ab-k { font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 7px; }
+    .ab-row { display: grid; grid-template-columns: 14px 1fr; gap: 8px; align-items: center; font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+    .ab-row div { height: 7px; border-radius: 4px; background: rgba(255,255,255,.15); }
+    .ab-row div span { display: block; height: 100%; border-radius: 4px; width: var(--w); background: rgba(255,255,255,.45); }
+    .ab-row.win { color: var(--brand-l); }
+    .ab-row.win div span { background: linear-gradient(90deg, #10b981, #5eead4); }
+    .ab-note { font-size: 10px; color: var(--brand-l); margin-top: 4px; }
+
+    /* C — post-purchase flow */
+    .v-flow { position: absolute; inset: 18px 22px; display: flex; flex-direction: column; align-items: center; }
+    .node {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--ink); padding: 8px 13px; border-radius: 10px;
+      background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-1); white-space: nowrap;
+    }
+    .node em { font-style: normal; width: 22px; height: 22px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+    .node .e1 { background: #fef3c7; } .node .e2 { background: #e0f2fe; } .node .e3 { background: #d1fae5; }
+    .node.mail { box-shadow: 0 0 0 3px rgba(56,189,248,.18), var(--sh-2); }
+    .edge { width: 2px; height: 18px; background-image: linear-gradient(var(--brand) 50%, transparent 50%); background-size: 2px 6px; animation: flowDown 0.6s linear infinite; }
+    @keyframes flowDown { to { background-position: 0 6px; } }
+    .split { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 360px; padding-top: 18px; }
+    .split::before { content: ""; position: absolute; top: 0; left: 25%; right: 25%; height: 18px; border: 2px dashed rgba(16,185,129,.55); border-bottom: 0; border-radius: 10px 10px 0 0; }
+    .split .node { justify-content: center; font-size: 11px; padding: 7px 9px; }
+    .split .node.ok { color: var(--brand-d); border-color: rgba(16,185,129,.35); }
+    .rev-chip { position: absolute; right: 0; top: 0; font-size: 10.5px; font-weight: 600; color: #fff; background: var(--night-2); padding: 6px 10px; border-radius: 20px; box-shadow: var(--sh-2); }
+    .rev-chip b { color: var(--brand-l); }
 
     /* Approach */
     .approach { background: var(--panel); }
@@ -512,7 +600,7 @@
       section { padding: 72px 0; }
       .hero { padding: 120px 0 72px; }
       .bento, .timeline, .tiers, .writing-layout, .about-grid { grid-template-columns: 1fr; }
-      .svc-card.big { grid-row: auto; }
+      .svc-card.big { grid-template-columns: 1fr; padding: 30px; gap: 30px; }
       .tl-line { display: none; }
       .tier.feat { order: -1; }
     }
@@ -527,10 +615,22 @@
       .hero-stats { gap: 18px; }
       .nl { padding: 36px 22px; border-radius: 20px; }
       .issue { left: 0; right: 0; }
+      .v-acq { height: auto; }
+      .serp-win { position: static; transform: none; }
+      .res.dim, .meta-ad { display: none; }
+      .res-t { font-size: 13px; }
+      .svc-vis { height: auto; padding: 12px; }
+      .pdp { position: static; grid-template-columns: 1fr 1.2fr; }
+      .pdp-img { height: 120px; }
+      .ab { position: static; width: auto; margin-top: 10px; transform: none; }
+      .v-flow { position: static; padding: 4px 0; }
+      .rev-chip { position: static; margin-bottom: 12px; }
+      .split .node { font-size: 10px; }
+      .node.mail { white-space: normal; text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
-      .blob, .hero-floor, .dot, .f-bar span { animation: none; }
+      .blob, .hero-floor, .dot, .f-bar span, .caret, .cursor, .edge { animation: none; }
       .track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 24px; row-gap: 12px; }
       .marquee { -webkit-mask-image: none; mask-image: none; }
       .stack, .issue-stack, .issue, .svc-card { transition: none; }
@@ -705,50 +805,88 @@
           disconnected line items.</p>
       </div>
       <div class="bento">
-        <article class="svc-card big reveal" data-tilt>
-          <div class="svc-tile svc-tile-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
-            </svg>
+        <article class="svc-card big reveal">
+          <div>
+            <div class="svc-kicker"><i class="k1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg></i>01 — Acquisition</div>
+            <h3>Search &amp; social growth</h3>
+            <p>High-intent <strong>Google Ads</strong> and technical <strong>SEO</strong> to capture demand that already
+              exists — owning the ad slot <em>and</em> the organic result — then <strong>Meta Ads</strong> to reach the
+              people who haven't found you yet.</p>
+            <div class="chips"><span>Google Ads</span><span>Performance Max</span><span>SEO</span><span>Meta Ads</span></div>
           </div>
-          <div class="svc-kicker">01 — Acquisition</div>
-          <h3>Search &amp; social growth</h3>
-          <p>High-intent <strong>Google Ads</strong> and technical <strong>SEO</strong> to capture demand that already
-            exists, then <strong>Meta Ads</strong> to reach the people who haven't found you yet.</p>
-          <div class="chips"><span>Google Ads</span><span>Performance Max</span><span>SEO</span><span>Meta Ads</span></div>
-          <div class="serp" aria-hidden="true">
-            <div class="serp-row you"><span class="serp-rank">1</span><div><div class="serp-line"></div><div class="serp-line s"></div></div></div>
-            <div class="serp-row"><span class="serp-rank">2</span><div><div class="serp-line" style="width:85%"></div><div class="serp-line s"></div></div></div>
-            <div class="serp-row"><span class="serp-rank">3</span><div><div class="serp-line" style="width:70%"></div><div class="serp-line s"></div></div></div>
+          <div class="v-acq" aria-hidden="true">
+            <div class="serp-win">
+              <div class="serp-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>protein powder nz<span class="caret"></span></div>
+              <div class="res mine">
+                <span class="you">YOUR AD</span>
+                <div class="res-url"><b>Sponsored</b>yourstore.co.nz</div>
+                <div class="res-t">Grass-Fed Whey Protein — Free NZ Shipping Over $80</div>
+                <div class="res-d">Ships from Christchurch · 30-day guarantee</div>
+              </div>
+              <div class="res mine">
+                <span class="you">#1 ORGANIC</span>
+                <div class="res-url">yourstore.co.nz › guides</div>
+                <div class="res-t">Best Protein Powder in NZ: 2026 Buyer's Guide</div>
+                <div class="res-d">What to look for, what to skip, and how to compare…</div>
+              </div>
+              <div class="res dim"><div class="ln"></div><div class="ln s"></div></div>
+            </div>
+            <div class="meta-ad">
+              <div class="ma-top"><i></i><div><b>Your Store</b><span>Sponsored</span></div></div>
+              <div class="ma-img"><div class="tub"></div></div>
+              <div class="ma-cta"><span>Free shipping<br>over $80</span><b>Shop now</b></div>
+            </div>
           </div>
         </article>
+
         <article class="svc-card reveal d1" data-tilt>
-          <div class="svc-tile svc-tile-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="9" cy="20" r="1.4" /><circle cx="18" cy="20" r="1.4" />
-              <path d="M3 4h2l2.4 12.2a1 1 0 0 0 1 .8h8.2a1 1 0 0 0 1-.8L20 8H6" />
-            </svg>
+          <div class="svc-vis" aria-hidden="true">
+            <div class="pdp">
+              <div class="pdp-img"><div class="tub"></div></div>
+              <div>
+                <div class="pdp-t">Grass-Fed Whey · 1kg</div>
+                <div class="pdp-stars">★★★★★</div>
+                <div class="pdp-price">$59.00</div>
+                <span class="pdp-ship">✓ Free NZ shipping over $80</span>
+                <span class="pdp-btn">Add to cart
+                  <svg class="cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z" fill="#fff" stroke="#0b0f0d" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+            </div>
+            <div class="ab">
+              <div class="ab-k">A/B test · freight on PDP</div>
+              <div class="ab-row"><span>A</span><div><span style="--w:52%"></span></div></div>
+              <div class="ab-row win"><span>B</span><div><span style="--w:78%"></span></div></div>
+              <div class="ab-note">Variant B leading ↑</div>
+            </div>
           </div>
-          <div class="svc-kicker">02 — Conversion</div>
+          <div class="svc-kicker"><i class="k2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4" /><circle cx="18" cy="20" r="1.4" /><path d="M3 4h2l2.4 12.2a1 1 0 0 0 1 .8h8.2a1 1 0 0 0 1-.8L20 8H6" /></svg></i>02 — Conversion</div>
           <h3>Storefront &amp; CRO</h3>
           <p>Fast, easy-to-buy <strong>Shopify stores</strong>. I map the journey, find the drop-offs, and run
             <strong>CRO experiments</strong> that recover lost sales.</p>
-          <div class="chips"><span>Shopify</span><span>CRO</span><span>UX</span></div>
+          <div class="chips"><span>Shopify</span><span>CRO</span><span>A/B testing</span><span>UX</span></div>
         </article>
-        <article class="svc-card reveal d2" data-tilt>
-          <div class="svc-tile svc-tile-3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" />
-            </svg>
+
+        <article class="svc-card c3 reveal d2" data-tilt>
+          <div class="svc-vis" aria-hidden="true">
+            <div class="v-flow">
+              <span class="rev-chip">Flow: <b>Post-purchase</b></span>
+              <div class="node"><em class="e1">⚡</em>Placed order</div>
+              <div class="edge"></div>
+              <div class="node"><em class="e2">⏱</em>Wait 5 days</div>
+              <div class="edge"></div>
+              <div class="node mail"><em class="e3">✉</em>“How’s it going?” + how-to-use tips</div>
+              <div class="split">
+                <div class="node ok">Opened → review ask</div>
+                <div class="node">No open → resend</div>
+              </div>
+            </div>
           </div>
-          <div class="svc-kicker">03 — Retention</div>
+          <div class="svc-kicker"><i class="k3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg></i>03 — Retention</div>
           <h3>Email &amp; lifecycle</h3>
           <p>Automated <strong>lifecycle flows</strong> that turn one-time buyers into repeat customers — so
             <strong>post-purchase</strong> builds lifetime value instead of being an afterthought.</p>
-          <div class="chips"><span>Klaviyo</span><span>Flows</span><span>Retention</span></div>
+          <div class="chips"><span>Klaviyo</span><span>Flows</span><span>Segments</span><span>Retention</span></div>
         </article>
       </div>
     </div>
