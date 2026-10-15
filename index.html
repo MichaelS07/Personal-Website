@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NovaReach | Full-funnel digital marketing for ecommerce brands</title>
   <meta name="description"
-    content="Full-funnel ecommerce marketing — SEO, paid search, email and CRO as one connected system. You work directly with the specialist doing the work. Based in Christchurch, NZ." />
+    content="Ecommerce marketing from Christchurch, NZ. SEO, paid search, email and CRO run as one plan by the person actually doing the work." />
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   <link rel="canonical" href="https://novareachmarketing.com/">
@@ -26,7 +26,7 @@
   <meta property="og:url" content="https://novareachmarketing.com/">
   <meta property="og:title" content="NovaReach | Full-funnel digital marketing for ecommerce brands">
   <meta property="og:description"
-    content="SEO, paid search, email and CRO as one connected system — run by the specialist, not an account manager.">
+    content="SEO, paid search, email and CRO for ecommerce stores, run by the person doing the work.">
   <meta property="og:image" content="https://novareachmarketing.com/images/novareach-logo.png">
 
   <!-- Twitter -->
@@ -34,7 +34,7 @@
   <meta property="twitter:url" content="https://novareachmarketing.com/">
   <meta property="twitter:title" content="NovaReach | Full-funnel digital marketing for ecommerce brands">
   <meta property="twitter:description"
-    content="SEO, paid search, email and CRO as one connected system — run by the specialist, not an account manager.">
+    content="SEO, paid search, email and CRO for ecommerce stores, run by the person doing the work.">
   <meta property="twitter:image" content="https://novareachmarketing.com/images/novareach-logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -267,29 +267,29 @@
     #services { background-image: radial-gradient(rgba(11,15,13,.06) 1px, transparent 1px); background-size: 18px 18px; }
     .leak-ui { display: grid; grid-template-columns: .85fr 1.15fr; gap: 40px; align-items: center; }
     .leaks { display: grid; gap: 14px; }
-    .leak {
+    .leaks .leak {
       position: relative; display: grid; grid-template-columns: 46px 1fr 20px; gap: 16px; align-items: center; text-align: left; width: 100%;
       padding: 20px 22px; border-radius: 18px; background: #fff; border: 1px solid var(--line); cursor: pointer; font-family: var(--body); color: var(--ink);
       box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 6px 0 -1px #e3e8e5, var(--sh-2);
       transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background .3s, color .3s;
     }
-    .leak:hover { transform: translateY(-3px); }
-    .leak:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 2px 0 -1px #e3e8e5, var(--sh-1); }
-    .leak .ln {
+    .leaks .leak:hover { transform: translateY(-3px); }
+    .leaks .leak:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 2px 0 -1px #e3e8e5, var(--sh-1); }
+    .leaks .leak .ln {
       width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 16px;
       color: var(--brand-d); background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); transition: all .3s;
     }
-    .leak b { display: block; font-family: var(--disp); font-size: 18px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
-    .leak small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; transition: color .3s; }
-    .leak .arr { font-size: 18px; color: var(--muted); transition: transform .3s, color .3s; }
-    .leak[aria-selected="true"] {
+    .leaks .leak b { display: block; font-family: var(--disp); font-size: 18px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+    .leaks .leak small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; transition: color .3s; }
+    .leaks .leak .arr { font-size: 18px; color: var(--muted); transition: transform .3s, color .3s; }
+    .leaks .leak[aria-selected="true"] {
       transform: translateX(14px); color: #fff; border-color: transparent;
       background: radial-gradient(80% 120% at 0% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2);
       box-shadow: 0 0 0 1px rgba(52,211,153,.35), 0 6px 0 -1px #06231a, 0 24px 50px -16px rgba(16,185,129,.55);
     }
-    .leak[aria-selected="true"] .ln { color: #fff; background: linear-gradient(135deg, #34D399, #059669); border-color: transparent; box-shadow: 0 8px 18px -6px rgba(16,185,129,.8); }
-    .leak[aria-selected="true"] small { color: rgba(255,255,255,.65); }
-    .leak[aria-selected="true"] .arr { color: var(--brand-l); transform: translateX(4px); }
+    .leaks .leak[aria-selected="true"] .ln { color: #fff; background: linear-gradient(135deg, #34D399, #059669); border-color: transparent; box-shadow: 0 8px 18px -6px rgba(16,185,129,.8); }
+    .leaks .leak[aria-selected="true"] small { color: rgba(255,255,255,.65); }
+    .leaks .leak[aria-selected="true"] .arr { color: var(--brand-l); transform: translateX(4px); }
 
     .report-stage { perspective: 1600px; }
     .report {
@@ -588,7 +588,7 @@
       .ap-grid { gap: 36px; }
       .ap-intro { position: static; }
       .leak-ui { grid-template-columns: 1fr; gap: 28px; }
-      .leak[aria-selected="true"] { transform: none; }
+      .leaks .leak[aria-selected="true"] { transform: none; }
       .report { transform: none; }
       .tier.feat { order: -1; }
     }
@@ -603,14 +603,14 @@
       .hero-stats { gap: 18px; }
       .nl { padding: 36px 22px; border-radius: 20px; }
       .issue { left: 0; right: 0; }
-      .leak { padding: 16px; gap: 12px; grid-template-columns: 40px 1fr 16px; }
-      .leak .ln { width: 40px; height: 40px; }
+      .leaks .leak { padding: 16px; gap: 12px; grid-template-columns: 40px 1fr 16px; }
+      .leaks .leak .ln { width: 40px; height: 40px; }
       .tl90 { padding-left: 0; }
       .tl90::before, .tl90::after { display: none; }
       .t-step { grid-template-columns: 1fr; padding: 22px; padding-top: 70px; }
       .t-node { left: 22px; top: 18px; margin-top: 0; width: 40px; height: 40px; }
       .deliv { transform: none; }
-      .leak b { font-size: 16px; }
+      .leaks .leak b { font-size: 16px; }
       .report { padding: 22px; }
       .rep-body, .rep-foot { grid-template-columns: 1fr; }
       .rep-panel h4 { font-size: 20px; }
@@ -621,7 +621,7 @@
       .checks li { animation: none; opacity: 1; transform: none; }
       .track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 24px; row-gap: 12px; }
       .marquee { -webkit-mask-image: none; mask-image: none; }
-      .stack, .issue-stack, .issue, .report, .leak, .deliv, .t-step { transition: none; }
+      .stack, .issue-stack, .issue, .report, .leaks .leak, .deliv, .t-step { transition: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -684,9 +684,9 @@
     <div class="wrap hero-grid">
       <div class="reveal">
         <span class="tag"><span class="dot"></span> Digital marketing specialist · Christchurch, NZ</span>
-        <h1>Find the leak.<br><span class="grad">Fix the funnel.</span><br>Grow the store.</h1>
-        <p class="hero-sub">Full-funnel growth for ecommerce brands — SEO, paid search, email and CRO run as one
-          connected system. You work directly with the specialist doing the work. No hand-offs, no juniors.</p>
+        <h1>Find the leak.<br><span class="grad">Fix the funnel.</span></h1>
+        <p class="hero-sub">I run SEO, paid search, email and CRO for ecommerce stores, and I treat them as one plan.
+          You deal with me the whole way. Nobody junior touches your account.</p>
         <div class="hero-cta">
           <a href="#contact" class="btn btn-primary">Get a free audit →</a>
           <a href="#newsletter" class="btn btn-glass">Get the weekly Signal</a>
@@ -737,8 +737,8 @@
             <div class="layer side-card">
               <div class="lbl">LATEST WRITING</div>
               <div class="meta">Email · 5 Oct 2026</div>
-              <h3>Don't wait until Black Friday week to build your Klaviyo flows — ship welcome, browse, and winback in October</h3>
-              <p>October is when welcome, browse, and winback should already be live and fed by paid — not BFCM week.</p>
+              <h3>Build your Klaviyo flows in October, not Black Friday week</h3>
+              <p>Welcome, browse and winback should be live and fed by paid traffic by October. BFCM week is too late.</p>
               <div class="foot">
                 <span>Lifecycle · 5 Oct · Email · E-commerce</span>
                 <a href="blog.html">All posts →</a>
@@ -746,7 +746,7 @@
             </div>
           </div>
         </div>
-        <div class="avail"><span class="dot"></span> Available for new clients — 2 spots this quarter</div>
+        <div class="avail"><span class="dot"></span> Taking on 2 new clients this quarter</div>
       </div>
     </div>
   </section>
@@ -759,7 +759,7 @@
           <span class="eyebrow">The stack</span>
           <h2>Hands-on in the platforms that move the money</h2>
         </div>
-        <p>Not a logo wall — these are the accounts I'm logged into every week, from first click to repeat order.</p>
+        <p>I'm logged into these every week. Most of the problems I fix sit in the gap between two of them.</p>
       </div>
     </div>
     <div class="marquee">
@@ -789,8 +789,8 @@
       <div class="sec-head reveal">
         <span class="eyebrow">Services</span>
         <h2>Where's your store leaking?</h2>
-        <p>Pick the one that sounds like you. This is exactly what I'd look at in week one — and what you'd walk away
-          with.</p>
+        <p>Pick the one that sounds like your store. You'll see what I'd check in week one and what you'd have at the
+          end of it.</p>
       </div>
       <div class="leak-ui">
         <div class="leaks reveal" role="tablist" aria-label="Where is your store leaking?">
@@ -817,8 +817,8 @@
               <div class="rep-body">
                 <ul class="checks">
                   <li><span><strong>Search terms</strong> you're paying for that never convert</span></li>
-                  <li><span><strong>Performance Max</strong> — asset groups, feed titles, brand cannibalisation</span></li>
-                  <li><span><strong>Conversion tracking</strong> — is Google optimising to the right action?</span></li>
+                  <li><span><strong>Performance Max:</strong> asset groups, feed titles and whether it's eating your brand searches</span></li>
+                  <li><span><strong>Conversion tracking.</strong> Is Google optimising toward the right action?</span></li>
                   <li><span><strong>SEO pages ranking 5–15</strong> that one fix pushes onto page one</span></li>
                 </ul>
                 <div class="rep-vis" aria-hidden="true">
@@ -833,7 +833,7 @@
                 </div>
               </div>
               <div class="rep-foot">
-                <div class="warn"><em>Usually it's</em>Tracking that counts the wrong thing — so Google happily optimises toward it.</div>
+                <div class="warn"><em>Usually it's</em>Tracking that counts the wrong thing, so Google happily optimises toward it.</div>
                 <div><em>You walk away with</em>A ranked fix list and a 30-day plan across Google Ads, Meta and SEO.</div>
               </div>
               <div class="rep-cta">
@@ -845,9 +845,9 @@
               <h4>Where the visitors you already paid for fall out</h4>
               <div class="rep-body">
                 <ul class="checks">
-                  <li><span><strong>GA4 funnel</strong> — exactly where they drop: product, cart or checkout</span></li>
-                  <li><span><strong>Freight &amp; GST shown late</strong> — the #1 NZ/AU checkout killer</span></li>
-                  <li><span><strong>Mobile product pages</strong> — speed and what's above the fold</span></li>
+                  <li><span><strong>GA4 funnel:</strong> where they drop out. Product page, cart or checkout?</span></li>
+                  <li><span><strong>Freight and GST shown late.</strong> It kills more NZ and AU checkouts than anything else I see</span></li>
+                  <li><span><strong>Mobile product pages:</strong> speed, and what shows before anyone scrolls</span></li>
                   <li><span><strong>Session recordings</strong> on your top three landing pages</span></li>
                 </ul>
                 <div class="rep-vis" aria-hidden="true">
@@ -874,10 +874,10 @@
               <h4>Why first-time buyers never come back</h4>
               <div class="rep-body">
                 <ul class="checks">
-                  <li><span><strong>Klaviyo flows</strong> — which are live, missing or quietly broken</span></li>
-                  <li><span><strong>Post-purchase</strong> — is the second order ever actually asked for?</span></li>
-                  <li><span><strong>Segments</strong> — VIPs, lapsing and one-time buyers treated differently</span></li>
-                  <li><span><strong>Email capture</strong> — how much paid traffic you're letting leave anonymous</span></li>
+                  <li><span><strong>Klaviyo flows:</strong> which are live, which are missing and which are quietly broken</span></li>
+                  <li><span><strong>Post-purchase.</strong> Does anyone actually ask for the second order?</span></li>
+                  <li><span><strong>Segments:</strong> VIPs and lapsing customers shouldn't get the same email</span></li>
+                  <li><span><strong>Email capture.</strong> How much of the traffic you paid for leaves without giving you an email?</span></li>
                 </ul>
                 <div class="rep-vis" aria-hidden="true">
                   <div class="k">Klaviyo flows · sample</div>
@@ -891,7 +891,7 @@
                 </div>
               </div>
               <div class="rep-foot">
-                <div class="warn"><em>Usually it's</em>No post-purchase or winback flow at all — just campaigns.</div>
+                <div class="warn"><em>Usually it's</em>No post-purchase or winback flow at all. Just campaigns.</div>
                 <div><em>You walk away with</em>A flow map plus copy for the three flows worth the most to you.</div>
               </div>
               <div class="rep-cta">
@@ -911,14 +911,14 @@
       <div class="ap-intro reveal">
         <span class="eyebrow">The approach</span>
         <h2>Your first 90 days</h2>
-        <p>No vague "strategy phase". Here's exactly what happens, when — and what lands in your inbox at each step.</p>
+        <p>No vague "strategy phase". Here's what happens and when, and what lands in your inbox at each step.</p>
         <div class="never">
           <div class="never-k">What you'll never get</div>
           <ul>
-            <li><span><strong>Lock-in contracts</strong> — 3 months, then month-to-month</span></li>
+            <li><span><strong>Lock-in contracts.</strong> It's three months, then month-to-month.</span></li>
             <li><span><strong>Hand-offs to a junior</strong> after the sales call</span></li>
-            <li><span><strong>Reports padded with vanity metrics</strong> instead of revenue</span></li>
-            <li><span><strong>Accounts held hostage</strong> — you own every account and all the data</span></li>
+            <li><span><strong>Reports padded with vanity metrics</strong> when you wanted to know about revenue</span></li>
+            <li><span><strong>Accounts held hostage.</strong> You own every account and all the data.</span></li>
           </ul>
         </div>
       </div>
@@ -939,7 +939,7 @@
             <div>
               <span class="t-when">Week 2</span>
               <h3>Roadmap</h3>
-              <p>Fixes ranked by likely impact against effort — so the work always starts with what's worth the most.</p>
+              <p>Fixes ranked by likely impact against effort, so we start with whatever's worth the most.</p>
             </div>
             <div class="deliv-wrap" aria-hidden="true">
               <div class="deliv"><div class="deliv-k">Deliverable</div><b>90-day roadmap</b><small>Shared, live doc</small><div class="dl"></div><div class="dl s"></div></div>
@@ -961,7 +961,7 @@
             <div>
               <span class="t-when">Every month</span>
               <h3>Report &amp; next tests</h3>
-              <p>One page: what moved, what didn't, and what's next — plus a short video walkthrough you can watch in five minutes.</p>
+              <p>One page on what moved, what didn't and what's next. Plus a five-minute video walking you through it.</p>
             </div>
             <div class="deliv-wrap" aria-hidden="true">
               <div class="deliv"><div class="deliv-k">Deliverable</div><b>Report + Loom walkthrough</b><small>No vanity metrics</small><div class="dl"></div><div class="dl s"></div></div>
@@ -977,15 +977,15 @@
       <div class="sec-head reveal">
         <span class="eyebrow">Writing</span>
         <h2>I write about what's actually changing in search</h2>
-        <p>How I think matters more than a logo wall. I publish breakdowns of the shifts that actually move ecommerce —
-          search, paid media and lifecycle — most weeks.</p>
+        <p>You'll learn more about how I work from these than from a wall of client logos. Most weeks I pick one change
+          in search, paid or email and explain what NZ and AU stores should do about it.</p>
       </div>
       <div class="writing-layout reveal">
         <a class="feat-post" href="blog-posts/google-ai-max-search-auto-conversion-september-2026.html">
           <img class="feat-thumb" src="images/blog/ai-max-search-auto-conversion-sept-2026.svg" alt="" loading="lazy" />
           <div class="meta">SEM · 1 Sep 2026 · Featured</div>
-          <h3>Google is auto-converting Search campaigns to AI Max this month — what to do before it hits your account</h3>
-          <p>Between 1 and 30 September 2026, eligible Search campaigns convert to AI Max in place. Cohort defaults differ, DSA is not this month, and you should set the three sub-settings before Google's mapping does.</p>
+          <h3>Google is auto-converting Search campaigns to AI Max this month: what to do before it hits your account</h3>
+          <p>Between 1 and 30 September 2026, eligible Search campaigns convert to AI Max in place. Cohort defaults differ, DSA isn't part of this month, and you should set the three sub-settings before Google's mapping does.</p>
           <span class="more">Read post →</span>
         </a>
         <div class="post-list">
@@ -993,7 +993,7 @@
             <img class="pr-thumb" src="images/blog/gsc-generative-ai-performance-report-june-2026.svg" alt="" loading="lazy" />
             <div>
               <div class="meta">SEO · 22 Jun 2026</div>
-              <h4>AI visibility lands in Search Console: what the Generative AI report shows — and hides</h4>
+              <h4>AI visibility lands in Search Console: what the Generative AI report shows (and hides)</h4>
             </div>
           </a>
           <a class="post-row" href="blog-posts/google-ads-bidding-budgeting-overhaul-june-2026.html">
@@ -1015,21 +1015,20 @@
       <div class="nl reveal">
         <div>
           <span class="eyebrow">The Signal · weekly newsletter</span>
-          <h2>One shift a week. What it means. What to change.</h2>
-          <p class="nl-lead">The posts I write for this site, sent as a 4-minute email every Monday — with the exact
-            setting, flow or test to act on before your competitors notice.</p>
+          <h2>One change a week, and what to do about it.</h2>
+          <p class="nl-lead">Every Monday I send that week's post as a 4-minute email. Each one ends with the exact setting,
+            flow or test I'd change, so you can get to it before your competitors do.</p>
           <ul class="nl-points">
-            <li>Google Ads, Performance Max &amp; Search changes, decoded</li>
-            <li>Meta, Klaviyo and CRO plays for NZ/AU ecommerce</li>
-            <li>One "do this this week" action in every issue</li>
+            <li>Google Ads and Performance Max changes in plain English</li>
+            <li>Meta, Klaviyo and CRO, written for NZ and AU stores rather than US ones</li>
           </ul>
           <form class="nl-form" data-newsletter data-source="homepage">
             <input type="email" name="email" required placeholder="you@store.com" aria-label="Email address" autocomplete="email">
             <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit" class="btn btn-primary">Subscribe free →</button>
           </form>
-          <p class="nl-done" role="status">You're in. First issue lands Monday — check your inbox.</p>
-          <p class="nl-fine">Free. No spam. One click to unsubscribe.</p>
+          <p class="nl-done" role="status">You're in. The first issue lands on Monday.</p>
+          <p class="nl-fine">Free, and one click to unsubscribe.</p>
         </div>
         <div class="issues" aria-hidden="true">
           <div class="issue-stack">
@@ -1045,7 +1044,7 @@
             </div>
             <div class="issue">
               <div class="issue-top"><b>The Signal</b><span>Issue #5 · This week</span></div>
-              <h4>Ship welcome, browse and winback flows in October — not BFCM week</h4>
+              <h4>Get your welcome and winback flows live in October</h4>
               <div class="ln"></div><div class="ln"></div><div class="ln short"></div>
               <div class="do">✓ Do this week: turn on browse abandonment and feed it from paid traffic</div>
             </div>
@@ -1061,7 +1060,7 @@
       <div class="sec-head center reveal">
         <span class="eyebrow">Pricing</span>
         <h2>Specialist work, without agency overheads</h2>
-        <p>Senior, hands-on work for less than you'd pay an agency for the same channels — and you deal with me the whole
+        <p>Senior, hands-on work for less than an agency charges for the same channels. And you deal with me the whole
           way.</p>
       </div>
       <div class="tiers">
@@ -1069,7 +1068,7 @@
           <div class="pname">Audit</div>
           <div class="price">NZ$1,950</div>
           <div class="per">one-off + GST</div>
-          <p class="pdesc">A full, paid deep-dive on one area of your store — and a ranked list of what to fix first.</p>
+          <p class="pdesc">A proper look at one area of your store, with a ranked list of what to fix first.</p>
           <ul>
             <li>Full audit: tracking, funnel and one channel in depth</li>
             <li>Ranked fix list with expected impact</li>
@@ -1096,7 +1095,7 @@
           <div class="pname">Scale</div>
           <div class="price">NZ$3,950</div>
           <div class="per">per month + GST</div>
-          <p class="pdesc">Your growth lead across the whole funnel — strategy and execution as one plan.</p>
+          <p class="pdesc">I act as your growth lead across every channel. I write the plan and I do the work.</p>
           <ul>
             <li>Everything in Growth, across all channels</li>
             <li>Search, Meta, SEO, email and CRO in one roadmap</li>
@@ -1111,7 +1110,7 @@
         <span>3-month minimum, then month-to-month</span>
         <span>You own every account and all data</span>
       </div>
-      <p class="free-note">Not sure yet? Start with the <a href="#contact">free store audit</a> — three quick findings, no obligation.</p>
+      <p class="free-note">Not sure yet? Start with the <a href="#contact">free store audit</a>. You get three quick fixes and no sales pitch.</p>
     </div>
   </section>
 
@@ -1143,27 +1142,26 @@
       <div class="about-content reveal d1">
         <span class="eyebrow">About</span>
         <h2>One specialist, the whole funnel</h2>
-        <p>I'm a digital marketing specialist based in Christchurch, NZ. I work across paid search, SEO, email and CRO —
-          not as separate services, but as one connected system.</p>
-        <p>Most ecommerce brands are strong in one channel and leaky everywhere else. I look at the full picture, find
-          where revenue is slipping through, and fix it. When you hire me, you get me — not a pitch from a senior and
-          then work from a junior.</p>
+        <p>I'm a digital marketing specialist in Christchurch. I work across paid search, SEO, email and CRO, and I treat
+          them as one system because that's how your customers move through them.</p>
+        <p>Most ecommerce brands are strong in one channel and leaky everywhere else. I find where the money's slipping
+          out and fix that first.</p>
+        <p>When you hire me, you get me. Nobody senior pitches you and then hands the work to a junior.</p>
         <div class="exp">
           <div class="exp-item">
             <div class="exp-mark"><span class="exp-dot"></span></div>
             <div class="exp-body">
               <div class="exp-role">Specialist <span>· KZN Digital</span> <span class="exp-now">Current</span></div>
-              <p>End-to-end management of multi-channel campaigns — setup, targeting and budget pacing, A/B testing and
-                audience analysis to lift ROI, and Google Tag Manager tracking for clean attribution and client
-                reporting.</p>
+              <p>I run multi-channel campaigns for agency clients: setup, targeting, budget pacing, A/B tests and audience
+                work. I also build the GTM tracking that the reporting relies on.</p>
             </div>
           </div>
           <div class="exp-item">
             <div class="exp-mark"><span class="exp-dot"></span></div>
             <div class="exp-body">
               <div class="exp-role">Digital Marketing Executive <span>· Bargain Chemist</span> <span class="exp-prior">Prior</span></div>
-              <p>Led the ecommerce ecosystem for a Shopify retailer — CRO and UX, product and site optimisation,
-                full-cycle email marketing with A/B testing, and SEO/SEM strategy with partners.</p>
+              <p>Ran ecommerce marketing for a Shopify retailer. That covered CRO and UX, product pages, email with A/B
+                testing, and SEO and paid search alongside outside partners.</p>
             </div>
           </div>
         </div>
@@ -1184,7 +1182,7 @@
       <div class="reveal">
         <span class="eyebrow" style="color:var(--brand-l)">Free store audit</span>
         <h2 style="margin-top:14px">Send me the store.<br>I'll find the leak.</h2>
-        <p class="audit-lead">I’ll reply within one business day with the three things I’d check first — then we book 25 minutes if it’s a fit.</p>
+        <p class="audit-lead">I’ll reply within one business day with the three things I’d check first. If it looks like a fit, we book a 25-minute call.</p>
 
         <form class="audit-form" id="auditForm" action="https://formsubmit.co/michaelsowden17@gmail.com" method="POST">
           <div class="field">
@@ -1222,7 +1220,7 @@
           <h3>Got it. I’m looking at the store.</h3>
           <p>I’ll reply within one business day (Christchurch time) with the three things I’d check first:</p>
           <ol>
-            <li>Where paid and organic traffic actually land — and whether those pages can convert.</li>
+            <li>Where your paid and organic traffic lands, and whether those pages can convert.</li>
             <li>Checkout and product-page friction a customer would swear at.</li>
             <li>Whether email is doing any work after the first order.</li>
           </ol>
@@ -1234,7 +1232,7 @@
           <!-- Live site link unchanged until a real event URL is pasted. -->
           <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="btn btn-glass">Book a call</a>
         </div>
-        <div class="avail"><span class="dot"></span> Available for new clients — 2 spots this quarter</div>
+        <div class="avail"><span class="dot"></span> Taking on 2 new clients this quarter</div>
       </div>
     </div>
   </section>

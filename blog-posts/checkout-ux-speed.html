@@ -14,7 +14,7 @@
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E‑Com Weekly: Checkout UX wins and Shopify speed tricks — NovaReach</title>
+  <title>E‑Com Weekly: Checkout UX wins and Shopify speed tricks | NovaReach</title>
   <meta name="description"
     content="Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don't wreck UX." />
   <meta name="robots" content="index, follow">
@@ -23,14 +23,14 @@
 
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://novareach.com.au/blog-posts/checkout-ux-speed.html">
-  <meta property="og:title" content="E‑Com Weekly: Checkout UX wins and Shopify speed tricks — NovaReach">
+  <meta property="og:title" content="E‑Com Weekly: Checkout UX wins and Shopify speed tricks | NovaReach">
   <meta property="og:description"
     content="Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don't wreck UX.">
   <meta property="og:image" content="https://novareachmarketing.com/images/blog/checkout-ux-speed.svg">
 
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://novareach.com.au/blog-posts/checkout-ux-speed.html">
-  <meta property="twitter:title" content="E‑Com Weekly: Checkout UX wins and Shopify speed tricks — NovaReach">
+  <meta property="twitter:title" content="E‑Com Weekly: Checkout UX wins and Shopify speed tricks | NovaReach">
   <meta property="twitter:description"
     content="Small fixes that move conversion: clearer error states, trust signals at decision points, and speed wins that don't wreck UX.">
   <meta property="twitter:image" content="https://novareachmarketing.com/images/blog/checkout-ux-speed.svg">
@@ -107,14 +107,14 @@
           <ul>
             <li><strong>Inline & adjacent:</strong> Place the error <em>next to</em> the field, not at the top of the form.</li>
             <li><strong>First invalid autofocus:</strong> Programmatically focus the first invalid input so the path to fix is obvious.</li>
-            <li><strong>Actionable copy:</strong> "Enter a valid email (name@domain.com)" beats "Invalid input".</li>
+            <li><strong>Copy that works:</strong> "Enter a valid email (name@domain.com)" beats "Invalid input".</li>
           </ul>
           <p><span class="kbd">Tip</span> In Shopify (Theme App Extensions or custom), add <code>aria-invalid="true"</code> and <code>aria-describedby</code> for accessible error messaging.</p>
           <h3>Trust signals near the CTA</h3>
           <ul>
             <li><strong>Badge proximity:</strong> Put known payment badges (Visa, Mastercard, Amex, PayPal, Afterpay) within ~60–80px of the primary CTA.</li>
             <li><strong>One-liner reassurance:</strong> A short note like "Secure checkout • SSL encrypted • Privacy protected" reduces last-second doubt.</li>
-            <li><strong>Visible policies:</strong> Link to returns & support within eyesight of the button—don't bury them.</li>
+            <li><strong>Visible policies:</strong> Link to returns & support within sight of the button. Don't bury them.</li>
           </ul>
           <h3>Mobile spacing & inputs</h3>
           <ul>
@@ -129,7 +129,7 @@
           <h3>Serve images in modern formats</h3>
           <ul>
             <li><strong>AVIF primary, WebP fallback:</strong> Use a picture element to serve AVIF first, then WebP, then PNG/JPEG.</li>
-            <li><strong>Right-size assets:</strong> Keep most product images under ~200KB; cap hero images with responsive <code>srcset</code>.</li>
+            <li><strong>Right-size assets:</strong> Keep most product images under ~200KB, and cap hero images with responsive <code>srcset</code>.</li>
           </ul>
           <h3>Lazy-load below-the-fold & defer non-critical scripts</h3>
           <ul>
@@ -139,7 +139,7 @@
           </ul>
           <h3>Remove duplicate analytics tags & app leftovers</h3>
           <ul>
-            <li><strong>One source of truth:</strong> Keep GA4/Tag Manager once—duplicates quietly tank performance.</li>
+            <li><strong>One source of truth:</strong> Load GA4 and Tag Manager once. Duplicates quietly tank performance.</li>
             <li><strong>Uninstalled ≠ removed:</strong> Purge theme snippets and script_tag assets that apps leave behind.</li>
             <li><strong>Measure TBT impact:</strong> Anything adding >200ms Total Blocking Time gets refactored or removed.</li>
           </ul>
@@ -148,8 +148,8 @@
           <h2>Next steps for compounding gains</h2>
           <ul>
             <li><strong>Ship a simple progress bar in checkout:</strong> "Shipping → Payment → Review" clarifies effort remaining and boosts completion.</li>
-            <li><strong>Shorten shipping method labels:</strong> Cut jargon—choose "Standard (2–4 days)" over "Economy International Freight Delivery".</li>
-            <li><strong>Audit script load time:</strong> Remove or defer anything with >200ms TBT; prefer server-side integrations where possible.</li>
+            <li><strong>Shorten shipping method labels:</strong> Cut jargon. Choose "Standard (2–4 days)" over "Economy International Freight Delivery".</li>
+            <li><strong>Audit script load time:</strong> Remove or defer anything with >200ms TBT, and prefer server-side integrations where possible.</li>
           </ul>
         </section>
         <section class="prose prose-slate max-w-none mt-10">
@@ -158,22 +158,22 @@
             <li>Inline errors with autofocus on first invalid field.</li>
             <li>Security one-liner + payment badges beside CTA.</li>
             <li>Email inputs: type=email, inputmode=email, autocomplete on, auto-cap off.</li>
-            <li>Touch targets ~44px; labels ≥16px.</li>
-            <li>AVIF/WebP images with responsive srcset; product images under 200KB.</li>
-            <li>Lazy-load below-the-fold; defer non-critical scripts.</li>
+            <li>Touch targets ~44px, labels ≥16px.</li>
+            <li>AVIF/WebP images with responsive srcset, product images under 200KB.</li>
+            <li>Lazy-load below the fold and defer non-critical scripts.</li>
             <li>Remove duplicate analytics & uninstall leftovers.</li>
-            <li>Progress bar in checkout; simplified shipping labels.</li>
-            <li>TBT audit; kill >200ms offenders.</li>
+            <li>Progress bar in checkout, simplified shipping labels.</li>
+            <li>TBT audit. Kill anything over 200ms.</li>
           </ul>
         </section>
         <section class="prose prose-slate max-w-none mt-10">
           <h2>FAQ</h2>
           <h3>Will AVIF hurt visual quality?</h3>
-          <p>No—at the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback just in case.</p>
+          <p>No. At the same perceived quality, AVIF is usually smaller than WebP/JPEG. Keep a JPEG fallback just in case.</p>
           <h3>Do badges actually increase conversions?</h3>
-          <p>Not alone—but placing familiar payment marks and a short security line within eye-sight of the CTA reduces hesitancy at the decision point.</p>
+          <p>Not on its own. But placing familiar payment marks and a short security line within eye-sight of the CTA reduces hesitancy at the decision point.</p>
           <h3>What if apps re-inject scripts?</h3>
-          <p>Lock a monthly audit: compare current theme assets/snippets to baseline; remove additions that add blocking time or duplicate tracking.</p>
+          <p>Set a monthly audit: compare current theme assets/snippets to baseline and remove additions that add blocking time or duplicate tracking.</p>
         </section>
       </div>
     </article>

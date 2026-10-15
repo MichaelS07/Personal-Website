@@ -49,7 +49,7 @@
         track(source);
       }).catch(function () {
         if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Subscribe'; }
-        alert('That didn\'t go through — please try again, or email michaelsowden17@gmail.com.');
+        alert('That didn\'t go through. Please try again, or email michaelsowden17@gmail.com.');
       });
     });
   }
@@ -89,14 +89,14 @@
       '<div class="sig-in">' +
         '<div><div class="sig-k">The Signal · weekly</div>' +
         '<h2>' + (isPost ? 'Get the next one in your inbox.' : 'Get every post as a 4-minute email.') + '</h2>' +
-        '<p>One shift in search, paid or email each Monday — and the exact thing to change before your competitors notice.</p></div>' +
+        '<p>Every Monday, one change in search, paid or email, and the exact thing I\'d do about it.</p></div>' +
         '<div><form data-newsletter data-source="' + (isPost ? 'post_footer' : 'blog_index') + '">' +
           '<input type="email" name="email" required placeholder="you@store.com" aria-label="Email address" autocomplete="email">' +
           '<input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
           '<button type="submit">Subscribe free →</button>' +
         '</form>' +
         '<p class="done" role="status">You\'re in. First issue lands Monday.</p>' +
-        '<p class="fine">Free. No spam. One click to unsubscribe.</p></div>' +
+        '<p class="fine">Free, and one click to unsubscribe.</p></div>' +
       '</div>';
     footer.parentNode.insertBefore(box, footer);
   }
