@@ -83,7 +83,8 @@ Open `blog-posts/<slug>.html` and confirm it has the title, date, banner, body a
    git push origin main
    ```
    If `main` moved and the merge conflicts in `blog.html`, `index.html` or `sitemap.xml`, take main's version of those files, re-run `python3 scripts/build.py`, and commit the rebuilt files.
-5. If anything fails (the checker, the build, the push, the merge), don't merge. Leave the PR open (or the branch pushed) and say exactly what failed in the final message.
+5. **Confirm it actually deployed.** Merging isn't enough: GitHub Pages has to build too. Wait a minute, then check the latest "pages build and deployment" run for the merge commit (GitHub MCP `actions_list` → `list_workflow_runs`). It must show `conclusion: success`. If it failed, read the job log, fix the cause, and publish the fix the same way.
+6. If anything fails (the checker, the build, the push, the merge), don't merge. Leave the PR open (or the branch pushed) and say exactly what failed in the final message.
 
 ## 7. Report
 
