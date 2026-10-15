@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /templates/
+Disallow: /content/
+Disallow: /docs/
+Disallow: /scripts/
+Disallow: /data/
+
+Sitemap: https://novareachmarketing.com/sitemap.xml

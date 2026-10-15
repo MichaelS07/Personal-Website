@@ -1,0 +1,219 @@
+{
+  "posts": [
+    {
+      "slug": "klaviyo-bfcm-flows-october-before-peak",
+      "title": "Build Your Klaviyo Flows in October, Not Black Friday Week",
+      "date": "2026-10-05",
+      "category": "Lifecycle",
+      "tags": [
+        "Email",
+        "E-commerce"
+      ],
+      "excerpt": "NZ/AU stores scramble to build BFCM email the week of the sale. October is when welcome, browse, and winback flows should already be live and fed by paid.",
+      "image": "images/blog/klaviyo-bfcm-flows-october-before-peak.svg"
+    },
+    {
+      "slug": "q4-paid-pacing-october-before-bfcm",
+      "title": "Don't Starve October to Feast in November: Fix Your Q4 Paid Pacing First",
+      "date": "2026-09-28",
+      "category": "Paid Media",
+      "tags": [
+        "SEM",
+        "Meta"
+      ],
+      "excerpt": "NZ/AU stores hoard paid budget for Black Friday week, then buy the most expensive clicks of the year. October is when you build retargeting pools and learning cheaply.",
+      "image": "images/blog/q4-paid-pacing-october-before-bfcm.svg"
+    },
+    {
+      "slug": "meta-advantage-creative-test-before-bfcm",
+      "title": "Run One Meta Creative Test Before You Hand Advantage+ Your Black Friday Budget",
+      "date": "2026-09-21",
+      "category": "Paid Media",
+      "tags": [
+        "Meta"
+      ],
+      "excerpt": "NZ/AU stores dump Q4 budget into Advantage+ with last year's creatives and wonder why CPA climbs. One September creative test beats a November budget raise.",
+      "image": "images/blog/meta-advantage-creative-test-before-bfcm.svg"
+    },
+    {
+      "slug": "abandon-cart-nz-au-freight-before-q4",
+      "title": "Fix Freight and GST Before You Discount Abandoned Carts",
+      "date": "2026-09-14",
+      "category": "Lifecycle",
+      "tags": [
+        "Email",
+        "CRO"
+      ],
+      "excerpt": "NZ and AU Shopify stores lose abandon-cart recoveries on freight and GST surprises, then throw 10% codes at the problem. What to fix in September before Black Friday…",
+      "image": "images/blog/abandon-cart-nz-au-freight-before-q4.svg"
+    },
+    {
+      "slug": "google-ai-max-search-auto-conversion-september-2026",
+      "title": "Google Is Auto-Converting Search Campaigns to AI Max This Month: What to Do Before It Hits Your Account",
+      "date": "2026-09-01",
+      "category": "Paid Media",
+      "tags": [
+        "SEM"
+      ],
+      "excerpt": "Between 1 and 30 September 2026, Google is converting eligible Search campaigns to AI Max in place. Broad-match and legacy ACA cohorts get different defaults. Here's…",
+      "image": "images/blog/ai-max-search-auto-conversion-sept-2026.svg"
+    },
+    {
+      "slug": "gsc-generative-ai-performance-report-june-2026",
+      "title": "AI Visibility Lands in Search Console: What the Generative AI Report Shows (and Hides)",
+      "date": "2026-06-22",
+      "category": "SEO",
+      "tags": [
+        "SEO"
+      ],
+      "excerpt": "Google's new Generative AI performance report finally puts AI Overviews and AI Mode data in Search Console. Here's what it shows, what it leaves out, and how to use it…",
+      "image": "images/blog/gsc-generative-ai-performance-report-june-2026.svg"
+    },
+    {
+      "slug": "google-ads-bidding-budgeting-overhaul-june-2026",
+      "title": "Google's August Bidding Shift: Why Your Target CPA Is About to Cost More",
+      "date": "2026-06-21",
+      "category": "Paid Media",
+      "tags": [
+        "SEM"
+      ],
+      "excerpt": "Google's June 2026 Smart Bidding overhaul changes how budget-limited campaigns hit their targets from August 17. Here's what Promotion Mode, Smart Bidding Exploration…",
+      "image": "images/blog/google-ads-bidding-budgeting-overhaul-june-2026.svg"
+    },
+    {
+      "slug": "meta-andromeda-creative-targeting-june-2026",
+      "title": "Meta's Andromeda Algorithm: Your Creative Is Now Your Audience",
+      "date": "2026-06-09",
+      "category": "Paid Media",
+      "tags": [
+        "Meta"
+      ],
+      "excerpt": "Meta's Andromeda delivery system reads your ad creative as the primary audience signal. Manual interest targeting is losing power. Here's what practitioners need to do…",
+      "image": "images/blog/meta-andromeda-creative-targeting-june-2026.svg"
+    },
+    {
+      "slug": "google-may-2026-core-update-seo-impact",
+      "title": "Google May 2026 Core Update: What's Changing and What to Do This Week",
+      "date": "2026-05-22",
+      "category": "SEO",
+      "tags": [
+        "SEO"
+      ],
+      "excerpt": "Google's May 2026 core update is live and targeting AI-mass-produced content. Here's what the update actually targets, how to diagnose impact on your clients, and the…",
+      "image": "images/blog/seo.svg"
+    },
+    {
+      "slug": "google-ai-mode-zero-click-paid-search-may-2026",
+      "title": "Google AI Mode's Zero-Click Problem: What It Means for Your Paid Search Strategy",
+      "date": "2026-05-04",
+      "category": "Paid Media",
+      "tags": [
+        "SEM",
+        "SEO"
+      ],
+      "excerpt": "Google AI Mode now has 75M daily users and ads in 25% of results, but 93% of sessions end without a click. Here's what paid search advertisers should do now.",
+      "image": "images/blog/google-ai-mode-zero-click-paid-search-may-2026.svg"
+    },
+    {
+      "slug": "google-ai-max-replacing-dynamic-search-ads-2026",
+      "title": "Google Is Replacing Dynamic Search Ads With AI Max: What Every Advertiser Needs to Know Before September",
+      "date": "2026-04-15",
+      "category": "Paid Media",
+      "tags": [
+        "SEM"
+      ],
+      "excerpt": "Google has confirmed DSAs will auto-upgrade to AI Max from September 2026. Here's what changes, what you need to do now, and how to prepare your campaigns.",
+      "image": "images/blog/sem.svg"
+    },
+    {
+      "slug": "performance-max-controls-reporting-april-2026",
+      "title": "Google’s New Performance Max Controls: What Every Advertiser Needs to Act On Now",
+      "date": "2026-04-01",
+      "category": "Paid Media",
+      "tags": [
+        "SEM"
+      ],
+      "excerpt": "Google has added audience exclusions, network segmentation and budget reports to Performance Max. Here’s what changed in April 2026 and what to do now.",
+      "image": "images/blog/sem.svg"
+    },
+    {
+      "slug": "google-march-2026-core-update-what-to-do",
+      "title": "Google's March 2026 Core Update: What It Means for Your SEO Strategy Right Now",
+      "date": "2026-03-28",
+      "category": "SEO",
+      "tags": [
+        "SEO"
+      ],
+      "excerpt": "Google's first core update of 2026 is live and targeting AI-scaled content. Here's what changed, who's at risk, and exactly how to respond.",
+      "image": "images/blog/seo.svg"
+    },
+    {
+      "slug": "search-watch-aug-2025",
+      "title": "Search Watch: what actually changed this month",
+      "date": "2025-08-29",
+      "category": "SEO",
+      "tags": [
+        "SEO"
+      ],
+      "excerpt": "A core update shook up rankings this month. What changed, and how to react without wrecking your content plan or your ad budget.",
+      "image": "images/blog/search-watch-aug-2025.svg"
+    },
+    {
+      "slug": "checkout-ux-speed",
+      "title": "E‑Com Weekly: Checkout UX wins and Shopify speed tricks",
+      "date": "2025-08-15",
+      "category": "CRO",
+      "tags": [
+        "CRO",
+        "Shopify"
+      ],
+      "excerpt": "Move friction out of the way at the exact moment it shows up, and load only what's needed. That's how you get conversion lift without a redesign.",
+      "image": "images/blog/checkout-ux-speed.svg"
+    },
+    {
+      "slug": "email-flows-that-print-money",
+      "title": "Email flows that print money (without being spammy)",
+      "date": "2025-07-15",
+      "category": "Lifecycle",
+      "tags": [
+        "Email"
+      ],
+      "excerpt": "You don't need dozens of automations. Three short, useful flows (welcome, abandon and post-purchase) will pay for themselves.",
+      "image": "images/blog/email-flows-that-print-money.svg"
+    },
+    {
+      "slug": "customer-journey-funnel-analysis",
+      "title": "How to Master Your Website's Customer Journey: A Guide to Funnel Analysis",
+      "date": "2025-01-25",
+      "category": "CRO",
+      "tags": [
+        "CRO",
+        "E-commerce"
+      ],
+      "excerpt": "Learn how to analyze your e-commerce funnel to identify drop-off points and increase conversions. Master the customer journey from visit to purchase.",
+      "image": "images/blog/customer-journey-funnel-analysis.svg"
+    },
+    {
+      "slug": "email-marketing-guide",
+      "title": "Email Marketing: The Complete Guide",
+      "date": "2025-01-20",
+      "category": "Lifecycle",
+      "tags": [
+        "Email"
+      ],
+      "excerpt": "What email marketing is, how it works, whether it converts, and how to get better at it without annoying your list.",
+      "image": "images/blog/email-marketing-guide.svg"
+    },
+    {
+      "slug": "the-journey-of-a-marketer",
+      "title": "The Journey of a Marketer",
+      "date": "2025-01-10",
+      "category": "Career",
+      "tags": [
+        "Career"
+      ],
+      "excerpt": "How I got into marketing, what the job at Bargain Chemist actually involves day to day, and what I've learned so far.",
+      "image": "images/blog/the-journey-of-a-marketer.svg"
+    }
+  ]
+}
