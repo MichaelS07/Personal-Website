@@ -74,7 +74,16 @@ Open `blog-posts/<slug>.html` and confirm it has the title, date, banner, body a
 1. Start from the latest `main`: `git fetch origin main && git checkout -B weekly-post/<slug> origin/main`.
 2. Commit only the new and changed files: `content/<slug>.html`, `blog-posts/<slug>.html`, `images/blog/<slug>.svg`, `data/posts.json`, `blog.html`, `index.html`, `sitemap.xml`.
 3. Push the branch, open a pull request into `main` titled `Weekly post: <title>`, then squash-merge it.
-4. If anything fails (the checker, the build, the push, the merge), don't merge. Leave the PR open (or the branch pushed) and say exactly what failed in the final message.
+4. **If the GitHub PR tools aren't available** in your session, publish with git instead. After the branch is pushed and every check has passed:
+   ```bash
+   git fetch origin main
+   git checkout main && git reset --hard origin/main
+   git merge --squash weekly-post/<slug>
+   git commit -m "Weekly post: <title>"
+   git push origin main
+   ```
+   If `main` moved and the merge conflicts in `blog.html`, `index.html` or `sitemap.xml`, take main's version of those files, re-run `python3 scripts/build.py`, and commit the rebuilt files.
+5. If anything fails (the checker, the build, the push, the merge), don't merge. Leave the PR open (or the branch pushed) and say exactly what failed in the final message.
 
 ## 7. Report
 
