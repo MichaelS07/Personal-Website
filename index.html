@@ -263,41 +263,83 @@
     .sec-head h2 { font-size: clamp(30px, 3.8vw, 46px); margin: 14px 0 16px; }
     .sec-head p { color: var(--ink-2); font-size: 17px; }
 
-    /* Services — bento with depth */
-    .bento { display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: auto auto; gap: 20px; }
-    .svc-card {
-      position: relative; border-radius: var(--radius-lg); padding: 30px; background: #fff; border: 1px solid var(--line);
-      box-shadow: var(--sh-2); transform-style: preserve-3d; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
-      overflow: hidden;
+    /* Services — "Where's your store leaking?" picker. Left: tactile leak buttons. Right: dark audit-report panel in 3D. */
+    #services { background-image: radial-gradient(rgba(11,15,13,.06) 1px, transparent 1px); background-size: 18px 18px; }
+    .leak-ui { display: grid; grid-template-columns: .85fr 1.15fr; gap: 40px; align-items: center; }
+    .leaks { display: grid; gap: 14px; }
+    .leak {
+      position: relative; display: grid; grid-template-columns: 46px 1fr 20px; gap: 16px; align-items: center; text-align: left; width: 100%;
+      padding: 20px 22px; border-radius: 18px; background: #fff; border: 1px solid var(--line); cursor: pointer; font-family: var(--body); color: var(--ink);
+      box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 6px 0 -1px #e3e8e5, var(--sh-2);
+      transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background .3s, color .3s;
     }
-    .svc-card:hover { box-shadow: var(--sh-3); }
-    .svc-card.big { grid-row: 1 / 3; background: radial-gradient(80% 60% at 100% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2); color: #fff; border-color: transparent; display: flex; flex-direction: column; }
-    .svc-card.big h3 { color: #fff; font-size: 30px; }
-    .svc-card.big p { color: rgba(255,255,255,.7); font-size: 16px; }
-    .svc-card.big p strong { color: #fff; }
-    .svc-card.big .chips span { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.15); background: rgba(255,255,255,.04); }
-    .svc-tile {
-      width: 56px; height: 56px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #fff; margin-bottom: 22px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(16,185,129,.7);
+    .leak:hover { transform: translateY(-3px); }
+    .leak:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 2px 0 -1px #e3e8e5, var(--sh-1); }
+    .leak .ln {
+      width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 16px;
+      color: var(--brand-d); background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); transition: all .3s;
     }
-    .svc-tile svg { width: 26px; height: 26px; }
-    .svc-tile-1 { background: linear-gradient(135deg, #34D399, #059669); }
-    .svc-tile-2 { background: linear-gradient(135deg, #2DD4BF, #0F766E); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(15,118,110,.7); }
-    .svc-tile-3 { background: linear-gradient(135deg, #38BDF8, #1D4ED8); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -8px rgba(29,78,216,.6); }
-    .svc-kicker { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-d); font-weight: 700; margin-bottom: 8px; }
-    .svc-card.big .svc-kicker { color: var(--brand-l); }
-    .svc-card h3 { font-size: 22px; margin-bottom: 10px; }
-    .svc-card p { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin-bottom: 20px; }
-    .svc-card p strong { color: var(--ink); font-weight: 600; }
+    .leak b { display: block; font-family: var(--disp); font-size: 18px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+    .leak small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; transition: color .3s; }
+    .leak .arr { font-size: 18px; color: var(--muted); transition: transform .3s, color .3s; }
+    .leak[aria-selected="true"] {
+      transform: translateX(14px); color: #fff; border-color: transparent;
+      background: radial-gradient(80% 120% at 0% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2);
+      box-shadow: 0 0 0 1px rgba(52,211,153,.35), 0 6px 0 -1px #06231a, 0 24px 50px -16px rgba(16,185,129,.55);
+    }
+    .leak[aria-selected="true"] .ln { color: #fff; background: linear-gradient(135deg, #34D399, #059669); border-color: transparent; box-shadow: 0 8px 18px -6px rgba(16,185,129,.8); }
+    .leak[aria-selected="true"] small { color: rgba(255,255,255,.65); }
+    .leak[aria-selected="true"] .arr { color: var(--brand-l); transform: translateX(4px); }
+
+    .report-stage { perspective: 1600px; }
+    .report {
+      position: relative; border-radius: 22px; padding: 30px; color: #fff; transform: rotateY(-7deg) rotateX(3deg); transform-origin: left center;
+      background: radial-gradient(70% 60% at 100% 0%, rgba(16,185,129,.28), transparent 60%), linear-gradient(180deg, #0d1a14, var(--night));
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), -30px 50px 90px -30px rgba(5,11,8,.55), 0 30px 60px -30px rgba(16,185,129,.35);
+      transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+    .report-stage:hover .report { transform: rotateY(-2deg) rotateX(1deg); }
+    .rep-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+    .rep-top .lights { display: flex; gap: 6px; } .rep-top .lights i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.18); display: block; }
+    .rep-title { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+    .rep-title b { color: var(--brand-l); font-weight: 700; }
+    .rep-pill { white-space: nowrap; font-size: 11px; font-weight: 600; color: #062e22; background: var(--brand-l); padding: 4px 10px; border-radius: 20px; }
+    .rep-panel { display: none; }
+    .rep-panel.on { display: block; }
+    .rep-panel h4 { font-family: var(--disp); font-size: 24px; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 18px; }
+    .rep-body { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; align-items: start; }
+    .checks { list-style: none; display: grid; gap: 10px; }
+    .checks li {
+      display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 14px; line-height: 1.45; color: rgba(255,255,255,.85);
+      opacity: 0; transform: translateY(8px); animation: checkIn .5s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .checks li:nth-child(2) { animation-delay: .12s; } .checks li:nth-child(3) { animation-delay: .24s; } .checks li:nth-child(4) { animation-delay: .36s; }
+    .checks li::before {
+      content: "✓"; width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+      color: #062e22; background: var(--brand-l); box-shadow: 0 0 14px rgba(52,211,153,.5);
+    }
+    @keyframes checkIn { to { opacity: 1; transform: none; } }
+    .rep-vis { border-radius: 14px; padding: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+    .rep-vis .k { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px; }
+    .rep-vis svg { width: 100%; height: auto; display: block; }
+    .rep-vis .leg { display: flex; gap: 12px; font-size: 11px; color: rgba(255,255,255,.6); margin-top: 8px; }
+    .rep-vis .leg i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+    .mini-f { display: grid; gap: 7px; }
+    .mini-f div { display: grid; grid-template-columns: 70px 1fr; gap: 8px; align-items: center; font-size: 11px; color: rgba(255,255,255,.65); }
+    .mini-f span { height: 14px; border-radius: 4px; background: linear-gradient(90deg, #10b981, #5eead4); width: var(--w); animation: grow 1s cubic-bezier(.2,.7,.2,1) both; }
+    .mini-f .bad { color: #fda4af; } .mini-f .bad span { background: linear-gradient(90deg, #f59e0b, #f43f5e); box-shadow: 0 0 14px rgba(244,63,94,.5); }
+    .mini-flows { list-style: none; display: grid; gap: 7px; }
+    .mini-flows li { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.8); padding: 6px 9px; border-radius: 8px; background: rgba(255,255,255,.04); }
+    .mini-flows .y { color: #6ee7b7; font-weight: 600; } .mini-flows .n { color: #fda4af; font-weight: 600; }
+    .rep-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 20px; }
+    .rep-foot > div { border-radius: 12px; padding: 12px 14px; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,.85); background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+    .rep-foot .warn { border-color: rgba(244,63,94,.3); background: rgba(244,63,94,.07); }
+    .rep-foot em { display: block; font-style: normal; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+    .rep-foot .warn em { color: #fda4af; }
+    .rep-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .rep-cta .chips span { color: rgba(255,255,255,.75); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04); margin-bottom: 0; }
     .chips span { display: inline-block; font-size: 12px; color: var(--ink-2); border: 1px solid var(--line); background: var(--bg-2); border-radius: 20px; padding: 4px 11px; margin: 0 6px 6px 0; }
-    /* Mini search-results visual inside the big card */
-    .serp { margin-top: auto; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); padding: 14px; display: grid; gap: 10px; }
-    .serp-row { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: center; }
-    .serp-rank { font-family: var(--disp); font-weight: 700; font-size: 13px; color: rgba(255,255,255,.4); text-align: center; }
-    .serp-row.you .serp-rank { color: var(--brand-l); }
-    .serp-line { height: 9px; border-radius: 5px; background: rgba(255,255,255,.12); }
-    .serp-row.you .serp-line { background: linear-gradient(90deg, #34d399, #5eead4); box-shadow: 0 0 18px rgba(52,211,153,.5); }
-    .serp-line.s { width: 60%; margin-top: 6px; height: 6px; opacity: .6; }
 
     /* Approach */
     .approach { background: var(--panel); }
@@ -512,7 +554,9 @@
       section { padding: 72px 0; }
       .hero { padding: 120px 0 72px; }
       .bento, .timeline, .tiers, .writing-layout, .about-grid { grid-template-columns: 1fr; }
-      .svc-card.big { grid-row: auto; }
+      .leak-ui { grid-template-columns: 1fr; gap: 28px; }
+      .leak[aria-selected="true"] { transform: none; }
+      .report { transform: none; }
       .tl-line { display: none; }
       .tier.feat { order: -1; }
     }
@@ -527,13 +571,20 @@
       .hero-stats { gap: 18px; }
       .nl { padding: 36px 22px; border-radius: 20px; }
       .issue { left: 0; right: 0; }
+      .leak { padding: 16px; gap: 12px; grid-template-columns: 40px 1fr 16px; }
+      .leak .ln { width: 40px; height: 40px; }
+      .leak b { font-size: 16px; }
+      .report { padding: 22px; }
+      .rep-body, .rep-foot { grid-template-columns: 1fr; }
+      .rep-panel h4 { font-size: 20px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
-      .blob, .hero-floor, .dot, .f-bar span { animation: none; }
+      .blob, .hero-floor, .dot, .f-bar span, .mini-f span { animation: none; }
+      .checks li { animation: none; opacity: 1; transform: none; }
       .track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 24px; row-gap: 12px; }
       .marquee { -webkit-mask-image: none; mask-image: none; }
-      .stack, .issue-stack, .issue, .svc-card { transition: none; }
+      .stack, .issue-stack, .issue, .report, .leak { transition: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -700,56 +751,119 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Services</span>
-        <h2>Three things that actually move revenue</h2>
-        <p>Getting found, converting the visitors you've got, and earning repeat sales — handled as one system, not three
-          disconnected line items.</p>
+        <h2>Where's your store leaking?</h2>
+        <p>Pick the one that sounds like you. This is exactly what I'd look at in week one — and what you'd walk away
+          with.</p>
       </div>
-      <div class="bento">
-        <article class="svc-card big reveal" data-tilt>
-          <div class="svc-tile svc-tile-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" />
-            </svg>
+      <div class="leak-ui">
+        <div class="leaks reveal" role="tablist" aria-label="Where is your store leaking?">
+          <button class="leak" role="tab" id="tab-traffic" aria-controls="panel-traffic" aria-selected="true" data-key="traffic">
+            <span class="ln">01</span><span><b>Not enough of the right traffic</b><small>Spend keeps rising. Sales don't.</small></span><span class="arr">→</span>
+          </button>
+          <button class="leak" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="false" data-key="convert" tabindex="-1">
+            <span class="ln">02</span><span><b>Traffic, but it doesn't buy</b><small>People land, browse, and leave.</small></span><span class="arr">→</span>
+          </button>
+          <button class="leak" role="tab" id="tab-retain" aria-controls="panel-retain" aria-selected="false" data-key="retain" tabindex="-1">
+            <span class="ln">03</span><span><b>They buy once and disappear</b><small>Every sale has to be paid for again.</small></span><span class="arr">→</span>
+          </button>
+        </div>
+
+        <div class="report-stage reveal d1">
+          <div class="report">
+            <div class="rep-top">
+              <div class="lights"><i></i><i></i><i></i></div>
+              <span class="rep-title">Audit preview · <b id="repName">Acquisition</b></span>
+              <span class="rep-pill">Week one</span>
+            </div>
+            <div class="rep-panel on" id="panel-traffic" role="tabpanel" aria-labelledby="tab-traffic" data-leak="Traffic not paying back">
+              <h4>What I check first when traffic isn't paying back</h4>
+              <div class="rep-body">
+                <ul class="checks">
+                  <li><span><strong>Search terms</strong> you're paying for that never convert</span></li>
+                  <li><span><strong>Performance Max</strong> — asset groups, feed titles, brand cannibalisation</span></li>
+                  <li><span><strong>Conversion tracking</strong> — is Google optimising to the right action?</span></li>
+                  <li><span><strong>SEO pages ranking 5–15</strong> that one fix pushes onto page one</span></li>
+                </ul>
+                <div class="rep-vis" aria-hidden="true">
+                  <div class="k">Spend vs revenue · sample</div>
+                  <svg viewBox="0 0 200 110" fill="none">
+                    <path d="M0 100 H200 M0 70 H200 M0 40 H200" stroke="rgba(255,255,255,.07)"/>
+                    <path d="M0 92 C40 84 70 70 100 56 S160 24 200 12" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M0 88 C40 80 70 74 100 72 S160 70 200 68" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="200" cy="12" r="4" fill="#f43f5e"/><circle cx="200" cy="68" r="4" fill="#34d399"/>
+                  </svg>
+                  <div class="leg"><span><i style="background:#f43f5e"></i>Spend</span><span><i style="background:#34d399"></i>Revenue</span></div>
+                </div>
+              </div>
+              <div class="rep-foot">
+                <div class="warn"><em>Usually it's</em>Tracking that counts the wrong thing — so Google happily optimises toward it.</div>
+                <div><em>You walk away with</em>A ranked fix list and a 30-day plan across Google Ads, Meta and SEO.</div>
+              </div>
+              <div class="rep-cta">
+                <div class="chips"><span>Google Ads</span><span>PMax</span><span>Meta</span><span>SEO</span></div>
+                <a href="#contact" class="btn btn-primary" data-leak-cta>Get this audit free →</a>
+              </div>
+            </div>
+            <div class="rep-panel" id="panel-convert" role="tabpanel" aria-labelledby="tab-convert" data-leak="Traffic but no sales">
+              <h4>Where the visitors you already paid for fall out</h4>
+              <div class="rep-body">
+                <ul class="checks">
+                  <li><span><strong>GA4 funnel</strong> — exactly where they drop: product, cart or checkout</span></li>
+                  <li><span><strong>Freight &amp; GST shown late</strong> — the #1 NZ/AU checkout killer</span></li>
+                  <li><span><strong>Mobile product pages</strong> — speed and what's above the fold</span></li>
+                  <li><span><strong>Session recordings</strong> on your top three landing pages</span></li>
+                </ul>
+                <div class="rep-vis" aria-hidden="true">
+                  <div class="k">Funnel · sample</div>
+                  <div class="mini-f">
+                    <div>Sessions<span style="--w:100%"></span></div>
+                    <div>Product<span style="--w:60%"></span></div>
+                    <div>Cart<span style="--w:24%"></span></div>
+                    <div class="bad">Checkout ⚠<span style="--w:9%"></span></div>
+                    <div>Purchase<span style="--w:6%"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rep-foot">
+                <div class="warn"><em>Usually it's</em>Shipping cost revealed at checkout instead of on the product page.</div>
+                <div><em>You walk away with</em>Three prioritised A/B tests, each with a hypothesis and expected impact.</div>
+              </div>
+              <div class="rep-cta">
+                <div class="chips"><span>Shopify</span><span>GA4</span><span>CRO</span><span>A/B tests</span></div>
+                <a href="#contact" class="btn btn-primary" data-leak-cta>Get this audit free →</a>
+              </div>
+            </div>
+            <div class="rep-panel" id="panel-retain" role="tabpanel" aria-labelledby="tab-retain" data-leak="One-time buyers">
+              <h4>Why first-time buyers never come back</h4>
+              <div class="rep-body">
+                <ul class="checks">
+                  <li><span><strong>Klaviyo flows</strong> — which are live, missing or quietly broken</span></li>
+                  <li><span><strong>Post-purchase</strong> — is the second order ever actually asked for?</span></li>
+                  <li><span><strong>Segments</strong> — VIPs, lapsing and one-time buyers treated differently</span></li>
+                  <li><span><strong>Email capture</strong> — how much paid traffic you're letting leave anonymous</span></li>
+                </ul>
+                <div class="rep-vis" aria-hidden="true">
+                  <div class="k">Klaviyo flows · sample</div>
+                  <ul class="mini-flows">
+                    <li>Welcome <span class="y">Live</span></li>
+                    <li>Abandon cart <span class="y">Live</span></li>
+                    <li>Post-purchase <span class="n">Missing</span></li>
+                    <li>Browse <span class="n">Missing</span></li>
+                    <li>Winback <span class="n">Missing</span></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="rep-foot">
+                <div class="warn"><em>Usually it's</em>No post-purchase or winback flow at all — just campaigns.</div>
+                <div><em>You walk away with</em>A flow map plus copy for the three flows worth the most to you.</div>
+              </div>
+              <div class="rep-cta">
+                <div class="chips"><span>Klaviyo</span><span>Flows</span><span>Segments</span><span>LTV</span></div>
+                <a href="#contact" class="btn btn-primary" data-leak-cta>Get this audit free →</a>
+              </div>
+            </div>
           </div>
-          <div class="svc-kicker">01 — Acquisition</div>
-          <h3>Search &amp; social growth</h3>
-          <p>High-intent <strong>Google Ads</strong> and technical <strong>SEO</strong> to capture demand that already
-            exists, then <strong>Meta Ads</strong> to reach the people who haven't found you yet.</p>
-          <div class="chips"><span>Google Ads</span><span>Performance Max</span><span>SEO</span><span>Meta Ads</span></div>
-          <div class="serp" aria-hidden="true">
-            <div class="serp-row you"><span class="serp-rank">1</span><div><div class="serp-line"></div><div class="serp-line s"></div></div></div>
-            <div class="serp-row"><span class="serp-rank">2</span><div><div class="serp-line" style="width:85%"></div><div class="serp-line s"></div></div></div>
-            <div class="serp-row"><span class="serp-rank">3</span><div><div class="serp-line" style="width:70%"></div><div class="serp-line s"></div></div></div>
-          </div>
-        </article>
-        <article class="svc-card reveal d1" data-tilt>
-          <div class="svc-tile svc-tile-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="9" cy="20" r="1.4" /><circle cx="18" cy="20" r="1.4" />
-              <path d="M3 4h2l2.4 12.2a1 1 0 0 0 1 .8h8.2a1 1 0 0 0 1-.8L20 8H6" />
-            </svg>
-          </div>
-          <div class="svc-kicker">02 — Conversion</div>
-          <h3>Storefront &amp; CRO</h3>
-          <p>Fast, easy-to-buy <strong>Shopify stores</strong>. I map the journey, find the drop-offs, and run
-            <strong>CRO experiments</strong> that recover lost sales.</p>
-          <div class="chips"><span>Shopify</span><span>CRO</span><span>UX</span></div>
-        </article>
-        <article class="svc-card reveal d2" data-tilt>
-          <div class="svc-tile svc-tile-3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" />
-            </svg>
-          </div>
-          <div class="svc-kicker">03 — Retention</div>
-          <h3>Email &amp; lifecycle</h3>
-          <p>Automated <strong>lifecycle flows</strong> that turn one-time buyers into repeat customers — so
-            <strong>post-purchase</strong> builds lifetime value instead of being an afterthought.</p>
-          <div class="chips"><span>Klaviyo</span><span>Flows</span><span>Retention</span></div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -1117,6 +1231,39 @@
         });
       });
     }
+
+    // Leak picker: switch the audit panel, then pre-fill the audit form's "Main leak" from the CTA
+    (function () {
+      var tabs = document.querySelectorAll('.leaks .leak');
+      var name = document.getElementById('repName');
+      var names = { traffic: 'Acquisition', convert: 'Conversion', retain: 'Retention' };
+      function select(tab, focus) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', String(on));
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).classList.toggle('on', on);
+        });
+        name.textContent = names[tab.dataset.key];
+        if (focus) tab.focus();
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'leak_select', leak_type: tab.dataset.key });
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { select(t); });
+        t.addEventListener('keydown', function (e) {
+          var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+          if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true); }
+        });
+      });
+      document.querySelectorAll('[data-leak-cta]').forEach(function (a) {
+        a.addEventListener('click', function () {
+          var leak = a.closest('.rep-panel').dataset.leak;
+          var field = document.getElementById('audit-leak');
+          if (field && !field.value) field.value = leak;
+        });
+      });
+    })();
 
     // 3D depth: hero stack follows the mouse; [data-tilt] cards tilt toward the cursor
     (function () {
