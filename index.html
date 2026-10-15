@@ -14,7 +14,7 @@
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NovaReach | Full-funnel digital marketing for ecommerce brands</title>
+  <title>Ecommerce Marketing Specialist, Christchurch NZ | NovaReach</title>
   <meta name="description"
     content="Ecommerce marketing from Christchurch, NZ. SEO, paid search, email and CRO run as one plan by the person actually doing the work." />
   <meta name="robots" content="index, follow">
@@ -24,18 +24,22 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://novareachmarketing.com/">
-  <meta property="og:title" content="NovaReach | Full-funnel digital marketing for ecommerce brands">
+  <meta property="og:title" content="Ecommerce Marketing Specialist, Christchurch NZ | NovaReach">
   <meta property="og:description"
     content="SEO, paid search, email and CRO for ecommerce stores, run by the person doing the work.">
-  <meta property="og:image" content="https://novareachmarketing.com/images/novareach-logo.png">
+  <meta property="og:image" content="https://novareachmarketing.com/images/og/home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="NovaReach">
+  <meta property="og:locale" content="en_NZ">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://novareachmarketing.com/">
-  <meta property="twitter:title" content="NovaReach | Full-funnel digital marketing for ecommerce brands">
+  <meta property="twitter:title" content="Ecommerce Marketing Specialist, Christchurch NZ | NovaReach">
   <meta property="twitter:description"
     content="SEO, paid search, email and CRO for ecommerce stores, run by the person doing the work.">
-  <meta property="twitter:image" content="https://novareachmarketing.com/images/novareach-logo.png">
+  <meta property="twitter:image" content="https://novareachmarketing.com/images/og/home.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -567,6 +571,9 @@
     .fx-on .fx-spot { opacity: 1; }
     .hero > .wrap, .contact > .wrap, [data-spotlight] > .wrap { position: relative; z-index: 1; }
 
+    /* Keyboard focus: visible ring on links, buttons and the leak tabs */
+    a:focus-visible, button:focus-visible, .btn:focus-visible { outline: 2px solid var(--brand-l); outline-offset: 3px; border-radius: 8px; }
+
     /* Reveal on scroll */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
     .reveal.in { opacity: 1; transform: none; }
@@ -625,6 +632,45 @@
       html { scroll-behavior: auto; }
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://novareachmarketing.com/#business",
+        "name": "NovaReach",
+        "url": "https://novareachmarketing.com/",
+        "logo": "https://novareachmarketing.com/images/novareach-logo.png",
+        "image": "https://novareachmarketing.com/images/og/home.png",
+        "description": "Ecommerce marketing from Christchurch, NZ. Google Ads, Meta, SEO, Klaviyo email and CRO for NZ and AU stores.",
+        "email": "michaelsowden17@gmail.com",
+        "priceRange": "NZ$1,950 to NZ$3,950",
+        "address": { "@type": "PostalAddress", "addressLocality": "Christchurch", "addressRegion": "Canterbury", "addressCountry": "NZ" },
+        "areaServed": [{ "@type": "Country", "name": "New Zealand" }, { "@type": "Country", "name": "Australia" }],
+        "founder": { "@id": "https://novareachmarketing.com/#michael" },
+        "knowsAbout": ["Google Ads", "Performance Max", "Meta Ads", "SEO", "Klaviyo", "Conversion rate optimisation", "GA4", "Google Tag Manager", "Shopify"]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://novareachmarketing.com/#michael",
+        "name": "Michael Sowden",
+        "jobTitle": "Digital marketing specialist",
+        "url": "https://novareachmarketing.com/#about",
+        "address": { "@type": "PostalAddress", "addressLocality": "Christchurch", "addressCountry": "NZ" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://novareachmarketing.com/#website",
+        "url": "https://novareachmarketing.com/",
+        "name": "NovaReach",
+        "publisher": { "@id": "https://novareachmarketing.com/#business" },
+        "inLanguage": "en-NZ"
+      }
+    ]
+  }
+  </script>
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2XZD4YN3D"></script>
@@ -1216,6 +1262,9 @@
             <label for="audit-leak">Main leak</label>
             <input id="audit-leak" name="main_leak" type="text" maxlength="140" required placeholder="e.g. CPA up, email quiet, checkout drop-off">
           </div>
+          <input type="hidden" name="_subject" value="New free audit request">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button type="submit" class="btn btn-primary">Request the free audit</button>
           <p class="hint">No spam, no junior. I read these myself.</p>
         </form>
@@ -1345,6 +1394,41 @@
           var field = document.getElementById('audit-leak');
           if (field && !field.value) field.value = leak;
         });
+      });
+    })();
+
+    // Audit form: submit in-page, show the success panel and push generate_lead for GTM/GA4.
+    // If the AJAX call fails, fall back to a normal POST so the lead still arrives.
+    (function () {
+      var form = document.getElementById('auditForm');
+      var contact = document.getElementById('contact');
+      var started = false;
+      form.addEventListener('focusin', function () {
+        if (started) return;
+        started = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'form_start', form_name: 'free_audit' });
+      });
+      form.addEventListener('submit', function (e) {
+        if (!window.fetch || !window.FormData) return;
+        e.preventDefault();
+        if (form.querySelector('[name="_honey"]').value) return;
+        var btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true; btn.textContent = 'Sending…';
+        var data = new FormData(form);
+        fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+          method: 'POST', headers: { 'Accept': 'application/json' }, body: data
+        }).then(function (r) {
+          if (!r.ok) throw new Error(r.status);
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'generate_lead', form_name: 'free_audit',
+            monthly_ad_spend: data.get('monthly_ad_spend')
+          });
+          contact.classList.add('submitted');
+          var ok = document.getElementById('auditSuccess');
+          ok.setAttribute('tabindex', '-1'); ok.focus();
+        }).catch(function () { form.submit(); });
       });
     })();
 

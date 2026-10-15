@@ -33,6 +33,8 @@ Follow `docs/voice-guide.md`. First person, NZ English, an opinion, no em dashes
 
 Create `images/blog/<slug>.svg`: a 1200×800 SVG in the house style. Open `images/blog/klaviyo-bfcm-flows-october-before-peak.svg` and copy its approach: a soft emerald-to-slate background, a white rounded board with a drop shadow, simple diagram shapes in the emerald palette (#059669, #10b981, #34d399, #065f46) and slate text (#0f172a, #475569). Show the idea of the post as a simple diagram, with at most one short label line. Give the root `<svg>` a descriptive `aria-label`. Keep it under 15 KB and use no external fonts or images.
 
+Facebook, LinkedIn and X don't show SVG previews, so shared links look best with a PNG card at `images/og/<slug>.png` (1200×630). If one exists, the build uses it for `og:image` and the BlogPosting schema. If not, it falls back to the SVG, so the post still builds. To make one, screenshot the SVG at 1200×630 in Chromium (the existing cards fit the SVG over a blurred copy of itself).
+
 ## 4. Add it to the manifest
 
 Add an entry at the top of `data/posts.json`:
