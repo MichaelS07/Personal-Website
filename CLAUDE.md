@@ -1,6 +1,6 @@
 # NovaReach site
 
-Personal marketing site for Michael Sowden (NovaReach), Christchurch NZ. Plain static HTML on GitHub Pages: pushing to `main` publishes to novareachmarketing.com. There's no framework or package manager. The only tooling is Python 3 standard library scripts.
+Personal marketing site for Michael Sowden (NovaReach), Christchurch NZ. Plain static HTML on GitHub Pages: pushing to `main` publishes to novareachmarketing.com. There's no framework or package manager, and `.nojekyll` turns off GitHub's Jekyll processing, so files are served exactly as committed. Don't delete it: without it, any `{{` in the repo breaks the deploy. The only tooling is Python 3 standard library scripts.
 
 ## Writing anything for the site
 
