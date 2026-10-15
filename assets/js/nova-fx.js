@@ -112,7 +112,7 @@
   ready(function () {
     var side = document.querySelector('.side-card');
     if (side && side.querySelector('.lbl') && /LATEST WRITING/i.test(side.querySelector('.lbl').textContent || '')) {
-      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Email · 5 Oct 2026</div><h3>Don\'t wait until Black Friday week to build your Klaviyo flows — ship welcome, browse, and winback in October</h3><p>October is when welcome, browse, and winback should already be live and fed by paid — not BFCM week.</p><div class="foot"><span>Lifecycle · 5 Oct · Email · E-commerce</span><a href="blog.html">All posts →</a></div>';
+      side.innerHTML = '<div class="lbl">LATEST WRITING</div><div class="meta">Email · 5 Oct 2026</div><h3>Build your Klaviyo flows in October, not Black Friday week</h3><p>Welcome, browse and winback should be live and fed by paid traffic by October. BFCM week is too late.</p><div class="foot"><span>Lifecycle · 5 Oct · Email · E-commerce</span><a href="blog.html">All posts →</a></div>';
     }
     var feat = document.querySelector('a.feat-post');
     var list = document.querySelector('.post-list');
@@ -127,9 +127,9 @@
       var meta = feat.querySelector('.meta');
       if (meta) meta.textContent = 'Email · E-commerce · 5 Oct 2026 · Featured';
       var h3 = feat.querySelector('h3');
-      if (h3) h3.textContent = 'Don\'t wait until Black Friday week to build your Klaviyo flows — ship welcome, browse, and winback in October';
+      if (h3) h3.textContent = 'Build your Klaviyo flows in October, not Black Friday week';
       var p = feat.querySelector('p');
-      if (p) p.textContent = 'NZ/AU stores scramble to build BFCM email the week of the sale. October is when welcome, browse, and winback flows should already be live and fed by paid.';
+      if (p) p.textContent = 'NZ/AU stores scramble to build BFCM email the week of the sale. October is when welcome, browse and winback flows should already be live and fed by paid traffic.';
       if (oldHref && oldHref.indexOf('klaviyo-bfcm-flows-october') === -1) {
         var row = document.createElement('a');
         row.className = 'post-row';
@@ -154,7 +154,7 @@
         rm.className = 'meta';
         rm.textContent = (oldMeta || 'SEM · Meta · 28 Sep 2026').replace(/\s*·\s*Featured/, '');
         var h4 = document.createElement('h4');
-        h4.textContent = oldTitle || 'Don\'t starve October to feast in November — fix your Q4 paid pacing first';
+        h4.textContent = oldTitle || 'Don\'t starve October to feast in November: fix your Q4 paid pacing first';
         wrap.appendChild(rm); wrap.appendChild(h4);
         row.appendChild(img); row.appendChild(wrap);
         var firstRow = list.querySelector('.post-row');
