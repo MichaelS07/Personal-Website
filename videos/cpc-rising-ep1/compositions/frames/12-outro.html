@@ -3,13 +3,68 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s12" data-width="1920" data-height="1080"><div class="scene"><div class="h1">12-outro</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s12-wrap { position: absolute; inset: 0; }
+        #s12-a { position: absolute; left: 120px; top: 170px; display: flex; flex-direction: column; gap: 30px; }
+        #s12-t1 { font-family: var(--disp); font-weight: 700; font-size: 120px; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
+        #s12-t1 span { color: var(--accent); }
+        #s12-levers { display: flex; gap: 18px; }
+        #s12-levers .chip { font-size: 30px; padding: 14px 28px; }
+        #s12-b { position: absolute; left: 120px; right: 120px; top: 560px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+        #s12-next { padding: 34px 40px; display: flex; flex-direction: column; gap: 10px; }
+        #s12-next .t { font-family: var(--disp); font-weight: 700; font-size: 64px; letter-spacing: -0.02em; color: var(--ink); }
+        #s12-cta { display: flex; flex-direction: column; gap: 22px; justify-content: center; }
+        #s12-sub { display: inline-flex; align-self: flex-start; align-items: center; gap: 16px; font-family: var(--disp); font-weight: 700; font-size: 44px; color: #04140d; background: var(--accent); border-radius: 18px; padding: 18px 36px; }
+        #s12-sub i { display: block; width: 0; height: 0; border-left: 22px solid #04140d; border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
+        #s12-link { font-family: var(--text); font-size: 32px; color: var(--soft); }
+        #s12-link b { color: var(--ink); }
+        #s12-logo { position: absolute; right: 120px; top: 150px; width: 380px; height: auto; display: block; }
+      </style>
+      <div id="root" data-composition-id="s12" data-width="1920" data-height="1080">
+        <div id="s12-wrap">
+          <img id="s12-logo" src="assets/logo-dark.png" alt="NovaReach" />
+          <div id="s12-a">
+            <div id="s12-t1">CPC is a <span>symptom.</span></div>
+            <div id="s12-levers"><span class="chip" id="s12-l1">Competition</span><span class="chip" id="s12-l2">Quality Score</span><span class="chip" id="s12-l3">Your bidding</span></div>
+          </div>
+          <div id="s12-b">
+            <div id="s12-next" class="panel"><div class="kicker">Next week</div><div class="t">Performance Max</div><div class="body">A new topic every week, explained properly.</div></div>
+            <div id="s12-cta">
+              <div id="s12-sub"><i></i>Subscribe</div>
+              <div id="s12-link">Want a second pair of eyes? <b>Account review link in the description.</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["remember",0.5],["cpc",1.31],["is",1.59],["a",1.8],["symptom",1.95],["find",3.46],["the",3.7],["lever",3.89],["competition",4.34],["quality",5.04],["score",5.41],["or",5.85],["your",6.0],["own",6.24],["bidding",6.43],["and",6.96],["fix",7.15],["that",7.35],["one",7.58],["thing",7.77],["every",9.02],["week",9.3],["im",9.71],["breaking",9.9],["down",10.31],["a",10.54],["different",10.65],["digital",11.1],["marketing",11.46],["topic",11.91],["properly",12.35],["next",13.69],["week",13.95],["is",14.21],["performance",14.38],["max",14.98],["subscribe",16.06],["so",16.52],["you",16.67],["dont",16.87],["miss",17.16],["it",17.4],["and",17.73],["if",17.93],["you",18.08],["want",18.28],["a",18.52],["second",18.63],["pair",18.96],["of",19.2],["eyes",19.35],["on",19.6],["your",19.75],["account",19.99],["the",20.54],["link",20.74],["is",20.98],["in",21.13],["the",21.29],["description",21.49]]/*/W*/;
         const DUR = 23.09;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s12-logo", { opacity: 0, scale: 0.8, rotation: -8 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.6)" }, 0.2);
+        tl.fromTo("#s12-t1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at("remember"));
+        const lv = [at("competition"), at("quality score"), at("your own bidding")];
+        ["#s12-l1", "#s12-l2", "#s12-l3"].forEach((l, i) => {
+          tl.fromTo(l, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, lv[i]);
+        });
+        tl.to(["#s12-l1", "#s12-l2", "#s12-l3"], { backgroundColor: "#34d399", color: "#04140d", borderColor: "#34d399", duration: 0.3, stagger: 0.1 }, at("and fix that"));
+        tl.fromTo("#s12-next", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at("every week"));
+        tl.fromTo("#s12-next .t", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, at("next week is"));
+        tl.fromTo("#s12-sub", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.2)" }, at("subscribe"));
+        tl.to("#s12-sub", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, at("subscribe") + 0.6);
+        tl.fromTo("#s12-link", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, at("if you want a second"));
         window.__timelines["s12"] = tl;
         })();
       </script>

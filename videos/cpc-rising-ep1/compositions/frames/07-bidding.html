@@ -3,13 +3,93 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s07" data-width="1920" data-height="1080"><div class="scene"><div class="h1">07-bidding</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s07-wrap { position: absolute; inset: 0; }
+        #s07-ui { position: absolute; left: 120px; top: 330px; width: 1040px; height: 495px; }
+        #s07-filters { display: flex; gap: 12px; padding: 16px 26px; border-bottom: 2px solid rgba(52,211,153,0.10); }
+        #s07-filters .chip { font-size: 18px; padding: 6px 14px; }
+        .s07-entry { position: relative; display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; height: 92px; padding: 0 26px; border-bottom: 2px solid rgba(52,211,153,0.08); }
+        .s07-date { font-family: var(--mono); font-size: 22px; color: var(--soft); }
+        .s07-what { display: flex; flex-direction: column; gap: 6px; }
+        .s07-type { font-family: var(--mono); font-size: 19px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--soft); }
+        .s07-chg { font-family: var(--text); font-size: 28px; color: var(--ink); }
+        .s07-chg b { color: var(--leak); font-weight: 700; }
+        .s07-n { position: absolute; right: 26px; top: 50%; width: 52px; height: 52px; margin-top: -26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 28px; color: #04140d; background: var(--leak); }
+        #s07-status { position: absolute; left: 26px; bottom: 18px; display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 22px; color: var(--soft); }
+        #s07-pill { font-family: var(--mono); font-size: 22px; color: #1a1205; background: #fbbf24; border-radius: 999px; padding: 6px 18px; }
+        #s07-sym { position: absolute; right: 120px; top: 340px; width: 640px; background: #1a0f12; border: 3px solid rgba(251,113,133,0.7); border-radius: 24px; padding: 34px 38px; }
+        #s07-sym .kicker { color: var(--leak); margin-bottom: 14px; }
+        #s07-sym p { font-family: var(--text); font-size: 32px; line-height: 1.35; color: var(--ink); }
+        #s07-fix { top: 300px; }
+      </style>
+      <div id="root" data-composition-id="s07" data-width="1920" data-height="1080">
+        <div id="s07-wrap">
+          <div class="cause-head" id="s07-head">
+            <div class="lever"><span class="chip on">Cause 03 / 06</span><span class="chip leak">Lever: your bidding</span></div>
+            <div class="h2">Your own bidding</div>
+          </div>
+          <div id="s07-sym"><div class="kicker">Symptom</div><p>CPC jumps right after someone changed something in the account.</p></div>
+          <div id="s07-ui" class="panel">
+            <div class="gbar"><div class="gdots"><i></i><i></i><i></i></div><div class="gtitle">Change history</div><div class="gcrumb">All campaigns · <b>Last 30 days</b></div></div>
+            <div id="s07-filters"><span class="chip on">Bid</span><span class="chip on">Budget</span><span class="chip">Ads</span><span class="chip">Keywords</span></div>
+            <div class="s07-entry" id="s07-e1"><div class="s07-date">Oct 02</div><div class="s07-what"><div class="s07-type">Budget · Maximise conversions (no target)</div><div class="s07-chg">Daily budget $100 → <b>$150</b></div></div><div class="s07-n" id="s07-n1">1</div></div>
+            <div class="s07-entry" id="s07-e2"><div class="s07-date">Oct 05</div><div class="s07-what"><div class="s07-type">Bid strategy</div><div class="s07-chg">Target CPA $40 → <b>$60</b></div></div><div class="s07-n" id="s07-n2">2</div></div>
+            <div class="s07-entry" id="s07-e3"><div class="s07-date">Oct 09</div><div class="s07-what"><div class="s07-type">Bid strategy</div><div class="s07-chg">Max clicks → <b>Target impression share · Absolute top</b></div></div><div class="s07-n" id="s07-n3">3</div></div>
+            <div id="s07-status">Bid strategy status <span id="s07-pill">Learning</span></div>
+          </div>
+          <div class="fix" id="s07-fix">
+            <div class="kicker">The fix</div>
+            <ul>
+              <li id="s07-f1">Set realistic targets</li>
+              <li id="s07-f2">Change them in small steps of 15–20%</li>
+              <li id="s07-f3">Give each change about a week before you judge it</li>
+            </ul>
+          </div>
+          <div class="where" id="s07-where"><span class="lbl">Where to check</span><span>Tools › <b>Change history</b> · filter: bid & budget</span></div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["cause",0.5],["number",0.71],["three",0.96],["your",1.84],["own",2.0],["bidding",2.12],["sometimes",3.06],["the",3.6],["cpc",3.83],["increase",4.06],["is",4.54],["self",4.72],["inflicted",5.0],["go",6.53],["to",6.69],["tools",6.84],["then",7.31],["change",7.55],["history",7.88],["and",8.43],["filter",8.63],["by",8.96],["bid",9.11],["and",9.31],["budget",9.51],["changes",9.84],["look",11.01],["for",11.21],["three",11.37],["things",11.61],["one",12.59],["a",12.99],["budget",13.11],["increase",13.46],["on",13.91],["maximise",14.07],["conversions",14.52],["with",15.94],["no",16.22],["target",16.4],["set",16.79],["google",17.23],["will",17.61],["spend",17.9],["that",18.23],["extra",18.51],["money",18.85],["by",19.18],["bidding",19.36],["into",19.8],["more",20.08],["expensive",20.37],["auctions",20.91],["two",22.18],["a",22.62],["raised",22.76],["target",23.15],["c",23.55],["p",23.68],["a",23.81],["or",24.16],["a",24.34],["lowered",24.47],["target",24.92],["roas",25.32],["youve",26.47],["told",26.73],["google",26.93],["its",27.19],["allowed",27.38],["to",27.68],["pay",27.8],["more",27.96],["so",28.29],["it",28.41],["does",28.53],["three",29.38],["a",29.88],["switch",30.0],["to",30.35],["target",30.52],["impression",30.88],["share",31.42],["especially",31.92],["absolute",32.47],["top",32.92],["of",33.13],["page",33.3],["that",34.43],["strategy",34.67],["chases",35.08],["position",35.41],["not",35.99],["profit",36.19],["and",36.69],["itll",36.88],["pay",37.16],["whatever",37.36],["it",37.77],["takes",37.92],["also",39.09],["check",39.52],["the",40.02],["bid",40.37],["strategy",40.73],["status",41.47],["if",42.99],["it",43.11],["says",43.24],["learning",43.43],["cpcs",43.9],["often",44.09],["jump",44.32],["around",44.51],["for",44.78],["about",44.94],["a",45.16],["week",45.25],["the",46.32],["fix",46.56],["set",47.02],["realistic",47.26],["targets",47.82],["change",48.49],["them",48.89],["in",49.18],["small",49.37],["steps",49.72],["of",50.06],["around",50.25],["fifteen",50.65],["to",51.11],["twenty",51.29],["percent",51.69],["and",52.36],["give",52.6],["each",52.9],["change",53.19],["time",53.59],["before",53.89],["you",54.29],["judge",54.53],["it",54.88]]/*/W*/;
         const DUR = 56.19;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s07-head .chip", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s07-head .h2", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 0.4);
+        tl.fromTo("#s07-sym", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, at("sometimes the cpc"));
+        const ck = at("go to tools");
+        tl.fromTo("#s07-where", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, ck);
+        tl.fromTo("#s07-ui", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, ck + 0.3);
+        tl.fromTo("#s07-filters .chip", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 }, at("filter by bid"));
+        tl.fromTo(".s07-entry", { opacity: 0, y: 24 }, { opacity: 0.4, y: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, at("filter by bid") + 0.4);
+        tl.set([".s07-n"], { opacity: 0 }, 0);
+        const ks = [at("one a budget"), at("two a raised"), at("three a switch")];
+        ks.forEach((k, i) => {
+          const n = i + 1;
+          tl.to("#s07-e" + n, { opacity: 1, backgroundColor: "rgba(251,113,133,0.08)", duration: 0.35 }, k);
+          tl.fromTo("#s07-n" + n, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)" }, k);
+          if (i > 0) tl.to("#s07-e" + i, { backgroundColor: "rgba(251,113,133,0)", duration: 0.3 }, k);
+        });
+        tl.fromTo("#s07-status", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, at("also check the bid"));
+        tl.fromTo("#s07-pill", { scale: 1 }, { scale: 1.15, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, at("if it says learning"));
+        const fx = at("the fix set");
+        tl.to("#s07-sym", { opacity: 0, x: 60, duration: 0.4, ease: "power2.in" }, fx - 0.5);
+        tl.fromTo("#s07-fix", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, fx - 0.3);
+        tl.fromTo("#s07-f1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, fx + 0.2);
+        tl.fromTo("#s07-f2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("change them in small"));
+        tl.fromTo("#s07-f3", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("give each change"));
+        tl.to("#s07-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
         window.__timelines["s07"] = tl;
         })();
       </script>

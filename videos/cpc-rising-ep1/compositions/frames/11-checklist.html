@@ -3,13 +3,89 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s11" data-width="1920" data-height="1080"><div class="scene"><div class="h1">11-checklist</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s11-wrap { position: absolute; inset: 0; }
+        #s11-head { position: absolute; left: 120px; top: 120px; display: flex; flex-direction: column; gap: 12px; }
+        #s11-list { position: absolute; left: 120px; top: 290px; width: 1180px; display: flex; flex-direction: column; gap: 8px; }
+        .s11-row { display: grid; grid-template-columns: 56px 190px 1fr; align-items: center; gap: 22px; height: 64px; padding: 0 22px; border-radius: 14px; background: rgba(13,23,18,0.85); border: 2px solid rgba(52,211,153,0.12); }
+        .s11-box { position: relative; width: 40px; height: 40px; border-radius: 10px; border: 3px solid rgba(52,211,153,0.5); }
+        .s11-tick { position: absolute; inset: 5px; display: block; border-radius: 5px; background: var(--accent); }
+        .s11-min { font-family: var(--mono); font-size: 24px; color: var(--accent); }
+        .s11-txt { font-family: var(--text); font-size: 30px; color: var(--ink); }
+        .s11-txt b { font-weight: 700; }
+        #s11-timer { position: absolute; right: 120px; top: 300px; width: 440px; height: 440px; }
+        #s11-timer svg { display: block; width: 100%; height: 100%; }
+        #s11-clock { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+        #s11-time { font-family: var(--disp); font-weight: 700; font-size: 110px; letter-spacing: -0.03em; color: var(--ink); }
+        #s11-of { font-family: var(--mono); font-size: 24px; color: var(--soft); letter-spacing: 0.1em; text-transform: uppercase; }
+      </style>
+      <div id="root" data-composition-id="s11" data-width="1920" data-height="1080">
+        <div id="s11-wrap">
+          <div id="s11-head">
+            <div class="kicker">Screenshot this</div>
+            <div class="h2">The 15-minute CPC checklist</div>
+          </div>
+          <div id="s11-list">
+            <div class="s11-row" id="s11-r1"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">0–1 min</div><div class="s11-txt"><b>CPA & ROAS.</b> Fine? Stop here.</div></div>
+            <div class="s11-row" id="s11-r2"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">2–4 min</div><div class="s11-txt"><b>Change history:</b> budgets, targets, bid strategy</div></div>
+            <div class="s11-row" id="s11-r3"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">4–6 min</div><div class="s11-txt"><b>Segment by campaign:</b> where is it rising?</div></div>
+            <div class="s11-row" id="s11-r4"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">6–8 min</div><div class="s11-txt"><b>Auction insights:</b> new competitors</div></div>
+            <div class="s11-row" id="s11-r5"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">8–10 min</div><div class="s11-txt"><b>Quality Score</b> and its history</div></div>
+            <div class="s11-row" id="s11-r6"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">10–13 min</div><div class="s11-txt"><b>Search terms,</b> sorted by cost</div></div>
+            <div class="s11-row" id="s11-r7"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">13–15 min</div><div class="s11-txt"><b>Conversion tracking</b> vs real sales</div></div>
+            <div class="s11-row" id="s11-r8"><div class="s11-box"><span class="s11-tick"></span></div><div class="s11-min">Last</div><div class="s11-txt"><b>Same period last year:</b> rule out seasonality</div></div>
+          </div>
+          <div id="s11-timer">
+            <svg viewBox="0 0 440 440">
+              <circle cx="220" cy="220" r="196" fill="#0d1712" stroke="rgba(52,211,153,0.14)" stroke-width="18" />
+              <circle id="s11-arc" cx="220" cy="220" r="196" fill="none" stroke="#34d399" stroke-width="18" stroke-linecap="round" transform="rotate(-90 220 220)" stroke-dasharray="1232" stroke-dashoffset="1232" />
+            </svg>
+            <div id="s11-clock"><div id="s11-time">0:00</div><div id="s11-of">of 15:00</div></div>
+          </div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["so",0.5],["next",0.85],["time",1.1],["your",1.35],["cpc",1.61],["jumps",1.81],["run",2.3],["this",2.5],["checklist",2.76],["minute",4.16],["one",4.53],["check",4.95],["c",5.27],["p",5.39],["a",5.51],["and",5.64],["roas",5.86],["if",6.93],["theyre",7.05],["fine",7.36],["stop",7.7],["there",7.9],["minutes",8.93],["two",9.28],["to",9.46],["four",9.6],["change",9.99],["history",10.29],["did",11.56],["anyone",11.76],["change",12.1],["budgets",12.44],["targets",13.01],["or",13.57],["bid",13.73],["strategy",13.94],["minutes",15.18],["four",15.58],["to",15.83],["six",16.0],["segment",16.39],["by",16.79],["campaign",16.95],["and",17.58],["find",17.79],["where",18.04],["the",18.35],["increase",18.56],["is",19.0],["actually",19.16],["happening",19.6],["minutes",20.89],["six",21.26],["to",21.45],["eight",21.6],["auction",22.05],["insights",22.41],["for",22.99],["new",23.18],["competitors",23.37],["minutes",24.76],["eight",25.14],["to",25.43],["ten",25.59],["quality",25.97],["score",26.35],["and",26.64],["its",26.84],["history",27.04],["minutes",28.31],["ten",28.75],["to",28.98],["thirteen",29.16],["search",29.85],["terms",30.23],["sorted",30.77],["by",31.15],["cost",31.33],["and",32.47],["minutes",32.68],["thirteen",33.07],["to",33.5],["fifteen",33.66],["conversion",34.23],["tracking",34.75],["compared",35.36],["against",35.8],["your",36.18],["real",36.43],["sales",36.68],["last",37.89],["of",38.17],["all",38.34],["compare",38.77],["the",39.2],["same",39.43],["period",39.71],["last",40.09],["year",40.37],["to",40.65],["rule",40.83],["out",41.1],["seasonality",41.33]]/*/W*/;
         const DUR = 43.07;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
+        const $ = (s) => document.querySelector(s);
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s11-head .kicker", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s11-head .h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.35);
+        tl.fromTo("#s11-timer", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 0.6);
+        tl.fromTo(".s11-row", { opacity: 0, x: -40 }, { opacity: 0.45, x: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" }, 0.8);
+        tl.set(".s11-tick", { scale: 0 }, 0);
+        const keys = [at("minute one"), at("minutes two to four"), at("minutes four to six"), at("minutes six to eight"), at("minutes eight to ten"), at("minutes ten to thirteen"), at("minutes thirteen to fifteen"), at("last of all")];
+        const mins = [1, 4, 6, 8, 10, 13, 15, 15];
+        const clk = { m: 0 };
+        let prev = 0;
+        keys.forEach((k, i) => {
+          const n = i + 1;
+          tl.to("#s11-r" + n, { opacity: 1, borderColor: "rgba(52,211,153,0.6)", duration: 0.3 }, k);
+          tl.fromTo("#s11-r" + n + " .s11-tick", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(3)" }, k + 0.6);
+          tl.to("#s11-r" + n, { borderColor: "rgba(52,211,153,0.12)", duration: 0.3 }, (keys[i + 1] || k + 3) - 0.1);
+          if (mins[i] !== prev) {
+            tl.to(clk, { m: mins[i], duration: 0.9, ease: "power2.inOut", onUpdate: () => {
+              const s = Math.round(clk.m * 60), mm = Math.floor(s / 60), ss = s % 60;
+              $("#s11-time").textContent = mm + ":" + (ss < 10 ? "0" : "") + ss;
+            } }, k);
+            tl.to("#s11-arc", { strokeDashoffset: 1232 * (1 - mins[i] / 15), duration: 0.9, ease: "power2.inOut" }, k);
+            prev = mins[i];
+          }
+        });
+        tl.to("#s11-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
         window.__timelines["s11"] = tl;
         })();
       </script>

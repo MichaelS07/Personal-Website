@@ -3,13 +3,94 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s05" data-width="1920" data-height="1080"><div class="scene"><div class="h1">05-competition</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s05-wrap { position: absolute; inset: 0; }
+        #s05-ui { position: absolute; left: 120px; top: 340px; width: 1040px; height: 470px; }
+        #s05-ui .trow { grid-template-columns: 1fr 170px 170px 200px; padding: 0 30px; }
+        #s05-ui .trow.body { height: 84px; font-size: 28px; }
+        .s05-dom { font-family: var(--mono); font-size: 26px; display: flex; align-items: center; gap: 14px; }
+        .s05-new { font-family: var(--mono); font-size: 18px; letter-spacing: 0.08em; color: #04140d; background: var(--leak); border-radius: 6px; padding: 2px 10px; }
+        #s05-cmp { position: absolute; right: 26px; top: 14px; }
+        #s05-new-row { background: rgba(251,113,133,0.08); }
+        #s05-colhl { left: 628px; width: 184px; top: 72px; height: 392px; }
+        #s05-sym { position: absolute; right: 120px; top: 340px; width: 640px; background: #1a0f12; border: 3px solid rgba(251,113,133,0.7); border-radius: 24px; padding: 34px 38px; }
+        #s05-sym .kicker { color: var(--leak); margin-bottom: 14px; }
+        #s05-sym p { font-family: var(--text); font-size: 32px; line-height: 1.35; color: var(--ink); }
+        #s05-fix { top: 300px; }
+        .s05-no { font-family: var(--disp); font-weight: 700; font-size: 36px; color: var(--leak); margin-bottom: 20px; }
+      </style>
+      <div id="root" data-composition-id="s05" data-width="1920" data-height="1080">
+        <div id="s05-wrap">
+          <div class="cause-head" id="s05-head">
+            <div class="lever"><span class="chip on">Cause 01 / 06</span><span class="chip leak">Lever: competition</span></div>
+            <div class="h2">More competition</div>
+          </div>
+          <div id="s05-sym"><div class="kicker">Symptom</div><p>CPC climbs while your impression share and top-of-page rate slip.</p></div>
+          <div id="s05-ui" class="panel">
+            <div class="gbar"><div class="gdots"><i></i><i></i><i></i></div><div class="gtitle">Auction insights</div><div class="gcrumb">Search · <b>Last 30 days</b></div><span class="chip" id="s05-cmp">vs previous period</span></div>
+            <div class="trow head"><div>Display URL domain</div><div class="num">Impr. share</div><div class="num">Overlap rate</div><div class="num">Outranking share</div></div>
+            <div class="trow body"><div class="s05-dom">You</div><div class="num">58%</div><div class="num">–</div><div class="num">–</div></div>
+            <div class="trow body"><div class="s05-dom">rivalbrand.com</div><div class="num">44%</div><div class="num">51%</div><div class="num">38%</div></div>
+            <div class="trow body"><div class="s05-dom">bigretailer.com</div><div class="num">31%</div><div class="num">35%</div><div class="num">22%</div></div>
+            <div class="trow body" id="s05-new-row"><div class="s05-dom">newcomer.co <span class="s05-new">New</span></div><div class="num">40%</div><div class="num bad" id="s05-ov">20%</div><div class="num">47%</div></div>
+            <div class="hl" id="s05-colhl"></div>
+          </div>
+          <div class="fix" id="s05-fix">
+            <div class="kicker">The fix</div>
+            <div class="s05-no" id="s05-no">✕ Don't start a bidding war</div>
+            <ul>
+              <li id="s05-f1">Raise Quality Score to beat them without paying more</li>
+              <li id="s05-f2">Push budget where you still win: device, location, time of day</li>
+              <li id="s05-f3">Protect your brand campaign. It's your cheapest traffic.</li>
+            </ul>
+          </div>
+          <div class="where" id="s05-where"><span class="lbl">Where to check</span><span>Insights & reports › <b>Auction insights</b></span></div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["cause",0.5],["number",0.72],["one",0.97],["more",1.73],["competition",1.92],["a",3.22],["new",3.33],["competitor",3.52],["enters",4.02],["your",4.35],["auctions",4.59],["or",5.18],["an",5.33],["existing",5.49],["one",5.9],["raises",6.1],["their",6.43],["budget",6.71],["the",7.92],["advertiser",8.1],["below",8.55],["you",8.8],["gets",8.98],["stronger",9.2],["so",9.73],["you",9.86],["pay",10.04],["more",10.22],["heres",11.2],["where",11.43],["to",11.62],["check",11.73],["go",12.75],["to",12.91],["insights",13.08],["and",13.53],["reports",13.75],["then",14.34],["auction",14.6],["insights",15.0],["set",16.3],["the",16.49],["date",16.68],["range",16.91],["to",17.18],["compare",17.33],["this",17.69],["period",17.92],["with",18.24],["the",18.47],["last",18.66],["one",18.89],["look",20.01],["for",20.3],["a",20.54],["new",20.68],["name",20.92],["in",21.21],["the",21.4],["list",21.64],["or",22.15],["a",22.34],["competitor",22.47],["whose",23.09],["overlap",23.44],["rate",23.89],["or",24.19],["outranking",24.38],["share",24.99],["jumped",25.34],["if",26.53],["someone",26.67],["went",27.0],["from",27.22],["twenty",27.44],["percent",27.74],["overlap",28.07],["to",28.41],["sixty",28.55],["thats",28.97],["your",29.26],["answer",29.48],["the",30.64],["fix",30.81],["is",30.97],["not",31.09],["to",31.26],["get",31.38],["into",31.54],["a",31.74],["bidding",31.83],["war",32.14],["youll",33.05],["both",33.37],["lose",33.61],["and",34.03],["google",34.22],["wins",34.55],["instead",35.6],["raise",36.09],["your",36.34],["quality",36.56],["score",36.89],["which",37.3],["well",37.56],["cover",37.81],["next",38.07],["so",38.44],["you",38.57],["beat",38.75],["them",38.97],["without",39.18],["paying",39.52],["more",39.81],["find",40.97],["where",41.22],["you",41.51],["still",41.71],["win",42.0],["by",42.39],["device",42.54],["location",43.06],["or",43.49],["time",43.64],["of",43.89],["day",44.05],["and",44.43],["push",44.63],["budget",44.88],["there",45.21],["and",46.44],["if",46.61],["theyre",46.74],["bidding",47.07],["on",47.39],["your",47.52],["brand",47.73],["name",47.98],["protect",48.35],["your",48.67],["brand",48.88],["campaign",49.13],["its",50.4],["usually",50.64],["the",51.0],["cheapest",51.2],["traffic",51.6],["youll",51.97],["ever",52.29],["buy",52.52]]/*/W*/;
         const DUR = 53.76;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
+        const $ = (s) => document.querySelector(s);
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s05-head .chip", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s05-head .h2", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 0.4);
+        tl.fromTo("#s05-sym", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, at("a new competitor"));
+        const ch = at("heres where to check");
+        tl.fromTo("#s05-where", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, ch);
+        tl.fromTo("#s05-ui", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, at("go to insights"));
+        tl.fromTo("#s05-ui .trow.body:not(#s05-new-row)", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, at("go to insights") + 0.4);
+        tl.fromTo("#s05-cmp", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("compare this period"));
+        tl.fromTo("#s05-new-row", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.5)" }, at("a new name"));
+        tl.set("#s05-colhl", { opacity: 0 }, 0);
+        tl.fromTo("#s05-colhl", { opacity: 0 }, { opacity: 1, duration: 0.3 }, at("overlap rate or"));
+        const ov = { v: 20 };
+        const tw = at("twenty percent overlap");
+        tl.to(ov, { v: 60, duration: 1.4, ease: "power2.inOut", onUpdate: () => { $("#s05-ov").textContent = Math.round(ov.v) + "%"; } }, tw);
+        tl.fromTo("#s05-ov", { scale: 1 }, { scale: 1.25, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out" }, tw + 1.4);
+        // fix
+        const fx = at("the fix is not");
+        tl.to("#s05-sym", { opacity: 0, x: 60, duration: 0.4, ease: "power2.in" }, fx - 0.3);
+        tl.to("#s05-colhl", { opacity: 0, duration: 0.3 }, fx);
+        tl.fromTo("#s05-fix", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, fx);
+        tl.fromTo("#s05-fix .kicker", { opacity: 0 }, { opacity: 1, duration: 0.3 }, fx + 0.2);
+        tl.fromTo("#s05-no", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, fx + 0.3);
+        tl.fromTo("#s05-f1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("raise your quality score"));
+        tl.fromTo("#s05-f2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("find where you still win"));
+        tl.fromTo("#s05-f3", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("protect your brand"));
+        tl.to("#s05-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
         window.__timelines["s05"] = tl;
         })();
       </script>

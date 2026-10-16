@@ -3,13 +3,135 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s04" data-width="1920" data-height="1080"><div class="scene"><div class="h1">04-formula</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s04-wrap { position: absolute; inset: 0; }
+        #s04-head { position: absolute; left: 120px; top: 130px; display: flex; flex-direction: column; gap: 14px; }
+        #s04-search { position: absolute; right: 120px; top: 150px; width: 700px; height: 84px; display: flex; align-items: center; gap: 20px; padding: 0 30px; border-radius: 999px; background: var(--surface); border: 2px solid var(--line); }
+        #s04-search .ico { width: 30px; height: 30px; border-radius: 50%; border: 4px solid var(--soft); flex: 0 0 auto; }
+        #s04-q { font-family: var(--text); font-size: 32px; color: var(--ink); white-space: nowrap; overflow: hidden; }
+        #s04-auction { position: absolute; left: 120px; right: 120px; top: 330px; }
+        #s04-auction .trow { grid-template-columns: 90px 1fr 170px 130px 560px; }
+        #s04-auction .trow.body { height: 104px; font-size: 34px; }
+        .s04-pos { font-family: var(--disp); font-weight: 700; font-size: 40px; color: var(--soft); }
+        .s04-name { font-family: var(--disp); font-weight: 700; }
+        .s04-bar { position: relative; height: 40px; margin-left: 30px; }
+        .s04-fill { display: block; height: 100%; border-radius: 8px; background: rgba(157,178,168,0.35); transform-origin: 0 50%; }
+        .s04-rank { position: absolute; right: 0; top: 0; font-family: var(--mono); font-size: 30px; line-height: 40px; color: var(--ink); }
+        #s04-you .s04-fill { background: var(--accent); }
+        #s04-you .s04-name { color: var(--accent); }
+        #s04-eq { position: absolute; left: 120px; top: 760px; font-family: var(--mono); font-size: 34px; color: var(--ink); background: rgba(13,23,18,0.9); border: 2px solid var(--line); border-radius: 16px; padding: 16px 28px; }
+        #s04-eq b { color: var(--accent); font-weight: 700; }
+        #s04-note { position: absolute; right: 120px; top: 760px; width: 620px; font-family: var(--disp); font-weight: 700; font-size: 38px; line-height: 1.15; color: var(--leak); text-align: right; }
+
+        #s04-formula { position: absolute; left: 120px; right: 120px; top: 300px; display: flex; flex-direction: column; gap: 26px; }
+        #s04-fline { display: flex; align-items: center; gap: 28px; font-family: var(--disp); font-weight: 700; font-size: 66px; letter-spacing: -0.02em; color: var(--ink); }
+        .s04-frac { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .s04-num, .s04-den { font-size: 54px; padding: 6px 22px; border-radius: 14px; }
+        .s04-num { color: var(--ink); }
+        .s04-den { color: var(--ink); }
+        .s04-hr { display: block; width: 100%; height: 6px; background: var(--ink); border-radius: 3px; }
+        .s04-op { color: var(--soft); }
+        #s04-ex { display: flex; align-items: center; gap: 24px; font-family: var(--mono); font-size: 40px; color: var(--soft); }
+        #s04-ex b { color: var(--accent); font-weight: 700; font-size: 52px; }
+        #s04-ex s { color: var(--leak); }
+        #s04-levers { position: absolute; left: 120px; right: 120px; top: 690px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .s04-lv { padding: 26px 30px; display: flex; flex-direction: column; gap: 10px; }
+        .s04-lv .kicker { color: var(--leak); }
+        .s04-lv .t { font-family: var(--disp); font-weight: 700; font-size: 40px; color: var(--ink); }
+        .s04-lv .d { font-family: var(--text); font-size: 26px; color: var(--soft); line-height: 1.35; }
+      </style>
+      <div id="root" data-composition-id="s04" data-width="1920" data-height="1080">
+        <div id="s04-wrap">
+          <div id="s04-head">
+            <div class="kicker">Step 2</div>
+            <div class="h2">How CPC is actually set</div>
+          </div>
+          <div id="s04-search"><div class="ico"></div><div id="s04-q">emergency plumber near me</div></div>
+          <div id="s04-auction" class="panel">
+            <div class="trow head"><div>Pos</div><div>Advertiser</div><div class="num">Max bid</div><div class="num">QS</div><div class="num">Ad Rank = Bid × QS</div></div>
+            <div class="trow body" id="s04-you"><div class="s04-pos">1</div><div class="s04-name">You</div><div class="num" id="s04-yourbid" style="position: relative;">$3.00<span id="s04-strike" style="position: absolute; right: -6px; top: 50%; display: block; width: 104px; height: 5px; margin-top: -2px; background: #fb7185; border-radius: 3px;"></span></div><div class="num">8</div><div class="s04-bar"><span class="s04-fill" style="width: 76%"></span><span class="s04-rank">24</span></div></div>
+            <div class="trow body" id="s04-a"><div class="s04-pos">2</div><div class="s04-name">Competitor A</div><div class="num">$4.00</div><div class="num">4</div><div class="s04-bar"><span class="s04-fill" style="width: 51%"></span><span class="s04-rank">16</span></div></div>
+            <div class="trow body" id="s04-b"><div class="s04-pos">3</div><div class="s04-name">Competitor B</div><div class="num">$2.50</div><div class="num">6</div><div class="s04-bar"><span class="s04-fill" style="width: 48%"></span><span class="s04-rank">15</span></div></div>
+            <div class="hl" id="s04-hl" style="left: 6px; right: 6px; top: 170px; height: 104px;"></div>
+          </div>
+          <div id="s04-eq">Ad Rank ≈ <b>Bid</b> × <b>Quality Score</b> + assets & context</div>
+          <div id="s04-note">Highest bid. Still not first.</div>
+
+          <div id="s04-formula">
+            <div class="kicker">What you actually pay</div>
+            <div id="s04-fline">
+              <span>Actual CPC =</span>
+              <span class="s04-frac"><span class="s04-num" id="s04-num">Ad Rank of the advertiser below you</span><span class="s04-hr"></span><span class="s04-den" id="s04-den">Your Quality Score</span></span>
+              <span class="s04-op">+ $0.01</span>
+            </div>
+            <div id="s04-ex"><span>16 ÷ 8 + $0.01 =</span><b>$2.01</b><span>not</span><s>$3.00</s></div>
+          </div>
+          <div id="s04-levers">
+            <div class="s04-lv panel" id="s04-l1"><div class="kicker">Lever 1 · top ↑</div><div class="t">Competition</div><div class="d">The advertiser below you gets stronger.</div></div>
+            <div class="s04-lv panel" id="s04-l2"><div class="kicker">Lever 2 · bottom ↓</div><div class="t">Quality Score</div><div class="d">Your QS drops, so you pay more per click.</div></div>
+            <div class="s04-lv panel" id="s04-l3"><div class="kicker">Lever 3 · you</div><div class="t">Your bidding</div><div class="d">Your settings push you into pricier auctions.</div></div>
+          </div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["every",0.5],["time",0.78],["someone",1.02],["searches",1.39],["google",1.98],["runs",2.3],["an",2.54],["auction",2.7],["but",3.94],["its",4.11],["not",4.32],["won",4.49],["by",4.66],["the",4.8],["highest",4.97],["bid",5.29],["its",6.3],["won",6.54],["by",6.74],["the",6.9],["highest",7.09],["ad",7.47],["rank",7.63],["ad",8.8],["rank",8.99],["is",9.28],["roughly",9.47],["your",9.92],["bid",10.21],["multiplied",10.66],["by",11.28],["your",11.46],["quality",11.76],["score",12.21],["plus",12.77],["things",13.06],["like",13.46],["ad",13.75],["assets",13.94],["and",14.34],["the",14.58],["context",14.82],["of",15.27],["the",15.46],["search",15.7],["and",17.05],["heres",17.23],["the",17.53],["part",17.71],["most",17.93],["people",18.15],["miss",18.45],["you",19.45],["dont",19.58],["pay",19.78],["your",19.92],["bid",20.08],["in",21.02],["the",21.17],["classic",21.37],["version",21.75],["of",22.12],["the",22.28],["formula",22.47],["you",23.02],["pay",23.22],["just",23.42],["enough",23.66],["to",23.99],["beat",24.15],["the",24.39],["advertiser",24.59],["below",25.1],["you",25.38],["your",26.4],["actual",26.68],["cpc",27.05],["equals",27.28],["the",27.66],["ad",27.88],["rank",28.06],["of",28.34],["the",28.51],["advertiser",28.74],["below",29.32],["you",29.65],["divided",30.07],["by",30.5],["your",30.68],["quality",30.95],["score",31.38],["plus",31.91],["one",32.19],["cent",32.41],["look",33.67],["at",33.85],["what",33.96],["that",34.13],["means",34.31],["there",35.2],["are",35.47],["really",35.66],["only",35.98],["three",36.21],["ways",36.48],["your",36.71],["cpc",36.95],["goes",37.14],["up",37.37],["the",38.39],["people",38.58],["below",38.89],["you",39.17],["get",39.35],["stronger",39.54],["so",40.11],["the",40.26],["number",40.44],["on",40.76],["top",40.9],["rises",41.09],["your",42.16],["quality",42.38],["score",42.72],["drops",42.99],["so",43.41],["the",43.55],["number",43.73],["on",44.04],["the",44.18],["bottom",44.36],["shrinks",44.66],["or",45.75],["your",45.9],["own",46.14],["bidding",46.34],["pushes",46.71],["you",47.04],["into",47.24],["pricier",47.48],["auctions",47.85],["every",49.16],["cause",49.42],["in",49.68],["this",49.82],["video",50.04],["is",50.31],["one",50.45],["of",50.63],["those",50.77],["levers",51.03],["keep",52.12],["this",52.34],["formula",52.56],["in",52.91],["your",53.05],["head",53.28]]/*/W*/;
         const DUR = 54.53;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s04-head .kicker", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s04-head .h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.35);
+        // search
+        const sr = at("every time someone");
+        tl.fromTo("#s04-search", { opacity: 0, y: -20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, sr);
+        tl.fromTo("#s04-q", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.2, ease: "steps(26)" }, sr + 0.4);
+        // auction
+        const au = at("runs an auction");
+        tl.fromTo("#s04-auction", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, au);
+        tl.fromTo("#s04-auction .trow.body", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, stagger: 0.15, ease: "power2.out" }, au + 0.3);
+        tl.fromTo("#s04-auction .s04-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.8, stagger: 0.12, ease: "power3.out" }, at("highest ad rank") );
+        tl.fromTo("#s04-auction .s04-rank", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.12 }, at("highest ad rank") + 0.5);
+        tl.set("#s04-hl", { opacity: 0 }, 0);
+        const hb = at("not won by the highest bid");
+        tl.fromTo("#s04-hl", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, hb);
+        tl.fromTo("#s04-note", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, hb + 0.3);
+        tl.to("#s04-hl", { opacity: 0, duration: 0.3 }, at("ad rank is roughly") - 0.2);
+        tl.to("#s04-note", { opacity: 0, duration: 0.3 }, at("ad rank is roughly") - 0.2);
+        tl.fromTo("#s04-eq", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, at("ad rank is roughly"));
+        // you don't pay your bid
+        const yd = at("you dont pay your bid");
+        tl.to("#s04-yourbid", { color: "#fb7185", duration: 0.3 }, yd);
+        tl.fromTo("#s04-strike", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.3, ease: "power2.in" }, yd + 0.2);
+        // transition to formula
+        const fx = at("your actual cpc equals") - 1.2;
+        tl.to(["#s04-auction", "#s04-eq", "#s04-search"], { opacity: 0, y: -30, duration: 0.5, ease: "power2.in", stagger: 0.05 }, fx);
+        tl.fromTo("#s04-formula .kicker", { opacity: 0 }, { opacity: 1, duration: 0.4 }, fx + 0.5);
+        tl.fromTo("#s04-fline > span", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.5, ease: "power3.out" }, fx + 0.6);
+        tl.fromTo("#s04-ex", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, at("look at what"));
+        // levers
+        const l1 = at("the people below you"), l2 = at("your quality score drops"), l3 = at("or your own bidding");
+        tl.fromTo("#s04-l1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, l1);
+        tl.to("#s04-num", { backgroundColor: "rgba(251,113,133,0.18)", color: "#fb7185", duration: 0.35 }, l1);
+        tl.to("#s04-num", { backgroundColor: "rgba(251,113,133,0)", color: "#edf3ef", duration: 0.35 }, l2 - 0.1);
+        tl.fromTo("#s04-l2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, l2);
+        tl.to("#s04-den", { backgroundColor: "rgba(251,113,133,0.18)", color: "#fb7185", duration: 0.35 }, l2);
+        tl.to("#s04-den", { backgroundColor: "rgba(251,113,133,0)", color: "#edf3ef", duration: 0.35 }, l3 - 0.1);
+        tl.fromTo("#s04-l3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, l3);
+        const kf = at("keep this formula");
+        tl.to(".s04-lv", { boxShadow: "0 0 0 4px rgba(52,211,153,0.45)", duration: 0.4, stagger: 0.12 }, at("every cause in this video"));
+        tl.fromTo("#s04-fline", { scale: 1 }, { scale: 1.03, transformOrigin: "0% 50%", duration: 0.5, yoyo: true, repeat: 1, ease: "sine.inOut" }, kf);
+        tl.to("#s04-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
         window.__timelines["s04"] = tl;
         })();
       </script>

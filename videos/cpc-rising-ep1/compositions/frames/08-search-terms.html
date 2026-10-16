@@ -3,13 +3,95 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s08" data-width="1920" data-height="1080"><div class="scene"><div class="h1">08-search-terms</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s08-wrap { position: absolute; inset: 0; }
+        #s08-ui { position: absolute; left: 120px; top: 330px; width: 1040px; height: 495px; }
+        #s08-ui .trow { grid-template-columns: 1fr 130px 100px 210px; padding: 0 26px; gap: 12px; }
+        #s08-ui .trow.body { height: 72px; font-size: 26px; }
+        .s08-term { font-family: var(--mono); font-size: 24px; }
+        .s08-act { display: flex; justify-content: flex-end; }
+        .s08-act span { font-family: var(--mono); font-size: 17px; border-radius: 8px; padding: 6px 10px; white-space: nowrap; }
+        .s08-act .neg { background: rgba(251,113,133,0.18); color: var(--leak); }
+        .s08-act .ex { background: rgba(52,211,153,0.18); color: var(--accent); }
+        #s08-kw { position: absolute; right: 22px; top: 12px; display: flex; gap: 10px; align-items: center; }
+        #s08-kw .chip { font-size: 18px; padding: 6px 14px; }
+        #s08-sort { color: var(--accent); }
+        .s08-flag { background: rgba(251,113,133,0.07); }
+        #s08-sym { position: absolute; right: 120px; top: 340px; width: 640px; background: #1a0f12; border: 3px solid rgba(251,113,133,0.7); border-radius: 24px; padding: 34px 38px; }
+        #s08-sym .kicker { color: var(--leak); margin-bottom: 14px; }
+        #s08-sym p { font-family: var(--text); font-size: 32px; line-height: 1.35; color: var(--ink); }
+        #s08-fix { top: 300px; }
+      </style>
+      <div id="root" data-composition-id="s08" data-width="1920" data-height="1080">
+        <div id="s08-wrap">
+          <div class="cause-head" id="s08-head">
+            <div class="lever"><span class="chip on">Cause 04 / 06</span><span class="chip leak">Lever: competition</span></div>
+            <div class="h2">Matching expensive searches</div>
+          </div>
+          <div id="s08-sym"><div class="kicker">Symptom</div><p>Broad match and PMax drift into pricey, less relevant searches you never chose.</p></div>
+          <div id="s08-ui" class="panel">
+            <div class="gbar"><div class="gdots"><i></i><i></i><i></i></div><div class="gtitle">Search terms</div><div id="s08-kw"><span class="chip">Keyword</span><span class="chip on">running shoes · broad</span></div></div>
+            <div class="trow head"><div>Search term</div><div class="num" id="s08-sort">Cost ▼</div><div class="num">Conv.</div><div class="num">Action</div></div>
+            <div class="trow body" id="s08-r1"><div class="s08-term">nike pegasus 41 sale</div><div class="num">$412</div><div class="num">1</div><div class="s08-act"><span class="neg" id="s08-a1">+ Negative</span></div></div>
+            <div class="trow body" id="s08-r2"><div class="s08-term">running shoes</div><div class="num">$288</div><div class="num good">9</div><div class="s08-act"><span class="ex" id="s08-a2">+ Exact match</span></div></div>
+            <div class="trow body" id="s08-r3"><div class="s08-term">trail running shoes womens</div><div class="num">$201</div><div class="num good">6</div><div class="s08-act"><span class="ex" id="s08-a3">+ Phrase match</span></div></div>
+            <div class="trow body" id="s08-r4"><div class="s08-term">free running shoes giveaway</div><div class="num">$96</div><div class="num">0</div><div class="s08-act"><span class="neg" id="s08-a4">+ Negative</span></div></div>
+            <div class="trow body" id="s08-r5"><div class="s08-term">running shoe repair near me</div><div class="num">$74</div><div class="num">0</div><div class="s08-act"><span class="neg" id="s08-a5">+ Negative</span></div></div>
+          </div>
+          <div class="fix" id="s08-fix">
+            <div class="kicker">The fix</div>
+            <ul>
+              <li id="s08-f1">Add negative keywords for anything irrelevant</li>
+              <li id="s08-f2">Move your best converting searches into exact or phrase match</li>
+              <li id="s08-f3">Make it a weekly habit, not a yearly clean-up</li>
+            </ul>
+          </div>
+          <div class="where" id="s08-where"><span class="lbl">Where to check</span><span>Insights & reports › <b>Search terms</b> · sort by cost</span></div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["cause",0.5],["number",0.73],["four",0.99],["your",2.04],["keywords",2.28],["are",2.7],["matching",2.9],["expensive",3.32],["searches",3.79],["broad",5.07],["match",5.38],["and",5.87],["performance",6.08],["max",6.67],["decide",7.06],["for",7.42],["themselves",7.63],["which",8.17],["searches",8.47],["you",8.92],["show",9.13],["up",9.39],["for",9.55],["over",10.67],["time",10.92],["they",11.33],["can",11.58],["drift",11.78],["into",12.06],["queries",12.3],["that",12.68],["are",12.92],["more",13.12],["competitive",13.36],["and",14.09],["often",14.29],["less",14.57],["relevant",14.82],["you",16.29],["bid",16.53],["on",16.78],["running",16.96],["shoes",17.48],["and",17.93],["suddenly",18.18],["youre",18.69],["paying",19.09],["for",19.5],["nike",19.74],["pegasus",20.09],["41",20.55],["sale",20.74],["competing",21.14],["with",21.71],["every",22.01],["big",22.36],["retailer",22.6],["in",23.11],["the",23.3],["country",23.54],["to",24.83],["check",25.0],["open",25.5],["insights",25.77],["and",26.22],["reports",26.44],["then",27.04],["search",27.3],["terms",27.66],["sort",28.86],["by",29.08],["cost",29.22],["and",29.59],["look",29.77],["at",29.98],["the",30.12],["top",30.3],["fifty",30.48],["for",31.63],["each",31.84],["one",32.1],["ask",32.49],["would",32.89],["i",33.19],["have",33.31],["chosen",33.57],["this",33.92],["keyword",34.17],["myself",34.57],["the",35.91],["fix",36.15],["is",36.39],["to",36.57],["add",36.76],["negative",36.99],["keywords",37.5],["for",38.0],["anything",38.24],["irrelevant",38.74],["move",39.56],["your",39.85],["best",40.14],["converting",40.43],["searches",41.04],["into",41.54],["their",41.84],["own",42.18],["exact",42.42],["or",42.76],["phrase",42.95],["match",43.34],["keywords",43.69],["and",44.4],["make",44.64],["this",44.93],["a",45.22],["weekly",45.35],["habit",45.75],["not",46.31],["a",46.55],["once",46.68],["a",46.97],["year",47.1],["clean",47.39],["up",47.74]]/*/W*/;
         const DUR = 49.04;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s08-head .chip", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s08-head .h2", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 0.4);
+        tl.fromTo("#s08-sym", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, at("broad match and"));
+        // keyword fans out into terms
+        const kb = at("you bid on");
+        tl.fromTo("#s08-ui", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, kb - 0.4);
+        tl.fromTo("#s08-kw .chip", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1, ease: "back.out(2)" }, kb);
+        tl.fromTo(["#s08-r2", "#s08-r3"], { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.12 }, kb + 0.5);
+        const np = at("nike pegasus");
+        tl.fromTo("#s08-r1", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.5)" }, np);
+        tl.to("#s08-r1", { backgroundColor: "rgba(251,113,133,0.10)", duration: 0.3 }, np + 0.3);
+        tl.fromTo(["#s08-r4", "#s08-r5"], { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.12 }, at("to check open") - 0.2);
+        tl.fromTo("#s08-where", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, at("to check open"));
+        tl.fromTo("#s08-sort", { scale: 1 }, { scale: 1.2, transformOrigin: "100% 50%", duration: 0.3, yoyo: true, repeat: 1 }, at("sort by cost"));
+        tl.to(["#s08-r4", "#s08-r5"], { backgroundColor: "rgba(251,113,133,0.10)", duration: 0.3, stagger: 0.15 }, at("would i have"));
+        tl.set(".s08-act span", { opacity: 0 }, 0);
+        const fx = at("the fix is to add");
+        tl.to("#s08-sym", { opacity: 0, x: 60, duration: 0.4, ease: "power2.in" }, fx - 0.5);
+        tl.fromTo("#s08-fix", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, fx - 0.3);
+        tl.fromTo("#s08-f1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, fx + 0.2);
+        tl.fromTo(["#s08-a1", "#s08-a4", "#s08-a5"], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, stagger: 0.15, ease: "back.out(2)" }, fx + 0.4);
+        const mv = at("move your best");
+        tl.fromTo("#s08-f2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, mv);
+        tl.fromTo(["#s08-a2", "#s08-a3"], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, stagger: 0.15, ease: "back.out(2)" }, mv + 0.3);
+        tl.fromTo("#s08-f3", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("make this a weekly"));
+        tl.to("#s08-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
         window.__timelines["s08"] = tl;
         })();
       </script>

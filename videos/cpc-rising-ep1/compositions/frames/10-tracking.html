@@ -3,13 +3,112 @@
   <head><meta charset="UTF-8" /></head>
   <body>
     <template>
-      <style>#root { position: absolute; inset: 0; }</style>
-      <div id="root" data-composition-id="s10" data-width="1920" data-height="1080"><div class="scene"><div class="h1">10-tracking</div></div></div>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s10-wrap { position: absolute; inset: 0; }
+        #s10-ui { position: absolute; left: 120px; top: 330px; width: 1040px; height: 495px; }
+        #s10-ui .trow { grid-template-columns: 1fr 160px 290px; padding: 0 26px; gap: 12px; }
+        #s10-ui .trow.body { height: 76px; font-size: 26px; }
+        .s10-st { font-family: var(--mono); font-size: 19px; border-radius: 8px; padding: 5px 10px; justify-self: end; }
+        .s10-st.ok { background: rgba(52,211,153,0.16); color: var(--accent); }
+        .s10-st.no { background: rgba(251,113,133,0.18); color: var(--leak); }
+        .s10-prim { font-family: var(--mono); font-size: 20px; color: var(--soft); }
+        #s10-cmp { position: absolute; left: 26px; right: 26px; bottom: 22px; height: 120px; display: grid; grid-template-columns: 1fr 70px 1fr; align-items: center; }
+        .s10-src { display: flex; flex-direction: column; gap: 2px; padding: 12px 22px; border-radius: 16px; background: var(--raised); }
+        .s10-src .k { font-family: var(--mono); font-size: 19px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--soft); }
+        .s10-src .v { font-family: var(--disp); font-weight: 700; font-size: 50px; color: var(--ink); line-height: 1.05; }
+        #s10-ga .v { color: var(--leak); }
+        #s10-neq { text-align: center; font-family: var(--disp); font-weight: 700; font-size: 60px; color: var(--leak); }
+        #s10-sym { position: absolute; right: 120px; top: 330px; width: 640px; background: #1a0f12; border: 3px solid rgba(251,113,133,0.7); border-radius: 24px; padding: 30px 36px; }
+        #s10-sym .kicker { color: var(--leak); margin-bottom: 12px; }
+        #s10-sym p { font-family: var(--text); font-size: 30px; line-height: 1.35; color: var(--ink); }
+        #s10-log { position: absolute; right: 120px; top: 600px; width: 640px; background: var(--surface); border: 2px solid var(--line); border-radius: 20px; padding: 22px 28px; display: flex; flex-direction: column; gap: 12px; }
+        #s10-log .kicker { font-size: 20px; }
+        .s10-ev { display: flex; align-items: center; gap: 16px; font-family: var(--mono); font-size: 24px; color: var(--ink); }
+        .s10-dot { display: block; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); }
+        #s10-ev2 .s10-dot { background: var(--leak); }
+        #s10-ev2 em { font-style: normal; color: var(--leak); }
+        #s10-fix { top: 300px; }
+      </style>
+      <div id="root" data-composition-id="s10" data-width="1920" data-height="1080">
+        <div id="s10-wrap">
+          <div class="cause-head" id="s10-head">
+            <div class="lever"><span class="chip on">Cause 06 / 06</span><span class="chip leak">Lever: your bidding</span></div>
+            <div class="h2">Broken conversion tracking</div>
+          </div>
+          <div id="s10-sym"><div class="kicker">Symptom</div><p>Smart Bidding learns from bad data, thinks clicks are worth more, and bids up.</p></div>
+          <div id="s10-log">
+            <div class="kicker">Tag events · one checkout</div>
+            <div class="s10-ev" id="s10-ev1"><span class="s10-dot"></span>purchase · 14:02:11.120</div>
+            <div class="s10-ev" id="s10-ev2"><span class="s10-dot"></span>purchase · 14:02:11.480 <em>duplicate</em></div>
+          </div>
+          <div id="s10-ui" class="panel">
+            <div class="gbar"><div class="gdots"><i></i><i></i><i></i></div><div class="gtitle">Conversions summary</div><div class="gcrumb">Goals · <b>Primary actions</b></div></div>
+            <div class="trow head"><div>Conversion action</div><div>Optimisation</div><div class="num">Status</div></div>
+            <div class="trow body" id="s10-r1"><div>Purchase</div><div class="s10-prim">Primary</div><span class="s10-st ok" id="s10-st1">Recording</span></div>
+            <div class="trow body" id="s10-r2"><div>Page view</div><div class="s10-prim">Primary</div><span class="s10-st no" id="s10-st2">Shouldn't be primary</span></div>
+            <div class="trow body" id="s10-r3"><div>Phone call</div><div class="s10-prim">Primary</div><span class="s10-st ok">Recording</span></div>
+            <div id="s10-cmp">
+              <div class="s10-src" id="s10-ga"><div class="k">Google Ads says</div><div class="v">40 purchases</div></div>
+              <div id="s10-neq">≠</div>
+              <div class="s10-src" id="s10-shop"><div class="k">Shopify says</div><div class="v">20 orders</div></div>
+            </div>
+          </div>
+          <div class="fix" id="s10-fix">
+            <div class="kicker">The fix</div>
+            <ul>
+              <li id="s10-f1">Fix the tag so each sale fires once</li>
+              <li id="s10-f2">Remove duplicate conversion actions</li>
+              <li id="s10-f3">Set only real business outcomes as primary</li>
+            </ul>
+          </div>
+          <div class="where" id="s10-where"><span class="lbl">Where to check</span><span>Goals › <b>Conversions summary</b> · vs your shop / CRM</span></div>
+        </div>
+      </div>
       <script>
         (function () {
         const W = /*W*/[["cause",0.5],["number",0.76],["six",1.07],["and",1.98],["this",2.14],["one",2.34],["catches",2.5],["a",2.8],["lot",2.89],["of",3.05],["people",3.18],["your",4.16],["conversion",4.36],["tracking",4.79],["is",5.15],["broken",5.28],["smart",6.39],["bidding",6.65],["learns",6.99],["from",7.29],["your",7.51],["conversion",7.73],["data",8.18],["if",9.13],["that",9.27],["data",9.49],["is",9.71],["wrong",9.85],["it",10.28],["bids",10.42],["wrong",10.64],["the",11.86],["most",12.08],["common",12.36],["example",12.73],["is",13.15],["a",13.32],["conversion",13.44],["that",14.01],["fires",14.28],["twice",14.61],["google",15.9],["thinks",16.28],["each",16.67],["click",16.95],["is",17.29],["worth",17.47],["double",17.8],["so",18.39],["it",18.57],["bids",18.75],["higher",19.04],["and",19.42],["your",19.66],["cpc",19.94],["climbs",20.17],["the",21.52],["same",21.74],["thing",22.01],["happens",22.33],["when",22.74],["a",23.01],["low",23.13],["value",23.35],["action",23.66],["like",24.22],["a",24.49],["page",24.61],["view",24.88],["is",25.34],["set",25.51],["as",25.73],["a",25.9],["primary",26.02],["conversion",26.43],["to",27.84],["check",27.98],["go",28.41],["to",28.55],["goals",28.69],["then",29.12],["conversions",29.34],["summary",29.85],["look",31.08],["at",31.31],["every",31.45],["primary",31.71],["action",32.06],["is",33.2],["the",33.34],["status",33.52],["recording",33.82],["properly",34.24],["do",35.51],["the",35.69],["numbers",35.92],["match",36.36],["what",36.69],["your",36.98],["shop",37.26],["or",37.54],["crm",37.72],["says",37.95],["actually",38.24],["happened",38.73],["if",40.15],["google",40.32],["says",40.68],["forty",40.94],["sales",41.26],["and",41.57],["shopify",41.79],["says",42.2],["twenty",42.46],["youve",43.02],["found",43.38],["your",43.69],["problem",43.96],["fix",45.36],["the",45.61],["tag",45.87],["remove",46.35],["duplicates",46.78],["and",47.66],["set",47.91],["only",48.17],["real",48.48],["business",48.8],["outcomes",49.34],["as",49.87],["primary",50.07]]/*/W*/;
         const DUR = 51.71;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
         const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s10-head .chip", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s10-head .h2", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 0.4);
+        tl.fromTo("#s10-sym", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, at("smart bidding learns"));
+        const tw = at("fires twice");
+        tl.fromTo("#s10-log", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, tw - 0.8);
+        tl.fromTo("#s10-ev1", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3 }, tw - 0.3);
+        tl.fromTo("#s10-ev1 .s10-dot", { scale: 2.2 }, { scale: 1, duration: 0.4, ease: "power2.out" }, tw - 0.3);
+        tl.fromTo("#s10-ev2", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3 }, tw + 0.3);
+        tl.fromTo("#s10-ev2 .s10-dot", { scale: 2.2 }, { scale: 1, duration: 0.4, ease: "power2.out" }, tw + 0.3);
+        tl.fromTo("#s10-ui", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, at("the same thing happens"));
+        tl.set(["#s10-cmp", "#s10-st2"], { opacity: 0 }, 0);
+        tl.fromTo("#s10-st2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("like a page view"));
+        tl.to("#s10-r2", { backgroundColor: "rgba(251,113,133,0.10)", duration: 0.3 }, at("like a page view"));
+        const ck = at("to check go to goals");
+        tl.fromTo("#s10-where", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, ck);
+        tl.fromTo("#s10-st1", { scale: 1 }, { scale: 1.15, duration: 0.3, yoyo: true, repeat: 1 }, at("is the status"));
+        const gs = at("if google says");
+        tl.fromTo("#s10-cmp", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at("do the numbers match"));
+        tl.fromTo("#s10-ga", { scale: 1 }, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 }, gs);
+        tl.fromTo("#s10-shop", { scale: 1 }, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 }, at("and shopify says"));
+        tl.fromTo("#s10-neq", { scale: 0.4, rotation: -20 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.5)" }, at("youve found"));
+        const fx = at("fix the tag");
+        tl.to(["#s10-sym", "#s10-log"], { opacity: 0, x: 60, duration: 0.4, ease: "power2.in" }, fx - 0.6);
+        tl.fromTo("#s10-fix", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, fx - 0.3);
+        tl.fromTo("#s10-f1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, fx);
+        tl.fromTo("#s10-f2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("remove duplicates"));
+        tl.fromTo("#s10-f3", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, at("set only real"));
+        tl.to("#s10-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
         window.__timelines["s10"] = tl;
         })();
       </script>
