@@ -44,10 +44,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
     rel="stylesheet">
 
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="images/novareach-logo.png">
@@ -55,581 +55,359 @@
   <link rel="shortcut icon" type="image/png" href="images/novareach-logo.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/novareach-logo.png">
   <link rel="icon" type="image/svg+xml" href="images/nova-reach-emblem.svg">
-  <meta name="theme-color" content="#10b981">
+  <meta name="theme-color" content="#070d0a">
 
+  <link rel="stylesheet" href="assets/scrollcraft/scrollcraft.css?v=20261016">
   <style>
+    /* Leak finder. The page is one working instrument: scrollcraft (assets/scrollcraft/) pins the
+       acts and publishes --sc-p; everything that computes lives in the script at the bottom.
+       Build brief: docs/scrollcraft/builds/leak-finder/BRIEF.md */
     :root {
-      --ink: #0b0f0d;
-      --ink-2: #4b524f;
-      --muted: #6b716e;
-      --line: rgba(11, 15, 13, 0.09);
-      --line-2: rgba(11, 15, 13, 0.05);
-      --bg: #ffffff;
-      --bg-2: #f7f8f7;
-      --panel: #f3f6f4;
-      --night: #050b08;
-      --night-2: #0b1611;
-      --brand: #10b981;
-      --brand-d: #0e9f6e;
-      --brand-l: #34d399;
-      --radius: 12px;
-      --radius-lg: 18px;
-      --maxw: 1160px;
-      --disp: 'Space Grotesk', sans-serif;
-      --body: 'Inter', system-ui, sans-serif;
-      /* Elevation: layered shadows are what make a surface feel like it sits in space */
-      --sh-1: 0 1px 2px rgba(11,15,13,.05), 0 2px 8px -2px rgba(11,15,13,.06);
-      --sh-2: 0 1px 2px rgba(11,15,13,.04), 0 10px 24px -8px rgba(11,15,13,.12), 0 28px 56px -20px rgba(11,15,13,.14);
-      --sh-3: 0 2px 4px rgba(11,15,13,.05), 0 24px 48px -12px rgba(11,15,13,.22), 0 60px 100px -30px rgba(11,15,13,.25);
-      --sh-glow: 0 0 0 1px rgba(52,211,153,.25), 0 20px 60px -15px rgba(16,185,129,.45);
+      --sc-canvas: #070d0a;  --sc-surface: #0d1712;
+      --sc-ink: #edf3ef;     --sc-ink-soft: #9db2a8;
+      --sc-accent: #34d399;  --sc-accent-ink: #04140d;
+      --sc-font-display: "Geist", system-ui, sans-serif;
+      --sc-font-text: "Geist", system-ui, sans-serif;
+      --sc-font-mono: "Geist Mono", ui-monospace, monospace;
+      --sc-shadow-color: 150 45% 2%;
+      --raised: #111e18;
+      --line: color-mix(in oklab, var(--sc-ink) 11%, transparent);
+      --line-2: color-mix(in oklab, var(--sc-ink) 20%, transparent);
+      --leak: #fb7185;
+      --leak-bg: color-mix(in oklab, #fb7185 12%, transparent);
+      --bar: 56px;
+      --maxw: 76rem;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--body); color: var(--ink); background: var(--bg); line-height: 1.6;
-      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-    }
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-    h1, h2, h3 { font-family: var(--disp); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: var(--ink); }
-    a { color: inherit; text-decoration: none; }
-    .brand { color: var(--brand); }
-    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand-d); font-weight: 600; }
-    .eyebrow::before { content: ""; width: 18px; height: 1.5px; background: currentColor; }
+    a { text-decoration: none; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--sc-gutter); }
+    .mono { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: .02em; }
+    .soft { color: var(--sc-ink-soft); }
+    h1, h2, h3, h4 { font-family: var(--sc-font-display); font-weight: 600; letter-spacing: var(--sc-track-snug); line-height: var(--sc-leading-tight); margin: 0; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    h2 { font-size: var(--sc-t-2xl); letter-spacing: var(--sc-track-tight); }
+    .lede { color: var(--sc-ink-soft); font-size: var(--sc-t-lg); line-height: 1.5; max-width: 52ch; }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; border-radius: 11px;
-      padding: 13px 22px; cursor: pointer; border: 1px solid transparent; font-family: var(--body);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px;
+      border-radius: var(--sc-r-md); font-weight: 600; font-size: var(--sc-t-sm); cursor: pointer; border: 1px solid transparent;
+      transition: transform var(--sc-d-fast) var(--sc-ease-out), background var(--sc-d-fast), border-color var(--sc-d-fast);
     }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(180deg, #22c58f, var(--brand-d)); color: #fff;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.2), 0 8px 20px -6px rgba(16,185,129,.6);
-    }
-    .btn-primary:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.2), 0 14px 30px -8px rgba(16,185,129,.75); }
-    .btn-dark { background: var(--ink); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.12), var(--sh-1); }
-    .btn-ghost { border-color: var(--line); color: var(--ink); background: #fff; box-shadow: var(--sh-1); }
-    .btn-ghost:hover { border-color: rgba(11,15,13,.25); }
-    .btn-glass { color: #fff; background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16); backdrop-filter: blur(8px); }
-    .btn-glass:hover { background: rgba(255,255,255,.12); }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--sc-accent); color: var(--sc-accent-ink); box-shadow: var(--sc-edge), var(--sc-e2); }
+    .btn-primary:hover { background: #4fe0a9; }
+    .btn-line { border-color: var(--line-2); color: var(--sc-ink); background: transparent; }
+    .btn-line:hover { border-color: var(--sc-ink-soft); }
 
-    /* Header — glass bar that floats over the dark hero, turns light once you scroll */
-    header {
-      position: sticky; top: 0; z-index: 50; background: rgba(5,11,8,.55);
-      backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,.07); transition: background .25s, border-color .25s;
+    /* ---------- App chrome: the tab strip is the navigation ---------- */
+    .chrome {
+      position: fixed; inset: 0 0 auto; z-index: var(--sc-z-chrome); height: var(--bar);
+      background: color-mix(in oklab, var(--sc-canvas) 86%, transparent);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
     }
-    header.scrolled { background: rgba(255,255,255,.85); border-bottom-color: var(--line-2); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo-mark { height: 34px; width: 34px; display: block; }
-    .logo-wm { font-family: var(--disp); font-size: 18px; font-weight: 700; letter-spacing: 0.02em; color: #fff; transition: color .25s; }
-    header.scrolled .logo-wm { color: var(--ink); }
-    .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: rgba(255,255,255,.72); }
-    .nav-links a:not(.btn):hover { color: #fff; }
-    header.scrolled .nav-links { color: var(--ink-2); }
-    header.scrolled .nav-links a:not(.btn):hover { color: var(--ink); }
-    .nav-links .btn { padding: 9px 16px; background: #fff; color: var(--ink); }
-    header.scrolled .nav-links .btn { background: var(--ink); color: #fff; }
-    .menu-btn { display: none; background: none; border: 1px solid rgba(255,255,255,.2); color: #fff; border-radius: 9px; padding: 8px; cursor: pointer; }
-    header.scrolled .menu-btn { color: var(--ink); border-color: var(--line); }
-    .mobile-menu { display: none; border-top: 1px solid var(--line-2); background: #fff; }
-    .mobile-menu a { display: block; padding: 13px 24px; color: var(--ink-2); border-bottom: 1px solid var(--line-2); }
+    .chrome .wrap { height: 100%; display: flex; align-items: center; gap: var(--sc-5); }
+    .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .01em; flex-shrink: 0; }
+    .mark img { width: 28px; height: 28px; }
+    .mark b { color: var(--sc-accent); font-weight: 700; }
+    .tabs { display: flex; gap: 2px; margin-right: auto; overflow-x: auto; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs a { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); padding: 8px 12px; border-radius: var(--sc-r-sm); white-space: nowrap; }
+    .tabs a:hover { color: var(--sc-ink); }
+    .tabs a[aria-current="true"] { color: var(--sc-ink); background: color-mix(in oklab, var(--sc-ink) 7%, transparent); }
+    .chrome .btn { min-height: 38px; flex-shrink: 0; }
+    [data-sc-progress] { top: var(--bar); }
 
-    /* ---------- HERO (dark, with a 3D stage) ---------- */
-    .hero {
-      position: relative; overflow: hidden; margin-top: -71px; padding: 150px 0 110px; color: #fff;
-      background:
-        radial-gradient(55% 60% at 80% 30%, rgba(16,185,129,.22), transparent 70%),
-        radial-gradient(40% 50% at 10% 0%, rgba(56,189,248,.12), transparent 70%),
-        linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+    /* ---------- Act 1: the funnel instrument ---------- */
+    #funnel .sc-stage, #plan .sc-stage { padding-top: var(--bar); }
+    .f-grid {
+      height: 100%; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--sc-7);
+      align-items: center; max-width: var(--maxw); margin: 0 auto; padding: var(--sc-5) var(--sc-gutter);
     }
-    /* Perspective grid floor */
-    .hero-floor {
-      position: absolute; left: -50%; right: -50%; bottom: -10%; height: 70%; pointer-events: none; z-index: 0;
-      background-image:
-        linear-gradient(rgba(52,211,153,.16) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(52,211,153,.16) 1px, transparent 1px);
-      background-size: 64px 64px;
-      transform: perspective(600px) rotateX(62deg); transform-origin: center top;
-      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 60%, transparent 100%);
-      mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 60%, transparent 100%);
-      animation: floorMove 6s linear infinite;
-    }
-    @keyframes floorMove { to { background-position: 0 64px, 0 0; } }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
-    .tag {
-      display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; letter-spacing: .02em; color: rgba(255,255,255,.75);
-      border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); padding: 7px 14px; border-radius: 30px; margin-bottom: 26px;
-    }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-l); display: inline-block; box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse 2.2s infinite; }
-    @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); } 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
-    .hero h1 { color: #fff; font-size: clamp(38px, 5.4vw, 64px); margin-bottom: 24px; }
-    .grad { background: linear-gradient(100deg, #6ee7b7 0%, #34d399 40%, #5eead4 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero-sub { font-size: 18px; line-height: 1.6; color: rgba(255,255,255,.68); max-width: 500px; margin-bottom: 34px; }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-stats { display: flex; gap: 30px; margin-top: 46px; flex-wrap: wrap; }
-    .hero-stats > div:not(.vr) { font-size: 13px; color: rgba(255,255,255,.55); }
-    .hero-stats .n { font-family: var(--disp); font-size: 24px; font-weight: 600; color: #fff; line-height: 1.15; }
-    .vr { width: 1px; background: rgba(255,255,255,.12); align-self: stretch; }
+    .f-copy h1 { font-size: clamp(2.6rem, 1.5rem + 3.2vw, 4.4rem); letter-spacing: var(--sc-track-tight); line-height: 1; margin: var(--sc-4) 0 var(--sc-5); }
+    .f-copy h1 span { color: var(--sc-accent); }
+    .f-copy .lede { margin-bottom: var(--sc-5); }
+    .f-cta { display: flex; gap: var(--sc-3); flex-wrap: wrap; }
+    .log { list-style: none; margin: var(--sc-6) 0 0; padding: var(--sc-4) 0 0; border-top: 1px solid var(--line); display: grid; gap: 6px; min-height: 9.5em; }
+    .log li { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); display: grid; grid-template-columns: 4.2em 1fr; gap: var(--sc-2);
+      opacity: 0; transform: translateY(4px); transition: opacity var(--sc-d-slow) var(--sc-ease-out), transform var(--sc-d-slow) var(--sc-ease-out); }
+    .log li.on { opacity: 1; transform: none; }
+    .log li.old { display: none; }
+    .log li time { color: color-mix(in oklab, var(--sc-ink-soft) 70%, transparent); }
+    .log li.bad { color: var(--leak); }
+    .log li.good { color: var(--sc-accent); }
 
-    /* 3D stage: --rx / --ry are driven by the mouse in the script at the bottom */
-    .stage { perspective: 1400px; position: relative; height: 470px; }
-    .stack {
-      position: absolute; inset: 0; transform-style: preserve-3d;
-      transform: rotateX(calc(10deg + var(--rx, 0deg))) rotateY(calc(-16deg + var(--ry, 0deg)));
-      transition: transform .5s cubic-bezier(.2,.7,.2,1);
-    }
-    .layer { position: absolute; border-radius: 16px; transform-style: preserve-3d; }
-    .glass {
-      background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
-      border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 40px 80px -20px rgba(0,0,0,.6);
-    }
-    .dash { top: 0; left: 80px; right: -20px; padding: 20px 22px 22px; transform: translateZ(0); }
-    .dash-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .lights { display: flex; gap: 6px; }
-    .lights i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.2); display: block; }
-    .dash-title { font-size: 12px; color: rgba(255,255,255,.6); letter-spacing: .04em; }
-    .sample { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.15); padding: 2px 8px; border-radius: 20px; }
-    .funnel { display: grid; gap: 10px; }
-    .f-row { display: grid; grid-template-columns: 98px 1fr 46px; align-items: center; gap: 12px; font-size: 12px; color: rgba(255,255,255,.7); }
-    .f-bar { height: 22px; border-radius: 6px; background: rgba(255,255,255,.06); overflow: hidden; position: relative; }
-    .f-bar span { position: absolute; inset: 0 auto 0 0; border-radius: 6px; background: linear-gradient(90deg, #10b981, #5eead4); width: var(--w); transform-origin: left; animation: grow 1.4s cubic-bezier(.2,.7,.2,1) both; }
-    .f-row.leak .f-bar span { background: linear-gradient(90deg, #f59e0b, #f43f5e); }
-    .f-row.leak { color: #fda4af; }
-    .f-val { text-align: right; font-family: var(--disp); font-weight: 600; color: #fff; }
-    @keyframes grow { from { transform: scaleX(0); } }
-    .dash-foot { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08); display: flex; gap: 10px; flex-wrap: wrap; }
-    .pill { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,.06); color: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.1); }
-    .pill.bad { color: #fda4af; border-color: rgba(244,63,94,.35); background: rgba(244,63,94,.08); }
-    .pill.ok { color: #6ee7b7; border-color: rgba(52,211,153,.35); background: rgba(16,185,129,.1); }
+    .inst { background: var(--sc-surface); border: 1px solid var(--line); border-radius: var(--sc-r-lg); box-shadow: var(--sc-edge), var(--sc-e3); overflow: hidden; }
+    .inst-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sc-3); padding: 14px 18px; border-bottom: 1px solid var(--line); }
+    .inst-top .t { font-size: var(--sc-t-sm); font-weight: 600; }
+    .chip { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--sc-ink-soft); border: 1px solid var(--line-2); border-radius: var(--sc-r-pill); padding: 2px 9px; }
+    .rows { position: relative; padding: 14px 18px 6px; }
+    .spill { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .row { position: relative; display: grid; grid-template-columns: 8.2em 1fr 5.2em 4.6em; align-items: center; gap: var(--sc-3); padding: 7px 0; font-size: var(--sc-t-sm); }
+    .row .lbl { color: var(--sc-ink-soft); }
+    .row .track { height: 22px; border-radius: 5px; background: color-mix(in oklab, var(--sc-ink) 5%, transparent); position: relative; }
+    .row .fill { position: absolute; inset: 0 auto 0 0; border-radius: 5px; background: var(--sc-accent); width: calc(var(--w, 0) * 100%); transform-origin: left; transform: scaleX(var(--g, 0)); }
+    .row .n { font-family: var(--sc-font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+    .row .lost { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); font-variant-numeric: tabular-nums; text-align: right; color: var(--sc-ink-soft); opacity: var(--g, 0); }
+    .row.leak .lbl, .row.leak .lost { color: var(--leak); }
+    .row.leak .track { background: var(--leak-bg); }
+    .row.leak .fill { background: var(--leak); }
+    .row.patched .track { box-shadow: inset 0 0 0 1.5px var(--sc-accent); }
+    .row.patched .lbl { color: var(--sc-accent); }
+    .head-row { display: grid; grid-template-columns: 8.2em 1fr 5.2em 4.6em; gap: var(--sc-3); padding: 0 0 6px; }
+    .head-row span { font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: .06em; }
+    .head-row span:nth-child(n+3) { text-align: right; }
 
-    .flows { top: -50px; right: -60px; width: 180px; padding: 14px 16px; transform: translateZ(90px); }
-    .flows .t { font-size: 11px; color: rgba(255,255,255,.55); margin-bottom: 8px; letter-spacing: .04em; }
-    .flows li { list-style: none; display: flex; justify-content: space-between; font-size: 12.5px; color: rgba(255,255,255,.85); padding: 3px 0; }
-    .flows li b { font-weight: 600; }
-    .flows .y { color: #6ee7b7; } .flows .n { color: #fda4af; }
-
-    /* Latest-writing card. Its contents are generated by scripts/build.py between the LATEST markers. */
-    .side-card {
-      bottom: -30px; left: -30px; width: 270px; padding: 18px; transform: translateZ(140px);
-      background: #fff; color: var(--ink); box-shadow: 0 50px 90px -25px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.2);
+    .readout { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .readout > div { padding: 12px 18px; }
+    .readout > div + div { border-left: 1px solid var(--line); }
+    .readout .k { font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: .06em; }
+    .readout .v { font-size: var(--sc-t-lg); font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 2px; }
+    .readout .gain .v { color: var(--sc-accent); }
+    .controls { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--sc-4); padding: 14px 18px 16px; border-top: 1px solid var(--line); background: color-mix(in oklab, var(--sc-canvas) 40%, transparent); transition: background var(--sc-d-slow); }
+    .controls.live { background: color-mix(in oklab, var(--sc-accent) 7%, transparent); }
+    .controls label { display: block; font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .controls input[type=number] {
+      width: 100%; min-height: 40px; padding: 0 10px; border-radius: var(--sc-r-sm); border: 1px solid var(--line-2);
+      background: var(--sc-canvas); color: var(--sc-ink); font-family: var(--sc-font-mono); font-variant-numeric: tabular-nums;
     }
-    .side-card .lbl { font-size: 10.5px; letter-spacing: .08em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
-    .side-card .meta { font-size: 11.5px; color: var(--brand-d); font-weight: 600; margin-bottom: 6px; }
-    .side-card h3 { font-size: 15.5px; font-weight: 600; line-height: 1.28; margin-bottom: 8px; letter-spacing: -.01em; }
-    .side-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .side-card .foot { border-top: 1px solid var(--line-2); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); gap: 10px; }
-    .side-card .foot span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .side-card .foot a { color: var(--ink); font-weight: 600; white-space: nowrap; }
+    .controls input:focus { border-color: var(--sc-accent); outline: none; }
+    .controls input[type=range] { width: 100%; height: 40px; }
+    .controls output { font-family: var(--sc-font-mono); color: var(--sc-ink); }
+    .inst-note { padding: 0 18px 14px; font-size: var(--sc-t-xs); color: var(--sc-ink-soft); background: inherit; }
+    .controls + .inst-note { background: color-mix(in oklab, var(--sc-canvas) 40%, transparent); }
 
-    .avail { display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border-radius: 30px; font-size: 12.5px; }
-    .hero .avail { margin-top: 56px; color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
+    /* Latest note: a notification in the instrument's idiom. Contents come from scripts/build.py (LATEST markers). */
+    .toast { margin-top: var(--sc-5); max-width: 30rem; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--sc-r-md); background: var(--raised); box-shadow: var(--sc-e1); display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; }
+    .toast .lbl { display: none; }
+    .toast .meta { grid-column: 1 / -1; font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-accent); }
+    .toast h3 { font-size: var(--sc-t-sm); font-weight: 600; line-height: 1.35; letter-spacing: 0; }
+    .toast p, .toast .foot span { display: none; }
+    .toast .foot { grid-row: 2; grid-column: 2; }
+    .toast .foot a { font-size: var(--sc-t-sm); font-weight: 600; color: var(--sc-accent); white-space: nowrap; }
 
-    /* Stack band — continues the dark hero; two marquee rows of tool tiles (icons in images/stack/) */
-    .stack-band {
-      position: relative; overflow: hidden; color: #fff; padding: 70px 0 80px;
-      background: radial-gradient(50% 80% at 50% 0%, rgba(16,185,129,.12), transparent 70%), var(--night-2);
-      border-top: 1px solid rgba(255,255,255,.06);
-    }
-    .stack-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
-    .stack-head .eyebrow { color: var(--brand-l); }
-    .stack-head h2 { color: #fff; font-size: clamp(26px, 3vw, 36px); margin-top: 12px; max-width: 560px; }
-    .stack-head p { color: rgba(255,255,255,.6); font-size: 15px; max-width: 360px; }
-    .marquee {
-      overflow: hidden; padding: 10px 0;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-    }
-    .marquee + .marquee { margin-top: 6px; }
-    .track { display: flex; width: max-content; animation: marquee 48s linear infinite; }
-    .marquee.rev .track { animation-direction: reverse; animation-duration: 56s; }
-    .marquee:hover .track { animation-play-state: paused; }
-    @keyframes marquee { to { transform: translateX(-33.3333%); } }
-    .tool {
-      display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 14px; border-radius: 18px; flex-shrink: 0; margin-right: 16px;
-      background: linear-gradient(160deg, rgba(255,255,255,.09), rgba(255,255,255,.025));
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 34px -18px rgba(0,0,0,.8);
-      transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s;
-    }
-    .tool:hover { transform: translateY(-4px); border-color: rgba(52,211,153,.4); background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.04)); }
-    .tool img { width: 46px; height: 46px; display: block; filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
-    .tool b { display: block; font-family: var(--disp); font-size: 16px; font-weight: 600; letter-spacing: -.01em; color: #fff; line-height: 1.2; }
-    .tool span { display: block; font-size: 12.5px; color: rgba(255,255,255,.55); margin-top: 2px; white-space: nowrap; }
+    /* ---------- Sections in flow ---------- */
+    .sec { padding: var(--sc-section) 0; border-top: 1px solid var(--line); }
+    .sec-head { max-width: 46rem; margin-bottom: var(--sc-7); }
+    .sec-head h2 { margin-bottom: var(--sc-4); }
+    .path { display: block; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-accent); margin-bottom: var(--sc-4); }
 
-    /* Sections */
-    section { padding: 110px 0; position: relative; }
-    .sec-head { max-width: 640px; margin-bottom: 54px; }
-    .sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-    .sec-head h2 { font-size: clamp(30px, 3.8vw, 46px); margin: 14px 0 16px; }
-    .sec-head p { color: var(--ink-2); font-size: 17px; }
-
-    /* Services — "Where's your store leaking?" picker. Left: tactile leak buttons. Right: dark audit-report panel in 3D. */
-    #services { background-image: radial-gradient(rgba(11,15,13,.06) 1px, transparent 1px); background-size: 18px 18px; }
-    .leak-ui { display: grid; grid-template-columns: .85fr 1.15fr; gap: 40px; align-items: center; }
-    .leaks { display: grid; gap: 14px; }
+    /* Leaks: pick one, see week one */
+    .leak-ui { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--sc-6); align-items: start; }
+    .leaks { display: grid; gap: 0; border-top: 1px solid var(--line); }
     .leaks .leak {
-      position: relative; display: grid; grid-template-columns: 46px 1fr 20px; gap: 16px; align-items: center; text-align: left; width: 100%;
-      padding: 20px 22px; border-radius: 18px; background: #fff; border: 1px solid var(--line); cursor: pointer; font-family: var(--body); color: var(--ink);
-      box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 6px 0 -1px #e3e8e5, var(--sh-2);
-      transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background .3s, color .3s;
+      display: grid; grid-template-columns: 2.4em 1fr auto; gap: var(--sc-4); align-items: center; text-align: left; width: 100%;
+      padding: 18px 4px; background: none; border: 0; border-bottom: 1px solid var(--line); cursor: pointer; color: var(--sc-ink);
+      transition: background var(--sc-d-base), padding var(--sc-d-base) var(--sc-ease-out);
     }
-    .leaks .leak:hover { transform: translateY(-3px); }
-    .leaks .leak:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 2px 0 -1px #e3e8e5, var(--sh-1); }
-    .leaks .leak .ln {
-      width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 16px;
-      color: var(--brand-d); background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); transition: all .3s;
-    }
-    .leaks .leak b { display: block; font-family: var(--disp); font-size: 18px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
-    .leaks .leak small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; transition: color .3s; }
-    .leaks .leak .arr { font-size: 18px; color: var(--muted); transition: transform .3s, color .3s; }
-    .leaks .leak[aria-selected="true"] {
-      transform: translateX(14px); color: #fff; border-color: transparent;
-      background: radial-gradient(80% 120% at 0% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2);
-      box-shadow: 0 0 0 1px rgba(52,211,153,.35), 0 6px 0 -1px #06231a, 0 24px 50px -16px rgba(16,185,129,.55);
-    }
-    .leaks .leak[aria-selected="true"] .ln { color: #fff; background: linear-gradient(135deg, #34D399, #059669); border-color: transparent; box-shadow: 0 8px 18px -6px rgba(16,185,129,.8); }
-    .leaks .leak[aria-selected="true"] small { color: rgba(255,255,255,.65); }
-    .leaks .leak[aria-selected="true"] .arr { color: var(--brand-l); transform: translateX(4px); }
+    .leaks .leak:hover { background: color-mix(in oklab, var(--sc-ink) 3%, transparent); }
+    .leaks .leak .ln { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+    .leaks .leak b { display: block; font-size: var(--sc-t-lg); font-weight: 600; line-height: 1.25; }
+    .leaks .leak small { display: block; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); margin-top: 2px; }
+    .leaks .leak .arr { color: var(--sc-ink-soft); transition: transform var(--sc-d-base) var(--sc-ease-out), color var(--sc-d-base); }
+    .leaks .leak[aria-selected="true"] { padding-left: 14px; background: color-mix(in oklab, var(--sc-accent) 6%, transparent); box-shadow: inset 3px 0 0 var(--sc-accent); }
+    .leaks .leak[aria-selected="true"] .ln, .leaks .leak[aria-selected="true"] .arr { color: var(--sc-accent); }
+    .leaks .leak[aria-selected="true"] .arr { transform: translateX(4px); }
 
-    .report-stage { perspective: 1600px; }
-    .report {
-      position: relative; border-radius: 22px; padding: 30px; color: #fff; transform: rotateY(-7deg) rotateX(3deg); transform-origin: left center;
-      background: radial-gradient(70% 60% at 100% 0%, rgba(16,185,129,.28), transparent 60%), linear-gradient(180deg, #0d1a14, var(--night));
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), -30px 50px 90px -30px rgba(5,11,8,.55), 0 30px 60px -30px rgba(16,185,129,.35);
-      transition: transform .6s cubic-bezier(.2,.7,.2,1);
-    }
-    .report-stage:hover .report { transform: rotateY(-2deg) rotateX(1deg); }
-    .rep-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
-    .rep-top .lights { display: flex; gap: 6px; } .rep-top .lights i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.18); display: block; }
-    .rep-title { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.55); }
-    .rep-title b { color: var(--brand-l); font-weight: 700; }
-    .rep-pill { white-space: nowrap; font-size: 11px; font-weight: 600; color: #062e22; background: var(--brand-l); padding: 4px 10px; border-radius: 20px; }
+    .report { background: var(--sc-surface); border: 1px solid var(--line); border-radius: var(--sc-r-lg); box-shadow: var(--sc-edge), var(--sc-e2); padding: var(--sc-6); }
+    .rep-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: var(--sc-5); }
+    .rep-title { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+    .rep-title b { color: var(--sc-accent); font-weight: 500; }
     .rep-panel { display: none; }
-    .rep-panel.on { display: block; }
-    .rep-panel h4 { font-family: var(--disp); font-size: 24px; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 18px; }
-    .rep-body { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; align-items: start; }
-    .checks { list-style: none; display: grid; gap: 10px; }
-    .checks li {
-      display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 14px; line-height: 1.45; color: rgba(255,255,255,.85);
-      opacity: 0; transform: translateY(8px); animation: checkIn .5s cubic-bezier(.2,.7,.2,1) forwards;
-    }
-    .checks li:nth-child(2) { animation-delay: .12s; } .checks li:nth-child(3) { animation-delay: .24s; } .checks li:nth-child(4) { animation-delay: .36s; }
-    .checks li::before {
-      content: "✓"; width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
-      color: #062e22; background: var(--brand-l); box-shadow: 0 0 14px rgba(52,211,153,.5);
-    }
-    @keyframes checkIn { to { opacity: 1; transform: none; } }
-    .rep-vis { border-radius: 14px; padding: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
-    .rep-vis .k { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px; }
-    .rep-vis svg { width: 100%; height: auto; display: block; }
-    .rep-vis .leg { display: flex; gap: 12px; font-size: 11px; color: rgba(255,255,255,.6); margin-top: 8px; }
-    .rep-vis .leg i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
-    .mini-f { display: grid; gap: 7px; }
-    .mini-f div { display: grid; grid-template-columns: 70px 1fr; gap: 8px; align-items: center; font-size: 11px; color: rgba(255,255,255,.65); }
-    .mini-f span { height: 14px; border-radius: 4px; background: linear-gradient(90deg, #10b981, #5eead4); width: var(--w); animation: grow 1s cubic-bezier(.2,.7,.2,1) both; }
-    .mini-f .bad { color: #fda4af; } .mini-f .bad span { background: linear-gradient(90deg, #f59e0b, #f43f5e); box-shadow: 0 0 14px rgba(244,63,94,.5); }
-    .mini-flows { list-style: none; display: grid; gap: 7px; }
-    .mini-flows li { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.8); padding: 6px 9px; border-radius: 8px; background: rgba(255,255,255,.04); }
-    .mini-flows .y { color: #6ee7b7; font-weight: 600; } .mini-flows .n { color: #fda4af; font-weight: 600; }
-    .rep-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 20px; }
-    .rep-foot > div { border-radius: 12px; padding: 12px 14px; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,.85); background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
-    .rep-foot .warn { border-color: rgba(244,63,94,.3); background: rgba(244,63,94,.07); }
-    .rep-foot em { display: block; font-style: normal; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 4px; }
-    .rep-foot .warn em { color: #fda4af; }
-    .rep-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-    .rep-cta .chips span { color: rgba(255,255,255,.75); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04); margin-bottom: 0; }
-    .chips span { display: inline-block; font-size: 12px; color: var(--ink-2); border: 1px solid var(--line); background: var(--bg-2); border-radius: 20px; padding: 4px 11px; margin: 0 6px 6px 0; }
+    .rep-panel.on { display: block; animation: panelIn var(--sc-d-slow) var(--sc-ease-out); }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(6px); } }
+    .rep-panel h3 { font-size: var(--sc-t-xl); margin-bottom: var(--sc-5); }
+    .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sc-3); }
+    .checks li { display: grid; grid-template-columns: 1.5em 1fr; gap: var(--sc-2); font-size: var(--sc-t-base); line-height: 1.5; color: var(--sc-ink-soft); }
+    .checks li::before { content: "✓"; color: var(--sc-accent); font-weight: 700; }
+    .checks strong { color: var(--sc-ink); font-weight: 600; }
+    .rep-foot { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-3); margin: var(--sc-5) 0; }
+    .rep-foot > div { border-radius: var(--sc-r-md); padding: 12px 14px; font-size: var(--sc-t-sm); line-height: 1.5; border: 1px solid var(--line); }
+    .rep-foot .warn { border-color: color-mix(in oklab, var(--leak) 40%, transparent); background: var(--leak-bg); }
+    .rep-foot em { display: block; font-style: normal; font-family: var(--sc-font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--sc-ink-soft); margin-bottom: 4px; }
+    .rep-foot .warn em { color: var(--leak); }
+    .rep-cta { display: flex; align-items: center; justify-content: space-between; gap: var(--sc-3); flex-wrap: wrap; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips span { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); border: 1px solid var(--line); border-radius: var(--sc-r-pill); padding: 3px 10px; }
 
-    /* Approach — "Your first 90 days": sticky intro left, scroll-lit timeline right (--p set by JS) */
-    .approach { background: var(--panel); }
-    .ap-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
-    .ap-intro { position: sticky; top: 110px; }
-    .ap-intro h2 { font-size: clamp(30px, 3.8vw, 46px); margin: 14px 0 16px; }
-    .ap-intro > p { color: var(--ink-2); font-size: 17px; margin-bottom: 28px; }
-    .never { border-radius: 18px; padding: 22px 24px; background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-2); }
-    .never-k { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: #e11d48; margin-bottom: 12px; }
-    .never ul { list-style: none; display: grid; gap: 10px; }
-    .never li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
-    .never li::before { content: "✕"; width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #e11d48; background: #ffe4e6; }
-    .never li strong { color: var(--ink); font-weight: 600; }
+    /* Plan: the 90-day log fills as you scroll (pinned) */
+    .p-grid { height: 100%; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--sc-7); align-items: center; max-width: var(--maxw); margin: 0 auto; padding: var(--sc-5) var(--sc-gutter); }
+    .p-grid .lede { margin-top: var(--sc-4); }
+    .entries { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: var(--sc-3); }
+    .entries::before { content: ""; position: absolute; left: 7px; top: 12px; bottom: 12px; width: 2px; background: var(--line); }
+    .entries::after { content: ""; position: absolute; left: 7px; top: 12px; width: 2px; height: calc((100% - 24px) * var(--fillp, 0)); background: var(--sc-accent); }
+    .entry { position: relative; padding-left: 34px; display: grid; grid-template-columns: 1fr auto; gap: 4px var(--sc-4); align-items: start;
+      opacity: .35; transition: opacity var(--sc-d-slow) var(--sc-ease-out); }
+    .entry::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--sc-canvas); border: 2px solid var(--line-2); transition: background var(--sc-d-slow), border-color var(--sc-d-slow); z-index: 1; }
+    .entry.on { opacity: 1; }
+    .entry.on::before { background: var(--sc-accent); border-color: var(--sc-accent); }
+    .entry time { grid-column: 1 / -1; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-accent); }
+    .entry h3 { font-size: var(--sc-t-lg); }
+    .entry p { grid-column: 1; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); line-height: 1.55; }
+    .entry .deliv { grid-column: 2; grid-row: 2 / span 2; align-self: center; font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); border: 1px dashed var(--line-2); border-radius: var(--sc-r-sm); padding: 6px 10px; text-align: right; max-width: 12rem; }
+    .entry .deliv b { display: block; color: var(--sc-ink); font-weight: 500; }
 
-    .tl90 { position: relative; display: grid; gap: 22px; padding-left: 64px; --p: 0; }
-    .tl90::before, .tl90::after { content: ""; position: absolute; left: 23px; top: 24px; bottom: 24px; width: 3px; border-radius: 3px; }
-    .tl90::before { background: rgba(11,15,13,.08); }
-    .tl90::after { bottom: auto; height: calc((100% - 48px) * var(--p)); background: linear-gradient(180deg, #34d399, #10b981); box-shadow: 0 0 16px rgba(16,185,129,.6); }
-    .t-step {
-      position: relative; border-radius: 20px; padding: 24px 26px; background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-2);
-      display: grid; grid-template-columns: 1fr 200px; gap: 22px; align-items: center; transition: box-shadow .4s, border-color .4s, transform .4s;
-    }
-    .t-step.lit { border-color: rgba(16,185,129,.35); box-shadow: 0 0 0 4px rgba(16,185,129,.08), var(--sh-3); }
-    .t-node {
-      position: absolute; left: -64px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 15px; z-index: 1;
-      display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 17px;
-      color: var(--muted); background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-1); transition: all .4s;
-    }
-    .t-step.lit .t-node { color: #fff; border-color: transparent; background: linear-gradient(135deg, #34D399, #059669); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 0 0 6px rgba(16,185,129,.15), 0 12px 24px -8px rgba(16,185,129,.8); }
-    .t-when { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-d); background: rgba(16,185,129,.1); padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; }
-    .t-step h3 { font-size: 21px; margin-bottom: 6px; }
-    .t-step p { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
-    /* Deliverable: a small "document" card that tilts up when the step is lit */
-    .deliv-wrap { perspective: 800px; }
-    .deliv {
-      position: relative; border-radius: 14px; padding: 14px; color: #fff; transform: rotateY(-14deg) rotateX(6deg) translateY(6px); opacity: .7;
-      background: radial-gradient(80% 80% at 100% 0%, rgba(16,185,129,.35), transparent 60%), var(--night-2);
-      box-shadow: 0 24px 40px -18px rgba(5,11,8,.7); transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s;
-    }
-    .t-step.lit .deliv { transform: rotateY(-6deg) rotateX(2deg); opacity: 1; }
-    .deliv-k { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 8px; }
-    .deliv b { display: block; font-family: var(--disp); font-size: 15px; font-weight: 600; line-height: 1.2; }
-    .deliv small { display: block; font-size: 11.5px; color: var(--brand-l); margin-top: 3px; }
-    .deliv .dl { height: 5px; border-radius: 3px; background: rgba(255,255,255,.12); margin-top: 8px; }
-    .deliv .dl.s { width: 60%; margin-top: 5px; }
+    /* Notes: generated by scripts/build.py between the WRITING markers */
+    .notes-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--sc-6); align-items: start; }
+    .writing-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--sc-4); }
+    .feat-post { display: flex; flex-direction: column; background: var(--sc-surface); border: 1px solid var(--line); border-radius: var(--sc-r-lg); overflow: hidden; box-shadow: var(--sc-edge), var(--sc-e1); transition: border-color var(--sc-d-base); }
+    .feat-post:hover, .post-row:hover { border-color: var(--line-2); }
+    .feat-thumb { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+    .feat-post .meta, .feat-post h3, .feat-post p, .feat-post .more { margin-left: 18px; margin-right: 18px; }
+    .feat-post .meta, .post-row .meta { font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-accent); margin-top: 16px; margin-bottom: 8px; }
+    .feat-post h3 { font-size: var(--sc-t-lg); line-height: 1.25; margin-bottom: 8px; }
+    .feat-post p { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); line-height: 1.55; flex: 1; }
+    .feat-post .more, .post-row-all { font-size: var(--sc-t-sm); font-weight: 600; color: var(--sc-accent); }
+    .feat-post .more { margin-top: 12px; margin-bottom: 18px; }
+    .post-list { display: grid; gap: var(--sc-3); align-content: start; }
+    .post-row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--sc-r-md); background: var(--sc-surface); transition: border-color var(--sc-d-base); }
+    .pr-thumb { width: 64px; height: 64px; border-radius: var(--sc-r-sm); object-fit: cover; }
+    .post-row .meta { margin: 0 0 4px; }
+    .post-row h4 { font-size: var(--sc-t-sm); font-weight: 600; line-height: 1.35; letter-spacing: 0; }
+    .post-row-all { display: flex; justify-content: center; align-items: center; min-height: 44px; border: 1px dashed var(--line-2); border-radius: var(--sc-r-md); }
 
-    /* Writing. Cards are generated by scripts/build.py between the WRITING markers. */
-    .writing-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: stretch; }
-    .feat-post { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 30px; background: #fff; display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--sh-2); transition: transform .3s, box-shadow .3s; }
-    .feat-post:hover { transform: translateY(-4px); box-shadow: var(--sh-3); }
-    .feat-thumb { width: calc(100% + 60px); margin: -30px -30px 24px; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-bottom: 1px solid var(--line-2); }
-    .feat-post .meta { font-size: 12px; color: var(--brand-d); font-weight: 600; margin-bottom: 12px; }
-    .feat-post h3 { font-size: 26px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
-    .feat-post p { font-size: 15px; color: var(--ink-2); line-height: 1.6; flex: 1; margin-bottom: 18px; }
-    .feat-post .more, .more { font-weight: 600; color: var(--ink); }
-    .post-list { display: flex; flex-direction: column; gap: 14px; }
-    .post-row { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 14px 16px; background: #fff; flex: 1; display: flex; align-items: center; gap: 16px; box-shadow: var(--sh-1); transition: transform .25s, box-shadow .25s; }
-    .post-row:hover { transform: translateX(4px); box-shadow: var(--sh-2); }
-    .pr-thumb { width: 80px; height: 80px; border-radius: 11px; object-fit: cover; flex-shrink: 0; box-shadow: var(--sh-1); }
-    .post-row .meta { font-size: 11.5px; color: var(--brand-d); font-weight: 600; margin-bottom: 6px; }
-    .post-row h4 { font-family: var(--disp); font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
-    .post-row-all { justify-content: center; gap: 8px; font-weight: 600; background: var(--bg-2); border-style: dashed; box-shadow: none; }
-
-    /* ---------- Newsletter ---------- */
-    .nl-sec { padding-top: 20px; }
-    .nl {
-      position: relative; overflow: hidden; border-radius: 26px; color: #fff; padding: 64px 60px;
-      background:
-        radial-gradient(70% 90% at 100% 0%, rgba(16,185,129,.45), transparent 60%),
-        radial-gradient(50% 60% at 0% 100%, rgba(56,189,248,.18), transparent 70%),
-        var(--night-2);
-      box-shadow: var(--sh-3); display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center;
+    .nl { border: 1px solid var(--line); border-radius: var(--sc-r-lg); padding: var(--sc-6); background: var(--raised); box-shadow: var(--sc-edge), var(--sc-e2); }
+    .nl h3 { font-size: var(--sc-t-xl); margin: 0 0 var(--sc-3); }
+    .nl > p { color: var(--sc-ink-soft); font-size: var(--sc-t-sm); line-height: 1.6; margin-bottom: var(--sc-4); }
+    .nl-form { display: flex; gap: var(--sc-2); flex-wrap: wrap; }
+    .nl-form input[type=email], .audit-form input, .audit-form select {
+      flex: 1 1 200px; min-height: 46px; padding: 0 14px; border-radius: var(--sc-r-md); border: 1px solid var(--line-2);
+      background: var(--sc-canvas); color: var(--sc-ink); font-size: 16px; outline: none;
     }
-    .nl::after { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 1px solid rgba(255,255,255,.08); pointer-events: none; }
-    .nl .eyebrow { color: var(--brand-l); }
-    .nl h2 { color: #fff; font-size: clamp(30px, 3.8vw, 44px); margin: 14px 0 16px; }
-    .nl-lead { color: rgba(255,255,255,.7); font-size: 17px; margin-bottom: 22px; max-width: 470px; }
-    .nl-points { list-style: none; display: grid; gap: 8px; margin-bottom: 28px; }
-    .nl-points li { display: flex; gap: 10px; font-size: 14.5px; color: rgba(255,255,255,.82); }
-    .nl-points li::before { content: "→"; color: var(--brand-l); font-weight: 700; }
-    .nl-form { display: flex; gap: 10px; max-width: 470px; flex-wrap: wrap; }
-    .nl-form input[type=email] {
-      flex: 1 1 220px; font-family: var(--body); font-size: 15px; color: #fff; background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.16); border-radius: 11px; padding: 13px 15px; outline: none;
-    }
-    .nl-form input[type=email]::placeholder { color: rgba(255,255,255,.45); }
-    .nl-form input[type=email]:focus { border-color: var(--brand-l); box-shadow: 0 0 0 3px rgba(52,211,153,.25); }
-    .nl-fine { font-size: 12.5px; color: rgba(255,255,255,.5); margin-top: 12px; }
-    .nl-done { display: none; font-size: 15px; color: #6ee7b7; font-weight: 500; margin-top: 4px; }
+    .nl-form input::placeholder, .audit-form input::placeholder { color: color-mix(in oklab, var(--sc-ink-soft) 75%, transparent); }
+    .nl-form input:focus, .audit-form input:focus, .audit-form select:focus { border-color: var(--sc-accent); }
+    .nl-fine { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); margin-top: var(--sc-3); }
+    .nl-done { display: none; color: var(--sc-accent); font-weight: 500; }
     .nl-form.is-done { display: none; }
     .nl-form.is-done + .nl-done { display: block; }
     .hp { position: absolute; left: -9999px; }
 
-    /* Stacked "issues" in 3D */
-    .issues { perspective: 1200px; height: 340px; position: relative; }
-    .issue-stack { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(14deg) rotateY(-20deg) rotateZ(4deg); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
-    .nl:hover .issue-stack { transform: rotateX(8deg) rotateY(-12deg) rotateZ(2deg); }
-    .issue {
-      position: absolute; left: 6%; right: 12%; top: 110px; background: #fff; color: var(--ink); border-radius: 14px; padding: 20px 22px;
-      box-shadow: 0 40px 70px -25px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.15); transition: transform .6s cubic-bezier(.2,.7,.2,1);
-    }
-    .issue:nth-child(1) { transform: translate3d(64px, -84px, -120px); opacity: .55; }
-    .issue:nth-child(2) { transform: translate3d(32px, -42px, -60px); opacity: .8; }
-    .issue:nth-child(3) { transform: translate3d(0, 0, 0); }
-    .nl:hover .issue:nth-child(1) { transform: translate3d(80px, -110px, -120px); }
-    .nl:hover .issue:nth-child(2) { transform: translate3d(40px, -56px, -60px); }
-    .issue-top { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); margin-bottom: 12px; }
-    .issue-top b { color: var(--brand-d); letter-spacing: .06em; text-transform: uppercase; }
-    .issue h4 { font-family: var(--disp); font-size: 18px; line-height: 1.25; letter-spacing: -.01em; margin-bottom: 12px; }
-    .issue .ln { height: 7px; border-radius: 4px; background: #eef0ee; margin-bottom: 7px; }
-    .issue .ln.short { width: 62%; }
-    .issue .do { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--brand-d); background: rgba(16,185,129,.1); border-radius: 8px; padding: 8px 10px; }
-
-    /* Pricing */
-    .pricing { background: var(--panel); }
-    .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: center; }
-    .tier { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 32px 28px; display: flex; flex-direction: column; box-shadow: var(--sh-2); }
-    .tier.feat {
-      position: relative; padding: 44px 30px; color: #fff; border-color: transparent;
-      background: radial-gradient(90% 60% at 50% 0%, rgba(16,185,129,.35), transparent 70%), var(--night-2);
-      box-shadow: var(--sh-glow), var(--sh-3);
-    }
-    .tier.feat .pname, .tier.feat .pdesc, .tier.feat li, .tier.feat .per { color: rgba(255,255,255,.75); }
-    .tier.feat .price { color: #fff; }
-    .tier.feat li::before { color: var(--brand-l); }
-    .tier .badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(180deg, #34d399, #059669); color: #fff; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; box-shadow: 0 6px 16px -4px rgba(16,185,129,.7); letter-spacing: .03em; }
-    .tier .pname { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-    .tier .price { font-family: var(--disp); font-size: 40px; font-weight: 700; margin: 10px 0 0; letter-spacing: -.02em; line-height: 1.1; }
-    .tier .per { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
-    .tier .pdesc { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin-bottom: 20px; }
-    .tier ul { list-style: none; margin-bottom: 26px; flex: 1; }
-    .tier li { font-size: 14px; color: var(--ink-2); padding: 7px 0 7px 26px; position: relative; }
-    .tier li::before { content: "\2713"; position: absolute; left: 0; color: var(--brand-d); font-weight: 700; }
-    .tier .btn { justify-content: center; }
-    .assure { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin-top: 40px; font-size: 13.5px; color: var(--ink-2); }
-    .assure span { display: inline-flex; align-items: center; gap: 8px; }
-    .assure span::before { content: "✓"; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; background: var(--brand); }
-    .free-note { text-align: center; margin-top: 18px; font-size: 13.5px; color: var(--muted); }
-    .free-note a { color: var(--brand-d); font-weight: 600; }
+    /* Pricing: one sheet, rows not cards */
+    .sheet { border: 1px solid var(--line); border-radius: var(--sc-r-lg); overflow: hidden; background: var(--sc-surface); box-shadow: var(--sc-edge), var(--sc-e2); }
+    .tier { display: grid; grid-template-columns: 11rem 12rem 1fr auto; gap: var(--sc-5); align-items: center; padding: var(--sc-5) var(--sc-6); }
+    .tier + .tier { border-top: 1px solid var(--line); }
+    .tier.feat { background: color-mix(in oklab, var(--sc-accent) 6%, transparent); box-shadow: inset 3px 0 0 var(--sc-accent); }
+    .tier .pname { font-weight: 600; font-size: var(--sc-t-lg); }
+    .tier .pname small { display: block; font-family: var(--sc-font-mono); font-size: 11px; font-weight: 400; color: var(--sc-accent); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+    .tier .price { font-size: var(--sc-t-xl); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: var(--sc-track-snug); }
+    .tier .per { display: block; font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); }
+    .tier .pdesc { font-size: var(--sc-t-sm); color: var(--sc-ink); margin-bottom: 6px; }
+    .tier ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+    .tier li { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+    .tier li::before { content: "✓ "; color: var(--sc-accent); }
+    .terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sc-3) var(--sc-6); margin-top: var(--sc-6); list-style: none; padding: 0; }
+    .terms li { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); padding-left: 1.6em; position: relative; }
+    .terms li::before { content: "✕"; position: absolute; left: 0; color: var(--leak); font-weight: 700; }
+    .terms li.yes::before { content: "✓"; color: var(--sc-accent); }
+    .terms strong { color: var(--sc-ink); font-weight: 600; }
+    .free-note { margin-top: var(--sc-5); font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+    .free-note a { color: var(--sc-accent); font-weight: 600; }
 
     /* About */
-    .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 56px; align-items: center; }
-    .profile { border: 1px solid var(--line); border-radius: 22px; padding: 34px; text-align: center; background: #fff; box-shadow: var(--sh-3); position: relative; }
-    .avatar {
-      width: 104px; height: 104px; border-radius: 50%; color: #fff; font-family: var(--disp); font-size: 34px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; overflow: hidden;
-      background: radial-gradient(70% 70% at 30% 20%, #34d399, #065f46 70%, #022c22);
-      box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(16,185,129,.35), 0 18px 36px -12px rgba(6,95,70,.7);
-    }
+    .about-grid { display: grid; grid-template-columns: 20rem minmax(0, 1fr); gap: var(--sc-8); align-items: center; }
+    .profile { background: var(--sc-surface); border: 1px solid var(--line); border-radius: var(--sc-r-lg); padding: var(--sc-6); box-shadow: var(--sc-edge), var(--sc-e3); }
+    .avatar { width: 88px; height: 88px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; color: var(--sc-accent-ink); background: var(--sc-accent); margin-bottom: var(--sc-4); overflow: hidden; }
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .profile .pn { font-family: var(--disp); font-size: 21px; font-weight: 700; }
-    .profile .pr { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
-    .profile .loc { font-size: 13px; color: var(--ink-2); margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 22px 0; }
-    .profile-stats > div { background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 12px; }
-    .profile-stats .n { font-family: var(--disp); font-size: 24px; font-weight: 700; }
-    .profile-stats .l { font-size: 12px; color: var(--muted); }
-    .skill-tags span { display: inline-block; font-size: 11.5px; color: var(--ink-2); border: 1px solid var(--line); border-radius: 20px; padding: 4px 10px; margin: 0 5px 6px 0; }
-    .about-content h2 { font-size: clamp(30px, 3.8vw, 44px); margin: 14px 0 18px; }
-    .about-content p { color: var(--ink-2); font-size: 16.5px; line-height: 1.7; margin-bottom: 14px; }
-    .exp { margin: 26px 0 30px; }
-    .exp-item { display: grid; grid-template-columns: 24px 1fr; }
-    .exp-mark { position: relative; }
-    .exp-mark::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: -22px; width: 1.5px; background: var(--line); }
-    .exp-item:last-child .exp-mark::before { display: none; }
-    .exp-dot { position: absolute; left: 0; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--brand); border: 2px solid #fff; box-shadow: 0 0 0 3px rgba(16,185,129,.2); }
-    .exp-body { padding-bottom: 22px; }
-    .exp-role { font-family: var(--disp); font-weight: 600; font-size: 16px; color: var(--ink); }
-    .exp-role span { color: var(--brand-d); font-weight: 500; }
-    .exp-body p { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin-top: 4px; }
-    .profile-exp { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
-    .profile-exp strong { color: var(--ink-2); font-weight: 600; }
-    .exp-now { font-family: var(--body); font-size: 10.5px; font-weight: 600; color: var(--brand-d); background: rgba(16,185,129,.12); padding: 2px 9px; border-radius: 20px; vertical-align: 2px; }
-    .exp-prior { font-family: var(--body); font-size: 10.5px; font-weight: 500; color: var(--muted); background: var(--bg-2); border: 1px solid var(--line); padding: 2px 9px; border-radius: 20px; vertical-align: 2px; }
+    .profile .pn { font-size: var(--sc-t-lg); font-weight: 600; }
+    .profile dl { margin: var(--sc-4) 0 0; display: grid; grid-template-columns: auto 1fr; gap: 6px var(--sc-4); font-size: var(--sc-t-sm); }
+    .profile dt { font-family: var(--sc-font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--sc-ink-soft); padding-top: 3px; }
+    .profile dd { margin: 0; }
+    .about-content h2 { margin-bottom: var(--sc-5); }
+    .about-content > p { color: var(--sc-ink-soft); max-width: 60ch; margin-bottom: var(--sc-4); }
+    .exp { margin: var(--sc-6) 0; display: grid; gap: var(--sc-4); }
+    .exp-item { border-left: 2px solid var(--line-2); padding-left: var(--sc-4); }
+    .exp-item.now { border-left-color: var(--sc-accent); }
+    .exp-role { font-weight: 600; }
+    .exp-role span { color: var(--sc-ink-soft); font-weight: 400; }
+    .exp-item p { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); margin-top: 4px; max-width: 60ch; }
 
-    /* Contact (dark) */
-    .contact { position: relative; overflow: hidden; color: #fff; text-align: center; background: radial-gradient(60% 60% at 50% 0%, rgba(16,185,129,.22), transparent 70%), var(--night); }
-    .contact h2 { color: #fff; font-size: clamp(32px, 4.2vw, 50px); }
-    .contact .audit-lead { color: rgba(255,255,255,.65); font-size: 17px; max-width: 540px; margin: 16px auto 32px; }
-    .audit-form {
-      text-align: left; max-width: 500px; margin: 0 auto 22px; padding: 30px; border-radius: 20px;
-      background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.12);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 40px 80px -30px rgba(0,0,0,.8);
-    }
-    .audit-form .field { margin-bottom: 14px; }
-    .audit-form label { display: block; font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 6px; }
-    .audit-form input, .audit-form select {
-      width: 100%; font-family: var(--body); font-size: 15px; color: #fff; background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 12px 14px; outline: none;
-    }
-    .audit-form select option { color: var(--ink); }
-    .audit-form input::placeholder { color: rgba(255,255,255,.35); }
-    .audit-form input:focus, .audit-form select:focus { border-color: var(--brand-l); box-shadow: 0 0 0 3px rgba(52,211,153,.25); }
-    .audit-form .btn-primary { width: 100%; justify-content: center; margin-top: 8px; }
-    .audit-form .hint { font-size: 12.5px; color: rgba(255,255,255,.45); margin-top: 12px; text-align: center; }
-    .contact .hero-cta { justify-content: center; margin-top: 8px; }
-    .contact .avail { margin-top: 26px; border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.65); }
-    .audit-success { display: none; max-width: 500px; margin: 0 auto; text-align: left; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-lg); padding: 24px 26px; }
-    .audit-success h3 { color: #fff; font-size: 22px; margin-bottom: 10px; }
-    .audit-success p { color: rgba(255,255,255,.7); font-size: 15px; margin: 0 0 12px; }
-    .audit-success ol { color: rgba(255,255,255,.85); font-size: 14.5px; padding-left: 18px; margin: 0 0 8px; }
-    .audit-success li { margin: 6px 0; }
+    /* Close: the surface hands over an input */
+    .contact .c-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--sc-8); align-items: start; }
+    .contact h2 { font-size: var(--sc-t-3xl); line-height: 1; margin-bottom: var(--sc-5); }
+    .contact .lede { margin-bottom: var(--sc-5); }
+    .audit-alt { display: flex; gap: var(--sc-3); flex-wrap: wrap; }
+    .avail { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--sc-5); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+    .avail i { width: 8px; height: 8px; border-radius: 50%; background: var(--sc-accent); }
+    .audit-form { background: var(--sc-surface); border: 1px solid var(--line); border-radius: var(--sc-r-lg); padding: var(--sc-6); box-shadow: var(--sc-edge), var(--sc-e3); display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-4); }
+    .audit-form .field.wide, .audit-form .btn, .audit-form .hint { grid-column: 1 / -1; }
+    .audit-form label { display: block; font-family: var(--sc-font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--sc-ink-soft); margin-bottom: 6px; }
+    .audit-form input, .audit-form select { width: 100%; }
+    .audit-form select option { color: #0b0f0d; }
+    .audit-form .btn { min-height: 50px; font-size: var(--sc-t-base); }
+    .audit-form .hint { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); text-align: center; }
+    .audit-success { display: none; background: var(--sc-surface); border: 1px solid color-mix(in oklab, var(--sc-accent) 45%, transparent); border-radius: var(--sc-r-lg); padding: var(--sc-6); }
+    .audit-success h3 { font-size: var(--sc-t-xl); margin-bottom: var(--sc-3); }
+    .audit-success p { color: var(--sc-ink-soft); margin-bottom: var(--sc-3); }
+    .audit-success ol { padding-left: 1.2em; margin: 0 0 var(--sc-3); display: grid; gap: 6px; }
     .contact.submitted .audit-form, .contact.submitted .audit-alt { display: none; }
     .contact.submitted .audit-success { display: block; }
 
-    /* Footer */
-    footer { padding: 36px 0; background: var(--night); border-top: 1px solid rgba(255,255,255,.06); }
-    .foot-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-    footer .logo-wm { font-size: 16px; color: #fff; }
-    footer .logo-mark { height: 28px; width: 28px; }
-    .foot-links { display: flex; gap: 22px; font-size: 14px; color: rgba(255,255,255,.6); }
-    .foot-links a:hover { color: #fff; }
-    .copy { font-size: 13px; color: rgba(255,255,255,.4); }
+    footer { border-top: 1px solid var(--line); padding: var(--sc-6) 0 calc(var(--sc-6) + 52px); }
+    .foot-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sc-4); flex-wrap: wrap; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+    .foot-links { display: flex; gap: var(--sc-5); }
+    .foot-links a:hover { color: var(--sc-ink); }
 
-    /* FX layers (canvas + blobs + cursor spotlight — driven by assets/js/nova-fx.js) */
-    .fx-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-    .fx-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .blob { position: absolute; width: 440px; height: 440px; border-radius: 50%; filter: blur(90px); animation: novaHue 22s ease-in-out infinite, novaDrift 26s ease-in-out infinite; }
-    .blob-a { top: -120px; left: -80px; }
-    .blob-b { bottom: -150px; right: -70px; animation-duration: 26s, 30s; animation-delay: -8s, -5s; }
-    @keyframes novaHue { 0% { background: rgba(16,185,129,.20); } 33% { background: rgba(45,212,191,.18); } 66% { background: rgba(56,189,248,.14); } 100% { background: rgba(16,185,129,.20); } }
-    @keyframes novaDrift { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,30px) scale(1.08); } 100% { transform: translate(0,0) scale(1); } }
-    [data-spotlight] { position: relative; }
-    .fx-spot { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease; z-index: 0; background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(52,211,153,.14), transparent 70%); }
-    .fx-on .fx-spot { opacity: 1; }
-    .hero > .wrap, .contact > .wrap, [data-spotlight] > .wrap { position: relative; z-index: 1; }
-
-    /* Keyboard focus: visible ring on links, buttons and the leak tabs */
-    a:focus-visible, button:focus-visible, .btn:focus-visible { outline: 2px solid var(--brand-l); outline-offset: 3px; border-radius: 8px; }
-
-    /* Reveal on scroll */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
-    .reveal.in { opacity: 1; transform: none; }
-    .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; }
-    .reveal.in[data-tilt] { transition: opacity .7s ease, transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s; transition-delay: 0s; }
+    /* Status bar: carries the what-if down the page once the funnel hands over */
+    .status {
+      position: fixed; inset: auto 0 0; z-index: var(--sc-z-chrome); height: 44px; display: flex; align-items: center;
+      background: color-mix(in oklab, var(--sc-surface) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid var(--line); transform: translateY(100%); transition: transform var(--sc-d-slow) var(--sc-ease-out);
+    }
+    .status.on { transform: none; }
+    .status .wrap { width: 100%; display: flex; align-items: center; gap: var(--sc-5); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+    .status b { color: var(--sc-ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .status .gain b { color: var(--sc-accent); }
+    .status a { margin-left: auto; color: var(--sc-accent); font-weight: 500; white-space: nowrap; }
 
     @media (max-width: 980px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .stage { height: 440px; max-width: 520px; width: 100%; margin: 0 auto; }
-      .nl { grid-template-columns: 1fr; padding: 44px 30px; }
-      .issues { height: 300px; }
+      .tier { grid-template-columns: 1fr auto; gap: var(--sc-3) var(--sc-4); }
+      .tier .pbody { grid-column: 1 / -1; grid-row: 2; }
+      .tier .btn { grid-column: 1 / -1; }
+      .about-grid, .contact .c-grid, .notes-grid { grid-template-columns: 1fr; gap: var(--sc-6); }
+      .about-grid .profile { max-width: 26rem; }
     }
     @media (max-width: 860px) {
-      .nav-links { display: none; }
-      .menu-btn { display: block; }
-      section { padding: 72px 0; }
-      .hero { padding: 120px 0 72px; }
-      .ap-grid, .tiers, .writing-layout, .about-grid { grid-template-columns: 1fr; }
-      .ap-grid { gap: 36px; }
-      .ap-intro { position: static; }
-      .leak-ui { grid-template-columns: 1fr; gap: 28px; }
-      .leaks .leak[aria-selected="true"] { transform: none; }
-      .report { transform: none; }
-      .tier.feat { order: -1; }
+      :root { --bar: 96px; }
+      .chrome { height: auto; }
+      .chrome .wrap { flex-wrap: wrap; gap: 0 var(--sc-3); padding-top: 8px; }
+      .chrome .mark { height: 44px; margin-right: auto; }
+      .tabs { order: 3; width: calc(100% + 2 * var(--sc-gutter)); margin: 0 calc(-1 * var(--sc-gutter)); padding: 0 var(--sc-gutter) 6px; }
+      .tabs a { padding: 6px 10px; }
+      .f-grid { grid-template-columns: 1fr; gap: var(--sc-4); align-content: start; padding-top: var(--sc-4); }
+      .f-copy h1 { font-size: var(--sc-t-2xl); margin: 0 0 var(--sc-3); }
+      .f-copy .path, .f-copy .lede, .f-cta, .toast { display: none; }
+      .log { margin: 0; padding: 0; border: 0; min-height: 0; display: block; height: 2.6em; position: relative; }
+      .log li { position: absolute; inset: 0 0 auto; }
+      .log li.on:not(.last) { opacity: 0; }
+      .row, .head-row { grid-template-columns: 6.6em 1fr 4.4em 3.8em; gap: var(--sc-2); }
+      .row { padding: 5px 0; font-size: var(--sc-t-xs); }
+      .row .track { height: 18px; }
+      .rows { padding: 10px 14px 4px; }
+      .inst-top { padding: 10px 14px; }
+      .readout > div { padding: 8px 12px; }
+      .readout .v { font-size: var(--sc-t-base); }
+      .controls { grid-template-columns: 1fr 1fr; gap: var(--sc-3); padding: 10px 14px 12px; }
+      .controls .cc { grid-column: 1 / -1; }
+      .controls input[type=range] { height: 32px; }
+      .inst-note { display: none; }
+      .leak-ui, .p-grid { grid-template-columns: 1fr; }
+      .p-grid { gap: var(--sc-5); align-content: center; }
+      .p-grid .lede { display: none; }
+      .entry { grid-template-columns: 1fr; }
+      .entry .deliv { display: none; }
+      .writing-layout { grid-template-columns: 1fr; }
+      .rep-foot, .terms { grid-template-columns: 1fr; }
+      .report { padding: var(--sc-5); }
+      .audit-form { grid-template-columns: 1fr; padding: var(--sc-5); }
+      .status .hide-sm { display: none; }
     }
-    @media (max-width: 560px) {
-      .stage { height: 400px; margin-top: 70px; }
-      .stack { transform: rotateX(6deg) rotateY(-8deg); }
-      .dash { left: 0; right: 0; padding: 16px; }
-      .f-row { grid-template-columns: 78px 1fr 40px; font-size: 11px; gap: 8px; }
-      .dash { top: 30px; }
-      .flows { right: -6px; top: -40px; width: 160px; }
-      .side-card { width: 78%; left: 4%; bottom: -10px; }
-      .hero-stats { gap: 18px; }
-      .nl { padding: 36px 22px; border-radius: 20px; }
-      .issue { left: 0; right: 0; }
-      .leaks .leak { padding: 16px; gap: 12px; grid-template-columns: 40px 1fr 16px; }
-      .leaks .leak .ln { width: 40px; height: 40px; }
-      .tl90 { padding-left: 0; }
-      .tl90::before, .tl90::after { display: none; }
-      .t-step { grid-template-columns: 1fr; padding: 22px; padding-top: 70px; }
-      .t-node { left: 22px; top: 18px; margin-top: 0; width: 40px; height: 40px; }
-      .deliv { transform: none; }
-      .leaks .leak b { font-size: 16px; }
-      .report { padding: 22px; }
-      .rep-body, .rep-foot { grid-template-columns: 1fr; }
-      .rep-panel h4 { font-size: 20px; }
+    @media (max-height: 760px) and (min-width: 861px) {
+      .f-copy h1 { font-size: var(--sc-t-2xl); }
+      .toast { display: none; }
+      .log { margin-top: var(--sc-4); }
+      .inst-note { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .blob, .hero-floor, .dot, .f-bar span, .mini-f span { animation: none; }
-      .checks li { animation: none; opacity: 1; transform: none; }
-      .track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 24px; row-gap: 12px; }
-      .marquee { -webkit-mask-image: none; mask-image: none; }
-      .stack, .issue-stack, .issue, .report, .leaks .leak, .deliv, .t-step { transition: none; }
-      html { scroll-behavior: auto; }
+      .log li, .entry, .status, .btn, .leaks .leak { transition: none; }
+      .rep-panel.on { animation: none; }
     }
   </style>
 
@@ -687,100 +465,46 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2D3HCLJ" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
 
-  <header id="siteHeader">
-    <div class="wrap nav">
-      <a href="#home" class="logo"><img src="images/nova-reach-emblem.svg" alt="NovaReach" class="logo-mark"><span class="logo-wm">NOVA<span class="brand"> REACH</span></span></a>
-      <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#approach">Approach</a>
-        <a href="#writing">Writing</a>
-        <a href="#newsletter">Newsletter</a>
+  <span data-sc-progress></span>
+
+  <header class="chrome" id="siteHeader">
+    <div class="wrap">
+      <a href="#funnel" class="mark"><img src="images/nova-reach-emblem.svg" alt="" width="28" height="28">Nova<b>Reach</b></a>
+      <nav class="tabs" aria-label="Sections">
+        <a href="#funnel">Funnel</a>
+        <a href="#leaks">Leaks</a>
+        <a href="#plan">Plan</a>
+        <a href="#notes">Notes</a>
         <a href="#pricing">Pricing</a>
         <a href="#about">About</a>
-        <a href="#contact" class="btn">Free audit</a>
       </nav>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#services">Services</a>
-      <a href="#approach">Approach</a>
-      <a href="#writing">Writing</a>
-      <a href="#newsletter">Newsletter</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#about">About</a>
-      <a href="#contact">Free audit</a>
+      <a href="#contact" class="btn btn-primary">Get a free audit</a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="fx-layer" aria-hidden="true">
-      <span class="blob blob-a"></span>
-      <span class="blob blob-b"></span>
-      <canvas class="fx-canvas" data-constellation data-color="52,211,153"></canvas>
-    </div>
-    <div class="hero-floor" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
-      <div class="reveal">
-        <span class="tag"><span class="dot"></span> Digital marketing specialist · Christchurch, NZ</span>
-        <h1>Find the leak.<br><span class="grad">Fix the funnel.</span></h1>
-        <p class="hero-sub">I run SEO, paid search, email and CRO for ecommerce stores, and I treat them as one plan.
-          You deal with me the whole way. Nobody junior touches your account.</p>
-        <div class="hero-cta">
-          <a href="#contact" class="btn btn-primary">Get a free audit →</a>
-          <a href="#newsletter" class="btn btn-glass">Get the weekly Signal</a>
-        </div>
-        <div class="hero-stats">
-          <div><span class="n">3 yrs</span><br>across paid &amp; organic</div>
-          <div class="vr"></div>
-          <div><span class="n">Weekly</span><br>writing on search</div>
-          <div class="vr"></div>
-          <div><span class="n">Full funnel</span><br>not just one channel</div>
-        </div>
-      </div>
-
-      <div class="reveal d1">
-        <div class="stage" id="stage" aria-hidden="false">
-          <div class="stack" id="stack">
-            <!-- Main panel: what a store audit looks like -->
-            <div class="layer glass dash" aria-label="Sample audit funnel">
-              <div class="dash-top">
-                <div class="lights"><i></i><i></i><i></i></div>
-                <span class="dash-title">Store audit · conversion funnel</span>
-                <span class="sample">Sample</span>
-              </div>
-              <div class="funnel">
-                <div class="f-row"><span>Sessions</span><div class="f-bar"><span style="--w:100%"></span></div><span class="f-val">100%</span></div>
-                <div class="f-row"><span>Product view</span><div class="f-bar"><span style="--w:58%"></span></div><span class="f-val">58%</span></div>
-                <div class="f-row"><span>Add to cart</span><div class="f-bar"><span style="--w:22%"></span></div><span class="f-val">11%</span></div>
-                <div class="f-row leak"><span>Checkout ⚠</span><div class="f-bar"><span style="--w:9%"></span></div><span class="f-val">4.2%</span></div>
-                <div class="f-row"><span>Purchase</span><div class="f-bar"><span style="--w:6%"></span></div><span class="f-val">2.1%</span></div>
-              </div>
-              <div class="dash-foot">
-                <span class="pill bad">Freight shown late</span>
-                <span class="pill bad">No winback flow</span>
-                <span class="pill ok">GA4 + GTM clean</span>
-              </div>
+  <main>
+    <!-- Act 1 · Funnel (pin). The peak lives here: drain, name the leak, hold, patch, hand over. -->
+    <section id="funnel" data-sc-act="pin" data-sc-span="4.6" aria-label="Funnel">
+      <div data-sc-stage>
+        <div class="f-grid">
+          <div class="f-copy">
+            <span class="path">Leak finder · Christchurch, NZ</span>
+            <h1>Find the leak. <span>Fix the funnel.</span></h1>
+            <p class="lede">I run Google Ads, Meta, SEO, Klaviyo and CRO for NZ and AU ecommerce stores, and I plan them as one job.
+              Scroll, and this sample store's funnel runs. Then put your own numbers in.</p>
+            <div class="f-cta">
+              <a href="#contact" class="btn btn-primary">Get a free audit</a>
+              <a href="#leaks" class="btn btn-line">What I'd check first</a>
             </div>
-
-            <div class="layer glass flows">
-              <div class="t">KLAVIYO FLOWS</div>
-              <ul>
-                <li>Welcome <b class="y">Live</b></li>
-                <li>Abandon cart <b class="y">Live</b></li>
-                <li>Browse <b class="n">Missing</b></li>
-                <li>Winback <b class="n">Missing</b></li>
-              </ul>
-            </div>
-
-            <div class="layer side-card">
+            <ol class="log" id="log" aria-live="polite">
+              <li data-at="0" class="on"><time>00:00</time><span>Loaded sample store: <span data-o="sessions">10,000</span> sessions a month, NZ$<span data-o="aov">95</span> average order.</span></li>
+              <li data-at="0.08"><time>00:02</time><span>Tracing each step from landing to purchase.</span></li>
+              <li data-at="0.38" class="bad"><time>00:06</time><span>Leak worth fixing first: checkout. Half the people who start paying leave.</span></li>
+              <li data-at="0.47" class="bad"><time>00:07</time><span>Usual cause in NZ and AU: freight and GST appear for the first time at checkout.</span></li>
+              <li data-at="0.6" class="good"><time>00:09</time><span>What-if: show freight on the product page, checkout completion 50% to 60%.</span></li>
+              <li data-at="0.82" class="good"><time>00:12</time><span>Your turn. Change the numbers in the panel.</span></li>
+            </ol>
+            <div class="toast">
               <!-- LATEST:START -->
               <div class="lbl">LATEST WRITING</div>
               <div class="meta">SEM · 15 Oct 2026</div>
@@ -793,243 +517,154 @@
               <!-- LATEST:END -->
             </div>
           </div>
-        </div>
-        <div class="avail"><span class="dot"></span> Taking on 2 new clients this quarter</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Stack -->
-  <section class="stack-band" id="platforms" aria-label="Platforms I work in">
-    <div class="wrap">
-      <div class="stack-head reveal">
-        <div>
-          <span class="eyebrow">The stack</span>
-          <h2>Hands-on in the platforms that move the money</h2>
+          <div class="inst" id="inst">
+            <div class="inst-top">
+              <span class="t">Monthly funnel</span>
+              <span class="chip">Sample store</span>
+            </div>
+            <div class="rows" id="rows">
+              <canvas class="spill" id="spill" aria-hidden="true"></canvas>
+              <div class="head-row" aria-hidden="true"><span>Step</span><span></span><span>People</span><span>Lost</span></div>
+              <div class="row" data-i="0"><span class="lbl">Sessions</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost"></span></div>
+              <div class="row" data-i="1"><span class="lbl">Viewed product</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
+              <div class="row" data-i="2"><span class="lbl">Added to cart</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
+              <div class="row" data-i="3"><span class="lbl">Started checkout</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
+              <div class="row" data-i="4" id="leakRow"><span class="lbl">Purchased</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
+            </div>
+            <div class="readout">
+              <div><div class="k">Orders / mo</div><div class="v" id="oOrders">0</div></div>
+              <div><div class="k">Revenue / mo</div><div class="v" id="oRev">NZ$0</div></div>
+              <div class="gain"><div class="k">What-if gain</div><div class="v" id="oGain">NZ$0</div></div>
+            </div>
+            <div class="controls" id="controls">
+              <div><label for="inSessions">Sessions / mo</label><input id="inSessions" type="number" min="100" max="5000000" step="100" value="10000" inputmode="numeric"></div>
+              <div><label for="inAov">Avg order NZ$</label><input id="inAov" type="number" min="1" max="100000" step="1" value="95" inputmode="decimal"></div>
+              <div class="cc"><label for="inComplete">Checkout completion <output id="outComplete" for="inComplete">50%</output></label><input id="inComplete" type="range" min="50" max="80" step="1" value="50"></div>
+            </div>
+            <p class="inst-note">Sample numbers, not a client. The gain is plain arithmetic on your inputs, not a promise.</p>
+          </div>
         </div>
-        <p>I'm logged into these every week. Most of the problems I fix sit in the gap between two of them.</p>
       </div>
-    </div>
-    <div class="marquee">
-      <div class="track">
-          <div class="tool"><img src="images/stack/google-ads.svg" alt="" width="46" height="46"><div><b>Google Ads</b><span>Search · Shopping</span></div></div>
-          <div class="tool"><img src="images/stack/performance-max.svg" alt="" width="46" height="46"><div><b>Performance Max</b><span>Asset groups · feeds</span></div></div>
-          <div class="tool"><img src="images/stack/youtube.svg" alt="" width="46" height="46"><div><b>YouTube</b><span>Video reach &amp; remarketing</span></div></div>
-          <div class="tool"><img src="images/stack/dv360.svg" alt="" width="46" height="46"><div><b>DV360 &amp; CM360</b><span>Programmatic display</span></div></div>
-          <div class="tool"><img src="images/stack/meta-ads.svg" alt="" width="46" height="46"><div><b>Meta Ads</b><span>Advantage+ · creative tests</span></div></div>
-      </div>
-    </div>
-    <div class="marquee rev">
-      <div class="track">
-          <div class="tool"><img src="images/stack/ga4.svg" alt="" width="46" height="46"><div><b>GA4</b><span>Events · key events · funnels</span></div></div>
-          <div class="tool"><img src="images/stack/tag-manager.svg" alt="" width="46" height="46"><div><b>Tag Manager</b><span>Clean tracking &amp; attribution</span></div></div>
-          <div class="tool"><img src="images/stack/klaviyo.svg" alt="" width="46" height="46"><div><b>Klaviyo</b><span>Flows · campaigns · segments</span></div></div>
-          <div class="tool"><img src="images/stack/shopify.svg" alt="" width="46" height="46"><div><b>Shopify</b><span>PDP &amp; checkout CRO</span></div></div>
-          <div class="tool"><img src="images/stack/seo.svg" alt="" width="46" height="46"><div><b>Search Console</b><span>Technical &amp; content SEO</span></div></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Services -->
-  <section id="services" data-spotlight>
-    <div class="fx-spot" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Services</span>
-        <h2>Where's your store leaking?</h2>
-        <p>Pick the one that sounds like your store. You'll see what I'd check in week one and what you'd have at the
-          end of it.</p>
-      </div>
-      <div class="leak-ui">
-        <div class="leaks reveal" role="tablist" aria-label="Where is your store leaking?">
-          <button class="leak" role="tab" id="tab-traffic" aria-controls="panel-traffic" aria-selected="true" data-key="traffic">
-            <span class="ln">01</span><span><b>Not enough of the right traffic</b><small>Spend keeps rising. Sales don't.</small></span><span class="arr">→</span>
-          </button>
-          <button class="leak" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="false" data-key="convert" tabindex="-1">
-            <span class="ln">02</span><span><b>Traffic, but it doesn't buy</b><small>People land, browse, and leave.</small></span><span class="arr">→</span>
-          </button>
-          <button class="leak" role="tab" id="tab-retain" aria-controls="panel-retain" aria-selected="false" data-key="retain" tabindex="-1">
-            <span class="ln">03</span><span><b>They buy once and disappear</b><small>Every sale has to be paid for again.</small></span><span class="arr">→</span>
-          </button>
+    <!-- Act 2 · Leaks (flow): pick one, see week one -->
+    <section id="leaks" class="sec">
+      <div class="wrap">
+        <div class="sec-head" data-sc-in data-sc-stagger="70">
+          <h2>Which one sounds like your store?</h2>
+          <p class="lede">Pick one. You'll see what I'd check in week one and what you'd have at the end of it.</p>
         </div>
+        <div class="leak-ui">
+          <div class="leaks" role="tablist" aria-label="Where is your store leaking?" data-sc-in>
+            <button class="leak" role="tab" id="tab-traffic" aria-controls="panel-traffic" aria-selected="true" data-key="traffic">
+              <span class="ln">01</span><span><b>Not enough of the right traffic</b><small>Spend keeps rising. Sales don't.</small></span><span class="arr">→</span>
+            </button>
+            <button class="leak" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="false" data-key="convert" tabindex="-1">
+              <span class="ln">02</span><span><b>Traffic, but it doesn't buy</b><small>People land, browse, and leave.</small></span><span class="arr">→</span>
+            </button>
+            <button class="leak" role="tab" id="tab-retain" aria-controls="panel-retain" aria-selected="false" data-key="retain" tabindex="-1">
+              <span class="ln">03</span><span><b>They buy once and disappear</b><small>Every sale has to be paid for again.</small></span><span class="arr">→</span>
+            </button>
+          </div>
 
-        <div class="report-stage reveal d1">
-          <div class="report">
+          <div class="report" data-sc-in>
             <div class="rep-top">
-              <div class="lights"><i></i><i></i><i></i></div>
               <span class="rep-title">Audit preview · <b id="repName">Acquisition</b></span>
-              <span class="rep-pill">Week one</span>
+              <span class="chip">Week one</span>
             </div>
             <div class="rep-panel on" id="panel-traffic" role="tabpanel" aria-labelledby="tab-traffic" data-leak="Traffic not paying back">
-              <h4>What I check first when traffic isn't paying back</h4>
-              <div class="rep-body">
-                <ul class="checks">
-                  <li><span><strong>Search terms</strong> you're paying for that never convert</span></li>
-                  <li><span><strong>Performance Max:</strong> asset groups, feed titles and whether it's eating your brand searches</span></li>
-                  <li><span><strong>Conversion tracking.</strong> Is Google optimising toward the right action?</span></li>
-                  <li><span><strong>SEO pages ranking 5–15</strong> that one fix pushes onto page one</span></li>
-                </ul>
-                <div class="rep-vis" aria-hidden="true">
-                  <div class="k">Spend vs revenue · sample</div>
-                  <svg viewBox="0 0 200 110" fill="none">
-                    <path d="M0 100 H200 M0 70 H200 M0 40 H200" stroke="rgba(255,255,255,.07)"/>
-                    <path d="M0 92 C40 84 70 70 100 56 S160 24 200 12" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
-                    <path d="M0 88 C40 80 70 74 100 72 S160 70 200 68" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
-                    <circle cx="200" cy="12" r="4" fill="#f43f5e"/><circle cx="200" cy="68" r="4" fill="#34d399"/>
-                  </svg>
-                  <div class="leg"><span><i style="background:#f43f5e"></i>Spend</span><span><i style="background:#34d399"></i>Revenue</span></div>
-                </div>
-              </div>
+              <h3>What I check first when traffic isn't paying back</h3>
+              <ul class="checks">
+                <li><span><strong>Search terms</strong> you're paying for that never convert</span></li>
+                <li><span><strong>Performance Max:</strong> asset groups, feed titles and whether it's eating your brand searches</span></li>
+                <li><span><strong>Conversion tracking.</strong> Is Google optimising toward the right action?</span></li>
+                <li><span><strong>SEO pages ranking 5 to 15</strong> that one fix pushes onto page one</span></li>
+              </ul>
               <div class="rep-foot">
                 <div class="warn"><em>Usually it's</em>Tracking that counts the wrong thing, so Google happily optimises toward it.</div>
                 <div><em>You walk away with</em>A ranked fix list and a 30-day plan across Google Ads, Meta and SEO.</div>
               </div>
               <div class="rep-cta">
                 <div class="chips"><span>Google Ads</span><span>PMax</span><span>Meta</span><span>SEO</span></div>
-                <a href="#contact" class="btn btn-primary" data-leak-cta>Get this audit free →</a>
+                <a href="#contact" class="btn btn-primary" data-leak-cta>Get a free audit</a>
               </div>
             </div>
             <div class="rep-panel" id="panel-convert" role="tabpanel" aria-labelledby="tab-convert" data-leak="Traffic but no sales">
-              <h4>Where the visitors you already paid for fall out</h4>
-              <div class="rep-body">
-                <ul class="checks">
-                  <li><span><strong>GA4 funnel:</strong> where they drop out. Product page, cart or checkout?</span></li>
-                  <li><span><strong>Freight and GST shown late.</strong> It kills more NZ and AU checkouts than anything else I see</span></li>
-                  <li><span><strong>Mobile product pages:</strong> speed, and what shows before anyone scrolls</span></li>
-                  <li><span><strong>Session recordings</strong> on your top three landing pages</span></li>
-                </ul>
-                <div class="rep-vis" aria-hidden="true">
-                  <div class="k">Funnel · sample</div>
-                  <div class="mini-f">
-                    <div>Sessions<span style="--w:100%"></span></div>
-                    <div>Product<span style="--w:60%"></span></div>
-                    <div>Cart<span style="--w:24%"></span></div>
-                    <div class="bad">Checkout ⚠<span style="--w:9%"></span></div>
-                    <div>Purchase<span style="--w:6%"></span></div>
-                  </div>
-                </div>
-              </div>
+              <h3>Where the visitors you already paid for fall out</h3>
+              <ul class="checks">
+                <li><span><strong>GA4 funnel:</strong> where they drop out. Product page, cart or checkout?</span></li>
+                <li><span><strong>Freight and GST shown late.</strong> It kills more NZ and AU checkouts than anything else I see</span></li>
+                <li><span><strong>Mobile product pages:</strong> speed, and what shows before anyone scrolls</span></li>
+                <li><span><strong>Session recordings</strong> on your top three landing pages</span></li>
+              </ul>
               <div class="rep-foot">
                 <div class="warn"><em>Usually it's</em>Shipping cost revealed at checkout instead of on the product page.</div>
                 <div><em>You walk away with</em>Three prioritised A/B tests, each with a hypothesis and expected impact.</div>
               </div>
               <div class="rep-cta">
                 <div class="chips"><span>Shopify</span><span>GA4</span><span>CRO</span><span>A/B tests</span></div>
-                <a href="#contact" class="btn btn-primary" data-leak-cta>Get this audit free →</a>
+                <a href="#contact" class="btn btn-primary" data-leak-cta>Get a free audit</a>
               </div>
             </div>
             <div class="rep-panel" id="panel-retain" role="tabpanel" aria-labelledby="tab-retain" data-leak="One-time buyers">
-              <h4>Why first-time buyers never come back</h4>
-              <div class="rep-body">
-                <ul class="checks">
-                  <li><span><strong>Klaviyo flows:</strong> which are live, which are missing and which are quietly broken</span></li>
-                  <li><span><strong>Post-purchase.</strong> Does anyone actually ask for the second order?</span></li>
-                  <li><span><strong>Segments:</strong> VIPs and lapsing customers shouldn't get the same email</span></li>
-                  <li><span><strong>Email capture.</strong> How much of the traffic you paid for leaves without giving you an email?</span></li>
-                </ul>
-                <div class="rep-vis" aria-hidden="true">
-                  <div class="k">Klaviyo flows · sample</div>
-                  <ul class="mini-flows">
-                    <li>Welcome <span class="y">Live</span></li>
-                    <li>Abandon cart <span class="y">Live</span></li>
-                    <li>Post-purchase <span class="n">Missing</span></li>
-                    <li>Browse <span class="n">Missing</span></li>
-                    <li>Winback <span class="n">Missing</span></li>
-                  </ul>
-                </div>
-              </div>
+              <h3>Why first-time buyers never come back</h3>
+              <ul class="checks">
+                <li><span><strong>Klaviyo flows:</strong> which are live, which are missing and which are quietly broken</span></li>
+                <li><span><strong>Post-purchase.</strong> Does anyone actually ask for the second order?</span></li>
+                <li><span><strong>Segments:</strong> VIPs and lapsing customers shouldn't get the same email</span></li>
+                <li><span><strong>Email capture.</strong> How much of the traffic you paid for leaves without giving you an email?</span></li>
+              </ul>
               <div class="rep-foot">
                 <div class="warn"><em>Usually it's</em>No post-purchase or winback flow at all. Just campaigns.</div>
-                <div><em>You walk away with</em>A flow map plus copy for the three flows worth the most to you.</div>
+                <div><em>You walk away with</em>A flow map plus copy for the flows worth the most to you.</div>
               </div>
               <div class="rep-cta">
                 <div class="chips"><span>Klaviyo</span><span>Flows</span><span>Segments</span><span>LTV</span></div>
-                <a href="#contact" class="btn btn-primary" data-leak-cta>Get this audit free →</a>
+                <a href="#contact" class="btn btn-primary" data-leak-cta>Get a free audit</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Approach -->
-  <section id="approach" class="approach">
-    <div class="wrap ap-grid">
-      <div class="ap-intro reveal">
-        <span class="eyebrow">The approach</span>
-        <h2>Your first 90 days</h2>
-        <p>No vague "strategy phase". Here's what happens and when, and what lands in your inbox at each step.</p>
-        <div class="never">
-          <div class="never-k">What you'll never get</div>
-          <ul>
-            <li><span><strong>Lock-in contracts.</strong> It's three months, then month-to-month.</span></li>
-            <li><span><strong>Hand-offs to a junior</strong> after the sales call</span></li>
-            <li><span><strong>Reports padded with vanity metrics</strong> when you wanted to know about revenue</span></li>
-            <li><span><strong>Accounts held hostage.</strong> You own every account and all the data.</span></li>
-          </ul>
+    <!-- Act 3 · Plan (pin): the 90-day log fills as you scroll -->
+    <section id="plan" data-sc-act="pin" data-sc-span="2.4" aria-label="Plan">
+      <div data-sc-stage>
+        <div class="p-grid">
+          <div>
+            <h2>Your first 90 days</h2>
+            <p class="lede">What happens, when it happens, and what lands in your inbox at each step.</p>
+          </div>
+          <ol class="entries" id="entries">
+            <li class="entry" data-at="0.1"><time>Week 1</time><h3>Audit</h3>
+              <p>I get access, check tracking end to end, and go through your ad accounts, funnel and email flows to find every leak.</p>
+              <span class="deliv">Deliverable<b>Audit report</b>every leak, ranked</span></li>
+            <li class="entry" data-at="0.32"><time>Week 2</time><h3>Roadmap</h3>
+              <p>Fixes ranked by likely impact against effort, so we start with whatever's worth the most.</p>
+              <span class="deliv">Deliverable<b>90-day roadmap</b>shared, live doc</span></li>
+            <li class="entry" data-at="0.54"><time>Weeks 3 to 6</time><h3>First fixes live</h3>
+              <p>Quick wins shipped, tracking cleaned up, and the first A/B test running on your store.</p>
+              <span class="deliv">Deliverable<b>Change log</b>every change, dated</span></li>
+            <li class="entry" data-at="0.76"><time>Every month</time><h3>Report and next tests</h3>
+              <p>One page on what moved, what didn't and what's next, plus a five-minute video walking you through it.</p>
+              <span class="deliv">Deliverable<b>Report + Loom</b>revenue first</span></li>
+          </ol>
         </div>
       </div>
-      <div class="tl90" id="tl90">
-          <div class="t-step reveal">
-            <span class="t-node">1</span>
-            <div>
-              <span class="t-when">Week 1</span>
-              <h3>Audit</h3>
-              <p>I get access, check tracking end to end, and go through your ad accounts, funnel and email flows to find every leak.</p>
-            </div>
-            <div class="deliv-wrap" aria-hidden="true">
-              <div class="deliv"><div class="deliv-k">Deliverable</div><b>Audit report</b><small>Every leak, ranked</small><div class="dl"></div><div class="dl s"></div></div>
-            </div>
-          </div>
-          <div class="t-step reveal">
-            <span class="t-node">2</span>
-            <div>
-              <span class="t-when">Week 2</span>
-              <h3>Roadmap</h3>
-              <p>Fixes ranked by likely impact against effort, so we start with whatever's worth the most.</p>
-            </div>
-            <div class="deliv-wrap" aria-hidden="true">
-              <div class="deliv"><div class="deliv-k">Deliverable</div><b>90-day roadmap</b><small>Shared, live doc</small><div class="dl"></div><div class="dl s"></div></div>
-            </div>
-          </div>
-          <div class="t-step reveal">
-            <span class="t-node">3</span>
-            <div>
-              <span class="t-when">Weeks 3–6</span>
-              <h3>First fixes live</h3>
-              <p>Quick wins shipped, tracking cleaned up, and the first A/B test running on your store.</p>
-            </div>
-            <div class="deliv-wrap" aria-hidden="true">
-              <div class="deliv"><div class="deliv-k">Deliverable</div><b>Change log</b><small>Every change, dated</small><div class="dl"></div><div class="dl s"></div></div>
-            </div>
-          </div>
-          <div class="t-step reveal">
-            <span class="t-node">4</span>
-            <div>
-              <span class="t-when">Every month</span>
-              <h3>Report &amp; next tests</h3>
-              <p>One page on what moved, what didn't and what's next. Plus a five-minute video walking you through it.</p>
-            </div>
-            <div class="deliv-wrap" aria-hidden="true">
-              <div class="deliv"><div class="deliv-k">Deliverable</div><b>Report + Loom walkthrough</b><small>No vanity metrics</small><div class="dl"></div><div class="dl s"></div></div>
-            </div>
-          </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Writing -->
-  <section id="writing">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Writing</span>
-        <h2>I write about what's actually changing in search</h2>
-        <p>You'll learn more about how I work from these than from a wall of client logos. Most weeks I pick one change
-          in search, paid or email and explain what NZ and AU stores should do about it.</p>
-      </div>
-      <div class="writing-layout reveal">
-        <!-- WRITING:START -->
+    <!-- Act 4 · Notes (flow) -->
+    <section id="notes" class="sec">
+      <div class="wrap">
+        <div class="sec-head" data-sc-in data-sc-stagger="70">
+          <h2>Notes on what's changing</h2>
+          <p class="lede">Most weeks I pick one change in search, paid or email and write what NZ and AU stores should do about it. It's the quickest way to see how I think.</p>
+        </div>
+        <div class="notes-grid">
+          <div class="writing-layout" data-sc-in>
+            <!-- WRITING:START -->
         <a class="feat-post" href="blog-posts/google-ads-automated-promotions-october-2026.html">
           <img class="feat-thumb" src="images/blog/google-ads-automated-promotions-october-2026.svg" alt="" loading="lazy" />
           <div class="meta">SEM · E-commerce · 15 Oct 2026 · Latest</div>
@@ -1055,316 +690,354 @@
           <a class="post-row post-row-all" href="blog.html">See all writing →</a>
         </div>
         <!-- WRITING:END -->
+          </div>
+          <div class="nl" id="newsletter" data-sc-in>
+            <span class="path">The Signal · weekly email</span>
+            <h3>One change a week, and what to do about it</h3>
+            <p>Every Monday I send that week's note as a four-minute email. Each one ends with the setting, flow or test I'd change first.</p>
+            <form class="nl-form" data-newsletter data-source="homepage">
+              <input type="email" name="email" required placeholder="you@store.com" aria-label="Email address" autocomplete="email">
+              <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+            <p class="nl-done" role="status">You're in. The first issue lands on Monday.</p>
+            <p class="nl-fine">Free. One click to unsubscribe.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Newsletter -->
-  <section id="newsletter" class="nl-sec">
-    <div class="wrap">
-      <div class="nl reveal">
+    <!-- Act 5 · Pricing (reveal): one sheet -->
+    <section id="pricing" class="sec">
+      <div class="wrap">
+        <div class="sec-head" data-sc-in data-sc-stagger="70">
+          <h2>What it costs</h2>
+          <p class="lede">Senior, hands-on work for less than an agency charges for the same channels. Prices are in NZD, plus GST.</p>
+        </div>
+        <div class="sheet" data-sc-reveal="up" data-sc-reveal-at="0.05 0.4">
+          <div class="tier">
+            <div class="pname">Audit</div>
+            <div class="price">NZ$1,950<span class="per">one-off</span></div>
+            <div class="pbody">
+              <p class="pdesc">A proper look at one area of your store, with a ranked list of what to fix first.</p>
+              <ul><li>Tracking, funnel and one channel in depth</li><li>Ranked fix list with expected impact</li><li>60-minute recorded walkthrough</li><li>Two weeks of email support</li></ul>
+            </div>
+            <a href="#contact" class="btn btn-line">Book an audit</a>
+          </div>
+          <div class="tier feat">
+            <div class="pname">Growth<small>Where I<small>Most clients start here</small>apos;d start most stores</small></div>
+            <div class="price">NZ$2,450<span class="per">per month</span></div>
+            <div class="pbody">
+              <p class="pdesc">Two channels run properly, plus a conversion test shipped every month.</p>
+              <ul><li>Two channels, e.g. Google Ads + Klaviyo flows</li><li>One CRO test shipped a month</li><li>Monthly one-page report + video</li><li>Fortnightly check-in call</li></ul>
+            </div>
+            <a href="#contact" class="btn btn-primary">Enquire</a>
+          </div>
+          <div class="tier">
+            <div class="pname">Scale</div>
+            <div class="price">NZ$3,950<span class="per">per month</span></div>
+            <div class="pbody">
+              <p class="pdesc">I act as your growth lead across every channel. I write the plan and I do the work.</p>
+              <ul><li>Search, Meta, SEO, email and CRO in one roadmap</li><li>Customer journey mapping</li><li>Weekly strategy call</li><li>Priority support</li></ul>
+            </div>
+            <a href="#contact" class="btn btn-line">Enquire</a>
+          </div>
+        </div>
+        <ul class="terms" data-sc-in data-sc-stagger="60">
+          <li class="yes"><span><strong>Three months, then month-to-month.</strong> No lock-in contract.</span></li>
+          <li class="yes"><span><strong>You own every account and all the data.</strong> Nothing is held hostage if we stop.</span></li>
+          <li class="yes"><span><strong>Ad spend goes straight to Google and Meta.</strong> I don't mark it up.</span></li>
+          <li><span><strong>Reports padded with vanity metrics.</strong> Revenue comes first on every page.</span></li>
+        </ul>
+        <p class="free-note">Not sure yet? Start with the <a href="#contact">free store audit</a>: three quick fixes and no sales pitch.</p>
+      </div>
+    </section>
+
+    <!-- Act 6 · About (pointer: the card leans toward the cursor) -->
+    <section id="about" class="sec">
+      <div class="wrap about-grid">
+        <div class="profile" data-sc-tilt="5" data-sc-in>
+          <!-- To use a real headshot: save it as images/michael.jpg and replace "MS" with
+               <img src="images/michael.jpg" alt="Michael Sowden"> -->
+          <div class="avatar">MS</div>
+          <div class="pn">Michael Sowden</div>
+          <div class="soft">Digital marketing specialist</div>
+          <dl>
+            <dt>Based</dt><dd>Christchurch, NZ</dd>
+            <dt>Now</dt><dd>Specialist, KZN Digital</dd>
+            <dt>Before</dt><dd>Bargain Chemist</dd>
+            <dt>Works in</dt><dd>Google Ads, Meta, GA4, GTM, Klaviyo, Shopify, Search Console</dd>
+          </dl>
+        </div>
+        <div class="about-content" data-sc-in data-sc-stagger="70">
+          <h2>One person, the whole funnel</h2>
+          <p>Most ecommerce brands are strong in one channel and leaky everywhere else. I work across paid search, SEO, email and CRO so I can find where the money's slipping out and fix that first.</p>
+          <p>When you hire me, you get me. The person on the first call is the person in your ad account.</p>
+          <div class="exp">
+            <div class="exp-item now">
+              <div class="exp-role">Specialist <span>· KZN Digital, current</span></div>
+              <p>I run multi-channel campaigns for agency clients: setup, targeting, budget pacing, A/B tests and audience work. I also build the GTM tracking that the reporting relies on.</p>
+            </div>
+            <div class="exp-item">
+              <div class="exp-role">Digital Marketing Executive <span>· Bargain Chemist, prior</span></div>
+              <p>Ran ecommerce marketing for a Shopify retailer. That covered CRO and UX, product pages, email with A/B testing, and SEO and paid search alongside outside partners.</p>
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-primary">Get a free audit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Act 7 · Close (flow): the surface hands over an input -->
+    <section id="contact" class="sec contact">
+      <div class="wrap c-grid">
+        <div data-sc-in data-sc-stagger="70">
+          <span class="path">Run it on your store</span>
+          <h2>Send me the store. I'll find the leak.</h2>
+          <p class="lede">I'll reply within one business day with the three things I'd check first. If it looks like a fit, we book a 25-minute call.</p>
+          <div class="audit-alt">
+            <a href="mailto:michaelsowden17@gmail.com" class="btn btn-line">Send me an email</a>
+            <!-- Live site link unchanged until a real event URL is pasted. -->
+            <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="btn btn-line">Book a call</a>
+          </div>
+          <div class="avail"><i></i> Taking on 2 new clients this quarter</div>
+        </div>
         <div>
-          <span class="eyebrow">The Signal · weekly newsletter</span>
-          <h2>One change a week, and what to do about it.</h2>
-          <p class="nl-lead">Every Monday I send that week's post as a 4-minute email. Each one ends with the exact setting,
-            flow or test I'd change, so you can get to it before your competitors do.</p>
-          <ul class="nl-points">
-            <li>Google Ads and Performance Max changes in plain English</li>
-            <li>Meta, Klaviyo and CRO, written for NZ and AU stores rather than US ones</li>
-          </ul>
-          <form class="nl-form" data-newsletter data-source="homepage">
-            <input type="email" name="email" required placeholder="you@store.com" aria-label="Email address" autocomplete="email">
+          <form class="audit-form" id="auditForm" action="https://formsubmit.co/michaelsowden17@gmail.com" method="POST">
+            <div class="field">
+              <label for="audit-name">Name</label>
+              <input id="audit-name" name="name" type="text" autocomplete="name" required placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="audit-email">Email</label>
+              <input id="audit-email" name="email" type="email" autocomplete="email" required placeholder="you@store.com">
+            </div>
+            <div class="field">
+              <label for="audit-url">Store URL</label>
+              <input id="audit-url" name="store_url" type="url" inputmode="url" required placeholder="https://yourstore.com">
+            </div>
+            <div class="field">
+              <label for="audit-spend">Monthly ad spend</label>
+              <select id="audit-spend" name="monthly_ad_spend" required>
+                <option value="" disabled selected>Select a band</option>
+                <option value="under-2k">Under NZ$2k</option>
+                <option value="2k-8k">NZ$2k to $8k</option>
+                <option value="8k-20k">NZ$8k to $20k</option>
+                <option value="20k-plus">NZ$20k+</option>
+                <option value="not-running">Not running ads yet</option>
+              </select>
+            </div>
+            <div class="field wide">
+              <label for="audit-leak">Main leak</label>
+              <input id="audit-leak" name="main_leak" type="text" maxlength="140" required placeholder="e.g. CPA up, email quiet, checkout drop-off">
+            </div>
+            <input type="hidden" name="_subject" value="New free audit request">
+            <input type="hidden" name="_template" value="table">
             <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <button type="submit" class="btn btn-primary">Subscribe free →</button>
+            <button type="submit" class="btn btn-primary">Request the free audit</button>
+            <p class="hint">No spam. I read these myself.</p>
           </form>
-          <p class="nl-done" role="status">You're in. The first issue lands on Monday.</p>
-          <p class="nl-fine">Free, and one click to unsubscribe.</p>
-        </div>
-        <div class="issues" aria-hidden="true">
-          <div class="issue-stack">
-            <div class="issue">
-              <div class="issue-top"><b>The Signal</b><span>Issue #3</span></div>
-              <h4>Meta Advantage+: run one creative test before BFCM</h4>
-              <div class="ln"></div><div class="ln short"></div>
-            </div>
-            <div class="issue">
-              <div class="issue-top"><b>The Signal</b><span>Issue #4</span></div>
-              <h4>Don't starve October to feast in November</h4>
-              <div class="ln"></div><div class="ln short"></div>
-            </div>
-            <div class="issue">
-              <div class="issue-top"><b>The Signal</b><span>Issue #5 · This week</span></div>
-              <h4>Get your welcome and winback flows live in October</h4>
-              <div class="ln"></div><div class="ln"></div><div class="ln short"></div>
-              <div class="do">✓ Do this week: turn on browse abandonment and feed it from paid traffic</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Pricing -->
-  <section id="pricing" class="pricing">
-    <div class="wrap">
-      <div class="sec-head center reveal">
-        <span class="eyebrow">Pricing</span>
-        <h2>Specialist work, without agency overheads</h2>
-        <p>Senior, hands-on work for less than an agency charges for the same channels. And you deal with me the whole
-          way.</p>
-      </div>
-      <div class="tiers">
-        <div class="tier reveal">
-          <div class="pname">Audit</div>
-          <div class="price">NZ$1,950</div>
-          <div class="per">one-off + GST</div>
-          <p class="pdesc">A proper look at one area of your store, with a ranked list of what to fix first.</p>
-          <ul>
-            <li>Full audit: tracking, funnel and one channel in depth</li>
-            <li>Ranked fix list with expected impact</li>
-            <li>60-minute walkthrough call (recorded)</li>
-            <li>Two weeks of email support while you implement</li>
-          </ul>
-          <a href="#contact" class="btn btn-ghost">Book an audit</a>
-        </div>
-        <div class="tier feat reveal d1">
-          <span class="badge">MOST POPULAR</span>
-          <div class="pname">Growth</div>
-          <div class="price">NZ$2,450</div>
-          <div class="per">per month + GST</div>
-          <p class="pdesc">Two channels run properly, plus a conversion test shipped every month.</p>
-          <ul>
-            <li>Two channels managed (e.g. Google Ads + Klaviyo flows)</li>
-            <li>One CRO / A/B test shipped every month</li>
-            <li>Monthly one-page report + video walkthrough</li>
-            <li>Fortnightly check-in call</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary">Enquire</a>
-        </div>
-        <div class="tier reveal d2">
-          <div class="pname">Scale</div>
-          <div class="price">NZ$3,950</div>
-          <div class="per">per month + GST</div>
-          <p class="pdesc">I act as your growth lead across every channel. I write the plan and I do the work.</p>
-          <ul>
-            <li>Everything in Growth, across all channels</li>
-            <li>Search, Meta, SEO, email and CRO in one roadmap</li>
-            <li>Customer journey mapping</li>
-            <li>Weekly strategy call + priority support</li>
-          </ul>
-          <a href="#contact" class="btn btn-ghost">Enquire</a>
+          <div class="audit-success" id="auditSuccess" role="status">
+            <h3>Got it. I'm looking at the store.</h3>
+            <p>I'll reply within one business day (Christchurch time) with the three things I'd check first:</p>
+            <ol>
+              <li>Where your paid and organic traffic lands, and whether those pages can convert.</li>
+              <li>Checkout and product-page friction a customer would swear at.</li>
+              <li>Whether email is doing any work after the first order.</li>
+            </ol>
+            <p>If a retainer makes sense I'll say which one. If it doesn't, I'll say that too.</p>
+          </div>
         </div>
       </div>
-      <div class="assure reveal">
-        <span>Ad spend paid directly to Google &amp; Meta</span>
-        <span>3-month minimum, then month-to-month</span>
-        <span>You own every account and all data</span>
-      </div>
-      <p class="free-note">Not sure yet? Start with the <a href="#contact">free store audit</a>. You get three quick fixes and no sales pitch.</p>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="wrap about-grid">
-      <div class="profile reveal" data-tilt>
-        <!-- To use a real headshot: save it as images/michael.jpg and replace "MS" with
-             <img src="images/michael.jpg" alt="Michael Sowden"> -->
-        <div class="avatar">MS</div>
-        <div class="pn">Michael Sowden</div>
-        <div class="pr">Digital marketing specialist</div>
-        <div class="loc">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <circle cx="12" cy="11" r="3" />
-          </svg>
-          Christchurch, NZ
-        </div>
-        <div class="profile-stats">
-          <div><div class="n">3</div><div class="l">Years exp.</div></div>
-          <div><div class="n">Full</div><div class="l">funnel</div></div>
-        </div>
-        <div class="skill-tags">
-          <span>Google Ads</span><span>SEO</span><span>Meta Ads</span><span>Klaviyo</span><span>CRO</span><span>Shopify</span>
-        </div>
-        <div class="profile-exp">Currently with <strong>KZN Digital</strong> · prev. <strong>Bargain Chemist</strong></div>
-      </div>
-      <div class="about-content reveal d1">
-        <span class="eyebrow">About</span>
-        <h2>One specialist, the whole funnel</h2>
-        <p>I'm a digital marketing specialist in Christchurch. I work across paid search, SEO, email and CRO, and I treat
-          them as one system because that's how your customers move through them.</p>
-        <p>Most ecommerce brands are strong in one channel and leaky everywhere else. I find where the money's slipping
-          out and fix that first.</p>
-        <p>When you hire me, you get me. Nobody senior pitches you and then hands the work to a junior.</p>
-        <div class="exp">
-          <div class="exp-item">
-            <div class="exp-mark"><span class="exp-dot"></span></div>
-            <div class="exp-body">
-              <div class="exp-role">Specialist <span>· KZN Digital</span> <span class="exp-now">Current</span></div>
-              <p>I run multi-channel campaigns for agency clients: setup, targeting, budget pacing, A/B tests and audience
-                work. I also build the GTM tracking that the reporting relies on.</p>
-            </div>
-          </div>
-          <div class="exp-item">
-            <div class="exp-mark"><span class="exp-dot"></span></div>
-            <div class="exp-body">
-              <div class="exp-role">Digital Marketing Executive <span>· Bargain Chemist</span> <span class="exp-prior">Prior</span></div>
-              <p>Ran ecommerce marketing for a Shopify retailer. That covered CRO and UX, product pages, email with A/B
-                testing, and SEO and paid search alongside outside partners.</p>
-            </div>
-          </div>
-        </div>
-        <a href="#contact" class="btn btn-primary">Work with me →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact" data-spotlight>
-    <div class="fx-layer" aria-hidden="true">
-      <span class="blob blob-a"></span>
-      <span class="blob blob-b"></span>
-      <canvas class="fx-canvas" data-constellation data-color="52,211,153" data-dist="150"></canvas>
-    </div>
-    <div class="fx-spot" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow" style="color:var(--brand-l)">Free store audit</span>
-        <h2 style="margin-top:14px">Send me the store.<br>I'll find the leak.</h2>
-        <p class="audit-lead">I’ll reply within one business day with the three things I’d check first. If it looks like a fit, we book a 25-minute call.</p>
-
-        <form class="audit-form" id="auditForm" action="https://formsubmit.co/michaelsowden17@gmail.com" method="POST">
-          <div class="field">
-            <label for="audit-name">Name</label>
-            <input id="audit-name" name="name" type="text" autocomplete="name" required placeholder="Your name">
-          </div>
-          <div class="field">
-            <label for="audit-email">Email</label>
-            <input id="audit-email" name="email" type="email" autocomplete="email" required placeholder="you@store.com">
-          </div>
-          <div class="field">
-            <label for="audit-url">Store URL</label>
-            <input id="audit-url" name="store_url" type="url" inputmode="url" required placeholder="https://yourstore.com">
-          </div>
-          <div class="field">
-            <label for="audit-spend">Monthly ad spend</label>
-            <select id="audit-spend" name="monthly_ad_spend" required>
-              <option value="" disabled selected>Select a band</option>
-              <option value="under-2k">Under NZ$2k</option>
-              <option value="2k-8k">NZ$2k–$8k</option>
-              <option value="8k-20k">NZ$8k–$20k</option>
-              <option value="20k-plus">NZ$20k+</option>
-              <option value="not-running">Not running ads yet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="audit-leak">Main leak</label>
-            <input id="audit-leak" name="main_leak" type="text" maxlength="140" required placeholder="e.g. CPA up, email quiet, checkout drop-off">
-          </div>
-          <input type="hidden" name="_subject" value="New free audit request">
-          <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button type="submit" class="btn btn-primary">Request the free audit</button>
-          <p class="hint">No spam, no junior. I read these myself.</p>
-        </form>
-
-        <div class="audit-success" id="auditSuccess" role="status">
-          <h3>Got it. I’m looking at the store.</h3>
-          <p>I’ll reply within one business day (Christchurch time) with the three things I’d check first:</p>
-          <ol>
-            <li>Where your paid and organic traffic lands, and whether those pages can convert.</li>
-            <li>Checkout and product-page friction a customer would swear at.</li>
-            <li>Whether email is doing any work after the first order.</li>
-          </ol>
-          <p>If a retainer makes sense I’ll say which box. If it doesn’t, I’ll say that too.</p>
-        </div>
-
-        <div class="hero-cta audit-alt">
-          <a href="mailto:michaelsowden17@gmail.com" class="btn btn-glass">Send me an email</a>
-          <!-- Live site link unchanged until a real event URL is pasted. -->
-          <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" class="btn btn-glass">Book a call</a>
-        </div>
-        <div class="avail"><span class="dot"></span> Taking on 2 new clients this quarter</div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="wrap foot-row">
-      <a href="#home" class="logo"><img src="images/nova-reach-emblem.svg" alt="NovaReach" class="logo-mark"><span class="logo-wm">NOVA<span class="brand"> REACH</span></span></a>
+      <a href="#funnel" class="mark"><img src="images/nova-reach-emblem.svg" alt="" width="28" height="28">Nova<b>Reach</b></a>
       <div class="foot-links">
-        <a href="#services">Services</a>
+        <a href="#leaks">Services</a>
         <a href="blog.html">Writing</a>
         <a href="#newsletter">Newsletter</a>
         <a href="#contact">Contact</a>
       </div>
-      <span class="copy">© <span id="year"></span> NovaReach. All rights reserved.</span>
+      <span>© <span id="year"></span> NovaReach</span>
     </div>
   </footer>
 
+  <div class="status" id="status" aria-hidden="true">
+    <div class="wrap">
+      <span class="hide-sm">Sample store</span>
+      <span>Orders <b id="sOrders">0</b></span>
+      <span class="gain">What-if <b id="sGain">+NZ$0</b>/mo</span>
+      <a href="#contact" tabindex="-1">Run it on my store →</a>
+    </div>
+  </div>
+
+  <script src="assets/scrollcraft/scrollcraft.js?v=20261016"></script>
   <script>
-    // Footer year
+    ScrollCraft.mount(document.body);
     document.getElementById('year').textContent = new Date().getFullYear();
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function actP(el) { var v = parseFloat(el.style.getPropertyValue('--sc-p')); return isNaN(v) ? 0 : v; }
+    function fmt(n) { return Math.round(n).toLocaleString('en-NZ'); }
+    function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function ease(x) { x = clamp01(x); return x * x * (3 - 2 * x); }
 
-    // Header: dark glass over the hero, light once scrolled past it
-    var header = document.getElementById('siteHeader');
-    var hero = document.getElementById('home');
-    function onScroll() { header.classList.toggle('scrolled', window.scrollY > hero.offsetHeight - 80); }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // Mobile menu
-    var menuBtn = document.getElementById('menuBtn');
-    var mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', function () {
-      var open = mobileMenu.style.display === 'block';
-      mobileMenu.style.display = open ? 'none' : 'block';
-      menuBtn.setAttribute('aria-expanded', String(!open));
-      header.classList.add('scrolled');
-      if (open) onScroll();
-    });
-    mobileMenu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { mobileMenu.style.display = 'none'; });
-    });
-
-    // Approach: fill the timeline line and light each step as it scrolls past the middle of the screen
+    // ---------- The funnel model: every number on the instrument comes from here ----------
     (function () {
-      var tl = document.getElementById('tl90');
-      var steps = tl.querySelectorAll('.t-step');
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      function update() {
-        var mid = window.innerHeight * 0.6;
-        var r = tl.getBoundingClientRect();
-        var p = reduce ? 1 : Math.max(0, Math.min(1, (mid - r.top) / r.height));
-        tl.style.setProperty('--p', p.toFixed(3));
-        steps.forEach(function (st) {
-          var sr = st.getBoundingClientRect();
-          st.classList.toggle('lit', reduce || sr.top + sr.height / 2 < mid);
-        });
+      var act = document.getElementById('funnel');
+      var rows = Array.prototype.slice.call(document.querySelectorAll('#rows .row'));
+      var log = Array.prototype.slice.call(document.querySelectorAll('#log li'));
+      var inS = document.getElementById('inSessions'), inA = document.getElementById('inAov'), inC = document.getElementById('inComplete');
+      var outC = document.getElementById('outComplete'), controls = document.getElementById('controls');
+      var oOrders = document.getElementById('oOrders'), oRev = document.getElementById('oRev'), oGain = document.getElementById('oGain');
+      var sOrders = document.getElementById('sOrders'), sGain = document.getElementById('sGain'), status = document.getElementById('status');
+      var leakRow = document.getElementById('leakRow');
+      // Sample store step rates: each is the share of the previous step that carried on.
+      var STEPS = [1, 0.58, 0.19, 0.38];
+      var BASE = 0.5;               // checkout completion: started checkout -> purchased
+      var touched = false;          // once the visitor moves the handle, scroll stops driving it
+      var phase = { pour: 0, leak: 0, patch: 0, hand: 0 };
+      var model = {};
+
+      function compute() {
+        var s = Math.max(0, +inS.value || 0), aov = Math.max(0, +inA.value || 0);
+        var target = touched ? +inC.value / 100 : BASE + (0.6 - BASE) * phase.patch;
+        var people = [s], lost = [0];
+        for (var i = 1; i < 4; i++) { people[i] = people[i - 1] * STEPS[i]; lost[i] = people[i - 1] - people[i]; }
+        people[4] = people[3] * target; lost[4] = people[3] - people[4];
+        var baseOrders = people[3] * BASE;
+        model = { s: s, aov: aov, target: target, people: people, lost: lost,
+          orders: people[4], rev: people[4] * aov, gain: (people[4] - baseOrders) * aov };
+        return model;
       }
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-    })();
 
-    // Reveal on scroll
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+      function render() {
+        var m = compute();
+        rows.forEach(function (r, i) {
+          var g = i === 0 ? 1 : ease((phase.pour - (i - 1) * 0.22) / 0.3);
+          // Bar width is share of sessions on a square-root scale so the bottom steps stay visible; the counts are exact.
+          r.style.setProperty('--w', Math.max(0.02, Math.sqrt(m.s ? m.people[i] / m.s : 0)).toFixed(4));
+          r.style.setProperty('--g', g.toFixed(3));
+          r.querySelector('.n').textContent = fmt(m.people[i] * (i === 0 ? 1 : g));
+          if (i > 0) r.querySelector('.lost').textContent = '−' + fmt(m.lost[i] * g);
+        });
+        var isLeak = phase.leak > 0.5 && m.target < 0.555;
+        leakRow.classList.toggle('leak', isLeak);
+        leakRow.classList.toggle('patched', m.target >= 0.555);
+        rows[3].classList.toggle('leak', isLeak);
+        if (!touched) { inC.value = Math.round(m.target * 100); }
+        outC.textContent = Math.round(m.target * 100) + '%';
+        oOrders.textContent = fmt(m.orders);
+        oRev.textContent = 'NZ$' + fmt(m.rev);
+        oGain.textContent = (m.gain >= 0 ? '+' : '−') + 'NZ$' + fmt(Math.abs(m.gain));
+        sOrders.textContent = fmt(m.orders);
+        sGain.textContent = (m.gain >= 0 ? '+' : '−') + 'NZ$' + fmt(Math.abs(m.gain));
+        document.querySelectorAll('[data-o="sessions"]').forEach(function (e) { e.textContent = fmt(m.s); });
+        document.querySelectorAll('[data-o="aov"]').forEach(function (e) { e.textContent = fmt(m.aov); });
+      }
 
-    // Stack marquee: two extra copies of each row so the loop is seamless even on wide screens
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.marquee .track').forEach(function (t) {
-        var items = Array.prototype.slice.call(t.children);
-        for (var i = 0; i < 2; i++) items.forEach(function (c) {
-          var d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); t.appendChild(d);
+      function setPhases(p) {
+        phase.pour = clamp01(p / 0.36);
+        phase.leak = p >= 0.38 ? 1 : 0;
+        phase.patch = ease((p - 0.6) / 0.18);   // 0.46 to 0.6 is the authored silence
+        phase.hand = p >= 0.8 ? 1 : 0;
+        var last = null, onCount = 0;
+        log.forEach(function (li) { var on = p >= +li.dataset.at; li.classList.toggle('on', on); if (on) { last = li; onCount++; } li.classList.remove('last'); });
+        if (last) last.classList.add('last');
+        // Keep the newest four lines so the log never runs under the status bar
+        var seen = 0;
+        log.forEach(function (li) { if (li.classList.contains('on')) seen++; li.classList.toggle('old', seen <= onCount - 4 && li.classList.contains('on')); });
+        controls.classList.toggle('live', phase.hand === 1 || touched);
+      }
+
+      [inS, inA].forEach(function (el) { el.addEventListener('input', render); });
+      inC.addEventListener('input', function () { touched = true; render(); });
+      [inS, inA, inC].forEach(function (el) {
+        el.addEventListener('change', function () {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'funnel_calc', calc_field: el.id });
         });
       });
-    }
 
-    // Leak picker: switch the audit panel, then pre-fill the audit form's "Main leak" from the CTA
+      // Spill: visitors leaving each step drip off the end of its bar. Rate follows the step's loss rate.
+      var cv = document.getElementById('spill'), ctx = cv.getContext('2d'), drops = [], dpr = Math.min(2, window.devicePixelRatio || 1);
+      function size() { var r = cv.getBoundingClientRect(); cv.width = r.width * dpr; cv.height = r.height * dpr; }
+      size(); window.addEventListener('resize', size);
+      function spill() {
+        var base = cv.getBoundingClientRect();
+        rows.forEach(function (r, i) {
+          if (i === 0) return;
+          var g = parseFloat(r.style.getPropertyValue('--g')) || 0;
+          if (g < 0.98) return;
+          var rate = i < 4 ? 1 - STEPS[i] : 1 - model.target;
+          if (Math.random() > rate * 0.55) return;
+          var fill = r.querySelector('.fill').getBoundingClientRect();
+          drops.push({ x: fill.right - base.left, y: fill.top - base.top + Math.random() * fill.height, vx: 0.4 + Math.random() * 0.8, vy: 0.2, life: 1,
+            red: r.classList.contains('leak') });
+        });
+      }
+      function draw() {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        drops = drops.filter(function (d) { return d.life > 0; });
+        drops.forEach(function (d) {
+          d.x += d.vx; d.y += d.vy; d.vy += 0.035; d.life -= 0.022;
+          ctx.globalAlpha = Math.max(0, d.life) * 0.9;
+          ctx.fillStyle = d.red ? '#fb7185' : '#5d7a6d';
+          ctx.beginPath(); ctx.arc(d.x, d.y, d.red ? 2.2 : 1.6, 0, 6.283); ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+      }
+
+      var lastP = -1, lastY = -1;
+      function frame() {
+        var p = reduceMotion ? 1 : actP(act);
+        if (p !== lastP) { setPhases(p); render(); lastP = p; }
+        var r = act.getBoundingClientRect();
+        var live = r.bottom > 0 && r.top < innerHeight;
+        if (!reduceMotion && live) { spill(); draw(); } else if (drops.length) { drops = []; draw(); }
+        // The status bar appears once the funnel hands over and stays for the rest of the page.
+        var past = r.bottom < innerHeight * 0.6 || (phase.hand === 1);
+        status.classList.toggle('on', past);
+        requestAnimationFrame(frame);
+      }
+      if (reduceMotion) { touched = false; }
+      render();
+      requestAnimationFrame(frame);
+    })();
+
+    // ---------- Plan: entries light as the pinned log advances ----------
+    (function () {
+      var act = document.getElementById('plan'), list = document.getElementById('entries');
+      var items = Array.prototype.slice.call(list.querySelectorAll('.entry')), last = -1;
+      function frame() {
+        var p = reduceMotion ? 1 : actP(act);
+        if (p !== last) {
+          last = p;
+          list.style.setProperty('--fillp', clamp01((p - 0.08) / 0.75).toFixed(3));
+          items.forEach(function (it) { it.classList.toggle('on', p >= +it.dataset.at); });
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+
+    // ---------- Tabs: mark the section in view ----------
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
+      var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+      function spy() {
+        var mid = innerHeight * 0.4, cur = 0;
+        secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= mid) cur = i; });
+        links.forEach(function (a, i) { a.setAttribute('aria-current', String(i === cur)); });
+      }
+      window.addEventListener('scroll', spy, { passive: true }); spy();
+    })();
+
+    // ---------- Leak picker: switch the audit panel, then pre-fill the audit form's "Main leak" ----------
     (function () {
       var tabs = document.querySelectorAll('.leaks .leak');
       var name = document.getElementById('repName');
@@ -1431,38 +1104,7 @@
         }).catch(function () { form.submit(); });
       });
     })();
-
-    // 3D depth: hero stack follows the mouse; [data-tilt] cards tilt toward the cursor
-    (function () {
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var fine = window.matchMedia('(pointer: fine)').matches;
-      if (reduce || !fine) return;
-
-      var stack = document.getElementById('stack');
-      hero.addEventListener('mousemove', function (e) {
-        var r = hero.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        stack.style.setProperty('--ry', (x * 18) + 'deg');
-        stack.style.setProperty('--rx', (-y * 12) + 'deg');
-      });
-      hero.addEventListener('mouseleave', function () {
-        stack.style.setProperty('--ry', '0deg');
-        stack.style.setProperty('--rx', '0deg');
-      });
-
-      document.querySelectorAll('[data-tilt]').forEach(function (el) {
-        el.addEventListener('mousemove', function (e) {
-          var r = el.getBoundingClientRect();
-          var x = (e.clientX - r.left) / r.width - 0.5;
-          var y = (e.clientY - r.top) / r.height - 0.5;
-          el.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 8) + 'deg) translateY(-4px)';
-        });
-        el.addEventListener('mouseleave', function () { el.style.transform = ''; });
-      });
-    })();
   </script>
-  <script src="assets/js/nova-fx.js?v=20261015"></script>
   <script src="assets/js/newsletter.js?v=20261015"></script>
 </body>
 
