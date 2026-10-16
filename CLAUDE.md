@@ -16,7 +16,7 @@ Follow `docs/voice-guide.md` and run `python3 scripts/check_copy.py <file>` (or 
 
 ## Homepage
 
-`index.html` keeps its styles inline in `<style>`. It's built as a "live surface" with the scroll-craft plugin: `assets/scrollcraft/scrollcraft.js` + `.css` is the engine (pins the acts and publishes `--sc-p`). Don't edit the engine; restyle the page's own markup instead. The funnel instrument in the first act computes every number from the sample store model in the script at the bottom of the page, so keep it labelled as a sample and never hard-code results. The build brief is `docs/scrollcraft/builds/leak-finder/BRIEF.md`. The services picker uses `.leaks .leak` and the funnel rows use `.row.leak`, so keep selectors scoped.
+`index.html` keeps its styles inline in `<style>`. The top of the page is the original hero banner (3D audit stack, constellation background from `assets/js/nova-fx.js`) and the scrolling platform stack (`images/stack/`). Their styles are scoped to `.hero` and `.stack-band` with the old tokens redefined locally. Everything below them was built with the scroll-craft plugin: `assets/scrollcraft/scrollcraft.js` + `.css` is the engine (pins the 90-day plan act and publishes `--sc-p`). Don't edit the engine; restyle the page's own markup instead. The build brief is `docs/scrollcraft/builds/leak-finder/BRIEF.md`. The services picker uses `.leaks .leak` and the hero funnel uses `.f-row.leak`, so keep selectors scoped.
 
 ## Caching
 
