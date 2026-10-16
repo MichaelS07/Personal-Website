@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; pointer-events: none; }
+        #captions-rail { position: absolute; left: 240px; right: 240px; bottom: 56px; height: 96px; }
+        .cap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+        .cap span { display: inline-block; max-width: 1440px; text-align: center; font-family: "Inter", sans-serif; font-weight: 700; font-size: 38px; line-height: 1.25; color: #edf3ef; background: rgba(4, 10, 7, 0.82); border-radius: 14px; padding: 12px 28px; }
+      </style>
+      <div id="root" data-composition-id="captions" data-width="1920" data-height="1080">
+        <div id="captions-rail">
+        <div class="cap" id="cap-0"><span>Your cost per click was two dollars</span></div>
+        <div class="cap" id="cap-1"><span>ten last month.</span></div>
+        <div class="cap" id="cap-2"><span>This month it's two ninety-five.</span></div>
+        <div class="cap" id="cap-3"><span>That's a forty percent jump,</span></div>
+        <div class="cap" id="cap-4"><span>and your budget hasn't changed,</span></div>
+        <div class="cap" id="cap-5"><span>so you're getting fewer clicks for the</span></div>
+        <div class="cap" id="cap-6"><span>same money. The usual reaction is to</span></div>
+        <div class="cap" id="cap-7"><span>panic, drop bids,</span></div>
+        <div class="cap" id="cap-8"><span>or blame Google.</span></div>
+        <div class="cap" id="cap-9"><span>Don't. A rising CPC isn't the problem.</span></div>
+        <div class="cap" id="cap-10"><span>It's a symptom.</span></div>
+        <div class="cap" id="cap-11"><span>And in the next ten minutes,</span></div>
+        <div class="cap" id="cap-12"><span>I'll show you how to find the</span></div>
+        <div class="cap" id="cap-13"><span>actual cause, and fix it.</span></div>
+        <div class="cap" id="cap-14"><span>Here's the plan.</span></div>
+        <div class="cap" id="cap-15"><span>First, we check whether it's even a</span></div>
+        <div class="cap" id="cap-16"><span>problem. Then we look at how Google</span></div>
+        <div class="cap" id="cap-17"><span>actually sets your CPC,</span></div>
+        <div class="cap" id="cap-18"><span>because once you see the formula,</span></div>
+        <div class="cap" id="cap-19"><span>every cause makes sense.</span></div>
+        <div class="cap" id="cap-20"><span>Then we go through the six things</span></div>
+        <div class="cap" id="cap-21"><span>that push CPC up,</span></div>
+        <div class="cap" id="cap-22"><span>where to find each one in your</span></div>
+        <div class="cap" id="cap-23"><span>account, and how to fix it.</span></div>
+        <div class="cap" id="cap-24"><span>And at the end,</span></div>
+        <div class="cap" id="cap-25"><span>a fifteen minute checklist you can run</span></div>
+        <div class="cap" id="cap-26"><span>every time this happens.</span></div>
+        <div class="cap" id="cap-27"><span>Step one. Before you touch anything,</span></div>
+        <div class="cap" id="cap-28"><span>look past CPC.</span></div>
+        <div class="cap" id="cap-29"><span>CPC is a cost metric.</span></div>
+        <div class="cap" id="cap-30"><span>It doesn't tell you if you're making</span></div>
+        <div class="cap" id="cap-31"><span>money. Put cost per click next to</span></div>
+        <div class="cap" id="cap-32"><span>conversion rate and cost per acquisition.</span></div>
+        <div class="cap" id="cap-33"><span>Say your CPC went from two ten</span></div>
+        <div class="cap" id="cap-34"><span>to two ninety-five.</span></div>
+        <div class="cap" id="cap-35"><span>But your conversion rate also went from</span></div>
+        <div class="cap" id="cap-36"><span>four percent to six percent.</span></div>
+        <div class="cap" id="cap-37"><span>Your cost per acquisition actually dropped,</span></div>
+        <div class="cap" id="cap-38"><span>from fifty-two fifty to about forty-nine.</span></div>
+        <div class="cap" id="cap-39"><span>You're paying more per click,</span></div>
+        <div class="cap" id="cap-40"><span>but those clicks are better,</span></div>
+        <div class="cap" id="cap-41"><span>and you're getting customers cheaper.</span></div>
+        <div class="cap" id="cap-42"><span>That's not a problem.</span></div>
+        <div class="cap" id="cap-43"><span>That's Smart Bidding doing its job,</span></div>
+        <div class="cap" id="cap-44"><span>paying more for people who are more</span></div>
+        <div class="cap" id="cap-45"><span>likely to buy.</span></div>
+        <div class="cap" id="cap-46"><span>So the real question is:</span></div>
+        <div class="cap" id="cap-47"><span>did your C P A or your</span></div>
+        <div class="cap" id="cap-48"><span>ROAS get worse?</span></div>
+        <div class="cap" id="cap-49"><span>If not, leave it alone.</span></div>
+        <div class="cap" id="cap-50"><span>If it did,</span></div>
+        <div class="cap" id="cap-51"><span>keep watching, because now we need to</span></div>
+        <div class="cap" id="cap-52"><span>find out why.</span></div>
+        <div class="cap" id="cap-53"><span>Every time someone searches,</span></div>
+        <div class="cap" id="cap-54"><span>Google runs an auction.</span></div>
+        <div class="cap" id="cap-55"><span>But it's not won by the highest</span></div>
+        <div class="cap" id="cap-56"><span>bid. It's won by the highest Ad</span></div>
+        <div class="cap" id="cap-57"><span>Rank. Ad Rank is roughly your bid,</span></div>
+        <div class="cap" id="cap-58"><span>multiplied by your Quality Score,</span></div>
+        <div class="cap" id="cap-59"><span>plus things like ad assets and the</span></div>
+        <div class="cap" id="cap-60"><span>context of the search.</span></div>
+        <div class="cap" id="cap-61"><span>And here's the part most people miss.</span></div>
+        <div class="cap" id="cap-62"><span>You don't pay your bid.</span></div>
+        <div class="cap" id="cap-63"><span>In the classic version of the formula,</span></div>
+        <div class="cap" id="cap-64"><span>you pay just enough to beat the</span></div>
+        <div class="cap" id="cap-65"><span>advertiser below you.</span></div>
+        <div class="cap" id="cap-66"><span>Your actual CPC equals the Ad Rank</span></div>
+        <div class="cap" id="cap-67"><span>of the advertiser below you,</span></div>
+        <div class="cap" id="cap-68"><span>divided by your Quality Score,</span></div>
+        <div class="cap" id="cap-69"><span>plus one cent.</span></div>
+        <div class="cap" id="cap-70"><span>Look at what that means.</span></div>
+        <div class="cap" id="cap-71"><span>There are really only three ways your</span></div>
+        <div class="cap" id="cap-72"><span>CPC goes up.</span></div>
+        <div class="cap" id="cap-73"><span>The people below you get stronger,</span></div>
+        <div class="cap" id="cap-74"><span>so the number on top rises.</span></div>
+        <div class="cap" id="cap-75"><span>Your Quality Score drops,</span></div>
+        <div class="cap" id="cap-76"><span>so the number on the bottom shrinks.</span></div>
+        <div class="cap" id="cap-77"><span>Or your own bidding pushes you into</span></div>
+        <div class="cap" id="cap-78"><span>pricier auctions. Every cause in this video</span></div>
+        <div class="cap" id="cap-79"><span>is one of those levers.</span></div>
+        <div class="cap" id="cap-80"><span>Keep this formula in your head.</span></div>
+        <div class="cap" id="cap-81"><span>Cause number one.</span></div>
+        <div class="cap" id="cap-82"><span>More competition. A new competitor enters your</span></div>
+        <div class="cap" id="cap-83"><span>auctions, or an existing one raises their</span></div>
+        <div class="cap" id="cap-84"><span>budget. The advertiser below you gets stronger,</span></div>
+        <div class="cap" id="cap-85"><span>so you pay more.</span></div>
+        <div class="cap" id="cap-86"><span>Here's where to check.</span></div>
+        <div class="cap" id="cap-87"><span>Go to Insights and reports,</span></div>
+        <div class="cap" id="cap-88"><span>then Auction insights.</span></div>
+        <div class="cap" id="cap-89"><span>Set the date range to compare this</span></div>
+        <div class="cap" id="cap-90"><span>period with the last one.</span></div>
+        <div class="cap" id="cap-91"><span>Look for a new name in the</span></div>
+        <div class="cap" id="cap-92"><span>list, or a competitor whose overlap rate</span></div>
+        <div class="cap" id="cap-93"><span>or outranking share jumped.</span></div>
+        <div class="cap" id="cap-94"><span>If someone went from twenty percent overlap</span></div>
+        <div class="cap" id="cap-95"><span>to sixty, that's your answer.</span></div>
+        <div class="cap" id="cap-96"><span>The fix is not to get into</span></div>
+        <div class="cap" id="cap-97"><span>a bidding war.</span></div>
+        <div class="cap" id="cap-98"><span>You'll both lose,</span></div>
+        <div class="cap" id="cap-99"><span>and Google wins.</span></div>
+        <div class="cap" id="cap-100"><span>Instead, raise your Quality Score,</span></div>
+        <div class="cap" id="cap-101"><span>which we'll cover next,</span></div>
+        <div class="cap" id="cap-102"><span>so you beat them without paying more.</span></div>
+        <div class="cap" id="cap-103"><span>Find where you still win,</span></div>
+        <div class="cap" id="cap-104"><span>by device, location or time of day,</span></div>
+        <div class="cap" id="cap-105"><span>and push budget there.</span></div>
+        <div class="cap" id="cap-106"><span>And if they're bidding on your brand</span></div>
+        <div class="cap" id="cap-107"><span>name, protect your brand campaign.</span></div>
+        <div class="cap" id="cap-108"><span>It's usually the cheapest traffic you'll ever</span></div>
+        <div class="cap" id="cap-109"><span>buy.</span></div>
+        <div class="cap" id="cap-110"><span>Cause number two.</span></div>
+        <div class="cap" id="cap-111"><span>Your Quality Score dropped.</span></div>
+        <div class="cap" id="cap-112"><span>Remember, it's the number on the bottom</span></div>
+        <div class="cap" id="cap-113"><span>of the formula.</span></div>
+        <div class="cap" id="cap-114"><span>When it falls,</span></div>
+        <div class="cap" id="cap-115"><span>your CPC rises,</span></div>
+        <div class="cap" id="cap-116"><span>even if nothing else changes.</span></div>
+        <div class="cap" id="cap-117"><span>To check it,</span></div>
+        <div class="cap" id="cap-118"><span>go to your Keywords view,</span></div>
+        <div class="cap" id="cap-119"><span>and add four columns:</span></div>
+        <div class="cap" id="cap-120"><span>Quality Score, Expected click through rate,</span></div>
+        <div class="cap" id="cap-121"><span>Ad relevance, and Landing page experience.</span></div>
+        <div class="cap" id="cap-122"><span>Then add the historical versions of those</span></div>
+        <div class="cap" id="cap-123"><span>columns, so you can see when it</span></div>
+        <div class="cap" id="cap-124"><span>changed. Each part gets a rating of</span></div>
+        <div class="cap" id="cap-125"><span>below average, average,</span></div>
+        <div class="cap" id="cap-126"><span>or above average.</span></div>
+        <div class="cap" id="cap-127"><span>That tells you exactly what to fix.</span></div>
+        <div class="cap" id="cap-128"><span>Below average expected CTR?</span></div>
+        <div class="cap" id="cap-129"><span>Your ads aren't compelling.</span></div>
+        <div class="cap" id="cap-130"><span>Test new headlines,</span></div>
+        <div class="cap" id="cap-131"><span>and add sitelinks and callouts.</span></div>
+        <div class="cap" id="cap-132"><span>Below average ad relevance?</span></div>
+        <div class="cap" id="cap-133"><span>Your ad groups are too broad.</span></div>
+        <div class="cap" id="cap-134"><span>Split them up so the ad matches</span></div>
+        <div class="cap" id="cap-135"><span>the search. Below average landing page?</span></div>
+        <div class="cap" id="cap-136"><span>The page is slow,</span></div>
+        <div class="cap" id="cap-137"><span>or doesn't match what the ad promised.</span></div>
+        <div class="cap" id="cap-138"><span>Check it on mobile.</span></div>
+        <div class="cap" id="cap-139"><span>A page that takes five seconds to</span></div>
+        <div class="cap" id="cap-140"><span>load is costing you money on every</span></div>
+        <div class="cap" id="cap-141"><span>click.</span></div>
+        <div class="cap" id="cap-142"><span>Cause number three.</span></div>
+        <div class="cap" id="cap-143"><span>Your own bidding.</span></div>
+        <div class="cap" id="cap-144"><span>Sometimes the CPC increase is self inflicted.</span></div>
+        <div class="cap" id="cap-145"><span>Go to Tools,</span></div>
+        <div class="cap" id="cap-146"><span>then Change history,</span></div>
+        <div class="cap" id="cap-147"><span>and filter by bid and budget changes.</span></div>
+        <div class="cap" id="cap-148"><span>Look for three things.</span></div>
+        <div class="cap" id="cap-149"><span>One, a budget increase on Maximise conversions.</span></div>
+        <div class="cap" id="cap-150"><span>With no target set,</span></div>
+        <div class="cap" id="cap-151"><span>Google will spend that extra money by</span></div>
+        <div class="cap" id="cap-152"><span>bidding into more expensive auctions.</span></div>
+        <div class="cap" id="cap-153"><span>Two, a raised target C P A,</span></div>
+        <div class="cap" id="cap-154"><span>or a lowered target ROAS.</span></div>
+        <div class="cap" id="cap-155"><span>You've told Google it's allowed to pay</span></div>
+        <div class="cap" id="cap-156"><span>more, so it does.</span></div>
+        <div class="cap" id="cap-157"><span>Three, a switch to target impression share,</span></div>
+        <div class="cap" id="cap-158"><span>especially absolute top of page.</span></div>
+        <div class="cap" id="cap-159"><span>That strategy chases position,</span></div>
+        <div class="cap" id="cap-160"><span>not profit, and it'll pay whatever it</span></div>
+        <div class="cap" id="cap-161"><span>takes. Also check the bid strategy status.</span></div>
+        <div class="cap" id="cap-162"><span>If it says learning,</span></div>
+        <div class="cap" id="cap-163"><span>CPCs often jump around for about a</span></div>
+        <div class="cap" id="cap-164"><span>week. The fix:</span></div>
+        <div class="cap" id="cap-165"><span>set realistic targets,</span></div>
+        <div class="cap" id="cap-166"><span>change them in small steps of around</span></div>
+        <div class="cap" id="cap-167"><span>fifteen to twenty percent,</span></div>
+        <div class="cap" id="cap-168"><span>and give each change time before you</span></div>
+        <div class="cap" id="cap-169"><span>judge it.</span></div>
+        <div class="cap" id="cap-170"><span>Cause number four.</span></div>
+        <div class="cap" id="cap-171"><span>Your keywords are matching expensive searches.</span></div>
+        <div class="cap" id="cap-172"><span>Broad match, and Performance Max,</span></div>
+        <div class="cap" id="cap-173"><span>decide for themselves which searches you show</span></div>
+        <div class="cap" id="cap-174"><span>up for. Over time,</span></div>
+        <div class="cap" id="cap-175"><span>they can drift into queries that are</span></div>
+        <div class="cap" id="cap-176"><span>more competitive, and often less relevant.</span></div>
+        <div class="cap" id="cap-177"><span>You bid on &quot;running shoes,&quot; and suddenly</span></div>
+        <div class="cap" id="cap-178"><span>you're paying for &quot;Nike Pegasus 41 sale,&quot;</span></div>
+        <div class="cap" id="cap-179"><span>competing with every big retailer in the</span></div>
+        <div class="cap" id="cap-180"><span>country. To check,</span></div>
+        <div class="cap" id="cap-181"><span>open Insights and reports,</span></div>
+        <div class="cap" id="cap-182"><span>then Search terms.</span></div>
+        <div class="cap" id="cap-183"><span>Sort by cost,</span></div>
+        <div class="cap" id="cap-184"><span>and look at the top fifty.</span></div>
+        <div class="cap" id="cap-185"><span>For each one,</span></div>
+        <div class="cap" id="cap-186"><span>ask: would I have chosen this keyword</span></div>
+        <div class="cap" id="cap-187"><span>myself? The fix is to add negative</span></div>
+        <div class="cap" id="cap-188"><span>keywords for anything irrelevant,</span></div>
+        <div class="cap" id="cap-189"><span>move your best converting searches into their</span></div>
+        <div class="cap" id="cap-190"><span>own exact or phrase match keywords,</span></div>
+        <div class="cap" id="cap-191"><span>and make this a weekly habit,</span></div>
+        <div class="cap" id="cap-192"><span>not a once a year clean up.</span></div>
+        <div class="cap" id="cap-193"><span>Cause number five.</span></div>
+        <div class="cap" id="cap-194"><span>Seasonality. Some months are just more expensive.</span></div>
+        <div class="cap" id="cap-195"><span>In the run up to Black Friday</span></div>
+        <div class="cap" id="cap-196"><span>and Christmas, more businesses bid on the</span></div>
+        <div class="cap" id="cap-197"><span>same searches, and CPCs can climb thirty</span></div>
+        <div class="cap" id="cap-198"><span>percent or more across a whole industry.</span></div>
+        <div class="cap" id="cap-199"><span>To check, compare the same dates against</span></div>
+        <div class="cap" id="cap-200"><span>last year, not just last month.</span></div>
+        <div class="cap" id="cap-201"><span>If last November had the same jump,</span></div>
+        <div class="cap" id="cap-202"><span>it's seasonal. The fix is not to</span></div>
+        <div class="cap" id="cap-203"><span>fight the market.</span></div>
+        <div class="cap" id="cap-204"><span>Plan for it.</span></div>
+        <div class="cap" id="cap-205"><span>Adjust your targets ahead of time,</span></div>
+        <div class="cap" id="cap-206"><span>move budget towards your highest margin products,</span></div>
+        <div class="cap" id="cap-207"><span>and judge success on return on ad</span></div>
+        <div class="cap" id="cap-208"><span>spend, not cost per click.</span></div>
+        <div class="cap" id="cap-209"><span>Cause number six.</span></div>
+        <div class="cap" id="cap-210"><span>And this one catches a lot of</span></div>
+        <div class="cap" id="cap-211"><span>people. Your conversion tracking is broken.</span></div>
+        <div class="cap" id="cap-212"><span>Smart Bidding learns from your conversion data.</span></div>
+        <div class="cap" id="cap-213"><span>If that data is wrong,</span></div>
+        <div class="cap" id="cap-214"><span>it bids wrong.</span></div>
+        <div class="cap" id="cap-215"><span>The most common example is a conversion</span></div>
+        <div class="cap" id="cap-216"><span>that fires twice.</span></div>
+        <div class="cap" id="cap-217"><span>Google thinks each click is worth double,</span></div>
+        <div class="cap" id="cap-218"><span>so it bids higher and your CPC</span></div>
+        <div class="cap" id="cap-219"><span>climbs. The same thing happens when a</span></div>
+        <div class="cap" id="cap-220"><span>low value action,</span></div>
+        <div class="cap" id="cap-221"><span>like a page view,</span></div>
+        <div class="cap" id="cap-222"><span>is set as a primary conversion.</span></div>
+        <div class="cap" id="cap-223"><span>To check, go to Goals,</span></div>
+        <div class="cap" id="cap-224"><span>then Conversions summary.</span></div>
+        <div class="cap" id="cap-225"><span>Look at every primary action.</span></div>
+        <div class="cap" id="cap-226"><span>Is the status recording properly?</span></div>
+        <div class="cap" id="cap-227"><span>Do the numbers match what your shop</span></div>
+        <div class="cap" id="cap-228"><span>or CRM says actually happened?</span></div>
+        <div class="cap" id="cap-229"><span>If Google says forty sales and Shopify</span></div>
+        <div class="cap" id="cap-230"><span>says twenty, you've found your problem.</span></div>
+        <div class="cap" id="cap-231"><span>Fix the tag,</span></div>
+        <div class="cap" id="cap-232"><span>remove duplicates, and set only real business</span></div>
+        <div class="cap" id="cap-233"><span>outcomes as primary.</span></div>
+        <div class="cap" id="cap-234"><span>So, next time your CPC jumps,</span></div>
+        <div class="cap" id="cap-235"><span>run this checklist.</span></div>
+        <div class="cap" id="cap-236"><span>Minute one: check C P A and</span></div>
+        <div class="cap" id="cap-237"><span>ROAS. If they're fine,</span></div>
+        <div class="cap" id="cap-238"><span>stop there. Minutes two to four:</span></div>
+        <div class="cap" id="cap-239"><span>change history. Did anyone change budgets,</span></div>
+        <div class="cap" id="cap-240"><span>targets, or bid strategy?</span></div>
+        <div class="cap" id="cap-241"><span>Minutes four to six:</span></div>
+        <div class="cap" id="cap-242"><span>segment by campaign,</span></div>
+        <div class="cap" id="cap-243"><span>and find where the increase is actually</span></div>
+        <div class="cap" id="cap-244"><span>happening. Minutes six to eight:</span></div>
+        <div class="cap" id="cap-245"><span>auction insights, for new competitors.</span></div>
+        <div class="cap" id="cap-246"><span>Minutes eight to ten:</span></div>
+        <div class="cap" id="cap-247"><span>Quality Score and its history.</span></div>
+        <div class="cap" id="cap-248"><span>Minutes ten to thirteen:</span></div>
+        <div class="cap" id="cap-249"><span>search terms, sorted by cost.</span></div>
+        <div class="cap" id="cap-250"><span>And minutes thirteen to fifteen:</span></div>
+        <div class="cap" id="cap-251"><span>conversion tracking, compared against your real sales.</span></div>
+        <div class="cap" id="cap-252"><span>Last of all,</span></div>
+        <div class="cap" id="cap-253"><span>compare the same period last year to</span></div>
+        <div class="cap" id="cap-254"><span>rule out seasonality.</span></div>
+        <div class="cap" id="cap-255"><span>Remember: CPC is a symptom.</span></div>
+        <div class="cap" id="cap-256"><span>Find the lever,</span></div>
+        <div class="cap" id="cap-257"><span>competition, Quality Score,</span></div>
+        <div class="cap" id="cap-258"><span>or your own bidding,</span></div>
+        <div class="cap" id="cap-259"><span>and fix that one thing.</span></div>
+        <div class="cap" id="cap-260"><span>Every week, I'm breaking down a different</span></div>
+        <div class="cap" id="cap-261"><span>digital marketing topic,</span></div>
+        <div class="cap" id="cap-262"><span>properly. Next week is Performance Max.</span></div>
+        <div class="cap" id="cap-263"><span>Subscribe so you don't miss it,</span></div>
+        <div class="cap" id="cap-264"><span>and if you want a second pair</span></div>
+        <div class="cap" id="cap-265"><span>of eyes on your account,</span></div>
+        <div class="cap" id="cap-266"><span>the link is in the description.</span></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+        const C = [[0.5, 2.19], [2.19, 3.83], [3.83, 6.08], [6.08, 7.41], [7.41, 8.87], [8.87, 10.51], [10.51, 13.2], [13.2, 14.4], [14.4, 16.1], [16.1, 19.75], [19.75, 21.01], [21.01, 22.4], [22.4, 23.74], [23.74, 25.57], [26.47, 27.9], [27.9, 29.47], [29.47, 32.1], [32.1, 33.54], [33.54, 35.53], [35.53, 37.83], [37.83, 39.58], [39.58, 40.65], [40.65, 42.25], [42.25, 44.75], [44.75, 45.75], [45.75, 47.78], [47.78, 49.7], [50.6, 55.56], [55.56, 56.79], [56.79, 58.96], [58.96, 61.05], [61.05, 62.04], [62.04, 63.07], [63.07, 64.94], [64.94, 67.13], [67.13, 69.07], [69.07, 71.4], [71.4, 73.86], [73.86, 76.92], [76.92, 78.2], [78.2, 79.44], [79.44, 81.72], [81.72, 83.27], [83.27, 85.11], [85.11, 86.83], [86.83, 88.4], [88.4, 90.16], [90.16, 91.68], [91.68, 93.54], [93.54, 95.44], [95.44, 96.16], [96.16, 98.23], [98.23, 99.58], [100.48, 101.96], [101.96, 103.92], [103.92, 105.27], [105.27, 107.61], [107.61, 110.64], [110.64, 112.75], [112.75, 114.8], [114.8, 117.03], [117.03, 119.43], [119.43, 121.0], [121.0, 123.0], [123.0, 124.57], [124.57, 126.38], [126.38, 128.32], [128.32, 130.05], [130.05, 131.89], [131.89, 133.65], [133.65, 135.18], [135.18, 136.93], [136.93, 138.37], [138.37, 140.09], [140.09, 142.14], [142.14, 143.39], [143.39, 145.73], [145.73, 147.46], [147.46, 150.29], [150.29, 152.1], [152.1, 154.11], [155.01, 156.24], [156.24, 159.1], [159.1, 161.22], [161.22, 164.24], [164.24, 165.71], [165.71, 167.26], [167.26, 168.85], [168.85, 170.81], [170.81, 172.43], [172.43, 174.52], [174.52, 176.15], [176.15, 178.7], [178.7, 181.04], [181.04, 182.92], [182.92, 185.15], [185.15, 186.25], [186.25, 187.56], [187.56, 188.54], [188.54, 190.11], [190.11, 191.81], [191.81, 192.95], [192.95, 195.48], [195.48, 196.9], [196.9, 198.94], [198.94, 200.94], [200.94, 202.49], [202.49, 204.91], [204.91, 207.03], [207.03, 207.87], [208.77, 210.16], [210.16, 212.04], [212.04, 213.64], [213.64, 214.99], [214.99, 215.89], [215.89, 216.84], [216.84, 219.11], [219.11, 219.9], [219.9, 221.33], [221.33, 222.56], [222.56, 224.96], [224.96, 228.06], [228.06, 230.06], [230.06, 231.75], [231.75, 234.54], [234.54, 236.08], [236.08, 237.74], [237.74, 240.11], [240.11, 242.63], [242.63, 244.22], [244.22, 245.24], [245.24, 247.3], [247.3, 249.27], [249.27, 253.77], [253.77, 254.83], [254.83, 259.41], [259.41, 259.68], [259.68, 260.8], [260.8, 262.25], [262.25, 263.52], [263.52, 264.83], [264.83, 265.62], [266.52, 267.86], [267.86, 269.08], [269.08, 272.55], [272.55, 273.33], [273.33, 274.45], [274.45, 277.03], [277.03, 278.61], [278.61, 281.96], [281.96, 283.25], [283.25, 285.38], [285.38, 288.2], [288.2, 290.18], [290.18, 292.49], [292.49, 293.98], [293.98, 295.4], [295.4, 297.94], [297.94, 300.45], [300.45, 302.01], [302.01, 303.94], [303.94, 309.01], [309.01, 309.92], [309.92, 311.27], [311.27, 313.04], [313.04, 314.51], [314.51, 316.67], [316.67, 318.38], [318.38, 320.55], [320.55, 321.81], [322.71, 324.25], [324.25, 327.28], [327.28, 329.27], [329.27, 331.6], [331.6, 333.54], [333.54, 335.33], [335.33, 338.5], [338.5, 340.9], [340.9, 343.35], [343.35, 345.75], [345.75, 347.71], [347.71, 349.25], [349.25, 351.07], [351.07, 351.8], [351.8, 353.84], [353.84, 354.7], [354.7, 356.78], [356.78, 359.71], [359.71, 361.77], [361.77, 364.39], [364.39, 366.61], [366.61, 368.52], [368.52, 370.85], [371.75, 373.38], [373.38, 377.23], [377.23, 379.01], [379.01, 381.58], [381.58, 384.1], [384.1, 387.51], [387.51, 389.72], [389.72, 392.34], [392.34, 394.31], [394.31, 396.69], [396.69, 398.32], [398.32, 399.57], [399.57, 401.93], [401.93, 405.18], [405.18, 407.34], [407.34, 409.91], [410.81, 412.29], [412.29, 413.49], [413.49, 416.7], [416.7, 419.44], [419.44, 420.59], [420.59, 422.17], [422.17, 424.32], [424.32, 426.21], [426.21, 428.7], [428.7, 430.48], [430.48, 433.44], [433.44, 434.53], [434.53, 435.65], [435.65, 438.15], [438.15, 439.43], [439.43, 441.39], [441.39, 443.51], [443.51, 445.82], [445.82, 447.85], [447.85, 450.46], [450.46, 452.51], [452.51, 455.67], [455.67, 456.66], [456.66, 459.65], [459.65, 461.62], [462.52, 464.32], [464.32, 466.18], [466.18, 467.88], [467.88, 469.72], [469.72, 472.01], [472.01, 475.03], [475.03, 477.2], [477.2, 478.41], [478.41, 479.6], [479.6, 481.62], [481.62, 484.07], [484.07, 486.78], [486.78, 487.99], [487.99, 490.33], [490.33, 491.87], [491.87, 494.49], [494.49, 496.25], [496.25, 499.91], [499.91, 500.79], [500.79, 502.85], [502.85, 504.69], [505.59, 508.55], [508.55, 509.43], [509.43, 510.94], [510.94, 512.05], [512.05, 514.11], [514.11, 516.19], [516.19, 517.44], [517.44, 521.15], [521.15, 522.82], [522.82, 524.29], [524.29, 525.63], [525.63, 527.78]];
+        const tl = gsap.timeline({ paused: true });
+        C.forEach(function (c, i) {
+          tl.set("#cap-" + i, { opacity: 1 }, c[0]);
+          tl.set("#cap-" + i, { opacity: 0 }, c[1]);
+        });
+        tl.set({}, {}, 528.18);
+        window.__timelines["captions"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

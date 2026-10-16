@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s03-wrap { position: absolute; inset: 0; }
+        #s03-head { position: absolute; left: 120px; top: 130px; display: flex; flex-direction: column; gap: 14px; }
+        #s03-note { position: absolute; right: 120px; top: 150px; width: 560px; font-family: var(--text); font-size: 30px; line-height: 1.4; color: var(--soft); text-align: right; }
+        #s03-note b { color: var(--ink); }
+        #s03-tiles { position: absolute; left: 120px; right: 120px; top: 360px; height: 290px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+        .s03-tile { position: relative; padding: 34px 38px; display: flex; flex-direction: column; gap: 10px; }
+        .s03-lbl { font-family: var(--mono); font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); }
+        .s03-from { font-family: var(--mono); font-size: 28px; color: var(--soft); }
+        .s03-val { font-family: var(--disp); font-weight: 700; font-size: 96px; letter-spacing: -0.03em; line-height: 1; color: var(--ink); }
+        .s03-tile .badge { position: absolute; right: 30px; top: 30px; }
+        #s03-stamp { position: absolute; left: 120px; top: 712px; width: 760px; text-align: center; font-family: var(--disp); font-weight: 700; font-size: 64px; letter-spacing: -0.01em; color: #04140d; background: var(--accent); border-radius: 18px; padding: 16px 0; }
+        #s03-decide { position: absolute; left: 120px; right: 120px; top: 700px; height: 150px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 36px; align-items: stretch; }
+        .s03-q { display: flex; align-items: center; font-family: var(--disp); font-weight: 700; font-size: 44px; line-height: 1.1; color: var(--ink); }
+        .s03-b { display: flex; flex-direction: column; justify-content: center; gap: 6px; border-radius: 20px; padding: 0 32px; border: 3px solid var(--line); background: var(--surface); }
+        .s03-b .k { font-family: var(--mono); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; }
+        .s03-b .v { font-family: var(--disp); font-weight: 700; font-size: 40px; color: var(--ink); }
+        #s03-no { border-color: rgba(52,211,153,0.6); }
+        #s03-no .k { color: var(--accent); }
+        #s03-yes { border-color: rgba(251,113,133,0.6); }
+        #s03-yes .k { color: var(--leak); }
+      </style>
+      <div id="root" data-composition-id="s03" data-width="1920" data-height="1080">
+        <div id="s03-wrap">
+          <div id="s03-head">
+            <div class="kicker">Step 1</div>
+            <div class="h2">Is it actually a problem?</div>
+          </div>
+          <div id="s03-note">CPC is a <b>cost</b> metric. It can't tell you if you're making money.</div>
+          <div id="s03-tiles">
+            <div class="s03-tile panel" id="s03-t1"><div class="s03-lbl">Avg. CPC</div><div class="s03-from">was $2.10</div><div class="s03-val" id="s03-v1">$2.10</div><span class="badge bad" id="s03-b1">▲ 40%</span></div>
+            <div class="s03-tile panel" id="s03-t2"><div class="s03-lbl">Conv. rate</div><div class="s03-from">was 4.0%</div><div class="s03-val" id="s03-v2">4.0%</div><span class="badge good" id="s03-b2">▲ 50%</span></div>
+            <div class="s03-tile panel" id="s03-t3"><div class="s03-lbl">Cost / conv. (CPA)</div><div class="s03-from">was $52.50</div><div class="s03-val" id="s03-v3">$52.50</div><span class="badge good" id="s03-b3">▼ 6%</span></div>
+          </div>
+          <div id="s03-stamp">Not a problem.</div>
+          <div id="s03-decide">
+            <div class="s03-q" id="s03-q">Did CPA or ROAS get worse?</div>
+            <div class="s03-b" id="s03-no"><div class="k">No</div><div class="v">Leave it alone</div></div>
+            <div class="s03-b" id="s03-yes"><div class="k">Yes</div><div class="v">Find the cause →</div></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+        const W = /*W*/[["step",0.5],["one",1.5],["before",4.37],["you",4.63],["touch",4.78],["anything",5.0],["look",5.46],["past",5.65],["cpc",5.84],["cpc",6.69],["is",6.93],["a",7.11],["cost",7.24],["metric",7.53],["it",8.86],["doesnt",9.04],["tell",9.48],["you",9.77],["if",10.0],["youre",10.18],["making",10.57],["money",10.95],["put",11.7],["cost",11.74],["per",11.78],["click",11.82],["next",11.87],["to",11.91],["conversion",11.94],["rate",12.03],["and",12.08],["cost",12.11],["per",12.16],["acquisition",12.2],["say",12.97],["your",13.22],["cpc",13.52],["went",13.76],["from",14.06],["two",14.35],["ten",14.6],["to",14.84],["two",15.03],["ninetyfive",15.27],["but",17.03],["your",17.23],["conversion",17.47],["rate",17.99],["also",18.23],["went",18.48],["from",18.72],["four",18.97],["percent",19.21],["to",19.59],["six",19.75],["percent",19.95],["your",21.3],["cost",21.57],["per",21.84],["acquisition",22.06],["actually",22.68],["dropped",23.15],["from",23.76],["fiftytwo",24.03],["fifty",24.55],["to",24.87],["about",25.05],["fortynine",25.37],["youre",26.82],["paying",27.09],["more",27.36],["per",27.56],["click",27.72],["but",28.1],["those",28.26],["clicks",28.49],["are",28.76],["better",28.93],["and",29.34],["youre",29.5],["getting",29.77],["customers",30.08],["cheaper",30.45],["thats",31.62],["not",31.87],["a",32.02],["problem",32.11],["thats",33.17],["smart",33.5],["bidding",33.78],["doing",34.15],["its",34.44],["job",34.63],["paying",35.01],["more",35.33],["for",35.57],["people",35.77],["who",36.1],["are",36.29],["more",36.49],["likely",36.73],["to",37.06],["buy",37.21],["so",38.3],["the",38.5],["real",38.76],["question",39.08],["is",39.63],["did",40.06],["your",40.32],["c",40.63],["p",40.78],["a",40.92],["or",41.07],["your",41.27],["roas",41.58],["get",41.9],["worse",42.16],["if",43.44],["not",43.56],["leave",43.87],["it",44.1],["alone",44.23],["if",45.34],["it",45.5],["did",45.67],["keep",46.06],["watching",46.32],["because",46.94],["now",47.34],["we",47.55],["need",47.71],["to",47.97],["find",48.13],["out",48.39],["why",48.6]]/*/W*/;
+        const DUR = 49.88;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
+        const $ = (s) => document.querySelector(s);
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s03-head .kicker", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+        tl.fromTo("#s03-head .h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.35);
+        tl.fromTo("#s03-note", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, at("cpc is a cost"));
+        const put = at("put cost per click");
+        ["#s03-t1", "#s03-t2", "#s03-t3"].forEach((t, i) => tl.fromTo(t, { opacity: 0, y: 50, rotationX: -20, transformPerspective: 900 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.6, ease: "power3.out" }, put + i * 0.35));
+        tl.set(["#s03-b1", "#s03-b2", "#s03-b3"], { opacity: 0 }, 0);
+        const a = { v: 2.10 }, b = { v: 4.0 }, c = { v: 52.5 };
+        const k1 = at("from two ten");
+        tl.to(a, { v: 2.95, duration: 1.4, ease: "power2.inOut", onUpdate: () => { $("#s03-v1").textContent = "$" + a.v.toFixed(2); } }, k1);
+        tl.to("#s03-v1", { color: "#fb7185", duration: 0.3 }, k1 + 1);
+        tl.fromTo("#s03-b1", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, k1 + 1.2);
+        const k2 = at("four percent");
+        tl.to(b, { v: 6.0, duration: 1.4, ease: "power2.inOut", onUpdate: () => { $("#s03-v2").textContent = b.v.toFixed(1) + "%"; } }, k2);
+        tl.to("#s03-v2", { color: "#34d399", duration: 0.3 }, k2 + 1);
+        tl.fromTo("#s03-b2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, k2 + 1.2);
+        const k3 = at("actually dropped");
+        tl.to(c, { v: 49.17, duration: 1.4, ease: "power2.inOut", onUpdate: () => { $("#s03-v3").textContent = "$" + c.v.toFixed(2); } }, k3);
+        tl.to("#s03-v3", { color: "#34d399", duration: 0.3 }, k3 + 1);
+        tl.fromTo("#s03-b3", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, k3 + 1.2);
+        tl.fromTo("#s03-t3", { boxShadow: "0 40px 90px rgba(0,0,0,0.45)" }, { boxShadow: "0 0 0 6px rgba(52,211,153,0.5), 0 40px 90px rgba(0,0,0,0.45)", duration: 0.5 }, k3 + 1.4);
+        const np = at("thats not a problem");
+        tl.fromTo("#s03-stamp", { opacity: 0, scale: 1.5, rotation: -4 }, { opacity: 1, scale: 1, rotation: -2, duration: 0.45, ease: "back.out(2.2)" }, np);
+        tl.to("#s03-stamp", { opacity: 0, y: -20, duration: 0.4 }, at("so the real question") - 0.3);
+        const rq = at("so the real question");
+        tl.fromTo("#s03-q", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, rq);
+        tl.fromTo("#s03-no", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, at("if not"));
+        tl.fromTo("#s03-yes", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, at("if it did"));
+        tl.to("#s03-yes", { boxShadow: "0 0 0 8px rgba(251,113,133,0.25)", duration: 0.5, yoyo: true, repeat: 3 }, at("keep watching"));
+        tl.to("#s03-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
+        window.__timelines["s03"] = tl;
+      })();
+      </script>
+    </template>
+  </body>
+</html>

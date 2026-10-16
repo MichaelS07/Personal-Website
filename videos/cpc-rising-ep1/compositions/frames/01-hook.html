@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #s01-wrap { position: absolute; inset: 0; }
+        #s01-panel { position: absolute; left: 120px; top: 150px; width: 1120px; height: 690px; }
+        #s01-tiles { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 0; border-bottom: 2px solid rgba(52,211,153,0.12); }
+        .s01-tile { padding: 30px 34px; border-right: 2px solid rgba(52,211,153,0.12); }
+        .s01-tile:last-child { border-right: 0; }
+        .s01-lbl { font-family: var(--mono); font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); }
+        .s01-val { font-family: var(--disp); font-weight: 700; font-size: 64px; letter-spacing: -0.02em; margin-top: 8px; color: var(--ink); }
+        #s01-cpc { font-size: 104px; color: var(--ink); }
+        .s01-sub { font-family: var(--mono); font-size: 22px; color: var(--soft); margin-top: 6px; }
+        #s01-chart { position: absolute; left: 34px; right: 34px; bottom: 34px; height: 300px; }
+        #s01-chart svg { display: block; width: 100%; height: 100%; }
+        #s01-side { position: absolute; left: 1310px; top: 170px; width: 500px; display: flex; flex-direction: column; gap: 28px; }
+        #s01-big { font-family: var(--disp); font-weight: 700; font-size: 150px; line-height: 0.9; letter-spacing: -0.04em; color: var(--leak); }
+        #s01-react { display: flex; flex-direction: column; gap: 16px; }
+        .s01-r { position: relative; display: block; width: 440px; font-family: var(--disp); font-weight: 700; font-size: 44px; color: var(--soft); padding: 10px 0; }
+        .s01-strike { position: absolute; left: -8px; top: 50%; display: block; width: 0%; height: 6px; background: var(--leak); border-radius: 3px; }
+        #s01-type { position: absolute; left: 120px; right: 120px; top: 250px; display: flex; flex-direction: column; gap: 10px; }
+        #s01-t1 { font-family: var(--disp); font-weight: 700; font-size: 150px; line-height: 1; letter-spacing: -0.04em; color: var(--soft); }
+        #s01-t2 { font-family: var(--disp); font-weight: 700; font-size: 150px; line-height: 1; letter-spacing: -0.04em; color: var(--accent); }
+        #s01-t3 { font-family: var(--text); font-size: 40px; color: var(--ink); margin-top: 30px; }
+      </style>
+      <div id="root" data-composition-id="s01" data-width="1920" data-height="1080">
+        <div id="s01-wrap">
+          <div id="s01-panel" class="panel">
+            <div class="gbar"><div class="gdots"><i></i><i></i><i></i></div><div class="gtitle">Google Ads</div><div class="gcrumb">Campaigns › <b>Overview</b> · Last 30 days</div></div>
+            <div id="s01-tiles">
+              <div class="s01-tile"><div class="s01-lbl">Avg. CPC</div><div class="s01-val" id="s01-cpc">$2.10</div><div class="s01-sub" id="s01-cpc-sub">last month</div></div>
+              <div class="s01-tile"><div class="s01-lbl">Budget</div><div class="s01-val">$3,000</div><div class="s01-sub">unchanged</div></div>
+              <div class="s01-tile"><div class="s01-lbl">Clicks</div><div class="s01-val" id="s01-clicks">1,429</div><div class="s01-sub" id="s01-clicks-sub">last month</div></div>
+            </div>
+            <div id="s01-chart">
+              <svg viewBox="0 0 1050 300" preserveAspectRatio="none">
+                <line x1="0" y1="75" x2="1050" y2="75" stroke="rgba(52,211,153,0.10)" stroke-width="2" />
+                <line x1="0" y1="150" x2="1050" y2="150" stroke="rgba(52,211,153,0.10)" stroke-width="2" />
+                <line x1="0" y1="225" x2="1050" y2="225" stroke="rgba(52,211,153,0.10)" stroke-width="2" />
+                <path id="s01-line" d="M0,240 L90,232 L180,238 L270,228 L360,234 L450,222 L540,200 L630,176 L720,150 L810,118 L900,96 L990,70 L1050,58" fill="none" stroke="#fb7185" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+                <circle id="s01-dot" cx="1050" cy="58" r="13" fill="#fb7185" />
+              </svg>
+            </div>
+          </div>
+          <div id="s01-side">
+            <div class="kicker">Avg. CPC this month</div>
+            <div id="s01-big">+40%</div>
+            <div id="s01-react">
+              <div class="s01-r" id="s01-r1">Panic<span class="s01-strike" id="s01-k1"></span></div>
+              <div class="s01-r" id="s01-r2">Drop all bids<span class="s01-strike" id="s01-k2"></span></div>
+              <div class="s01-r" id="s01-r3">Blame Google<span class="s01-strike" id="s01-k3"></span></div>
+            </div>
+          </div>
+          <div id="s01-type">
+            <div id="s01-t1">Not the problem.</div>
+            <div id="s01-t2">A symptom.</div>
+            <div id="s01-t3">Next 10 minutes: find the actual cause, then fix it.</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+        const W = /*W*/[["your",0.5],["cost",0.74],["per",0.97],["click",1.16],["was",1.44],["two",1.63],["dollars",1.83],["ten",2.19],["last",2.38],["month",2.62],["this",3.83],["month",4.04],["its",4.3],["two",4.51],["ninetyfive",4.69],["thats",6.08],["a",6.37],["forty",6.47],["percent",6.72],["jump",7.05],["and",7.41],["your",7.59],["budget",7.8],["hasnt",8.09],["changed",8.38],["so",8.87],["youre",9.0],["getting",9.29],["fewer",9.62],["clicks",9.87],["for",10.16],["the",10.34],["same",10.51],["money",10.73],["the",11.92],["usual",12.13],["reaction",12.43],["is",12.87],["to",13.04],["panic",13.2],["drop",13.69],["bids",13.95],["or",14.4],["blame",14.56],["google",14.86],["dont",16.1],["a",17.01],["rising",17.15],["cpc",17.56],["isnt",17.81],["the",18.17],["problem",18.42],["its",19.75],["a",19.91],["symptom",19.99],["and",21.01],["in",21.19],["the",21.33],["next",21.51],["ten",21.72],["minutes",21.9],["ill",22.4],["show",22.62],["you",22.84],["how",23.02],["to",23.2],["find",23.34],["the",23.56],["actual",23.74],["cause",24.03],["and",24.45],["fix",24.63],["it",24.81]]/*/W*/;
+        const DUR = 25.97;
+        function at(p, from) {
+          from = from || 0;
+          const q = p.toLowerCase().replace(/[^a-z0-9% ]/g, "").split(/\s+/).filter(Boolean);
+          for (let i = 0; i < W.length; i++) {
+            if (W[i][1] < from) continue;
+            let ok = true;
+            for (let j = 0; j < q.length; j++) { if (!W[i + j] || W[i + j][0] !== q[j]) { ok = false; break; } }
+            if (ok) return W[i][1];
+          }
+          return from;
+        }
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+        // panel in
+        tl.fromTo("#s01-panel", { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }, 0.1);
+        tl.fromTo("#s01-line", { strokeDasharray: 1400, strokeDashoffset: 1400 }, { strokeDashoffset: 760, duration: 1.4, ease: "power2.out" }, 0.6);
+        // count up
+        const tm = at("this month");
+        const cpc = { v: 2.10 }, clk = { v: 1429 };
+        tl.to(cpc, { v: 2.95, duration: 1.6, ease: "power2.inOut", onUpdate: () => { $("#s01-cpc").textContent = "$" + cpc.v.toFixed(2); $("#s01-cpc-sub").textContent = cpc.v > 2.105 ? "this month" : "last month"; } }, tm);
+        tl.to("#s01-cpc", { color: "#fb7185", duration: 0.4 }, tm + 0.8);
+        tl.to("#s01-line", { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" }, tm);
+        tl.fromTo("#s01-dot", { opacity: 0, scale: 0, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(3)" }, tm + 1.5);
+        // +40%
+        const jp = at("forty percent");
+        tl.fromTo("#s01-side .kicker", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, jp - 0.3);
+        tl.fromTo("#s01-big", { opacity: 0, scale: 1.6, transformOrigin: "0% 50%" }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)" }, jp);
+        // fewer clicks
+        const fc = at("fewer clicks");
+        tl.to(clk, { v: 1017, duration: 1.2, ease: "power2.inOut", onUpdate: () => { $("#s01-clicks").textContent = Math.round(clk.v).toLocaleString("en-US"); $("#s01-clicks-sub").textContent = clk.v < 1428.5 ? "this month" : "last month"; } }, fc);
+        tl.to("#s01-clicks", { color: "#fb7185", duration: 0.4 }, fc + 0.6);
+        // reactions
+        const r1 = at("panic"), r2 = at("drop bids"), r3 = at("blame google"), dn = at("dont", r3);
+        tl.fromTo("#s01-r1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, r1);
+        tl.fromTo("#s01-r2", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, r2);
+        tl.fromTo("#s01-r3", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, r3);
+        ["#s01-k1", "#s01-k2", "#s01-k3"].forEach((k, i) => tl.fromTo(k, { width: "0%" }, { width: "104%", duration: 0.3, ease: "power2.in" }, dn + i * 0.12));
+        tl.to(["#s01-r1", "#s01-r2", "#s01-r3"], { opacity: 0.45, duration: 0.3 }, dn + 0.4);
+        // symptom type
+        const sy = at("isnt the problem") - 0.6;
+        tl.to("#s01-panel", { opacity: 0, y: -40, scale: 0.94, duration: 0.6, ease: "power2.in" }, sy);
+        tl.to("#s01-side", { opacity: 0, x: 60, duration: 0.5, ease: "power2.in" }, sy);
+        tl.fromTo("#s01-t1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, sy + 0.55);
+        tl.fromTo("#s01-t2", { opacity: 0, y: 50, scale: 0.9, transformOrigin: "0% 50%" }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, at("its a symptom", sy));
+        tl.fromTo("#s01-t3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, at("in the next"));
+        tl.to("#s01-wrap", { opacity: 0, duration: 0.4, ease: "power1.in" }, DUR - 0.4);
+        window.__timelines["s01"] = tl;
+      })();
+      </script>
+    </template>
+  </body>
+</html>

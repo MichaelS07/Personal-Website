@@ -3,3 +3,4 @@ node_modules/
 renders/
 .hyperframes/
 *.mp4
+!videos/*/assets/vo/*.wav

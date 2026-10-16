@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Space Grotesk";
+        src: url("assets/fonts/space-grotesk-latin-400-normal.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Space Grotesk";
+        src: url("assets/fonts/space-grotesk-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      :root {
+        --canvas: #070d0a;
+        --surface: #0d1712;
+        --raised: #12211a;
+        --ink: #edf3ef;
+        --soft: #9db2a8;
+        --accent: #34d399;
+        --accent-deep: #10b981;
+        --leak: #fb7185;
+        --line: rgba(52, 211, 153, 0.22);
+        --disp: "Space Grotesk", "Inter", sans-serif;
+        --text: "Inter", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #070d0a; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--canvas); font-family: var(--text); color: var(--ink); }
+
+      /* ---------- persistent background ---------- */
+      #bg { position: absolute; inset: 0; overflow: hidden; }
+      .bg-grid { position: absolute; inset: -80px; background-image: linear-gradient(rgba(52,211,153,0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(52,211,153,0.07) 2px, transparent 2px); background-size: 80px 80px; }
+      .bg-glow { position: absolute; border-radius: 50%; }
+      .bg-glow.g1 { width: 1300px; height: 1300px; left: -380px; top: -520px; background: radial-gradient(circle, rgba(52,211,153,0.20) 0%, rgba(52,211,153,0) 62%); }
+      .bg-glow.g2 { width: 1100px; height: 1100px; right: -420px; bottom: -560px; background: radial-gradient(circle, rgba(16,185,129,0.16) 0%, rgba(16,185,129,0) 62%); }
+      .bg-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(7,13,10,0) 55%, rgba(4,8,6,0.7) 100%); }
+
+      /* ---------- chrome (top bar) ---------- */
+      #chrome { position: absolute; inset: 0; pointer-events: none; }
+      .topbar { position: absolute; left: 80px; right: 80px; top: 34px; height: 44px; display: flex; align-items: center; justify-content: space-between; }
+      .brand { display: flex; align-items: center; gap: 16px; font-family: var(--mono); font-size: 20px; letter-spacing: 0.12em; color: var(--soft); text-transform: uppercase; }
+      .brand img { height: 40px; width: auto; display: block; }
+      .chapter-wrap { position: relative; width: 560px; height: 30px; }
+      .chapter { position: absolute; right: 0; top: 0; font-family: var(--mono); font-size: 20px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); opacity: 0; white-space: nowrap; }
+      .progress { position: absolute; left: 0; right: 0; top: 0; height: 6px; background: rgba(52,211,153,0.10); }
+      .progress-fill { display: block; width: 100%; height: 100%; background: var(--accent); transform-origin: 0 50%; }
+
+      /* ---------- shared scene vocabulary ---------- */
+      .scene { position: absolute; inset: 0; padding: 120px 120px 200px; }
+      .kicker { font-family: var(--mono); font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+      .h1 { font-family: var(--disp); font-weight: 700; font-size: 96px; line-height: 1.02; letter-spacing: -0.03em; color: var(--ink); }
+      .h2 { font-family: var(--disp); font-weight: 700; font-size: 72px; line-height: 1.05; letter-spacing: -0.025em; color: var(--ink); }
+      .h3 { font-family: var(--disp); font-weight: 700; font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
+      .body { font-family: var(--text); font-size: 32px; line-height: 1.4; color: var(--soft); }
+      .mono { font-family: var(--mono); }
+      .good { color: var(--accent); }
+      .bad { color: var(--leak); }
+
+      .panel { background: var(--surface); border: 2px solid var(--line); border-radius: 24px; box-shadow: 0 40px 90px rgba(0,0,0,0.45); overflow: hidden; }
+      .gbar { display: flex; align-items: center; gap: 18px; height: 68px; padding: 0 28px; border-bottom: 2px solid rgba(52,211,153,0.14); background: var(--raised); }
+      .gdots { display: flex; gap: 8px; }
+      .gdots i { display: block; width: 14px; height: 14px; border-radius: 50%; }
+      .gdots i:nth-child(1) { background: #4285f4; } .gdots i:nth-child(2) { background: #fbbc04; } .gdots i:nth-child(3) { background: #34a853; }
+      .gtitle { font-family: var(--text); font-weight: 700; font-size: 24px; color: var(--ink); }
+      .gcrumb { font-family: var(--mono); font-size: 20px; color: var(--soft); }
+      .gcrumb b { color: var(--accent); font-weight: 400; }
+
+      .chip { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); border: 2px solid var(--line); border-radius: 999px; padding: 8px 20px; }
+      .chip.on { background: var(--accent); color: #04140d; border-color: var(--accent); }
+      .chip.leak { color: var(--leak); border-color: rgba(251,113,133,0.5); }
+      .badge { display: inline-flex; align-items: center; font-family: var(--mono); font-weight: 700; font-size: 26px; border-radius: 12px; padding: 6px 14px; }
+      .badge.bad { background: rgba(251,113,133,0.16); color: var(--leak); }
+      .badge.good { background: rgba(52,211,153,0.16); color: var(--accent); }
+
+      .cause-head { position: absolute; left: 120px; top: 118px; display: flex; flex-direction: column; gap: 18px; }
+      .cause-head .h2 { max-width: 900px; }
+      .lever { display: flex; gap: 12px; }
+      .where { position: absolute; left: 120px; bottom: 182px; display: flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 24px; color: var(--ink); background: rgba(13,23,18,0.92); border: 2px solid var(--line); border-radius: 14px; padding: 14px 24px; }
+      .where span.lbl { color: #04140d; background: var(--accent); border-radius: 8px; padding: 4px 12px; font-size: 20px; letter-spacing: 0.1em; }
+      .where b { color: var(--accent); font-weight: 400; }
+
+      .fix { position: absolute; right: 120px; width: 640px; background: #0b1a13; border: 3px solid var(--accent); border-radius: 24px; padding: 34px 38px; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+      .fix .kicker { margin-bottom: 18px; }
+      .fix ul { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+      .fix li { display: flex; gap: 16px; align-items: flex-start; font-family: var(--text); font-size: 30px; line-height: 1.3; color: var(--ink); }
+      .fix li::before { content: ""; flex: 0 0 auto; width: 28px; height: 28px; margin-top: 4px; border-radius: 8px; background: var(--accent); box-shadow: inset 0 0 0 6px #0b1a13; border: 2px solid var(--accent); }
+
+      .trow { display: grid; align-items: center; padding: 0 28px; height: 72px; border-bottom: 2px solid rgba(52,211,153,0.08); font-family: var(--text); font-size: 26px; color: var(--ink); }
+      .trow.head { height: 60px; font-family: var(--mono); font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); background: rgba(18,33,26,0.6); }
+      .trow .num { font-family: var(--mono); text-align: right; }
+      .hl { position: absolute; border: 3px solid var(--leak); border-radius: 14px; box-shadow: 0 0 0 6px rgba(251,113,133,0.15); }
+      .hl.ok { border-color: var(--accent); box-shadow: 0 0 0 6px rgba(52,211,153,0.15); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__TOTAL__" data-width="1920" data-height="1080">
+      <div id="bg" data-composition-id="bg" data-composition-src="compositions/bg.html" data-start="0" data-duration="__TOTAL__" data-track-index="0" data-width="1920" data-height="1080"></div>
+<!--SCENES-->
+      <div id="chrome" data-composition-id="chrome" data-composition-src="compositions/chrome.html" data-start="0" data-duration="__TOTAL__" data-track-index="20" data-width="1920" data-height="1080"></div>
+<!--CAPTIONS-->
+<!--AUDIO-->
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; pointer-events: none; }
+      </style>
+      <div id="root" data-composition-id="chrome" data-width="1920" data-height="1080">
+        <div class="progress"><span class="progress-fill" id="progress-fill"></span></div>
+        <div class="topbar">
+          <div class="brand"><img src="assets/logo-dark.png" alt="" /><span>Ep 01 · Google Ads</span></div>
+          <div class="chapter-wrap">
+            <div class="chapter" id="chapter-0">The hook</div>
+            <div class="chapter" id="chapter-1">The plan</div>
+            <div class="chapter" id="chapter-2">Is it a problem?</div>
+            <div class="chapter" id="chapter-3">How CPC is set</div>
+            <div class="chapter" id="chapter-4">Cause 1 · Competition</div>
+            <div class="chapter" id="chapter-5">Cause 2 · Quality Score</div>
+            <div class="chapter" id="chapter-6">Cause 3 · Your bidding</div>
+            <div class="chapter" id="chapter-7">Cause 4 · Search terms</div>
+            <div class="chapter" id="chapter-8">Cause 5 · Seasonality</div>
+            <div class="chapter" id="chapter-9">Cause 6 · Tracking</div>
+            <div class="chapter" id="chapter-10">The 15-min checklist</div>
+            <div class="chapter" id="chapter-11">Recap</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+        const TOTAL = 528.18;
+        const CH = [[0.0, "The hook"], [25.97, "The plan"], [50.1, "Is it a problem?"], [99.98, "How CPC is set"], [154.51, "Cause 1 \u00b7 Competition"], [208.27, "Cause 2 \u00b7 Quality Score"], [266.02, "Cause 3 \u00b7 Your bidding"], [322.21, "Cause 4 \u00b7 Search terms"], [371.25, "Cause 5 \u00b7 Seasonality"], [410.31, "Cause 6 \u00b7 Tracking"], [462.02, "The 15-min checklist"], [505.09, "Recap"]];
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: TOTAL, ease: "none" }, 0);
+        CH.forEach(function (c, i) {
+          const el = "#chapter-" + i;
+          tl.fromTo(el, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, c[0] + 0.3);
+          if (i < CH.length - 1) tl.to(el, { opacity: 0, y: -10, duration: 0.3, ease: "power2.in" }, CH[i + 1][0] - 0.1);
+        });
+        window.__timelines["chrome"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
