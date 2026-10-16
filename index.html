@@ -44,7 +44,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
 
   <meta name="color-scheme" content="dark">
@@ -66,8 +66,13 @@
       --sc-canvas: #070d0a;  --sc-surface: #0d1712;
       --sc-ink: #edf3ef;     --sc-ink-soft: #9db2a8;
       --sc-accent: #34d399;  --sc-accent-ink: #04140d;
-      --sc-font-display: "Geist", system-ui, sans-serif;
-      --sc-font-text: "Geist", system-ui, sans-serif;
+      --sc-font-display: "Space Grotesk", system-ui, sans-serif;
+      --sc-font-text: "Inter", system-ui, sans-serif;
+      /* Type scale matched to "The stack" band: 26-36px section heads, 15px body */
+      --sc-t-xs: 12px; --sc-t-sm: 13.5px; --sc-t-base: 15px; --sc-t-lg: 16.5px;
+      --sc-t-xl: clamp(19px, 1.2vw + 14px, 22px);
+      --sc-t-2xl: clamp(26px, 3vw, 36px);
+      --sc-t-3xl: clamp(30px, 3.4vw, 42px);
       --sc-font-mono: "Geist Mono", ui-monospace, monospace;
       --sc-shadow-color: 150 45% 2%;
       --raised: #111e18;
@@ -82,10 +87,10 @@
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--sc-gutter); }
     .mono { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); letter-spacing: .02em; }
     .soft { color: var(--sc-ink-soft); }
-    h1, h2, h3, h4 { font-family: var(--sc-font-display); font-weight: 600; letter-spacing: var(--sc-track-snug); line-height: var(--sc-leading-tight); margin: 0; text-wrap: balance; }
+    h1, h2, h3, h4 { font-family: var(--sc-font-display); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0; text-wrap: balance; }
     p { margin: 0; text-wrap: pretty; }
-    h2 { font-size: var(--sc-t-2xl); letter-spacing: var(--sc-track-tight); }
-    .lede { color: var(--sc-ink-soft); font-size: var(--sc-t-lg); line-height: 1.5; max-width: 52ch; }
+    h2 { font-size: var(--sc-t-2xl); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+    .lede { color: var(--sc-ink-soft); font-size: 15px; line-height: 1.6; max-width: 52ch; }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px;
@@ -330,6 +335,7 @@
     .rep-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: var(--sc-5); }
     .rep-title { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
     .rep-title b { color: var(--sc-accent); font-weight: 500; }
+    .chip { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--sc-ink-soft); border: 1px solid var(--line-2); border-radius: var(--sc-r-pill); padding: 2px 9px; }
     .rep-panel { display: none; }
     .rep-panel.on { display: block; animation: panelIn var(--sc-d-slow) var(--sc-ease-out); }
     @keyframes panelIn { from { opacity: 0; transform: translateY(6px); } }
@@ -440,7 +446,7 @@
 
     /* Close: the surface hands over an input */
     .contact .c-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--sc-8); align-items: start; }
-    .contact h2 { font-size: var(--sc-t-3xl); line-height: 1; margin-bottom: var(--sc-5); }
+    .contact h2 { font-size: var(--sc-t-2xl); margin-bottom: var(--sc-5); }
     .contact .lede { margin-bottom: var(--sc-5); }
     .audit-alt { display: flex; gap: var(--sc-3); flex-wrap: wrap; }
     .avail { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--sc-5); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
@@ -853,7 +859,7 @@
             <a href="#contact" class="btn btn-line">Book an audit</a>
           </div>
           <div class="tier feat">
-            <div class="pname">Growth<small>Where I<small>Most clients start here</small>apos;d start most stores</small></div>
+            <div class="pname">Growth<small>Where I&#x27;d start most stores</small></div>
             <div class="price">NZ$2,450<span class="per">per month</span></div>
             <div class="pbody">
               <p class="pdesc">Two channels run properly, plus a conversion test shipped every month.</p>
