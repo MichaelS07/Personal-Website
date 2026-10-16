@@ -96,6 +96,34 @@ def add_classes(body):
     return body
 
 
+def og_image(p):
+    """Social platforms don't render SVG, so prefer a PNG card in images/og/ when one exists."""
+    png = f"images/og/{p['slug']}.png"
+    return png if (ROOT / png).exists() else p["image"]
+
+
+def post_jsonld(p):
+    url = f"{SITE}/blog-posts/{p['slug']}.html"
+    data = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": p["title"],
+        "description": p["excerpt"],
+        "image": f"{SITE}/{og_image(p)}",
+        "datePublished": p["date"],
+        "dateModified": p.get("updated", p["date"]),
+        "url": url,
+        "mainEntityOfPage": url,
+        "keywords": ", ".join(p["tags"]),
+        "inLanguage": "en-NZ",
+        "author": {"@type": "Person", "@id": f"{SITE}/#michael", "name": "Michael Sowden", "url": f"{SITE}/#about"},
+        "publisher": {"@type": "Organization", "@id": f"{SITE}/#business", "name": "NovaReach",
+                      "logo": {"@type": "ImageObject", "url": f"{SITE}/images/novareach-logo.png"}},
+    }
+    # Escape "<" so a title can never close the script tag early
+    return json.dumps(data, ensure_ascii=False, indent=2).replace("<", "\\u003c")
+
+
 def render_post(p, template):
     body = (ROOT / f"content/{p['slug']}.html").read_text().strip()
     words = len(re.sub(r"<[^>]+>", " ", body).split())
@@ -108,6 +136,9 @@ def render_post(p, template):
         "DESCRIPTION": esc(p["excerpt"]),
         "SLUG": p["slug"],
         "IMAGE": p["image"],
+        "OG_IMAGE": og_image(p),
+        "JSONLD": post_jsonld(p),
+        "DATE_ISO": p["date"],
         "IMAGE_ALT": esc(p["image_alt"]),
         "TAG_CHIPS": chips,
         "DATE_LONG": long_date(p),
