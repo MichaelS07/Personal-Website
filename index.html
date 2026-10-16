@@ -44,7 +44,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
 
   <meta name="color-scheme" content="dark">
@@ -116,73 +116,192 @@
     .chrome .btn { min-height: 38px; flex-shrink: 0; }
     [data-sc-progress] { top: var(--bar); }
 
-    /* ---------- Act 1: the funnel instrument ---------- */
-    #funnel .sc-stage, #plan .sc-stage { padding-top: var(--bar); }
-    .f-grid {
-      height: 100%; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--sc-7);
-      align-items: center; max-width: var(--maxw); margin: 0 auto; padding: var(--sc-5) var(--sc-gutter);
+    #plan .sc-stage { padding-top: var(--bar); }
+
+    /* ---------- Original hero banner + platform stack (restored Oct 2026) ----------
+       Scoped to .hero and .stack-band, with the old tokens redefined locally so the
+       rest of the page keeps the leak-finder styles. */
+    .hero, .stack-band {
+      --ink: #0b0f0d; --muted: #6b716e; --line-2: rgba(11, 15, 13, 0.05);
+      --night: #050b08; --night-2: #0b1611; --brand: #10b981; --brand-d: #0e9f6e; --brand-l: #34d399;
+      --disp: 'Space Grotesk', sans-serif; --body: 'Inter', system-ui, sans-serif;
+      font-family: var(--body); line-height: 1.6;
     }
-    .f-copy h1 { font-size: clamp(2.6rem, 1.5rem + 3.2vw, 4.4rem); letter-spacing: var(--sc-track-tight); line-height: 1; margin: var(--sc-4) 0 var(--sc-5); }
-    .f-copy h1 span { color: var(--sc-accent); }
-    .f-copy .lede { margin-bottom: var(--sc-5); }
-    .f-cta { display: flex; gap: var(--sc-3); flex-wrap: wrap; }
-    .log { list-style: none; margin: var(--sc-6) 0 0; padding: var(--sc-4) 0 0; border-top: 1px solid var(--line); display: grid; gap: 6px; min-height: 9.5em; }
-    .log li { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); display: grid; grid-template-columns: 4.2em 1fr; gap: var(--sc-2);
-      opacity: 0; transform: translateY(4px); transition: opacity var(--sc-d-slow) var(--sc-ease-out), transform var(--sc-d-slow) var(--sc-ease-out); }
-    .log li.on { opacity: 1; transform: none; }
-    .log li.old { display: none; }
-    .log li time { color: color-mix(in oklab, var(--sc-ink-soft) 70%, transparent); }
-    .log li.bad { color: var(--leak); }
-    .log li.good { color: var(--sc-accent); }
-
-    .inst { background: var(--sc-surface); border: 1px solid var(--line); border-radius: var(--sc-r-lg); box-shadow: var(--sc-edge), var(--sc-e3); overflow: hidden; }
-    .inst-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sc-3); padding: 14px 18px; border-bottom: 1px solid var(--line); }
-    .inst-top .t { font-size: var(--sc-t-sm); font-weight: 600; }
-    .chip { font-family: var(--sc-font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--sc-ink-soft); border: 1px solid var(--line-2); border-radius: var(--sc-r-pill); padding: 2px 9px; }
-    .rows { position: relative; padding: 14px 18px 6px; }
-    .spill { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-    .row { position: relative; display: grid; grid-template-columns: 8.2em 1fr 5.2em 4.6em; align-items: center; gap: var(--sc-3); padding: 7px 0; font-size: var(--sc-t-sm); }
-    .row .lbl { color: var(--sc-ink-soft); }
-    .row .track { height: 22px; border-radius: 5px; background: color-mix(in oklab, var(--sc-ink) 5%, transparent); position: relative; }
-    .row .fill { position: absolute; inset: 0 auto 0 0; border-radius: 5px; background: var(--sc-accent); width: calc(var(--w, 0) * 100%); transform-origin: left; transform: scaleX(var(--g, 0)); }
-    .row .n { font-family: var(--sc-font-mono); font-variant-numeric: tabular-nums; text-align: right; }
-    .row .lost { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); font-variant-numeric: tabular-nums; text-align: right; color: var(--sc-ink-soft); opacity: var(--g, 0); }
-    .row.leak .lbl, .row.leak .lost { color: var(--leak); }
-    .row.leak .track { background: var(--leak-bg); }
-    .row.leak .fill { background: var(--leak); }
-    .row.patched .track { box-shadow: inset 0 0 0 1.5px var(--sc-accent); }
-    .row.patched .lbl { color: var(--sc-accent); }
-    .head-row { display: grid; grid-template-columns: 8.2em 1fr 5.2em 4.6em; gap: var(--sc-3); padding: 0 0 6px; }
-    .head-row span { font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: .06em; }
-    .head-row span:nth-child(n+3) { text-align: right; }
-
-    .readout { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-    .readout > div { padding: 12px 18px; }
-    .readout > div + div { border-left: 1px solid var(--line); }
-    .readout .k { font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: .06em; }
-    .readout .v { font-size: var(--sc-t-lg); font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 2px; }
-    .readout .gain .v { color: var(--sc-accent); }
-    .controls { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--sc-4); padding: 14px 18px 16px; border-top: 1px solid var(--line); background: color-mix(in oklab, var(--sc-canvas) 40%, transparent); transition: background var(--sc-d-slow); }
-    .controls.live { background: color-mix(in oklab, var(--sc-accent) 7%, transparent); }
-    .controls label { display: block; font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
-    .controls input[type=number] {
-      width: 100%; min-height: 40px; padding: 0 10px; border-radius: var(--sc-r-sm); border: 1px solid var(--line-2);
-      background: var(--sc-canvas); color: var(--sc-ink); font-family: var(--sc-font-mono); font-variant-numeric: tabular-nums;
+    .hero h1, .hero h3, .stack-band h2 { font-family: var(--disp); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+    .hero .wrap, .stack-band .wrap { max-width: 1160px; padding: 0 24px; }
+    .hero .brand { color: var(--brand); }
+    .hero .avail { font-family: var(--body); letter-spacing: 0; }
+    .stack-band .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+    .stack-band .eyebrow::before { content: ""; width: 18px; height: 1.5px; background: currentColor; }
+    .hero .btn { font-family: var(--body); font-size: 14.5px; border-radius: 11px; padding: 13px 22px; min-height: 0; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+    .hero .btn:hover { transform: translateY(-2px); }
+    .hero .btn-primary { background: linear-gradient(180deg, #22c58f, var(--brand-d)); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.2), 0 8px 20px -6px rgba(16,185,129,.6); }
+    .hero .btn-glass { color: #fff; background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16); backdrop-filter: blur(8px); }
+    .hero .btn-glass:hover { background: rgba(255,255,255,.12); }
+    /* ---------- HERO (dark, with a 3D stage) ---------- */
+    .hero {
+      position: relative; overflow: hidden; padding: calc(var(--bar) + 110px) 0 110px; color: #fff;
+      background:
+        radial-gradient(55% 60% at 80% 30%, rgba(16,185,129,.22), transparent 70%),
+        radial-gradient(40% 50% at 10% 0%, rgba(56,189,248,.12), transparent 70%),
+        linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
     }
-    .controls input:focus { border-color: var(--sc-accent); outline: none; }
-    .controls input[type=range] { width: 100%; height: 40px; }
-    .controls output { font-family: var(--sc-font-mono); color: var(--sc-ink); }
-    .inst-note { padding: 0 18px 14px; font-size: var(--sc-t-xs); color: var(--sc-ink-soft); background: inherit; }
-    .controls + .inst-note { background: color-mix(in oklab, var(--sc-canvas) 40%, transparent); }
+    /* Perspective grid floor */
+    .hero-floor {
+      position: absolute; left: -50%; right: -50%; bottom: -10%; height: 70%; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(52,211,153,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52,211,153,.16) 1px, transparent 1px);
+      background-size: 64px 64px;
+      transform: perspective(600px) rotateX(62deg); transform-origin: center top;
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 60%, transparent 100%);
+      mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 60%, transparent 100%);
+      animation: floorMove 6s linear infinite;
+    }
+    @keyframes floorMove { to { background-position: 0 64px, 0 0; } }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; letter-spacing: .02em; color: rgba(255,255,255,.75);
+      border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); padding: 7px 14px; border-radius: 30px; margin-bottom: 26px;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-l); display: inline-block; box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse 2.2s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); } 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+    .hero h1 { color: #fff; font-size: clamp(38px, 5.4vw, 64px); margin-bottom: 24px; }
+    .grad { background: linear-gradient(100deg, #6ee7b7 0%, #34d399 40%, #5eead4 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-sub { font-size: 18px; line-height: 1.6; color: rgba(255,255,255,.68); max-width: 500px; margin-bottom: 34px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-stats { display: flex; gap: 30px; margin-top: 46px; flex-wrap: wrap; }
+    .hero-stats > div:not(.vr) { font-size: 13px; color: rgba(255,255,255,.55); }
+    .hero-stats .n { font-family: var(--disp); font-size: 24px; font-weight: 600; color: #fff; line-height: 1.15; }
+    .vr { width: 1px; background: rgba(255,255,255,.12); align-self: stretch; }
 
-    /* Latest note: a notification in the instrument's idiom. Contents come from scripts/build.py (LATEST markers). */
-    .toast { margin-top: var(--sc-5); max-width: 30rem; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--sc-r-md); background: var(--raised); box-shadow: var(--sc-e1); display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; }
-    .toast .lbl { display: none; }
-    .toast .meta { grid-column: 1 / -1; font-family: var(--sc-font-mono); font-size: 11px; color: var(--sc-accent); }
-    .toast h3 { font-size: var(--sc-t-sm); font-weight: 600; line-height: 1.35; letter-spacing: 0; }
-    .toast p, .toast .foot span { display: none; }
-    .toast .foot { grid-row: 2; grid-column: 2; }
-    .toast .foot a { font-size: var(--sc-t-sm); font-weight: 600; color: var(--sc-accent); white-space: nowrap; }
+    /* 3D stage: --rx / --ry are driven by the mouse in the script at the bottom */
+    .stage { perspective: 1400px; position: relative; height: 470px; }
+    .stack {
+      position: absolute; inset: 0; transform-style: preserve-3d;
+      transform: rotateX(calc(10deg + var(--rx, 0deg))) rotateY(calc(-16deg + var(--ry, 0deg)));
+      transition: transform .5s cubic-bezier(.2,.7,.2,1);
+    }
+    .layer { position: absolute; border-radius: 16px; transform-style: preserve-3d; }
+    .glass {
+      background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 40px 80px -20px rgba(0,0,0,.6);
+    }
+    .dash { top: 0; left: 80px; right: -20px; padding: 20px 22px 22px; transform: translateZ(0); }
+    .dash-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .lights { display: flex; gap: 6px; }
+    .lights i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.2); display: block; }
+    .dash-title { font-size: 12px; color: rgba(255,255,255,.6); letter-spacing: .04em; }
+    .sample { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.15); padding: 2px 8px; border-radius: 20px; }
+    .funnel { display: grid; gap: 10px; }
+    .f-row { display: grid; grid-template-columns: 98px 1fr 46px; align-items: center; gap: 12px; font-size: 12px; color: rgba(255,255,255,.7); }
+    .f-bar { height: 22px; border-radius: 6px; background: rgba(255,255,255,.06); overflow: hidden; position: relative; }
+    .f-bar span { position: absolute; inset: 0 auto 0 0; border-radius: 6px; background: linear-gradient(90deg, #10b981, #5eead4); width: var(--w); transform-origin: left; animation: grow 1.4s cubic-bezier(.2,.7,.2,1) both; }
+    .f-row.leak .f-bar span { background: linear-gradient(90deg, #f59e0b, #f43f5e); }
+    .f-row.leak { color: #fda4af; }
+    .f-val { text-align: right; font-family: var(--disp); font-weight: 600; color: #fff; }
+    @keyframes grow { from { transform: scaleX(0); } }
+    .dash-foot { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08); display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,.06); color: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.1); }
+    .pill.bad { color: #fda4af; border-color: rgba(244,63,94,.35); background: rgba(244,63,94,.08); }
+    .pill.ok { color: #6ee7b7; border-color: rgba(52,211,153,.35); background: rgba(16,185,129,.1); }
+
+    .flows { top: -50px; right: -60px; width: 180px; padding: 14px 16px; transform: translateZ(90px); }
+    .flows .t { font-size: 11px; color: rgba(255,255,255,.55); margin-bottom: 8px; letter-spacing: .04em; }
+    .flows li { list-style: none; display: flex; justify-content: space-between; font-size: 12.5px; color: rgba(255,255,255,.85); padding: 3px 0; }
+    .flows li b { font-weight: 600; }
+    .flows .y { color: #6ee7b7; } .flows .n { color: #fda4af; }
+
+    /* Latest-writing card. Its contents are generated by scripts/build.py between the LATEST markers. */
+    .side-card {
+      bottom: -30px; left: -30px; width: 270px; padding: 18px; transform: translateZ(140px);
+      background: #fff; color: var(--ink); box-shadow: 0 50px 90px -25px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.2);
+    }
+    .side-card .lbl { font-size: 10.5px; letter-spacing: .08em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+    .side-card .meta { font-size: 11.5px; color: var(--brand-d); font-weight: 600; margin-bottom: 6px; }
+    .side-card h3 { font-size: 15.5px; font-weight: 600; line-height: 1.28; margin-bottom: 8px; letter-spacing: -.01em; }
+    .side-card p { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .side-card .foot { border-top: 1px solid var(--line-2); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); gap: 10px; }
+    .side-card .foot span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .side-card .foot a { color: var(--ink); font-weight: 600; white-space: nowrap; }
+
+    .hero .avail { display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border-radius: 30px; font-size: 12.5px; }
+    .hero .avail { margin-top: 56px; color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
+
+    /* Stack band — continues the dark hero; two marquee rows of tool tiles (icons in images/stack/) */
+    .stack-band {
+      position: relative; overflow: hidden; color: #fff; padding: 70px 0 80px;
+      background: radial-gradient(50% 80% at 50% 0%, rgba(16,185,129,.12), transparent 70%), var(--night-2);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .stack-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+    .stack-head .eyebrow { color: var(--brand-l); }
+    .stack-head h2 { color: #fff; font-size: clamp(26px, 3vw, 36px); margin-top: 12px; max-width: 560px; }
+    .stack-head p { color: rgba(255,255,255,.6); font-size: 15px; max-width: 360px; }
+    .marquee {
+      overflow: hidden; padding: 10px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+    .marquee + .marquee { margin-top: 6px; }
+    .marquee .track { display: flex; width: max-content; animation: marquee 48s linear infinite; }
+    .marquee.rev .track { animation-direction: reverse; animation-duration: 56s; }
+    .marquee:hover .track { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-33.3333%); } }
+    .tool {
+      display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 14px; border-radius: 18px; flex-shrink: 0; margin-right: 16px;
+      background: linear-gradient(160deg, rgba(255,255,255,.09), rgba(255,255,255,.025));
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 34px -18px rgba(0,0,0,.8);
+      transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s;
+    }
+    .tool:hover { transform: translateY(-4px); border-color: rgba(52,211,153,.4); background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.04)); }
+    .tool img { width: 46px; height: 46px; display: block; filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
+    .tool b { display: block; font-family: var(--disp); font-size: 16px; font-weight: 600; letter-spacing: -.01em; color: #fff; line-height: 1.2; }
+    .tool span { display: block; font-size: 12.5px; color: rgba(255,255,255,.55); margin-top: 2px; white-space: nowrap; }
+
+    /* FX layers (canvas + blobs + cursor spotlight — driven by assets/js/nova-fx.js) */
+    .fx-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .fx-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .blob { position: absolute; width: 440px; height: 440px; border-radius: 50%; filter: blur(90px); animation: novaHue 22s ease-in-out infinite, novaDrift 26s ease-in-out infinite; }
+    .blob-a { top: -120px; left: -80px; }
+    .blob-b { bottom: -150px; right: -70px; animation-duration: 26s, 30s; animation-delay: -8s, -5s; }
+    @keyframes novaHue { 0% { background: rgba(16,185,129,.20); } 33% { background: rgba(45,212,191,.18); } 66% { background: rgba(56,189,248,.14); } 100% { background: rgba(16,185,129,.20); } }
+    @keyframes novaDrift { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,30px) scale(1.08); } 100% { transform: translate(0,0) scale(1); } }
+    .hero > .wrap { position: relative; z-index: 1; }
+
+    /* Keyboard focus: visible ring on links, buttons and the leak tabs */
+    a:focus-visible, button:focus-visible, .btn:focus-visible { outline: 2px solid var(--brand-l); outline-offset: 3px; border-radius: 8px; }
+
+    /* Reveal on scroll */
+    .hero .reveal, .stack-band .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .hero .reveal.in, .stack-band .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; }
+
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stage { height: 440px; max-width: 520px; width: 100%; margin: 0 auto; }
+    }
+    @media (max-width: 860px) {
+      .hero { padding: calc(var(--bar) + 48px) 0 72px; }
+    }
+    @media (max-width: 560px) {
+      .stage { height: 400px; margin-top: 70px; }
+      .stack { transform: rotateX(6deg) rotateY(-8deg); }
+      .dash { left: 0; right: 0; padding: 16px; top: 30px; }
+      .f-row { grid-template-columns: 78px 1fr 40px; font-size: 11px; gap: 8px; }
+      .flows { right: -6px; top: -40px; width: 160px; }
+      .side-card { width: 78%; left: 4%; bottom: -10px; }
+      .hero-stats { gap: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero .reveal, .stack-band .reveal { opacity: 1; transform: none; transition: none; }
+      .blob, .hero-floor, .dot, .f-bar span { animation: none; }
+      .marquee .track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; padding: 0 24px; row-gap: 12px; }
+      .marquee { -webkit-mask-image: none; mask-image: none; }
+      .stack { transition: none; }
+    }
 
     /* ---------- Sections in flow ---------- */
     .sec { padding: var(--sc-section) 0; border-top: 1px solid var(--line); }
@@ -340,22 +459,10 @@
     .contact.submitted .audit-form, .contact.submitted .audit-alt { display: none; }
     .contact.submitted .audit-success { display: block; }
 
-    footer { border-top: 1px solid var(--line); padding: var(--sc-6) 0 calc(var(--sc-6) + 52px); }
+    footer { border-top: 1px solid var(--line); padding: var(--sc-6) 0; }
     .foot-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sc-4); flex-wrap: wrap; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
     .foot-links { display: flex; gap: var(--sc-5); }
     .foot-links a:hover { color: var(--sc-ink); }
-
-    /* Status bar: carries the what-if down the page once the funnel hands over */
-    .status {
-      position: fixed; inset: auto 0 0; z-index: var(--sc-z-chrome); height: 44px; display: flex; align-items: center;
-      background: color-mix(in oklab, var(--sc-surface) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border-top: 1px solid var(--line); transform: translateY(100%); transition: transform var(--sc-d-slow) var(--sc-ease-out);
-    }
-    .status.on { transform: none; }
-    .status .wrap { width: 100%; display: flex; align-items: center; gap: var(--sc-5); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
-    .status b { color: var(--sc-ink); font-weight: 500; font-variant-numeric: tabular-nums; }
-    .status .gain b { color: var(--sc-accent); }
-    .status a { margin-left: auto; color: var(--sc-accent); font-weight: 500; white-space: nowrap; }
 
     @media (max-width: 980px) {
       .tier { grid-template-columns: 1fr auto; gap: var(--sc-3) var(--sc-4); }
@@ -371,23 +478,6 @@
       .chrome .mark { height: 44px; margin-right: auto; }
       .tabs { order: 3; width: calc(100% + 2 * var(--sc-gutter)); margin: 0 calc(-1 * var(--sc-gutter)); padding: 0 var(--sc-gutter) 6px; }
       .tabs a { padding: 6px 10px; }
-      .f-grid { grid-template-columns: 1fr; gap: var(--sc-4); align-content: start; padding-top: var(--sc-4); }
-      .f-copy h1 { font-size: var(--sc-t-2xl); margin: 0 0 var(--sc-3); }
-      .f-copy .path, .f-copy .lede, .f-cta, .toast { display: none; }
-      .log { margin: 0; padding: 0; border: 0; min-height: 0; display: block; height: 2.6em; position: relative; }
-      .log li { position: absolute; inset: 0 0 auto; }
-      .log li.on:not(.last) { opacity: 0; }
-      .row, .head-row { grid-template-columns: 6.6em 1fr 4.4em 3.8em; gap: var(--sc-2); }
-      .row { padding: 5px 0; font-size: var(--sc-t-xs); }
-      .row .track { height: 18px; }
-      .rows { padding: 10px 14px 4px; }
-      .inst-top { padding: 10px 14px; }
-      .readout > div { padding: 8px 12px; }
-      .readout .v { font-size: var(--sc-t-base); }
-      .controls { grid-template-columns: 1fr 1fr; gap: var(--sc-3); padding: 10px 14px 12px; }
-      .controls .cc { grid-column: 1 / -1; }
-      .controls input[type=range] { height: 32px; }
-      .inst-note { display: none; }
       .leak-ui, .p-grid { grid-template-columns: 1fr; }
       .p-grid { gap: var(--sc-5); align-content: center; }
       .p-grid .lede { display: none; }
@@ -397,16 +487,8 @@
       .rep-foot, .terms { grid-template-columns: 1fr; }
       .report { padding: var(--sc-5); }
       .audit-form { grid-template-columns: 1fr; padding: var(--sc-5); }
-      .status .hide-sm { display: none; }
-    }
-    @media (max-height: 760px) and (min-width: 861px) {
-      .f-copy h1 { font-size: var(--sc-t-2xl); }
-      .toast { display: none; }
-      .log { margin-top: var(--sc-4); }
-      .inst-note { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .log li, .entry, .status, .btn, .leaks .leak { transition: none; }
       .rep-panel.on { animation: none; }
     }
   </style>
@@ -469,9 +551,8 @@
 
   <header class="chrome" id="siteHeader">
     <div class="wrap">
-      <a href="#funnel" class="mark"><img src="images/nova-reach-emblem.svg" alt="" width="28" height="28">Nova<b>Reach</b></a>
+      <a href="#home" class="mark"><img src="images/nova-reach-emblem.svg" alt="" width="28" height="28">Nova<b>Reach</b></a>
       <nav class="tabs" aria-label="Sections">
-        <a href="#funnel">Funnel</a>
         <a href="#leaks">Leaks</a>
         <a href="#plan">Plan</a>
         <a href="#notes">Notes</a>
@@ -483,29 +564,69 @@
   </header>
 
   <main>
-    <!-- Act 1 · Funnel (pin). The peak lives here: drain, name the leak, hold, patch, hand over. -->
-    <section id="funnel" data-sc-act="pin" data-sc-span="4.6" aria-label="Funnel">
-      <div data-sc-stage>
-        <div class="f-grid">
-          <div class="f-copy">
-            <span class="path">Leak finder · Christchurch, NZ</span>
-            <h1>Find the leak. <span>Fix the funnel.</span></h1>
-            <p class="lede">I run Google Ads, Meta, SEO, Klaviyo and CRO for NZ and AU ecommerce stores, and I plan them as one job.
-              Scroll, and this sample store's funnel runs. Then put your own numbers in.</p>
-            <div class="f-cta">
-              <a href="#contact" class="btn btn-primary">Get a free audit</a>
-              <a href="#leaks" class="btn btn-line">What I'd check first</a>
-            </div>
-            <ol class="log" id="log" aria-live="polite">
-              <li data-at="0" class="on"><time>00:00</time><span>Loaded sample store: <span data-o="sessions">10,000</span> sessions a month, NZ$<span data-o="aov">95</span> average order.</span></li>
-              <li data-at="0.08"><time>00:02</time><span>Tracing each step from landing to purchase.</span></li>
-              <li data-at="0.38" class="bad"><time>00:06</time><span>Leak worth fixing first: checkout. Half the people who start paying leave.</span></li>
-              <li data-at="0.47" class="bad"><time>00:07</time><span>Usual cause in NZ and AU: freight and GST appear for the first time at checkout.</span></li>
-              <li data-at="0.6" class="good"><time>00:09</time><span>What-if: show freight on the product page, checkout completion 50% to 60%.</span></li>
-              <li data-at="0.82" class="good"><time>00:12</time><span>Your turn. Change the numbers in the panel.</span></li>
-            </ol>
-            <div class="toast">
-              <!-- LATEST:START -->
+    <!-- Hero (original banner) -->
+    <section id="home" class="hero">
+      <div class="fx-layer" aria-hidden="true">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <canvas class="fx-canvas" data-constellation data-color="52,211,153"></canvas>
+      </div>
+      <div class="hero-floor" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <span class="tag"><span class="dot"></span> Digital marketing specialist · Christchurch, NZ</span>
+          <h1>Find the leak.<br><span class="grad">Fix the funnel.</span></h1>
+          <p class="hero-sub">I run SEO, paid search, email and CRO for ecommerce stores, and I treat them as one plan.
+            You deal with me the whole way. Nobody junior touches your account.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">Get a free audit →</a>
+            <a href="#newsletter" class="btn btn-glass">Get the weekly Signal</a>
+          </div>
+          <div class="hero-stats">
+            <div><span class="n">3 yrs</span><br>across paid &amp; organic</div>
+            <div class="vr"></div>
+            <div><span class="n">Weekly</span><br>writing on search</div>
+            <div class="vr"></div>
+            <div><span class="n">Full funnel</span><br>not just one channel</div>
+          </div>
+        </div>
+
+        <div class="reveal d1">
+          <div class="stage" id="stage" aria-hidden="false">
+            <div class="stack" id="stack">
+              <!-- Main panel: what a store audit looks like -->
+              <div class="layer glass dash" aria-label="Sample audit funnel">
+                <div class="dash-top">
+                  <div class="lights"><i></i><i></i><i></i></div>
+                  <span class="dash-title">Store audit · conversion funnel</span>
+                  <span class="sample">Sample</span>
+                </div>
+                <div class="funnel">
+                  <div class="f-row"><span>Sessions</span><div class="f-bar"><span style="--w:100%"></span></div><span class="f-val">100%</span></div>
+                  <div class="f-row"><span>Product view</span><div class="f-bar"><span style="--w:58%"></span></div><span class="f-val">58%</span></div>
+                  <div class="f-row"><span>Add to cart</span><div class="f-bar"><span style="--w:22%"></span></div><span class="f-val">11%</span></div>
+                  <div class="f-row leak"><span>Checkout ⚠</span><div class="f-bar"><span style="--w:9%"></span></div><span class="f-val">4.2%</span></div>
+                  <div class="f-row"><span>Purchase</span><div class="f-bar"><span style="--w:6%"></span></div><span class="f-val">2.1%</span></div>
+                </div>
+                <div class="dash-foot">
+                  <span class="pill bad">Freight shown late</span>
+                  <span class="pill bad">No winback flow</span>
+                  <span class="pill ok">GA4 + GTM clean</span>
+                </div>
+              </div>
+
+              <div class="layer glass flows">
+                <div class="t">KLAVIYO FLOWS</div>
+                <ul>
+                  <li>Welcome <b class="y">Live</b></li>
+                  <li>Abandon cart <b class="y">Live</b></li>
+                  <li>Browse <b class="n">Missing</b></li>
+                  <li>Winback <b class="n">Missing</b></li>
+                </ul>
+              </div>
+
+              <div class="layer side-card">
+                <!-- LATEST:START -->
               <div class="lbl">LATEST WRITING</div>
               <div class="meta">SEM · 15 Oct 2026</div>
               <h3>Google Ads Is Pulling Promotions From Your Website: Check Them Before Black Friday</h3>
@@ -515,38 +636,45 @@
                 <a href="blog-posts/google-ads-automated-promotions-october-2026.html">Read →</a>
               </div>
               <!-- LATEST:END -->
+              </div>
             </div>
           </div>
-
-          <div class="inst" id="inst">
-            <div class="inst-top">
-              <span class="t">Monthly funnel</span>
-              <span class="chip">Sample store</span>
-            </div>
-            <div class="rows" id="rows">
-              <canvas class="spill" id="spill" aria-hidden="true"></canvas>
-              <div class="head-row" aria-hidden="true"><span>Step</span><span></span><span>People</span><span>Lost</span></div>
-              <div class="row" data-i="0"><span class="lbl">Sessions</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost"></span></div>
-              <div class="row" data-i="1"><span class="lbl">Viewed product</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
-              <div class="row" data-i="2"><span class="lbl">Added to cart</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
-              <div class="row" data-i="3"><span class="lbl">Started checkout</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
-              <div class="row" data-i="4" id="leakRow"><span class="lbl">Purchased</span><span class="track"><span class="fill"></span></span><span class="n">0</span><span class="lost">0</span></div>
-            </div>
-            <div class="readout">
-              <div><div class="k">Orders / mo</div><div class="v" id="oOrders">0</div></div>
-              <div><div class="k">Revenue / mo</div><div class="v" id="oRev">NZ$0</div></div>
-              <div class="gain"><div class="k">What-if gain</div><div class="v" id="oGain">NZ$0</div></div>
-            </div>
-            <div class="controls" id="controls">
-              <div><label for="inSessions">Sessions / mo</label><input id="inSessions" type="number" min="100" max="5000000" step="100" value="10000" inputmode="numeric"></div>
-              <div><label for="inAov">Avg order NZ$</label><input id="inAov" type="number" min="1" max="100000" step="1" value="95" inputmode="decimal"></div>
-              <div class="cc"><label for="inComplete">Checkout completion <output id="outComplete" for="inComplete">50%</output></label><input id="inComplete" type="range" min="50" max="80" step="1" value="50"></div>
-            </div>
-            <p class="inst-note">Sample numbers, not a client. The gain is plain arithmetic on your inputs, not a promise.</p>
-          </div>
+          <div class="avail"><span class="dot"></span> Taking on 2 new clients this quarter</div>
         </div>
       </div>
     </section>
+
+    <!-- Stack -->
+    <section class="stack-band" id="platforms" aria-label="Platforms I work in">
+      <div class="wrap">
+        <div class="stack-head reveal">
+          <div>
+            <span class="eyebrow">The stack</span>
+            <h2>Hands-on in the platforms that move the money</h2>
+          </div>
+          <p>I'm logged into these every week. Most of the problems I fix sit in the gap between two of them.</p>
+        </div>
+      </div>
+      <div class="marquee">
+        <div class="track">
+            <div class="tool"><img src="images/stack/google-ads.svg" alt="" width="46" height="46"><div><b>Google Ads</b><span>Search · Shopping</span></div></div>
+            <div class="tool"><img src="images/stack/performance-max.svg" alt="" width="46" height="46"><div><b>Performance Max</b><span>Asset groups · feeds</span></div></div>
+            <div class="tool"><img src="images/stack/youtube.svg" alt="" width="46" height="46"><div><b>YouTube</b><span>Video reach &amp; remarketing</span></div></div>
+            <div class="tool"><img src="images/stack/dv360.svg" alt="" width="46" height="46"><div><b>DV360 &amp; CM360</b><span>Programmatic display</span></div></div>
+            <div class="tool"><img src="images/stack/meta-ads.svg" alt="" width="46" height="46"><div><b>Meta Ads</b><span>Advantage+ · creative tests</span></div></div>
+        </div>
+      </div>
+      <div class="marquee rev">
+        <div class="track">
+            <div class="tool"><img src="images/stack/ga4.svg" alt="" width="46" height="46"><div><b>GA4</b><span>Events · key events · funnels</span></div></div>
+            <div class="tool"><img src="images/stack/tag-manager.svg" alt="" width="46" height="46"><div><b>Tag Manager</b><span>Clean tracking &amp; attribution</span></div></div>
+            <div class="tool"><img src="images/stack/klaviyo.svg" alt="" width="46" height="46"><div><b>Klaviyo</b><span>Flows · campaigns · segments</span></div></div>
+            <div class="tool"><img src="images/stack/shopify.svg" alt="" width="46" height="46"><div><b>Shopify</b><span>PDP &amp; checkout CRO</span></div></div>
+            <div class="tool"><img src="images/stack/seo.svg" alt="" width="46" height="46"><div><b>Search Console</b><span>Technical &amp; content SEO</span></div></div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- Act 2 · Leaks (flow): pick one, see week one -->
     <section id="leaks" class="sec">
@@ -855,7 +983,7 @@
 
   <footer>
     <div class="wrap foot-row">
-      <a href="#funnel" class="mark"><img src="images/nova-reach-emblem.svg" alt="" width="28" height="28">Nova<b>Reach</b></a>
+      <a href="#home" class="mark"><img src="images/nova-reach-emblem.svg" alt="" width="28" height="28">Nova<b>Reach</b></a>
       <div class="foot-links">
         <a href="#leaks">Services</a>
         <a href="blog.html">Writing</a>
@@ -866,147 +994,37 @@
     </div>
   </footer>
 
-  <div class="status" id="status" aria-hidden="true">
-    <div class="wrap">
-      <span class="hide-sm">Sample store</span>
-      <span>Orders <b id="sOrders">0</b></span>
-      <span class="gain">What-if <b id="sGain">+NZ$0</b>/mo</span>
-      <a href="#contact" tabindex="-1">Run it on my store →</a>
-    </div>
-  </div>
-
   <script src="assets/scrollcraft/scrollcraft.js?v=20261016"></script>
   <script>
     ScrollCraft.mount(document.body);
     document.getElementById('year').textContent = new Date().getFullYear();
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function actP(el) { var v = parseFloat(el.style.getPropertyValue('--sc-p')); return isNaN(v) ? 0 : v; }
-    function fmt(n) { return Math.round(n).toLocaleString('en-NZ'); }
     function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
-    function ease(x) { x = clamp01(x); return x * x * (3 - 2 * x); }
 
-    // ---------- The funnel model: every number on the instrument comes from here ----------
+    // ---------- Hero banner: reveal, tool marquee, 3D stack that follows the mouse ----------
     (function () {
-      var act = document.getElementById('funnel');
-      var rows = Array.prototype.slice.call(document.querySelectorAll('#rows .row'));
-      var log = Array.prototype.slice.call(document.querySelectorAll('#log li'));
-      var inS = document.getElementById('inSessions'), inA = document.getElementById('inAov'), inC = document.getElementById('inComplete');
-      var outC = document.getElementById('outComplete'), controls = document.getElementById('controls');
-      var oOrders = document.getElementById('oOrders'), oRev = document.getElementById('oRev'), oGain = document.getElementById('oGain');
-      var sOrders = document.getElementById('sOrders'), sGain = document.getElementById('sGain'), status = document.getElementById('status');
-      var leakRow = document.getElementById('leakRow');
-      // Sample store step rates: each is the share of the previous step that carried on.
-      var STEPS = [1, 0.58, 0.19, 0.38];
-      var BASE = 0.5;               // checkout completion: started checkout -> purchased
-      var touched = false;          // once the visitor moves the handle, scroll stops driving it
-      var phase = { pour: 0, leak: 0, patch: 0, hand: 0 };
-      var model = {};
-
-      function compute() {
-        var s = Math.max(0, +inS.value || 0), aov = Math.max(0, +inA.value || 0);
-        var target = touched ? +inC.value / 100 : BASE + (0.6 - BASE) * phase.patch;
-        var people = [s], lost = [0];
-        for (var i = 1; i < 4; i++) { people[i] = people[i - 1] * STEPS[i]; lost[i] = people[i - 1] - people[i]; }
-        people[4] = people[3] * target; lost[4] = people[3] - people[4];
-        var baseOrders = people[3] * BASE;
-        model = { s: s, aov: aov, target: target, people: people, lost: lost,
-          orders: people[4], rev: people[4] * aov, gain: (people[4] - baseOrders) * aov };
-        return model;
-      }
-
-      function render() {
-        var m = compute();
-        rows.forEach(function (r, i) {
-          var g = i === 0 ? 1 : ease((phase.pour - (i - 1) * 0.22) / 0.3);
-          // Bar width is share of sessions on a square-root scale so the bottom steps stay visible; the counts are exact.
-          r.style.setProperty('--w', Math.max(0.02, Math.sqrt(m.s ? m.people[i] / m.s : 0)).toFixed(4));
-          r.style.setProperty('--g', g.toFixed(3));
-          r.querySelector('.n').textContent = fmt(m.people[i] * (i === 0 ? 1 : g));
-          if (i > 0) r.querySelector('.lost').textContent = '−' + fmt(m.lost[i] * g);
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+      // Two extra copies of each marquee row so the loop is seamless on wide screens
+      if (!reduceMotion) {
+        document.querySelectorAll('.marquee .track').forEach(function (t) {
+          var items = Array.prototype.slice.call(t.children);
+          for (var i = 0; i < 2; i++) items.forEach(function (c) {
+            var d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); t.appendChild(d);
+          });
         });
-        var isLeak = phase.leak > 0.5 && m.target < 0.555;
-        leakRow.classList.toggle('leak', isLeak);
-        leakRow.classList.toggle('patched', m.target >= 0.555);
-        rows[3].classList.toggle('leak', isLeak);
-        if (!touched) { inC.value = Math.round(m.target * 100); }
-        outC.textContent = Math.round(m.target * 100) + '%';
-        oOrders.textContent = fmt(m.orders);
-        oRev.textContent = 'NZ$' + fmt(m.rev);
-        oGain.textContent = (m.gain >= 0 ? '+' : '−') + 'NZ$' + fmt(Math.abs(m.gain));
-        sOrders.textContent = fmt(m.orders);
-        sGain.textContent = (m.gain >= 0 ? '+' : '−') + 'NZ$' + fmt(Math.abs(m.gain));
-        document.querySelectorAll('[data-o="sessions"]').forEach(function (e) { e.textContent = fmt(m.s); });
-        document.querySelectorAll('[data-o="aov"]').forEach(function (e) { e.textContent = fmt(m.aov); });
       }
-
-      function setPhases(p) {
-        phase.pour = clamp01(p / 0.36);
-        phase.leak = p >= 0.38 ? 1 : 0;
-        phase.patch = ease((p - 0.6) / 0.18);   // 0.46 to 0.6 is the authored silence
-        phase.hand = p >= 0.8 ? 1 : 0;
-        var last = null, onCount = 0;
-        log.forEach(function (li) { var on = p >= +li.dataset.at; li.classList.toggle('on', on); if (on) { last = li; onCount++; } li.classList.remove('last'); });
-        if (last) last.classList.add('last');
-        // Keep the newest four lines so the log never runs under the status bar
-        var seen = 0;
-        log.forEach(function (li) { if (li.classList.contains('on')) seen++; li.classList.toggle('old', seen <= onCount - 4 && li.classList.contains('on')); });
-        controls.classList.toggle('live', phase.hand === 1 || touched);
-      }
-
-      [inS, inA].forEach(function (el) { el.addEventListener('input', render); });
-      inC.addEventListener('input', function () { touched = true; render(); });
-      [inS, inA, inC].forEach(function (el) {
-        el.addEventListener('change', function () {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: 'funnel_calc', calc_field: el.id });
-        });
+      if (reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
+      var hero = document.getElementById('home'), stack = document.getElementById('stack');
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        stack.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 18) + 'deg');
+        stack.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 12) + 'deg');
       });
-
-      // Spill: visitors leaving each step drip off the end of its bar. Rate follows the step's loss rate.
-      var cv = document.getElementById('spill'), ctx = cv.getContext('2d'), drops = [], dpr = Math.min(2, window.devicePixelRatio || 1);
-      function size() { var r = cv.getBoundingClientRect(); cv.width = r.width * dpr; cv.height = r.height * dpr; }
-      size(); window.addEventListener('resize', size);
-      function spill() {
-        var base = cv.getBoundingClientRect();
-        rows.forEach(function (r, i) {
-          if (i === 0) return;
-          var g = parseFloat(r.style.getPropertyValue('--g')) || 0;
-          if (g < 0.98) return;
-          var rate = i < 4 ? 1 - STEPS[i] : 1 - model.target;
-          if (Math.random() > rate * 0.55) return;
-          var fill = r.querySelector('.fill').getBoundingClientRect();
-          drops.push({ x: fill.right - base.left, y: fill.top - base.top + Math.random() * fill.height, vx: 0.4 + Math.random() * 0.8, vy: 0.2, life: 1,
-            red: r.classList.contains('leak') });
-        });
-      }
-      function draw() {
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, cv.width, cv.height);
-        drops = drops.filter(function (d) { return d.life > 0; });
-        drops.forEach(function (d) {
-          d.x += d.vx; d.y += d.vy; d.vy += 0.035; d.life -= 0.022;
-          ctx.globalAlpha = Math.max(0, d.life) * 0.9;
-          ctx.fillStyle = d.red ? '#fb7185' : '#5d7a6d';
-          ctx.beginPath(); ctx.arc(d.x, d.y, d.red ? 2.2 : 1.6, 0, 6.283); ctx.fill();
-        });
-        ctx.globalAlpha = 1;
-      }
-
-      var lastP = -1, lastY = -1;
-      function frame() {
-        var p = reduceMotion ? 1 : actP(act);
-        if (p !== lastP) { setPhases(p); render(); lastP = p; }
-        var r = act.getBoundingClientRect();
-        var live = r.bottom > 0 && r.top < innerHeight;
-        if (!reduceMotion && live) { spill(); draw(); } else if (drops.length) { drops = []; draw(); }
-        // The status bar appears once the funnel hands over and stays for the rest of the page.
-        var past = r.bottom < innerHeight * 0.6 || (phase.hand === 1);
-        status.classList.toggle('on', past);
-        requestAnimationFrame(frame);
-      }
-      if (reduceMotion) { touched = false; }
-      render();
-      requestAnimationFrame(frame);
+      hero.addEventListener('mouseleave', function () { stack.style.setProperty('--ry', '0deg'); stack.style.setProperty('--rx', '0deg'); });
     })();
 
     // ---------- Plan: entries light as the pinned log advances ----------
@@ -1030,7 +1048,7 @@
       var links = Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
       var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
       function spy() {
-        var mid = innerHeight * 0.4, cur = 0;
+        var mid = innerHeight * 0.4, cur = -1;
         secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= mid) cur = i; });
         links.forEach(function (a, i) { a.setAttribute('aria-current', String(i === cur)); });
       }
@@ -1105,6 +1123,7 @@
       });
     })();
   </script>
+  <script src="assets/js/nova-fx.js?v=20261015"></script>
   <script src="assets/js/newsletter.js?v=20261015"></script>
 </body>
 

@@ -56,3 +56,7 @@ The patch. A scroll-driven seal on the leaking stage that stops the spill and re
 ## Authored silence
 
 Phase 1c (roughly 0.46 to 0.58 of act 1's progress) is deliberate stillness, not dead scroll.
+
+## Revision, 17 Oct 2026
+
+After the leak-finder went live, Michael asked to keep the new sections but bring back the original hero banner and the scrolling platform stack. The funnel instrument act (with its calculator and bottom status bar) was removed, so this page no longer has the patch moment as its peak. The original hero and stack band sit above the leak picker, scoped so they keep their old look.
