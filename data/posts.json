@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "slug": "google-september-2026-spam-update-stores",
+      "title": "Google's September Spam Update: How to Tell If It Hit Your Store",
+      "date": "2026-10-19",
+      "category": "SEO",
+      "tags": [
+        "SEO",
+        "E-commerce"
+      ],
+      "excerpt": "The spam update finished on 8 October. How to check whether it touched your store, and why I wouldn't rebuild anything before Black Friday.",
+      "image": "images/blog/google-september-2026-spam-update-stores.svg",
+      "image_alt": "A clicks chart from 24 September to 8 October with three shaded volatility windows, next to a checklist of page types to review",
+      "cta_headline": "Not sure if a traffic drop is the update or something else?",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with what the Search Console data actually shows."
+    },
+    {
       "slug": "google-ads-automated-promotions-october-2026",
       "title": "Google Ads Is Pulling Promotions From Your Website: Check Them Before Black Friday",
       "date": "2026-10-15",

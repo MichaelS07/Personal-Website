@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="A Search Console style clicks chart from 24 September to 8 October with three shaded volatility windows, beside a checklist of page types to review after the September 2026 spam update">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="1080" cy="100" r="150" fill="#10b981" opacity="0.12"/>
+  <circle cx="110" cy="700" r="130" fill="#34d399" opacity="0.14"/>
+
+  <rect x="70" y="80" width="1060" height="620" rx="28" fill="#fff" stroke="#e2e8f0" filter="url(#s)"/>
+  <rect x="70" y="80" width="1060" height="64" rx="28" fill="#0f172a"/>
+  <rect x="70" y="116" width="1060" height="28" fill="#0f172a"/>
+  <text x="110" y="122" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#fff">September 2026 spam update · 24 Sep → 8 Oct</text>
+  <rect x="890" y="96" width="200" height="34" rx="17" fill="url(#g)"/>
+  <text x="990" y="119" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#fff">Rollout complete</text>
+
+  <!-- Chart -->
+  <rect x="120" y="190" width="620" height="440" rx="18" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="150" y="232" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#475569">ORGANIC CLICKS</text>
+  <!-- volatility windows -->
+  <rect x="210" y="255" width="80" height="320" fill="#fda4af" opacity="0.25"/>
+  <rect x="345" y="255" width="40" height="320" fill="#fda4af" opacity="0.25"/>
+  <rect x="510" y="255" width="80" height="320" fill="#fda4af" opacity="0.25"/>
+  <path d="M150 575 H710 M150 475 H710 M150 375 H710 M150 275 H710" stroke="#e2e8f0" stroke-width="2"/>
+  <path d="M150 360 L190 352 L230 400 L270 382 L310 372 L350 420 L390 395 L430 388 L470 380 L510 410 L550 452 L590 430 L630 418 L670 410 L710 404" stroke="url(#g)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="605" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b">25–27 Sep</text>
+  <text x="365" y="605" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b">30 Sep</text>
+  <text x="550" y="605" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b">4–6 Oct</text>
+
+  <!-- Checklist -->
+  <rect x="780" y="190" width="300" height="440" rx="18" fill="#0f172a"/>
+  <text x="810" y="236" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#34d399">CHECK THESE PAGES</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#e2e8f0">
+    <rect x="810" y="270" width="240" height="64" rx="12" fill="#1e293b"/>
+    <text x="830" y="309">Bulk AI product copy</text>
+    <rect x="810" y="350" width="240" height="64" rx="12" fill="#1e293b"/>
+    <text x="830" y="389">Thin collection pages</text>
+    <rect x="810" y="430" width="240" height="64" rx="12" fill="#1e293b"/>
+    <text x="830" y="469">"Partner" content</text>
+    <rect x="810" y="510" width="240" height="64" rx="12" fill="#1e293b"/>
+    <text x="830" y="549">Bought links</text>
+  </g>
+</svg>
