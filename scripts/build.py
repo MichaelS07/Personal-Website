@@ -185,7 +185,7 @@ def latest_card(p):
         f'{i}<h3>{esc(p["title"])}</h3>\n'
         f'{i}<p>{esc(p["excerpt"])}</p>\n'
         f'{i}<div class="foot">\n'
-        f'{i}  <span>{esc(p["category"])} · {short_date(p, False)} · {esc(" · ".join(p["tags"]))}</span>\n'
+        f'{i}  <span>{esc(" · ".join([p["category"], short_date(p, False)] + [t for t in p["tags"] if t != p["category"]]))}</span>\n'
         f'{i}  <a href="blog-posts/{p["slug"]}.html">Read →</a>\n'
         f'{i}</div>\n'
     )
