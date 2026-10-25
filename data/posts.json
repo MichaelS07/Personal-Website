@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "slug": "merchant-center-image-rules-before-bfcm-2026",
+      "title": "Keep Sale Badges Off Your Shopping Images This Black Friday",
+      "date": "2026-10-26",
+      "category": "Paid Media",
+      "tags": [
+        "SEM",
+        "Shopify",
+        "E-commerce"
+      ],
+      "excerpt": "Blurry product photos no longer block Shopping listings. Sale badges still do. What Merchant Center allows now, and the setting to check before BFCM.",
+      "image": "images/blog/merchant-center-image-rules-before-bfcm-2026.svg",
+      "image_alt": "A product photo with a Black Friday 30% off badge marked disapproved, next to the same clean photo marked approved",
+      "cta_headline": "Get your Merchant Center clean before Black Friday.",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with the image and feed issues I'd fix first."
+    },
+    {
       "slug": "google-september-2026-spam-update-stores",
       "title": "Google's September Spam Update: How to Tell If It Hit Your Store",
       "date": "2026-10-19",
