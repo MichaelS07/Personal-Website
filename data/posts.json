@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "slug": "bfcm-email-deliverability-gmail-yahoo-2026",
+      "title": "Your Black Friday Emails Need to Pass Gmail's Rules Before They Need a Subject Line",
+      "date": "2026-11-02",
+      "category": "Lifecycle",
+      "tags": [
+        "Email",
+        "E-commerce"
+      ],
+      "excerpt": "A big jump in BFCM send volume can trip Gmail's spam limits. The rules that matter, what Klaviyo handles, and how I'd plan November.",
+      "image": "images/blog/bfcm-email-deliverability-gmail-yahoo-2026.svg",
+      "image_alt": "A spam rate gauge with a 0.1% target and 0.3% limit, next to a checklist of email authentication settings all passing",
+      "cta_headline": "Make sure your BFCM emails actually reach the inbox.",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with what I'd fix in your Klaviyo setup before the big sends."
+    },
+    {
       "slug": "merchant-center-image-rules-before-bfcm-2026",
       "title": "Keep Sale Badges Off Your Shopping Images This Black Friday",
       "date": "2026-10-26",
