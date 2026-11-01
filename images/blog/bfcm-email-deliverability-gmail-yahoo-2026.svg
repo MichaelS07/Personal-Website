@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="A spam rate gauge with a 0.1% target and a 0.3% limit, beside a checklist showing SPF, DKIM, DMARC, branded sending domain and one-click unsubscribe all passing">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="meter" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="1080" cy="100" r="150" fill="#10b981" opacity="0.12"/>
+  <circle cx="110" cy="700" r="130" fill="#34d399" opacity="0.14"/>
+
+  <rect x="70" y="80" width="1060" height="620" rx="28" fill="#fff" stroke="#e2e8f0" filter="url(#s)"/>
+  <rect x="70" y="80" width="1060" height="64" rx="28" fill="#0f172a"/>
+  <rect x="70" y="116" width="1060" height="28" fill="#0f172a"/>
+  <text x="110" y="122" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#fff">BFCM email · Gmail &amp; Yahoo sender rules</text>
+  <rect x="880" y="96" width="210" height="34" rx="17" fill="url(#g)"/>
+  <text x="985" y="119" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#fff">Inbox, not spam</text>
+
+  <!-- Gauge -->
+  <rect x="120" y="190" width="540" height="440" rx="18" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="150" y="234" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#475569">SPAM RATE</text>
+  <path d="M200 500 A190 190 0 0 1 580 500" stroke="url(#meter)" stroke-width="36" fill="none" stroke-linecap="round"/>
+  <line x1="390" y1="500" x2="300" y2="395" stroke="#0f172a" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="390" cy="500" r="16" fill="#0f172a"/>
+  <text x="250" y="560" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#047857">&lt; 0.1%</text>
+  <text x="250" y="586" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b">aim here</text>
+  <text x="535" y="560" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#be123c">0.3%</text>
+  <text x="535" y="586" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b">never reach</text>
+
+  <!-- Checklist -->
+  <rect x="700" y="190" width="380" height="440" rx="18" fill="#0f172a"/>
+  <text x="730" y="236" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#34d399">BEFORE THE BIG SENDS</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#e2e8f0">
+    <rect x="730" y="262" width="320" height="58" rx="12" fill="#1e293b"/>
+    <circle cx="760" cy="291" r="13" fill="#10b981"/><path d="M754 291l5 5 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="786" y="298">SPF + DKIM pass</text>
+    <rect x="730" y="332" width="320" height="58" rx="12" fill="#1e293b"/>
+    <circle cx="760" cy="361" r="13" fill="#10b981"/><path d="M754 361l5 5 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="786" y="368">DMARC published</text>
+    <rect x="730" y="402" width="320" height="58" rx="12" fill="#1e293b"/>
+    <circle cx="760" cy="431" r="13" fill="#10b981"/><path d="M754 431l5 5 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="786" y="438">Branded sending domain</text>
+    <rect x="730" y="472" width="320" height="58" rx="12" fill="#1e293b"/>
+    <circle cx="760" cy="501" r="13" fill="#10b981"/><path d="M754 501l5 5 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="786" y="508">One-click unsubscribe</text>
+    <rect x="730" y="542" width="320" height="58" rx="12" fill="#1e293b"/>
+    <circle cx="760" cy="571" r="13" fill="#10b981"/><path d="M754 571l5 5 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="786" y="578">Engaged segment only</text>
+  </g>
+</svg>

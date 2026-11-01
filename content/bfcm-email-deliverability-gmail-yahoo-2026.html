@@ -1,0 +1,46 @@
+<p>Send three times your normal volume to people who forgot they signed up, and Gmail can move your whole Black Friday campaign to spam. No subject line fixes that.</p>
+<p>Gmail and Yahoo both set hard rules for bulk senders, and November is when stores break them. A list that behaves all year can trip the spam threshold in a single send.</p>
+<p>Here's what the rules actually say, how to check you pass them in Klaviyo, and how I'd plan the sends so the inbox is still there on Black Friday itself.</p>
+
+<h2>The rules that matter</h2>
+<p>Google's <a href="https://support.google.com/mail/answer/81126">email sender guidelines</a> apply to anyone sending around 5,000 or more messages a day to Gmail addresses. If you have a few thousand Gmail subscribers and send daily in BFCM week, you can cross that line even if you never do the rest of the year.</p>
+<ul>
+  <li><strong>Spam rate.</strong> Google says to keep it below 0.1% and never let it reach 0.3%. Yahoo's <a href="https://senders.yahooinc.com/best-practices/">sender best practices</a> also put the ceiling at 0.3%.</li>
+  <li><strong>Authentication.</strong> SPF, DKIM and DMARC all set up, with the domain in your From address matching the one you authenticate. A DMARC policy of <code>p=none</code> is enough to meet the rule.</li>
+  <li><strong>One-click unsubscribe</strong> on marketing emails, using the List-Unsubscribe header. A link in the footer isn't enough on its own. Yahoo also asks you to honour unsubscribes within two days.</li>
+</ul>
+<p>To put 0.3% in perspective, that's three spam complaints for every thousand emails delivered. One aggressive send to a cold list can get there.</p>
+
+<h2>What Klaviyo handles, and what it doesn't</h2>
+<p>Klaviyo adds the one-click unsubscribe header to marketing emails for you. You don't need to set anything up for that part.</p>
+<p>The bit stores miss is the sending domain. Klaviyo's <a href="https://help.klaviyo.com/hc/en-us/articles/12034571748251">deliverability help</a> says bulk senders to Gmail and Yahoo need a <strong>branded sending domain</strong>, something like <code>send.yourstore.co.nz</code>. If you're still sending from Klaviyo's shared domain, fix that this week, not the week of the sale.</p>
+<p>Then check DMARC is published for your main domain. Klaviyo has a <a href="https://help.klaviyo.com/hc/en-us/articles/21330028699419">guide to verifying your authentication</a>, or you can open one of your own emails in Gmail, choose <strong>Show original</strong> and look for SPF, DKIM and DMARC all marked PASS.</p>
+
+<h2>How I'd plan the sends</h2>
+<p>The rules are easy to pass on paper. Where stores come unstuck is volume and who they send to.</p>
+<p>My approach is to build up, not jump. Increase campaign frequency through November to your engaged subscribers first, and keep people who haven't opened or clicked in months out of the big BFCM sends.</p>
+<p>If you want to win back lapsed subscribers, do it in a separate, smaller send now. Don't save them for Black Friday, when one bad batch can drag down delivery for everyone else on the list.</p>
+<p>And make unsubscribing easy. Someone who can't find the unsubscribe link reaches for the spam button instead, and that's the one that counts against you.</p>
+
+<h2>Watch it while it's happening</h2>
+<p>Set up <a href="https://support.google.com/mail/answer/9981691">Google Postmaster Tools</a> for your sending domain now. It shows your spam rate with Gmail users, but only once you're sending enough volume, so don't leave it until the sale.</p>
+<p>In Klaviyo, check spam complaints and unsubscribes after every BFCM send. If either jumps, tighten the segment for the next one before you send it.</p>
+
+<h2>What to do this week</h2>
+<ol>
+  <li>Confirm you're on a branded sending domain in Klaviyo, not the shared one.</li>
+  <li>Check SPF, DKIM and DMARC pass using <strong>Show original</strong> in Gmail.</li>
+  <li>Set up Google Postmaster Tools for your sending domain.</li>
+  <li>Build an "engaged" segment for BFCM sends, and send to lapsed subscribers separately, now.</li>
+  <li>Plan your November send schedule so volume steps up gradually rather than tripling overnight.</li>
+</ol>
+<p>If you want a second set of eyes on your Klaviyo setup before the big sends, <a href="https://novareachmarketing.com/#contact">send me the store</a> and I'll tell you what I'd fix first.</p>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://support.google.com/mail/answer/81126">Email sender guidelines</a> and <a href="https://support.google.com/mail/answer/14229414">FAQ</a>, Gmail Help</li>
+  <li><a href="https://support.google.com/mail/answer/9981691">Set up Postmaster Tools</a>, Gmail Help</li>
+  <li><a href="https://senders.yahooinc.com/best-practices/">Sender best practices</a>, Yahoo Sender Hub</li>
+  <li><a href="https://help.klaviyo.com/hc/en-us/articles/12034571748251">Troubleshooting why emails go to spam</a>, Klaviyo Help Center</li>
+  <li><a href="https://help.klaviyo.com/hc/en-us/articles/21330028699419">How to verify email authentication configurations</a>, Klaviyo Help Center</li>
+</ul>
