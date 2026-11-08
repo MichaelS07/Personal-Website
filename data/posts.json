@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "slug": "google-ads-seasonality-adjustments-bfcm-2026",
+      "title": "Tell Smart Bidding Black Friday Is Coming: Use a Seasonality Adjustment",
+      "date": "2026-11-09",
+      "category": "Paid Media",
+      "tags": [
+        "SEM",
+        "E-commerce"
+      ],
+      "excerpt": "Smart Bidding learns from the past, so it reacts late to a BFCM spike. How seasonality adjustments fix that, and how I'd set one without overdoing it.",
+      "image": "images/blog/google-ads-seasonality-adjustments-bfcm-2026.svg",
+      "image_alt": "A conversion rate chart where bidding lags behind a Black Friday spike, and an adjustment window from 27 to 30 November keeps bids in step",
+      "cta_headline": "Get your BFCM bidding set before the 27th.",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with what I'd change in your Google Ads before Black Friday."
+    },
+    {
       "slug": "bfcm-email-deliverability-gmail-yahoo-2026",
       "title": "Your Black Friday Emails Need to Pass Gmail's Rules Before They Need a Subject Line",
       "date": "2026-11-02",
