@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "slug": "shopify-bfcm-discount-stacking-test-2026",
+      "title": "Test Your Black Friday Discounts Before Your Customers Do",
+      "date": "2026-11-16",
+      "category": "CRO",
+      "tags": [
+        "CRO",
+        "Shopify",
+        "E-commerce"
+      ],
+      "excerpt": "A code that \"doesn't work\" loses the order. Two that stack by accident lose the margin. How Shopify combines discounts, and the test orders to run before BFCM.",
+      "image": "images/blog/shopify-bfcm-discount-stacking-test-2026.svg",
+      "image_alt": "A Shopify checkout with an automatic sale and an email code, showing whether the two discounts combine",
+      "cta_headline": "Test your BFCM checkout before the 27th.",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with the discount and checkout issues I'd test first."
+    },
+    {
       "slug": "google-ads-seasonality-adjustments-bfcm-2026",
       "title": "Tell Smart Bidding Black Friday Is Coming: Use a Seasonality Adjustment",
       "date": "2026-11-09",
