@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "slug": "black-friday-page-same-url-every-year",
+      "title": "Keep Your Black Friday Page After the Sale (and Use the Same URL Next Year)",
+      "date": "2026-11-23",
+      "category": "SEO",
+      "tags": [
+        "SEO",
+        "Shopify",
+        "E-commerce"
+      ],
+      "excerpt": "Deleting your Black Friday page in December throws away what it earned. What Google recommends, and what I'd put on the page until next November.",
+      "image": "images/blog/black-friday-page-same-url-every-year.svg",
+      "image_alt": "Three yearly Black Friday URLs with the year in them redirecting into one permanent black-friday page that stays live all year",
+      "cta_headline": "Set up a Black Friday page that keeps its rankings.",
+      "cta_text": "Send the store URL. I'll reply within one business day (Christchurch time) with the seasonal pages I'd keep, redirect or rewrite."
+    },
+    {
       "slug": "shopify-bfcm-discount-stacking-test-2026",
       "title": "Test Your Black Friday Discounts Before Your Customers Do",
       "date": "2026-11-16",
